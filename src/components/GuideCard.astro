@@ -1,0 +1,16 @@
+---
+import type {GuideSummary} from '../types/content'
+import ResponsiveImage from './media/ResponsiveImage.astro'
+interface Props { guide: GuideSummary; featured?: boolean }
+const {guide, featured = false} = Astro.props
+---
+
+<article class:list={["group relative overflow-hidden rounded-[1.75rem] bg-ink text-white", featured ? "min-h-[30rem]" : "min-h-[24rem]"]}>
+  {guide.image && <ResponsiveImage image={guide.image} class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" sizes={featured ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 100vw'} />}
+  <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent"></div>
+  <div class="absolute inset-x-0 bottom-0 p-6 md:p-8">
+    {guide.kicker && <p class="text-xs font-black uppercase tracking-[.18em] text-[#8ce3df]">{guide.kicker}</p>}
+    <h3 class="mt-2 font-editorial text-3xl leading-tight"><a class="after:absolute after:inset-0" href={guide.href}>{guide.title}</a></h3>
+    <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-white/75">{guide.excerpt}</p>
+  </div>
+</article>

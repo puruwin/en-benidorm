@@ -1,0 +1,5 @@
+---
+interface Props { href: string; label?: string }
+const {href, label = 'Abrir en Google Maps'} = Astro.props
+---
+<a class="inline-flex items-center gap-2 rounded-full bg-sea px-5 py-3 text-sm font-black text-white no-underline hover:bg-sea-dark" href={href} target="_blank" rel="noopener noreferrer">{label}<span aria-hidden="true">↗</span></a>

@@ -1,0 +1,12 @@
+---
+import type {CategorySummary} from '../types/content'
+interface Props { category: CategorySummary }
+const {category} = Astro.props
+---
+
+<article class="group relative rounded-[1.5rem] bg-sand p-6 transition hover:-translate-y-1 hover:bg-sky">
+  <p class="text-xs font-black uppercase tracking-[.15em] text-sea-dark">{category.count ? `${category.count} lugares` : 'Explorar'}</p>
+  <h3 class="mt-2 font-editorial text-2xl"><a class="after:absolute after:inset-0" href={category.href}>{category.title}</a></h3>
+  <p class="mt-3 text-sm text-ink/70">{category.description}</p>
+  <span class="mt-5 block text-2xl text-coral" aria-hidden="true">↗</span>
+</article>

@@ -1,0 +1,14 @@
+---
+import type {BreadcrumbItem} from '../types/content'
+interface Props { items: BreadcrumbItem[] }
+const {items} = Astro.props
+---
+
+<nav aria-label="Migas de pan" class="text-sm text-ink/65">
+  <ol class="flex flex-wrap items-center gap-2">
+    {items.map((item, index) => <li class="flex items-center gap-2">
+      {index > 0 && <span aria-hidden="true">/</span>}
+      {item.href ? <a class="hover:text-sea hover:underline" href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
+    </li>)}
+  </ol>
+</nav>

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": "business-amigos-bistro",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "amigos-bistro",
+  "facts": {
+    "name": {
+      "value": "Amigos Bistro",
+      "sources": [
+        "openstreetmap:node/5522417399"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "openstreetmap:node/5522417399"
+      ]
+    },
+    "address": {
+      "value": {
+        "street": "Avinguda de l'Armada Espanyola 19",
+        "locality": "Benidorm"
+      },
+      "sources": [
+        "openstreetmap:node/5522417399"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.5369484,
+        "lng": -0.1480133
+      },
+      "sources": [
+        "openstreetmap:node/5522417399"
+      ]
+    },
+    "phone": {
+      "value": "+34 965 856 199",
+      "sources": [
+        "openstreetmap:node/5522417399"
+      ]
+    },
+    "website": {
+      "value": "http://amigosbistro.com/",
+      "sources": [
+        "openstreetmap:node/5522417399"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "openstreetmap:node/5522417399",
+      "provider": "openstreetmap",
+      "identifier": "node/5522417399",
+      "url": "https://www.openstreetmap.org/node/5522417399",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+---
+import ResponsiveImage from './media/ResponsiveImage.astro'
+import type {HomeContent} from '../types/content'
+
+interface Props { content: Pick<HomeContent, 'eyebrow' | 'title' | 'intro' | 'heroImage'> }
+const {content} = Astro.props
+---
+
+<section class="relative isolate min-h-[38rem] overflow-hidden bg-ink text-white md:min-h-[44rem]">
+  <ResponsiveImage image={content.heroImage} priority class="absolute inset-0 h-full w-full object-cover" />
+  <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,32,43,.9)_0%,rgba(7,32,43,.62)_42%,rgba(7,32,43,.12)_76%)]"></div>
+  <div class="container-site relative flex min-h-[38rem] items-end pb-14 pt-28 md:min-h-[44rem] md:pb-20">
+    <div class="max-w-2xl">
+      <p class="mb-5 text-xs font-black uppercase tracking-[.22em] text-[#8ce3df]">{content.eyebrow}</p>
+      <h1 class="font-editorial text-6xl leading-[.93] tracking-[-.055em] sm:text-7xl md:text-8xl">{content.title}</h1>
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-white/88 md:text-xl">{content.intro}</p>
+      <a href="#explorar" class="mt-8 inline-flex items-center gap-3 rounded-full bg-coral px-6 py-3 text-sm font-black text-white no-underline transition-transform hover:-translate-y-1">Empieza a explorar <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+</section>

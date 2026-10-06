@@ -1,0 +1,68 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro'
+import ImageGallery from '../../components/ImageGallery.astro'
+import LastVerified from '../../components/LastVerified.astro'
+import MapLink from '../../components/MapLink.astro'
+import Sources from '../../components/Sources.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import {getRestaurantBySlug, getRestaurantSlugs, isDemoMode} from '../../lib/content-source'
+import {breadcrumbJsonLd, restaurantJsonLd} from '../../lib/jsonld'
+import type {BreadcrumbItem} from '../../types/content'
+
+export async function getStaticPaths() {
+  const slugs = await getRestaurantSlugs()
+  return slugs.map((slug) => ({params: {slug}}))
+}
+
+const {slug} = Astro.params
+const business = slug ? await getRestaurantBySlug(slug) : null
+if (!business) throw new Error(`No se encontró el restaurante estático: ${slug ?? 'sin slug'}`)
+const item = business
+const breadcrumbs: BreadcrumbItem[] = [
+  {label: 'Inicio', href: '/'}, {label: 'Dónde comer', href: '/donde-comer/'}, {label: item.name},
+]
+const site = Astro.site ?? new URL('https://enbenidorm.es')
+---
+
+<BaseLayout seo={item.seo} jsonLd={[breadcrumbJsonLd(breadcrumbs, site), restaurantJsonLd(item, site)]} demo={isDemoMode}>
+  <article>
+    <header class="bg-sand pb-12 pt-8 md:pb-16">
+      <div class="container-site">
+        <Breadcrumbs items={breadcrumbs} />
+        <div class="mt-12 grid gap-8 lg:grid-cols-[1fr_20rem] lg:items-end">
+          <div>
+            <div class="flex flex-wrap gap-2 text-xs font-black uppercase tracking-[.14em] text-sea-dark"><span>{item.kind}</span>{item.sponsored && <span class="rounded-full bg-coral px-3 py-1 text-white">Contenido patrocinado</span>}</div>
+            <h1 class="font-editorial mt-3 text-5xl leading-[.95] tracking-[-.045em] md:text-7xl">{item.name}</h1>
+            <p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink/70">{item.shortDescription}</p>
+          </div>
+          <dl class="grid grid-cols-2 gap-4 border-t border-ink/15 pt-5 text-sm lg:grid-cols-1">
+            {item.area && <div><dt class="text-xs font-black uppercase tracking-[.12em] text-ink/50">Zona</dt><dd class="mt-1 font-bold">{item.area}</dd></div>}
+            {item.priceRange && <div><dt class="text-xs font-black uppercase tracking-[.12em] text-ink/50">Precio</dt><dd class="mt-1 font-bold">{item.priceRange}</dd></div>}
+          </dl>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-site py-8 md:py-12"><ImageGallery images={item.images} label={`Galería de ${item.name}`} /></div>
+
+    <div class="container-site grid gap-12 py-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div>
+        {item.lastVerified && <LastVerified date={item.lastVerified} />}
+        <div class="prose-editorial mt-8"><h2>Qué encontrarás</h2>{item.description.map((paragraph) => <p>{paragraph}</p>)}</div>
+        {item.features.length > 0 && <section class="mt-10" aria-labelledby="features-title"><h2 id="features-title" class="font-editorial text-3xl">Características</h2><ul class="mt-5 flex flex-wrap gap-2">{item.features.map((feature) => <li class="rounded-full bg-sky px-4 py-2 text-sm font-bold text-sea-dark">{feature}</li>)}</ul></section>}
+        <Sources sources={item.sources} />
+      </div>
+
+      <aside class="h-fit rounded-[1.5rem] border border-ink/10 bg-white p-6 shadow-[0_12px_40px_rgba(16,47,59,.06)]" aria-labelledby="practical-title">
+        <h2 id="practical-title" class="font-editorial text-2xl">Información práctica</h2>
+        <address class="mt-5 not-italic text-sm leading-relaxed">{item.address.street}<br />{item.address.postalCode} {item.address.locality}</address>
+        {item.hours.length > 0 && <div class="mt-6 border-t border-ink/10 pt-5"><h3 class="text-xs font-black uppercase tracking-[.14em] text-sea-dark">Horario</h3><dl class="mt-3 space-y-2 text-sm">{item.hours.map((row) => <div class="flex justify-between gap-4"><dt>{row.day}</dt><dd class="font-bold">{row.value}</dd></div>)}</dl></div>}
+        <div class="mt-6 space-y-2 border-t border-ink/10 pt-5 text-sm">
+          {item.phone && <p><a class="font-bold text-sea-dark underline" href={`tel:${item.phone.replace(/\s/g, '')}`}>{item.phone}</a></p>}
+          {item.website && <p><a class="font-bold text-sea-dark underline" href={item.website} rel="noopener noreferrer">Visitar web ↗</a></p>}
+        </div>
+        {item.googleMapsUrl && <div class="mt-6"><MapLink href={item.googleMapsUrl} /></div>}
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

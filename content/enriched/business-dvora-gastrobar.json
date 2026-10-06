@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "business-dvora-gastrobar",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "dvora-gastrobar",
+  "facts": {
+    "name": {
+      "value": "Dvora Gastrobar",
+      "sources": [
+        "openstreetmap:node/10847008663"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "openstreetmap:node/10847008663"
+      ]
+    },
+    "address": {
+      "value": {
+        "street": "Plaça de Sant Jaume 5",
+        "postalCode": "03501",
+        "locality": "Benidorm"
+      },
+      "sources": [
+        "openstreetmap:node/10847008663"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.5343514,
+        "lng": -0.1306265
+      },
+      "sources": [
+        "openstreetmap:node/10847008663"
+      ]
+    },
+    "phone": {
+      "value": "+34 96 527 08 74",
+      "sources": [
+        "openstreetmap:node/10847008663"
+      ]
+    },
+    "website": {
+      "value": "https://www.d-vora.com/",
+      "sources": [
+        "openstreetmap:node/10847008663"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": "Mo-Su 08:00-00:00",
+      "sources": [
+        "openstreetmap:node/10847008663"
+      ]
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "openstreetmap:node/10847008663",
+      "provider": "openstreetmap",
+      "identifier": "node/10847008663",
+      "url": "https://www.openstreetmap.org/node/10847008663",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro'
+import BusinessCard from '../../components/BusinessCard.astro'
+import CategoryCard from '../../components/CategoryCard.astro'
+import FeaturedGrid from '../../components/FeaturedGrid.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import {getDiningContent, isDemoMode} from '../../lib/content-source'
+import {breadcrumbJsonLd} from '../../lib/jsonld'
+import type {BreadcrumbItem} from '../../types/content'
+
+const content = await getDiningContent()
+const breadcrumbs: BreadcrumbItem[] = [{label: 'Inicio', href: '/'}, {label: 'Dónde comer'}]
+const site = Astro.site ?? new URL('https://enbenidorm.es')
+---
+
+<BaseLayout seo={content.seo} jsonLd={[breadcrumbJsonLd(breadcrumbs, site)]} demo={isDemoMode}>
+  <header class="bg-sand py-10 md:py-16">
+    <div class="container-site">
+      <Breadcrumbs items={breadcrumbs} />
+      <p class="mt-12 text-xs font-black uppercase tracking-[.18em] text-coral">Guía gastronómica</p>
+      <h1 class="font-editorial mt-2 max-w-4xl text-5xl leading-[.98] tracking-[-.045em] md:text-7xl">{content.title}</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">{content.intro}</p>
+    </div>
+  </header>
+
+  <section class="py-14 md:py-20" aria-labelledby="categories-title">
+    <div class="container-site">
+      <h2 id="categories-title" class="font-editorial text-3xl md:text-4xl">Elige por estilo</h2>
+      <div class="mt-7 grid gap-4 md:grid-cols-3">{content.categories.map((category) => <CategoryCard category={category} />)}</div>
+    </div>
+  </section>
+
+  <section id="restaurantes" class="pb-16 md:pb-24" aria-labelledby="places-title">
+    <div class="container-site">
+      <div class="flex flex-wrap items-end justify-between gap-3 border-t border-ink/15 pt-10">
+        <div><p class="text-xs font-black uppercase tracking-[.18em] text-sea-dark">Selección editorial</p><h2 id="places-title" class="font-editorial mt-2 text-4xl md:text-5xl">Sitios para guardar</h2></div>
+        <p class="text-sm text-ink/55">{content.businesses.length} resultados</p>
+      </div>
+      <div class="mt-8"><FeaturedGrid>{content.businesses.map((business) => <BusinessCard business={business} />)}</FeaturedGrid></div>
+    </div>
+  </section>
+</BaseLayout>

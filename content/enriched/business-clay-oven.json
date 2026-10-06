@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "business-clay-oven",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "clay-oven",
+  "facts": {
+    "name": {
+      "value": "Clay Oven",
+      "sources": [
+        "openstreetmap:node/8000751659"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "openstreetmap:node/8000751659"
+      ]
+    },
+    "address": {
+      "value": {
+        "street": "Calle de Lepanto 21",
+        "postalCode": "03503",
+        "locality": "Benidorm"
+      },
+      "sources": [
+        "openstreetmap:node/8000751659"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.53823,
+        "lng": -0.113111
+      },
+      "sources": [
+        "openstreetmap:node/8000751659"
+      ]
+    },
+    "phone": {
+      "value": "+34 640 074 610",
+      "sources": [
+        "openstreetmap:node/8000751659"
+      ]
+    },
+    "website": {
+      "value": "https://www.clayovenbenidorm.com/",
+      "sources": [
+        "openstreetmap:node/8000751659"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "openstreetmap:node/8000751659",
+      "provider": "openstreetmap",
+      "identifier": "node/8000751659",
+      "url": "https://www.openstreetmap.org/node/8000751659",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

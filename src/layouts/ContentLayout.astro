@@ -1,0 +1,8 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Breadcrumbs from '../components/Breadcrumbs.astro'
+import type {BreadcrumbItem, SeoData} from '../types/content'
+interface Props { seo: SeoData; breadcrumbs: BreadcrumbItem[]; jsonLd?: unknown[]; demo?: boolean }
+const {seo, breadcrumbs, jsonLd = [], demo = false} = Astro.props
+---
+<BaseLayout seo={seo} jsonLd={jsonLd} demo={demo}><div class="container-site py-8"><Breadcrumbs items={breadcrumbs} /></div><slot /></BaseLayout>

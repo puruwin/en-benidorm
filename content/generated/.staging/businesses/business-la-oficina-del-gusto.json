@@ -1,0 +1,86 @@
+{
+  "_id": "business-la-oficina-del-gusto",
+  "_type": "business",
+  "name": "La Oficina del Gusto",
+  "slug": {
+    "_type": "slug",
+    "current": "la-oficina-del-gusto"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "La Oficina del Gusto es un restaurante ubicado en Benidorm.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La Oficina del Gusto es un restaurante situado en Benidorm. Para consultar información adicional, puedes visitar su sitio web oficial."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Restaurante en Benidorm"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Sitio web oficial disponible"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-06",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/10253103370",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/10253103370",
+      "accessedAt": "2026-10-06"
+    }
+  ],
+  "seo": {
+    "metaTitle": "La Oficina del Gusto | Restaurante en Benidorm",
+    "metaDescription": "Información de La Oficina del Gusto, restaurante ubicado en Benidorm, y enlace a su sitio web oficial."
+  },
+  "address": {
+    "street": "Carrer de Sant Roc",
+    "postalCode": "03501",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5380485,
+    "lng": -0.1298417
+  },
+  "phone": "+34 966 81 39 11",
+  "website": "https://www.laoficinadelgusto.com",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

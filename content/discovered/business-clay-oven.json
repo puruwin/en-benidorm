@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "business-clay-oven",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "clay-oven",
+  "priority": 65,
+  "sources": [
+    {
+      "key": "openstreetmap:node/8000751659",
+      "provider": "openstreetmap",
+      "identifier": "node/8000751659",
+      "url": "https://www.openstreetmap.org/node/8000751659",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "raw": {
+    "name": "Clay Oven",
+    "tags": {
+      "addr:city": "Benidorm",
+      "addr:housenumber": "21",
+      "addr:postcode": "03503",
+      "addr:street": "Calle de Lepanto",
+      "amenity": "restaurant",
+      "check_date": "2025-08-24",
+      "contact:phone": "+34 640 074 610",
+      "contact:website": "https://www.clayovenbenidorm.com/",
+      "name": "Clay Oven",
+      "wheelchair": "limited"
+    },
+    "latitude": 38.53823,
+    "longitude": -0.113111
+  }
+}

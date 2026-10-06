@@ -1,0 +1,275 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-06T12:09:29.183Z",
+  "entries": [
+    {
+      "id": "business-amigos",
+      "type": "restaurant",
+      "slug": "amigos",
+      "status": "generated",
+      "priority": 65,
+      "sources": [
+        {
+          "key": "openstreetmap:node/4405795085",
+          "provider": "openstreetmap",
+          "identifier": "node/4405795085",
+          "url": "https://www.openstreetmap.org/node/4405795085",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-amigos-bistro",
+      "type": "restaurant",
+      "slug": "amigos-bistro",
+      "status": "generated",
+      "priority": 65,
+      "sources": [
+        {
+          "key": "openstreetmap:node/5522417399",
+          "provider": "openstreetmap",
+          "identifier": "node/5522417399",
+          "url": "https://www.openstreetmap.org/node/5522417399",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-arenas",
+      "type": "restaurant",
+      "slug": "arenas",
+      "status": "generated",
+      "priority": 65,
+      "sources": [
+        {
+          "key": "openstreetmap:node/4406717533",
+          "provider": "openstreetmap",
+          "identifier": "node/4406717533",
+          "url": "https://www.openstreetmap.org/node/4406717533",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-buffalo-beel",
+      "type": "restaurant",
+      "slug": "buffalo-beel",
+      "status": "generated",
+      "priority": 65,
+      "sources": [
+        {
+          "key": "openstreetmap:node/6695338582",
+          "provider": "openstreetmap",
+          "identifier": "node/6695338582",
+          "url": "https://www.openstreetmap.org/node/6695338582",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-cafeteria-la-bahia",
+      "type": "restaurant",
+      "slug": "cafeteria-la-bahia",
+      "status": "generated",
+      "priority": 65,
+      "sources": [
+        {
+          "key": "openstreetmap:node/4406717526",
+          "provider": "openstreetmap",
+          "identifier": "node/4406717526",
+          "url": "https://www.openstreetmap.org/node/4406717526",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-clay-oven",
+      "type": "restaurant",
+      "slug": "clay-oven",
+      "status": "generated",
+      "priority": 65,
+      "sources": [
+        {
+          "key": "openstreetmap:node/8000751659",
+          "provider": "openstreetmap",
+          "identifier": "node/8000751659",
+          "url": "https://www.openstreetmap.org/node/8000751659",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-country-ribs",
+      "type": "restaurant",
+      "slug": "country-ribs",
+      "status": "generated",
+      "priority": 65,
+      "sources": [
+        {
+          "key": "openstreetmap:node/8016140838",
+          "provider": "openstreetmap",
+          "identifier": "node/8016140838",
+          "url": "https://www.openstreetmap.org/node/8016140838",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-dvora-gastrobar",
+      "type": "restaurant",
+      "slug": "dvora-gastrobar",
+      "status": "generated",
+      "priority": 70,
+      "sources": [
+        {
+          "key": "openstreetmap:node/10847008663",
+          "provider": "openstreetmap",
+          "identifier": "node/10847008663",
+          "url": "https://www.openstreetmap.org/node/10847008663",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-la-oficina-del-gusto",
+      "type": "restaurant",
+      "slug": "la-oficina-del-gusto",
+      "status": "generated",
+      "priority": 70,
+      "sources": [
+        {
+          "key": "openstreetmap:node/10253103370",
+          "provider": "openstreetmap",
+          "identifier": "node/10253103370",
+          "url": "https://www.openstreetmap.org/node/10253103370",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    },
+    {
+      "id": "business-sushi-poke-chen-s-kitchen",
+      "type": "restaurant",
+      "slug": "sushi-poke-chen-s-kitchen",
+      "status": "generated",
+      "priority": 70,
+      "sources": [
+        {
+          "key": "openstreetmap:node/14178529901",
+          "provider": "openstreetmap",
+          "identifier": "node/14178529901",
+          "url": "https://www.openstreetmap.org/node/14178529901",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "key": "openstreetmap:node/14178749901",
+          "provider": "openstreetmap",
+          "identifier": "node/14178749901",
+          "url": "https://www.openstreetmap.org/node/14178749901",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        }
+      ],
+      "discoveredAt": "2026-10-06T11:53:45.905Z",
+      "enrichedAt": "2026-10-06T12:02:11.005Z",
+      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "validatedAt": null,
+      "importedAt": null,
+      "reviewedAt": null,
+      "publishedAt": null,
+      "lastError": null
+    }
+  ]
+}

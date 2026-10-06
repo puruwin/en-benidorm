@@ -1,0 +1,86 @@
+{
+  "_id": "business-buffalo-beel",
+  "_type": "business",
+  "name": "Buffalo Beel",
+  "slug": {
+    "_type": "slug",
+    "current": "buffalo-beel"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Buffalo Beel es un restaurante situado en Benidorm.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Buffalo Beel figura como restaurante en Benidorm. Para obtener más información, consulta su sitio web oficial."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Restaurante en Benidorm"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Sitio web oficial disponible"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-06",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/6695338582",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/6695338582",
+      "accessedAt": "2026-10-06"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Buffalo Beel, restaurante en Benidorm",
+    "metaDescription": "Información de Buffalo Beel, restaurante situado en Benidorm, con acceso a su sitio web oficial."
+  },
+  "address": {
+    "street": "Avinguda de Castelló 7",
+    "postalCode": "03503",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5360585,
+    "lng": -0.1097994
+  },
+  "phone": "+34 96 589 93 29",
+  "website": "https://buffalobeel.com/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

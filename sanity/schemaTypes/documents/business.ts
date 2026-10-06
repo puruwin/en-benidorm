@@ -1,0 +1,40 @@
+import {defineField, defineType} from 'sanity'
+
+export const business = defineType({
+  name: 'business', title: 'Negocio', type: 'document',
+  groups: [
+    {name: 'content', title: 'Contenido', default: true}, {name: 'contact', title: 'Ubicación y contacto'},
+    {name: 'editorial', title: 'Editorial'}, {name: 'seo', title: 'SEO'},
+  ],
+  fields: [
+    defineField({name: 'name', title: 'Nombre', type: 'string', group: 'content', validation: (rule) => rule.required()}),
+    defineField({name: 'slug', title: 'Slug', type: 'slug', group: 'content', options: {source: 'name'}, validation: (rule) => rule.required()}),
+    defineField({name: 'businessKind', title: 'Tipo principal', type: 'string', group: 'content', options: {list: [
+      {title: 'Restaurante', value: 'restaurant'}, {title: 'Bar', value: 'bar'}, {title: 'Pub', value: 'pub'},
+      {title: 'Cafetería', value: 'cafe'}, {title: 'Hotel', value: 'hotel'}, {title: 'Tienda', value: 'shop'},
+      {title: 'Servicio', value: 'service'},
+    ]}, validation: (rule) => rule.required()}),
+    defineField({name: 'shortDescription', title: 'Descripción corta', type: 'text', rows: 3, group: 'content', validation: (rule) => rule.required().max(240)}),
+    defineField({name: 'body', title: 'Descripción completa', type: 'portableText', group: 'content'}),
+    defineField({name: 'categories', title: 'Categorías', type: 'array', group: 'content', of: [{type: 'reference', to: [{type: 'category'}]}]}),
+    defineField({name: 'tags', title: 'Etiquetas', type: 'array', group: 'content', of: [{type: 'string'}], options: {layout: 'tags'}}),
+    defineField({name: 'features', title: 'Características', type: 'array', group: 'content', of: [{type: 'reference', to: [{type: 'category'}]}]}),
+    defineField({name: 'address', title: 'Dirección', type: 'address', group: 'contact'}),
+    defineField({name: 'area', title: 'Zona', type: 'reference', group: 'contact', to: [{type: 'area'}]}),
+    defineField({name: 'location', title: 'Coordenadas', type: 'geopoint', group: 'contact'}),
+    defineField({name: 'phone', title: 'Teléfono', type: 'string', group: 'contact'}),
+    defineField({name: 'website', title: 'Web', type: 'url', group: 'contact'}),
+    defineField({name: 'googleMapsUrl', title: 'Enlace de Google Maps', type: 'url', group: 'contact'}),
+    defineField({name: 'openingHours', title: 'Horarios', type: 'array', group: 'contact', of: [{type: 'openingHours'}]}),
+    defineField({name: 'priceRange', title: 'Rango de precios', type: 'string', group: 'editorial', options: {list: ['€', '€€', '€€€', '€€€€']}}),
+    defineField({name: 'images', title: 'Imágenes', type: 'array', group: 'editorial', of: [{type: 'imageWithAlt'}]}),
+    defineField({name: 'recommended', title: 'Recomendado', type: 'boolean', group: 'editorial', initialValue: false}),
+    defineField({name: 'sponsored', title: 'Patrocinado', type: 'boolean', group: 'editorial', initialValue: false}),
+    defineField({name: 'featured', title: 'Destacado', type: 'boolean', group: 'editorial', initialValue: false}),
+    defineField({name: 'language', title: 'Idioma', type: 'string', group: 'editorial', initialValue: 'es', readOnly: true}),
+    defineField({name: 'lastVerified', title: 'Última verificación', type: 'date', group: 'editorial'}),
+    defineField({name: 'sources', title: 'Fuentes', type: 'array', group: 'editorial', of: [{type: 'source'}]}),
+    defineField({name: 'seo', title: 'SEO', type: 'seo', group: 'seo'}),
+  ],
+  preview: {select: {title: 'name', subtitle: 'businessKind', media: 'images.0'}},
+})

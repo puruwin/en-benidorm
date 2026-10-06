@@ -1,0 +1,86 @@
+{
+  "_id": "business-dvora-gastrobar",
+  "_type": "business",
+  "name": "Dvora Gastrobar",
+  "slug": {
+    "_type": "slug",
+    "current": "dvora-gastrobar"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Dvora Gastrobar es un restaurante situado en Benidorm.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Dvora Gastrobar es un restaurante de Benidorm. Una opción para quienes buscan un establecimiento de restauración en la ciudad."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Restaurante en Benidorm"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ubicación en la localidad de Benidorm"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-06",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/10847008663",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/10847008663",
+      "accessedAt": "2026-10-06"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Dvora Gastrobar, restaurante en Benidorm",
+    "metaDescription": "Información de Dvora Gastrobar, restaurante situado en Benidorm."
+  },
+  "address": {
+    "street": "Plaça de Sant Jaume 5",
+    "postalCode": "03501",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5343514,
+    "lng": -0.1306265
+  },
+  "phone": "+34 96 527 08 74",
+  "website": "https://www.d-vora.com/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

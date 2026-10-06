@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://enbenidorm.es/sitemap-index.xml

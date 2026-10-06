@@ -1,0 +1,35 @@
+const category = (
+  slug: string,
+  title: string,
+  group: 'section' | 'businessType' | 'cuisine' | 'feature' | 'topic' | 'placeType',
+  indexable = false,
+) => ({
+  _id: `category-${slug}`,
+  _type: 'category',
+  title,
+  slug: {_type: 'slug', current: slug},
+  group,
+  indexable,
+  language: 'es',
+})
+
+export const categories = [
+  category('donde-comer', 'Dónde comer', 'section', true),
+  category('que-ver', 'Qué ver', 'section', true),
+  category('que-hacer', 'Qué hacer', 'section', true),
+  category('playas', 'Playas', 'section', true),
+  category('informacion-practica', 'Información práctica', 'section', true),
+  category('restaurantes', 'Restaurantes', 'businessType'),
+  category('cafeterias', 'Cafeterías', 'businessType'),
+  category('arroces', 'Arroces', 'cuisine'),
+  category('tapas', 'Tapas', 'cuisine'),
+  category('cocina-mediterranea', 'Cocina mediterránea', 'cuisine'),
+  category('menu-del-dia', 'Menú del día', 'feature'),
+  category('miradores', 'Miradores', 'placeType'),
+  category('parques', 'Parques', 'placeType'),
+  category('monumentos', 'Monumentos', 'placeType'),
+  category('ocio-nocturno', 'Ocio nocturno', 'topic'),
+  category('actividades-familiares', 'Actividades familiares', 'topic'),
+  category('servicios-de-playa', 'Servicios de playa', 'feature'),
+  category('transporte', 'Transporte', 'topic'),
+]

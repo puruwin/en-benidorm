@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "business-arenas",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "arenas",
+  "priority": 65,
+  "sources": [
+    {
+      "key": "openstreetmap:node/4406717533",
+      "provider": "openstreetmap",
+      "identifier": "node/4406717533",
+      "url": "https://www.openstreetmap.org/node/4406717533",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "raw": {
+    "name": "Arenas",
+    "tags": {
+      "addr:city": "Benidorm",
+      "addr:housenumber": "13",
+      "addr:postcode": "03503",
+      "addr:street": "Avinguda d'Alcoi - Avenida de Alcoy",
+      "amenity": "restaurant",
+      "contact:phone": "+34 96 585 69 02",
+      "contact:website": "http://www.cafeteriaarenas.com/",
+      "cuisine": "regional",
+      "name": "Arenas"
+    },
+    "latitude": 38.5359553,
+    "longitude": -0.1232182
+  }
+}

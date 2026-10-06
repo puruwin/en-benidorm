@@ -1,0 +1,5 @@
+---
+interface Props { caption: string; columns: string[]; rows: string[][] }
+const {caption, columns, rows} = Astro.props
+---
+<div class="my-8 overflow-x-auto rounded-2xl border border-ink/10"><table class="w-full min-w-[36rem] border-collapse bg-white text-left text-sm"><caption class="p-4 text-left font-editorial text-xl">{caption}</caption><thead class="bg-ink text-white"><tr>{columns.map((column) => <th scope="col" class="p-4">{column}</th>)}</tr></thead><tbody>{rows.map((row) => <tr class="border-t border-ink/10">{row.map((cell, index) => index === 0 ? <th scope="row" class="p-4 font-bold">{cell}</th> : <td class="p-4">{cell}</td>)}</tr>)}</tbody></table></div>

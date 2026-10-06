@@ -1,0 +1,100 @@
+{
+  "_id": "business-cafeteria-la-bahia",
+  "_type": "business",
+  "name": "Cafetería La Bahía",
+  "slug": {
+    "_type": "slug",
+    "current": "cafeteria-la-bahia"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Cafetería La Bahía es un restaurante ubicado en Benidorm, identificado en la ficha local con este nombre.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cafetería La Bahía figura como restaurante en Benidorm. La ficha del establecimiento incluye un sitio web para consultar información adicional."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Restaurante identificado como Cafetería La Bahía."
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ubicado en Benidorm."
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Dispone de sitio web indicado en la ficha."
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-06",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/4406717526",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/4406717526",
+      "accessedAt": "2026-10-06"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Cafetería La Bahía, restaurante en Benidorm",
+    "metaDescription": "Consulta la información disponible sobre Cafetería La Bahía, restaurante ubicado en Benidorm y con sitio web indicado en su ficha."
+  },
+  "address": {
+    "street": "Avinguda de Madrid - Avenida de Madrid 19",
+    "postalCode": "03503",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5349254,
+    "lng": -0.1124664
+  },
+  "phone": "+34 965 86 32 71",
+  "website": "http://www.restaurante-labahia.com/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

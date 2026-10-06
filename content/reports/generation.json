@@ -1,0 +1,52 @@
+{
+  "phase": "generation",
+  "dryRun": false,
+  "startedAt": "2026-10-06T12:09:29.183Z",
+  "finishedAt": "2026-10-06T12:10:28.925Z",
+  "totals": {
+    "total": 10,
+    "processed": 10
+  },
+  "items": [
+    {
+      "id": "business-amigos-bistro",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-amigos",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-arenas",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-buffalo-beel",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-cafeteria-la-bahia",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-clay-oven",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-country-ribs",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-dvora-gastrobar",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-la-oficina-del-gusto",
+      "outcome": "processed"
+    },
+    {
+      "id": "business-sushi-poke-chen-s-kitchen",
+      "outcome": "processed"
+    }
+  ]
+}

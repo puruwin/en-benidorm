@@ -1,0 +1,9 @@
+node_modules/
+dist/
+sanity-dist/
+.astro/
+.env
+.env.*
+!.env.example
+schema.json
+*.log

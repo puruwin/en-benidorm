@@ -1,0 +1,7 @@
+---
+import type {GuideSummary} from '../types/content'
+import GuideCard from './GuideCard.astro'
+interface Props { place: GuideSummary }
+const {place} = Astro.props
+---
+<GuideCard guide={place} />

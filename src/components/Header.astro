@@ -1,0 +1,25 @@
+---
+import type {SiteSettingsData} from '../types/content'
+interface Props { settings: SiteSettingsData }
+const {settings} = Astro.props
+const nav = settings.navigation
+---
+
+<header class="relative z-20 border-b border-ink/10 bg-cream">
+  <div class="container-site flex min-h-18 items-center justify-between gap-6 py-3">
+    <a href="/" class="group inline-flex items-baseline text-2xl font-black tracking-[-.05em] no-underline" aria-label="enBenidorm, inicio">
+      <span class="text-sea transition-colors group-hover:text-coral">en</span><span class="text-ink">{settings.siteName.replace(/^en/i, '')}</span><span class="ml-1 size-2 rounded-full bg-coral" aria-hidden="true"></span>
+    </a>
+    <nav class="hidden md:block" aria-label="Navegación principal">
+      <ul class="flex items-center gap-6 text-sm font-bold">
+        {nav.map((item) => <li><a class="decoration-coral decoration-2 hover:underline" href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+    <details class="relative md:hidden">
+      <summary class="cursor-pointer list-none rounded-full border border-ink/25 px-4 py-2 text-sm font-bold marker:hidden">Menú</summary>
+      <nav class="absolute right-0 top-12 w-64 rounded-2xl border border-ink/10 bg-cream p-3 shadow-xl" aria-label="Navegación móvil">
+        <ul>{nav.map((item) => <li><a class="block rounded-xl px-3 py-3 font-bold hover:bg-sand" href={item.href}>{item.label}</a></li>)}</ul>
+      </nav>
+    </details>
+  </div>
+</header>

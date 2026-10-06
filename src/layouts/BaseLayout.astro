@@ -1,0 +1,34 @@
+---
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
+import SeoHead from '../components/seo/SeoHead.astro'
+import {serializeJsonLd} from '../lib/jsonld'
+import {getSiteSettings} from '../lib/content-source'
+import type {SeoData} from '../types/content'
+import '../styles/global.css'
+
+interface Props { seo: SeoData; jsonLd?: unknown[]; demo?: boolean }
+const {seo, jsonLd = [], demo = false} = Astro.props
+const site = Astro.site ?? new URL('https://enbenidorm.es')
+const canonical = new URL(Astro.url.pathname, site)
+const settings = await getSiteSettings()
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SeoHead seo={seo} canonical={canonical} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={serializeJsonLd(data)} />)}
+  </head>
+  <body>
+    <a href="#contenido" class="fixed left-3 top-3 z-50 -translate-y-24 rounded-full bg-ink px-4 py-2 text-sm font-bold text-white focus:translate-y-0">Saltar al contenido</a>
+    {demo && <div class="bg-coral px-4 py-2 text-center text-xs font-black uppercase tracking-[.15em] text-white">Contenido de demostración · No representa negocios ni recomendaciones reales</div>}
+    <Header settings={settings} />
+    <main id="contenido"><slot /></main>
+    <Footer settings={settings} />
+  </body>
+</html>

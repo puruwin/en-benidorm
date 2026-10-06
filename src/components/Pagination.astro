@@ -1,0 +1,5 @@
+---
+interface Props { previous?: string; next?: string; current: number; total: number }
+const {previous, next, current, total} = Astro.props
+---
+<nav aria-label="Paginación" class="mt-10 flex items-center justify-between gap-4 border-t border-ink/10 pt-6"><div>{previous && <a class="font-bold text-sea-dark underline" href={previous}>← Anterior</a>}</div><p class="text-sm text-ink/60">Página {current} de {total}</p><div>{next && <a class="font-bold text-sea-dark underline" href={next}>Siguiente →</a>}</div></nav>

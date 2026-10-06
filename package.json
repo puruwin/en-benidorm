@@ -1,0 +1,48 @@
+{
+  "name": "en-benidorm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "studio": "sanity dev",
+    "studio:build": "sanity build sanity-dist",
+    "studio:deploy": "sanity deploy",
+    "content:seed": "node --import tsx scripts/seed-sanity.ts",
+    "content:discover": "node --import tsx scripts/content/discover.ts",
+    "content:enrich": "node --import tsx scripts/content/enrich.ts",
+    "content:generate": "node --import tsx scripts/content/generate.ts",
+    "content:qa": "node --import tsx scripts/content/qa.ts",
+    "content:import": "node --import tsx scripts/import-content.ts",
+    "content:validate": "node --import tsx scripts/validate-content.ts",
+    "test": "node --import tsx --test scripts/content/**/*.test.ts",
+    "sanity:schema:validate": "sanity schema validate",
+    "sanity:schema:extract": "sanity schema extract --path schema.json --force",
+    "typegen": "npm run sanity:schema:extract && sanity typegen generate"
+  },
+  "dependencies": {
+    "@sanity/astro": "latest",
+    "@sanity/client": "^8.9.0",
+    "@sanity/image-url": "latest",
+    "@tailwindcss/vite": "latest",
+    "astro": "latest",
+    "groq": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@astrojs/sitemap": "latest",
+    "@sanity/vision": "6.17.0",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sanity": "6.17.0",
+    "styled-components": "^6.5.3",
+    "tsx": "^4.23.15",
+    "typescript": "latest"
+  }
+}

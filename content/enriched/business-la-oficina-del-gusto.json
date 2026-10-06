@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "business-la-oficina-del-gusto",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "la-oficina-del-gusto",
+  "facts": {
+    "name": {
+      "value": "La Oficina del Gusto",
+      "sources": [
+        "openstreetmap:node/10253103370"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "openstreetmap:node/10253103370"
+      ]
+    },
+    "address": {
+      "value": {
+        "street": "Carrer de Sant Roc",
+        "postalCode": "03501",
+        "locality": "Benidorm"
+      },
+      "sources": [
+        "openstreetmap:node/10253103370"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.5380485,
+        "lng": -0.1298417
+      },
+      "sources": [
+        "openstreetmap:node/10253103370"
+      ]
+    },
+    "phone": {
+      "value": "+34 966 81 39 11",
+      "sources": [
+        "openstreetmap:node/10253103370"
+      ]
+    },
+    "website": {
+      "value": "https://www.laoficinadelgusto.com",
+      "sources": [
+        "openstreetmap:node/10253103370"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": "We-Su 16:30-23:30",
+      "sources": [
+        "openstreetmap:node/10253103370"
+      ]
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "openstreetmap:node/10253103370",
+      "provider": "openstreetmap",
+      "identifier": "node/10253103370",
+      "url": "https://www.openstreetmap.org/node/10253103370",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

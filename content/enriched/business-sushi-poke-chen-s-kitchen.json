@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "business-sushi-poke-chen-s-kitchen",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "sushi-poke-chen-s-kitchen",
+  "facts": {
+    "name": {
+      "value": "SUSHI POKE Chen's Kitchen",
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    },
+    "address": {
+      "value": {
+        "street": "Avinguda de Beniardà 8",
+        "postalCode": "03502"
+      },
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.5453748,
+        "lng": -0.1327124
+      },
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    },
+    "phone": {
+      "value": "+34 865 52 82 11",
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    },
+    "website": {
+      "value": "http://chenskitchen.es/",
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": "Tu-Su 12:00-16:00, 19:00-23:00",
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "openstreetmap:node/14178529901",
+      "provider": "openstreetmap",
+      "identifier": "node/14178529901",
+      "url": "https://www.openstreetmap.org/node/14178529901",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "openstreetmap:node/14178749901",
+      "provider": "openstreetmap",
+      "identifier": "node/14178749901",
+      "url": "https://www.openstreetmap.org/node/14178749901",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

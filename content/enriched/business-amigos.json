@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": "business-amigos",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "amigos",
+  "facts": {
+    "name": {
+      "value": "Amigos",
+      "sources": [
+        "openstreetmap:node/4405795085"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "openstreetmap:node/4405795085"
+      ]
+    },
+    "address": {
+      "value": {
+        "street": "Carrer de la Palma 14",
+        "locality": "Benidorm"
+      },
+      "sources": [
+        "openstreetmap:node/4405795085"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.5370184,
+        "lng": -0.129905
+      },
+      "sources": [
+        "openstreetmap:node/4405795085"
+      ]
+    },
+    "phone": {
+      "value": "+34 966 804 208",
+      "sources": [
+        "openstreetmap:node/4405795085"
+      ]
+    },
+    "website": {
+      "value": "http://amigosbarbenidorm.weebly.com/",
+      "sources": [
+        "openstreetmap:node/4405795085"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "openstreetmap:node/4405795085",
+      "provider": "openstreetmap",
+      "identifier": "node/4405795085",
+      "url": "https://www.openstreetmap.org/node/4405795085",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

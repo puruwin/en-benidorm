@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "business-sushi-poke-chen-s-kitchen",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "sushi-poke-chen-s-kitchen",
+  "priority": 70,
+  "sources": [
+    {
+      "key": "openstreetmap:node/14178529901",
+      "provider": "openstreetmap",
+      "identifier": "node/14178529901",
+      "url": "https://www.openstreetmap.org/node/14178529901",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "openstreetmap:node/14178749901",
+      "provider": "openstreetmap",
+      "identifier": "node/14178749901",
+      "url": "https://www.openstreetmap.org/node/14178749901",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "raw": {
+    "name": "SUSHI POKE Chen's Kitchen",
+    "tags": {
+      "addr:housenumber": "8",
+      "addr:postcode": "03502",
+      "addr:street": "Avinguda de Beniardà",
+      "amenity": "restaurant",
+      "cuisine": "japanese;sushi",
+      "name": "SUSHI POKE Chen's Kitchen",
+      "opening_hours": "Tu-Su 12:00-16:00, 19:00-23:00",
+      "phone": "+34 865 52 82 11",
+      "website": "http://chenskitchen.es/",
+      "website:menu": "https://qr61.cn/oZkqQ9/qPnJLlg?lid=sad11mbu4bjtlbiug&rlid=sad11mbu4bjtlbiug"
+    },
+    "latitude": 38.5453748,
+    "longitude": -0.1327124
+  }
+}

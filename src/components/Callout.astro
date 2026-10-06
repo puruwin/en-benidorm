@@ -1,0 +1,5 @@
+---
+interface Props { title?: string; tone?: 'Consejo' | 'Información' | 'Aviso' }
+const {title, tone = 'Consejo'} = Astro.props
+---
+<aside class="my-8 rounded-2xl border-l-4 border-coral bg-sand p-6"><p class="text-xs font-black uppercase tracking-[.15em] text-coral">{tone}</p>{title && <h3 class="mt-1 font-editorial text-xl">{title}</h3>}<div class="mt-2 text-sm"><slot /></div></aside>

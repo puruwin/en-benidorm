@@ -1,0 +1,13 @@
+---
+import type {EditorialImage} from '../types/content'
+import ResponsiveImage from './media/ResponsiveImage.astro'
+interface Props { images: EditorialImage[]; label?: string }
+const {images, label = 'Galería de imágenes'} = Astro.props
+---
+
+{images.length > 0 && <figure aria-label={label} class="grid gap-3 sm:grid-cols-2">
+  {images.map((image, index) => <div class:list={["overflow-hidden rounded-2xl bg-sand", index === 0 && images.length > 2 ? "sm:col-span-2" : ""]}>
+    <ResponsiveImage image={image} class="aspect-[16/10] h-full w-full object-cover" sizes={index === 0 ? '100vw' : '(min-width: 640px) 50vw, 100vw'} />
+    {image.caption && <figcaption class="px-3 py-2 text-xs text-ink/65">{image.caption}{image.credit ? ` · ${image.credit}` : ''}</figcaption>}
+  </div>)}
+</figure>}

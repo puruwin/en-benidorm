@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "business-cafeteria-la-bahia",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "cafeteria-la-bahia",
+  "facts": {
+    "name": {
+      "value": "Cafetería La Bahía",
+      "sources": [
+        "openstreetmap:node/4406717526"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "openstreetmap:node/4406717526"
+      ]
+    },
+    "address": {
+      "value": {
+        "street": "Avinguda de Madrid - Avenida de Madrid 19",
+        "postalCode": "03503",
+        "locality": "Benidorm"
+      },
+      "sources": [
+        "openstreetmap:node/4406717526"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.5349254,
+        "lng": -0.1124664
+      },
+      "sources": [
+        "openstreetmap:node/4406717526"
+      ]
+    },
+    "phone": {
+      "value": "+34 965 86 32 71",
+      "sources": [
+        "openstreetmap:node/4406717526"
+      ]
+    },
+    "website": {
+      "value": "http://www.restaurante-labahia.com/",
+      "sources": [
+        "openstreetmap:node/4406717526"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "openstreetmap:node/4406717526",
+      "provider": "openstreetmap",
+      "identifier": "node/4406717526",
+      "url": "https://www.openstreetmap.org/node/4406717526",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ]
+}

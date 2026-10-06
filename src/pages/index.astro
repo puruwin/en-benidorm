@@ -1,0 +1,61 @@
+---
+import BusinessCard from '../components/BusinessCard.astro'
+import FeaturedGrid from '../components/FeaturedGrid.astro'
+import GuideCard from '../components/GuideCard.astro'
+import Hero from '../components/Hero.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import {getHomeContent, isDemoMode} from '../lib/content-source'
+import {websiteJsonLd} from '../lib/jsonld'
+
+const content = await getHomeContent()
+const site = Astro.site ?? new URL('https://enbenidorm.es')
+---
+
+<BaseLayout seo={content.seo} jsonLd={[websiteJsonLd(site)]} demo={isDemoMode}>
+  <Hero content={content} />
+
+  <section id="explorar" class="bg-cream py-16 md:py-20" aria-labelledby="explorar-title">
+    <div class="container-site">
+      <div class="max-w-2xl">
+        <p class="text-xs font-black uppercase tracking-[.18em] text-coral">Encuentra tu plan</p>
+        <h2 id="explorar-title" class="font-editorial mt-2 text-4xl leading-tight tracking-[-.03em] md:text-5xl">¿Qué necesitas hoy?</h2>
+      </div>
+      <div class="mt-8 grid border-l border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-3">
+        {content.primaryLinks.map((item) => <a href={item.href} class="group min-h-48 border-b border-r border-ink/15 p-6 no-underline transition-colors hover:bg-sky md:p-8">
+          <span class="text-xs font-black text-coral">{item.accent}</span>
+          <h3 class="font-editorial mt-8 text-3xl tracking-[-.03em]">{item.label}</h3>
+          <p class="mt-2 text-sm text-ink/60">{item.description}</p>
+          <span class="mt-5 block text-2xl transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-sand py-16 md:py-24" aria-labelledby="guides-title">
+    <div class="container-site">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div><p class="text-xs font-black uppercase tracking-[.18em] text-sea-dark">Para empezar bien</p><h2 id="guides-title" class="font-editorial mt-2 text-4xl md:text-5xl">Guías con criterio local</h2></div>
+        <a href="/guias/" class="text-sm font-black text-sea-dark underline">Ver todas las guías</a>
+      </div>
+      <div class="mt-9 grid gap-5 lg:grid-cols-2">
+        {content.guides[0] && <GuideCard guide={content.guides[0]} featured />}
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">{content.guides.slice(1).map((guide) => <GuideCard guide={guide} />)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 md:py-24" aria-labelledby="recommendations-title">
+    <div class="container-site">
+      <div class="max-w-2xl"><p class="text-xs font-black uppercase tracking-[.18em] text-coral">Mesas seleccionadas</p><h2 id="recommendations-title" class="font-editorial mt-2 text-4xl md:text-5xl">Comer bien, sin perder el tiempo</h2><p class="mt-4 text-ink/65">Pistas claras sobre ambiente, zona y presupuesto para elegir con confianza.</p></div>
+      <div class="mt-9"><FeaturedGrid>{content.recommendations.map((business) => <BusinessCard business={business} />)}</FeaturedGrid></div>
+      <a href="/donde-comer/" class="mt-8 inline-flex rounded-full border border-ink px-5 py-3 text-sm font-black no-underline hover:bg-ink hover:text-white">Explorar dónde comer →</a>
+    </div>
+  </section>
+
+  <section class="bg-ink py-16 text-white md:py-24" aria-labelledby="recent-title">
+    <div class="container-site">
+      <div class="max-w-xl"><p class="text-xs font-black uppercase tracking-[.18em] text-[#8ce3df]">Recién publicado</p><h2 id="recent-title" class="font-editorial mt-2 text-4xl md:text-5xl">Actualidad útil, no ruido</h2></div>
+      <div class="mt-9"><FeaturedGrid>{content.recent.map((guide) => <GuideCard guide={guide} />)}</FeaturedGrid></div>
+    </div>
+  </section>
+</BaseLayout>

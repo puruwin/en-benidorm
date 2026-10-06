@@ -1,0 +1,6 @@
+---
+interface Props { date: string }
+const {date} = Astro.props
+const formatted = new Intl.DateTimeFormat('es-ES', {dateStyle: 'long'}).format(new Date(`${date}T12:00:00`))
+---
+<p class="inline-flex items-center gap-2 rounded-full bg-sky px-4 py-2 text-xs font-bold text-sea-dark"><span aria-hidden="true">✓</span> Información verificada el <time datetime={date}>{formatted}</time></p>
