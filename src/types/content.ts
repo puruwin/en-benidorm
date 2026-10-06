@@ -90,6 +90,48 @@ export interface BusinessDetail extends BusinessSummary {
   lastVerified?: string
   sources: SourceItem[]
   seo: SeoData
+  comparisons?: ComparisonLink[]
+}
+
+export interface ComparisonLink {
+  title: string
+  slug: string
+  href: string
+}
+
+export interface ComparisonEntryDetail {
+  rank: number
+  verdict: string
+  strengths: string[]
+  weaknesses: string[]
+  bestFor: string[]
+  featuredItem?: string
+  featuredPrice?: string
+  practicalNotes: string[]
+  business: Pick<BusinessDetail, 'name' | 'slug' | 'href' | 'kind' | 'phone' | 'website'>
+}
+
+export interface AuthorDetail {
+  name: string
+  slug: string
+  role?: string
+  bio: string
+  methodology: string[]
+  personalVisitDisclosure: string
+  seo: SeoData
+}
+
+export interface ComparisonDetail extends ComparisonLink {
+  topic: string
+  intro: string
+  quickVerdict: string
+  entries: ComparisonEntryDetail[]
+  methodology: string
+  criteria: string[]
+  author: Pick<AuthorDetail, 'name' | 'slug' | 'role'>
+  sources: SourceItem[]
+  lastVerified: string
+  seo: SeoData
 }
 
 export interface HomeContent {
@@ -109,6 +151,7 @@ export interface DiningPageContent {
   intro: string
   categories: CategorySummary[]
   businesses: BusinessSummary[]
+  comparisons: ComparisonLink[]
   seo: SeoData
 }
 

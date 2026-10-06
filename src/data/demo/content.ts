@@ -81,6 +81,7 @@ export const demoDining: DiningPageContent = {
     {title: 'Con vistas al mar', slug: 'vistas-al-mar', href: '/donde-comer/#restaurantes', description: 'Sitios donde el entorno también cuenta.', count: 3},
   ],
   businesses: demoBusinesses,
+  comparisons: [],
   seo: {title: 'Dónde comer en Benidorm · enBenidorm', description: 'Guía para elegir restaurantes, bares y cafeterías en Benidorm por zona, estilo y presupuesto.'},
 }
 

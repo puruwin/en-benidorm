@@ -1,0 +1,20 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import {getAuthorBySlug} from '../lib/content-source'
+import {breadcrumbJsonLd} from '../lib/jsonld'
+import type {BreadcrumbItem} from '../types/content'
+
+const author = await getAuthorBySlug('david')
+if (!author) throw new Error('No se encontró el autor David.')
+const breadcrumbs: BreadcrumbItem[] = [{label: 'Inicio', href: '/'}, {label: 'Sobre David'}]
+const site = Astro.site ?? new URL('https://enbenidorm.es')
+---
+
+<BaseLayout seo={author.seo} jsonLd={[breadcrumbJsonLd(breadcrumbs, site)]}>
+  <article class="container-site py-10 md:py-16">
+    <Breadcrumbs items={breadcrumbs} />
+    <header class="mt-12 max-w-3xl"><p class="text-xs font-black uppercase tracking-[.18em] text-coral">Quién firma la guía</p><h1 class="font-editorial mt-2 text-5xl md:text-7xl">Sobre {author.name}</h1><p class="mt-6 text-xl leading-relaxed text-ink/75">{author.bio}</p></header>
+    <section class="mt-14 max-w-3xl" aria-labelledby="method-title"><h2 id="method-title" class="font-editorial text-3xl">Metodología editorial</h2><ul class="mt-6 space-y-4">{author.methodology.map((item) => <li class="border-l-2 border-coral pl-5 leading-relaxed">{item}</li>)}</ul><p class="mt-8 rounded-2xl bg-sand p-6 leading-relaxed">{author.personalVisitDisclosure}</p></section>
+  </article>
+</BaseLayout>

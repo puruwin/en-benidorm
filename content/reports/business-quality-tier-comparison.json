@@ -1,0 +1,547 @@
+{
+  "generatedAt": "2026-10-06T16:46:44.872Z",
+  "summary": {
+    "total": 10,
+    "before": {
+      "sufficient": 5,
+      "insufficient": 5
+    },
+    "now": {
+      "rich": 4,
+      "basic": 5,
+      "insufficient": 1
+    },
+    "generationSkipped": 1,
+    "qa": {
+      "PASS": 7,
+      "WARNING": 2,
+      "FAIL": 0,
+      "SKIPPED": 1
+    }
+  },
+  "entries": [
+    {
+      "id": "business-amigos",
+      "distinctiveFacts": [],
+      "previousTier": "insufficient",
+      "qualityTier": "insufficient",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "No hay facts editoriales distintivos con provenance válida"
+      ],
+      "generationExecuted": false,
+      "generatedContent": null,
+      "qaOutcome": "SKIPPED",
+      "issues": [
+        {
+          "severity": "SKIPPED",
+          "code": "INSUFFICIENT_FACTS",
+          "path": "qualityTier",
+          "message": "No existen facts distintivos suficientes para producir una ficha editorial útil."
+        }
+      ],
+      "missingUsefulFacts": [
+        "cuisine",
+        "concept",
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "bookingAvailability",
+        "accessibility",
+        "locationContext",
+        "openingInformation"
+      ]
+    },
+    {
+      "id": "business-amigos-bistro",
+      "distinctiveFacts": [
+        "terrace"
+      ],
+      "previousTier": "insufficient",
+      "qualityTier": "basic",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Terraza verificada",
+        "Información suficiente para una ficha breve y específica"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Amigos Bistro es un restaurante con terraza en Avinguda de l'Armada Espanyola 19, Benidorm.",
+        "body": [
+          "Amigos Bistro es un restaurante situado en Avinguda de l'Armada Espanyola 19, Benidorm.",
+          "La experiencia",
+          "El establecimiento dispone de terraza.",
+          "Lo más destacado",
+          "Terraza disponible"
+        ],
+        "highlights": [
+          "Terraza disponible"
+        ],
+        "seo": {
+          "metaTitle": "Amigos Bistro en Benidorm",
+          "metaDescription": "Amigos Bistro es un restaurante de Benidorm con terraza, situado en Avinguda de l'Armada Espanyola 19."
+        }
+      },
+      "qaOutcome": "PASS",
+      "issues": [],
+      "missingUsefulFacts": [
+        "cuisine",
+        "concept",
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "takeaway",
+        "delivery",
+        "bookingAvailability",
+        "accessibility",
+        "locationContext",
+        "openingInformation"
+      ]
+    },
+    {
+      "id": "business-arenas",
+      "distinctiveFacts": [
+        "cuisine"
+      ],
+      "previousTier": "insufficient",
+      "qualityTier": "basic",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Información suficiente para una ficha breve y específica"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Arenas es un restaurante de cocina regional en la avenida de Alcoy, 13, Benidorm.",
+        "body": [
+          "Arenas es un restaurante situado en Avinguda d'Alcoi - Avenida de Alcoy 13, Benidorm, código postal 03503.",
+          "Cocina",
+          "Su cocina está clasificada como regional."
+        ],
+        "highlights": [],
+        "seo": {
+          "metaTitle": "Arenas, restaurante de cocina regional en Benidorm",
+          "metaDescription": "Arenas es un restaurante de cocina regional situado en la avenida de Alcoy, 13, Benidorm."
+        }
+      },
+      "qaOutcome": "PASS",
+      "issues": [],
+      "missingUsefulFacts": [
+        "concept",
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "bookingAvailability",
+        "accessibility",
+        "locationContext",
+        "openingInformation"
+      ]
+    },
+    {
+      "id": "business-buffalo-beel",
+      "distinctiveFacts": [
+        "cuisine",
+        "concept",
+        "services",
+        "bookingAvailability"
+      ],
+      "previousTier": "sufficient",
+      "qualityTier": "rich",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Concepto del negocio verificado",
+        "Servicios relevantes verificados",
+        "Disponibilidad de reservas verificada",
+        "Facts suficientes para 3 dimensiones editoriales"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Restaurante italiano con pizzas caseras, pasta y platos de carne y pescado. Ofrece menú del día y admite reservas.",
+        "body": [
+          "Buffalo Beel es un restaurante de cocina italiana que combina una propuesta de pizzas caseras, pasta y platos de carne y pescado.",
+          "Cocina",
+          "Su oferta incluye pizzas elaboradas en casa, pasta y preparaciones de carne y pescado, según la descripción de su web oficial.",
+          "Servicios",
+          "Dispone de menú del día y ofrece la posibilidad de reservar mesa.",
+          "Lo más destacado",
+          "Cocina italiana con pizzas caseras y pasta",
+          "Menú del día",
+          "Admite reservas"
+        ],
+        "highlights": [
+          "Cocina italiana con pizzas caseras y pasta",
+          "Menú del día",
+          "Admite reservas"
+        ],
+        "seo": {
+          "metaTitle": "Buffalo Beel: restaurante italiano en Benidorm",
+          "metaDescription": "Restaurante italiano en Benidorm con pizzas caseras, pasta, platos de carne y pescado, menú del día y reservas."
+        }
+      },
+      "qaOutcome": "PASS",
+      "issues": [],
+      "missingUsefulFacts": [
+        "specialties",
+        "distinctiveFeatures",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "accessibility",
+        "locationContext",
+        "openingInformation"
+      ]
+    },
+    {
+      "id": "business-cafeteria-la-bahia",
+      "distinctiveFacts": [
+        "cuisine",
+        "concept",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "bookingAvailability",
+        "locationContext"
+      ],
+      "previousTier": "sufficient",
+      "qualityTier": "rich",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Concepto del negocio verificado",
+        "Rasgos distintivos verificados",
+        "Servicios relevantes verificados",
+        "Terraza verificada",
+        "Disponibilidad de reservas verificada",
+        "Contexto de ubicación verificado",
+        "Facts suficientes para 5 dimensiones editoriales"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Restaurante y cafetería de cocina regional, de arroces y mediterránea, en primera línea de la playa de Levante. Cuenta con terraza y vistas al mar.",
+        "body": [
+          "Cafetería La Bahía combina servicio de restaurante y cafetería en Benidorm, con una propuesta de cocina regional, de arroces y mediterránea.",
+          "Cocina",
+          "La oferta se encuadra en la cocina regional, los arroces y la gastronomía mediterránea.",
+          "La experiencia",
+          "El establecimiento dispone de terraza y ofrece vistas al mar. La reserva está disponible.",
+          "Ubicación",
+          "Se encuentra en primera línea de la playa de Levante, en Avinguda de Madrid 19, Benidorm.",
+          "Servicios",
+          "Ofrece servicio de cena y admite reservas.",
+          "Lo más destacado",
+          "Cocina regional, de arroces y mediterránea",
+          "Terraza con vistas al mar",
+          "En primera línea de la playa de Levante",
+          "Servicio de cena y reservas"
+        ],
+        "highlights": [
+          "Cocina regional, de arroces y mediterránea",
+          "Terraza con vistas al mar",
+          "En primera línea de la playa de Levante",
+          "Servicio de cena y reservas"
+        ],
+        "seo": {
+          "metaTitle": "Cafetería La Bahía en Benidorm | Playa de Levante",
+          "metaDescription": "Cafetería La Bahía ofrece cocina regional, arroces y mediterránea, con terraza, vistas al mar y servicio de cena en la playa de Levante."
+        }
+      },
+      "qaOutcome": "PASS",
+      "issues": [],
+      "missingUsefulFacts": [
+        "specialties",
+        "takeaway",
+        "delivery",
+        "accessibility",
+        "openingInformation"
+      ]
+    },
+    {
+      "id": "business-clay-oven",
+      "distinctiveFacts": [
+        "cuisine",
+        "concept"
+      ],
+      "previousTier": "insufficient",
+      "qualityTier": "basic",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Concepto del negocio verificado",
+        "Información suficiente para una ficha breve y específica"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Clay Oven es un restaurante de cocina india en la calle de Lepanto 21, Benidorm.",
+        "body": [
+          "Clay Oven es un restaurante situado en Calle de Lepanto 21, 03503 Benidorm.",
+          "Cocina",
+          "Su propuesta corresponde a la cocina india, según la información publicada en su sitio web.",
+          "Lo más destacado",
+          "Cocina india"
+        ],
+        "highlights": [
+          "Cocina india"
+        ],
+        "seo": {
+          "metaTitle": "Clay Oven: restaurante indio en Benidorm",
+          "metaDescription": "Clay Oven es un restaurante de cocina india situado en Calle de Lepanto 21, Benidorm."
+        }
+      },
+      "qaOutcome": "WARNING",
+      "issues": [
+        {
+          "severity": "WARNING",
+          "code": "similar-content",
+          "path": "body.structure",
+          "message": "Patrón similar a business-country-ribs: léxico 100%, semántico 100%."
+        }
+      ],
+      "missingUsefulFacts": [
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "bookingAvailability",
+        "accessibility",
+        "locationContext",
+        "openingInformation"
+      ]
+    },
+    {
+      "id": "business-country-ribs",
+      "distinctiveFacts": [
+        "cuisine"
+      ],
+      "previousTier": "insufficient",
+      "qualityTier": "basic",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Información suficiente para una ficha breve y específica"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Restaurante de Benidorm especializado en ribs, situado en Avinguda del Derramador.",
+        "body": [
+          "Country Ribs es un restaurante situado en Avinguda del Derramador, Benidorm (03503).",
+          "Cocina",
+          "Su tipo de cocina está identificado como ribs.",
+          "Lo más destacado",
+          "Cocina especializada en ribs"
+        ],
+        "highlights": [
+          "Cocina especializada en ribs"
+        ],
+        "seo": {
+          "metaTitle": "Country Ribs: restaurante de ribs en Benidorm",
+          "metaDescription": "Country Ribs es un restaurante de Benidorm especializado en ribs, situado en Avinguda del Derramador."
+        }
+      },
+      "qaOutcome": "WARNING",
+      "issues": [
+        {
+          "severity": "WARNING",
+          "code": "similar-content",
+          "path": "body.structure",
+          "message": "Patrón similar a business-clay-oven: léxico 100%, semántico 100%."
+        }
+      ],
+      "missingUsefulFacts": [
+        "concept",
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "bookingAvailability",
+        "accessibility",
+        "locationContext",
+        "openingInformation"
+      ]
+    },
+    {
+      "id": "business-dvora-gastrobar",
+      "distinctiveFacts": [
+        "cuisine",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "bookingAvailability"
+      ],
+      "previousTier": "sufficient",
+      "qualityTier": "rich",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Rasgos distintivos verificados",
+        "Servicios relevantes verificados",
+        "Terraza verificada",
+        "Disponibilidad de reservas verificada",
+        "Facts suficientes para 4 dimensiones editoriales"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Dvora Gastrobar ofrece cocina mediterránea, servicio de desayunos y una terraza en la azotea. También admite reservas.",
+        "body": [
+          "Dvora Gastrobar es un restaurante de cocina mediterránea con una propuesta que incluye desayunos y servicio de reservas.",
+          "Cocina",
+          "La cocina del establecimiento se identifica como mediterránea. También ofrece servicio de desayuno.",
+          "La experiencia",
+          "Cuenta con terraza y un espacio en la azotea.",
+          "Servicios",
+          "Se pueden realizar reservas a través de los canales del establecimiento.",
+          "Información práctica",
+          "Abre todos los días de 08:00 a 00:00. Está en Plaça de Sant Jaume, 5, 03501 Benidorm.",
+          "Lo más destacado",
+          "Cocina mediterránea",
+          "Terraza en la azotea",
+          "Servicio de desayunos",
+          "Reservas disponibles"
+        ],
+        "highlights": [
+          "Cocina mediterránea",
+          "Terraza en la azotea",
+          "Servicio de desayunos",
+          "Reservas disponibles"
+        ],
+        "seo": {
+          "metaTitle": "Dvora Gastrobar: cocina mediterránea en Benidorm",
+          "metaDescription": "Consulta la información de Dvora Gastrobar en Benidorm: cocina mediterránea, desayunos, terraza en la azotea, reservas y horarios."
+        }
+      },
+      "qaOutcome": "PASS",
+      "issues": [],
+      "missingUsefulFacts": [
+        "concept",
+        "specialties",
+        "takeaway",
+        "delivery",
+        "accessibility",
+        "locationContext"
+      ]
+    },
+    {
+      "id": "business-la-oficina-del-gusto",
+      "distinctiveFacts": [
+        "cuisine",
+        "concept",
+        "takeaway",
+        "bookingAvailability"
+      ],
+      "previousTier": "sufficient",
+      "qualityTier": "rich",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Concepto del negocio verificado",
+        "Servicio para llevar verificado",
+        "Disponibilidad de reservas verificada",
+        "Facts suficientes para 3 dimensiones editoriales"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Restaurante italiano de Benidorm con pasta fresca artesanal, focaccias y cocina italiana. Dispone de reservas y servicio para llevar.",
+        "body": [
+          "La Oficina del Gusto es un restaurante italiano de Benidorm centrado en la pasta fresca artesanal, las focaccias y una propuesta de cocina italiana.",
+          "Cocina",
+          "Su oferta se enmarca en la cocina italiana y mediterránea, con pasta, pizza y focaccia como categorías principales.",
+          "Servicios",
+          "El establecimiento admite reservas y ofrece servicio para llevar.",
+          "Información práctica",
+          "Se encuentra en Carrer de Sant Roc, 03501 Benidorm. El sitio web oficial publica servicio de miércoles a sábado de 13:30 a 16:30 y de 20:30 a 23:00, y los domingos de 13:00 a 16:30 y de 20:30 a 22:30. OpenStreetMap registra un horario general de miércoles a domingo, de 16:30 a 23:30. Teléfono: +34 966 81 39 11.",
+          "Lo más destacado",
+          "Pasta fresca artesanal",
+          "Focaccias y cocina italiana",
+          "Reservas y servicio para llevar"
+        ],
+        "highlights": [
+          "Pasta fresca artesanal",
+          "Focaccias y cocina italiana",
+          "Reservas y servicio para llevar"
+        ],
+        "seo": {
+          "metaTitle": "La Oficina del Gusto | Restaurante italiano en Benidorm",
+          "metaDescription": "Restaurante italiano en Benidorm con pasta fresca artesanal, focaccias, pizza y servicio para llevar. Consulta horarios y reservas."
+        }
+      },
+      "qaOutcome": "PASS",
+      "issues": [],
+      "missingUsefulFacts": [
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "delivery",
+        "accessibility",
+        "locationContext"
+      ]
+    },
+    {
+      "id": "business-sushi-poke-chen-s-kitchen",
+      "distinctiveFacts": [
+        "cuisine",
+        "concept",
+        "bookingAvailability"
+      ],
+      "previousTier": "sufficient",
+      "qualityTier": "basic",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Concepto del negocio verificado",
+        "Disponibilidad de reservas verificada",
+        "Información suficiente para una ficha breve y específica"
+      ],
+      "generationExecuted": true,
+      "generatedContent": {
+        "shortDescription": "Restaurante japonés en Benidorm especializado en sushi y cocina japonesa, con servicio de reservas.",
+        "body": [
+          "Chen's Kitchen es un restaurante de cocina japonesa y sushi en Benidorm.",
+          "Información práctica",
+          "Se encuentra en Avinguda de Beniardà 8, 03502. Abre de martes a domingo de 12:00 a 16:00 y de 19:00 a 23:00. Se pueden realizar reservas.",
+          "Lo más destacado",
+          "Admite reservas"
+        ],
+        "highlights": [
+          "Admite reservas"
+        ],
+        "seo": {
+          "metaTitle": "Chen's Kitchen: sushi japonés en Benidorm",
+          "metaDescription": "Consulta la información de Chen's Kitchen en Benidorm: cocina japonesa, sushi, horarios, dirección y reservas."
+        }
+      },
+      "qaOutcome": "PASS",
+      "issues": [],
+      "missingUsefulFacts": [
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "accessibility",
+        "locationContext"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "topic": "italiano",
+  "sources": [
+    {
+      "key": "official-website:https://www.laoficinadelgusto.com/Carta",
+      "provider": "official-website",
+      "identifier": "https://www.laoficinadelgusto.com/Carta",
+      "url": "https://www.laoficinadelgusto.com/Carta",
+      "retrievedAt": "2026-10-06T00:00:00.000Z",
+      "attribution": "Carta pública en la web oficial de La Oficina del Gusto",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://buffalobeel.com/",
+      "provider": "official-website",
+      "identifier": "https://buffalobeel.com/",
+      "url": "https://buffalobeel.com/",
+      "retrievedAt": "2026-10-06T00:00:00.000Z",
+      "attribution": "Sitio web oficial de Buffalo Beel",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://essenzaitaliana.es/",
+      "provider": "official-website",
+      "identifier": "https://essenzaitaliana.es/",
+      "url": "https://essenzaitaliana.es/",
+      "retrievedAt": "2026-10-06T00:00:00.000Z",
+      "attribution": "Carta pública y datos prácticos en la web oficial de Essenza Italiana",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.cucinaitalianabenidorm.com/",
+      "provider": "official-website",
+      "identifier": "https://www.cucinaitalianabenidorm.com/",
+      "url": "https://www.cucinaitalianabenidorm.com/",
+      "retrievedAt": "2026-10-06T00:00:00.000Z",
+      "attribution": "Sitio web oficial de Cucina Italiana",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
+      "provider": "official-website",
+      "identifier": "https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
+      "url": "https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
+      "retrievedAt": "2026-10-06T00:00:00.000Z",
+      "attribution": "Carta pública en la web oficial de Cucina Italiana",
+      "licenseUrl": null
+    }
+  ],
+  "businesses": [
+    {
+      "businessId": "business-la-oficina-del-gusto",
+      "evidence": {
+        "featuredItems": [
+          {"id": "oficina:item:pasta-fresca", "value": "Pasta fresca artesanal", "nature": "factual", "sourceKeys": ["official-website:https://www.laoficinadelgusto.com/Carta"]},
+          {"id": "oficina:item:focaccias", "value": "Focaccias", "nature": "factual", "sourceKeys": ["official-website:https://www.laoficinadelgusto.com/Carta"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-buffalo-beel",
+      "evidence": {
+        "featuredItems": [
+          {"id": "buffalo:item:pizzas-caseras", "value": "Pizzas caseras", "nature": "self_claim", "sourceKeys": ["official-website:https://buffalobeel.com/"]}
+        ],
+        "services": [
+          {"id": "buffalo:service:menu-dia", "value": "Menú del día", "nature": "factual", "sourceKeys": ["official-website:https://buffalobeel.com/"]},
+          {"id": "buffalo:service:reservas", "value": "Reservas online", "nature": "factual", "sourceKeys": ["official-website:https://buffalobeel.com/"]}
+        ],
+        "practical": [
+          {"id": "buffalo:practical:hours", "value": "Abierto todos los días de 14:00 a 23:00", "nature": "factual", "sourceKeys": ["official-website:https://buffalobeel.com/"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-essenza-italiana",
+      "evidence": {
+        "featuredItems": [
+          {"id": "essenza:item:pinsa", "value": "Pinsa al pistacchio con burrata", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]},
+          {"id": "essenza:item:pasta-fresca", "value": "Pasta fresca", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]},
+          {"id": "essenza:item:tagliatelle-gamberi", "value": "Tagliatelle con gambas y crema de pistacho", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]}
+        ],
+        "prices": [
+          {"id": "essenza:price:tagliatelle-gamberi", "value": {"item": "Tagliatelle con gambas y crema de pistacho", "value": 20, "currency": "EUR", "retrievedAt": "2026-10-06"}, "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]}
+        ],
+        "location": [
+          {"id": "essenza:location:vista", "value": "Vista al Mediterráneo", "nature": "self_claim", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]}
+        ],
+        "services": [
+          {"id": "essenza:service:reservas", "value": "Reservas por WhatsApp", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]}
+        ],
+        "practical": [
+          {"id": "essenza:practical:hours", "value": "Miércoles a lunes de 13:00 a 16:30 y de 19:30 a 22:00; martes cerrado", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-cucina-italiana",
+      "evidence": {
+        "featuredItems": [
+          {"id": "cucina:item:carbonara", "value": "Spaghetti alla carbonara", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]},
+          {"id": "cucina:item:margherita", "value": "Pizza Margherita", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]},
+          {"id": "cucina:item:lasagna", "value": "Lasaña con ragú", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]}
+        ],
+        "prices": [
+          {"id": "cucina:price:carbonara", "value": {"item": "Spaghetti alla carbonara", "value": 16.95, "currency": "EUR", "retrievedAt": "2026-10-06"}, "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]},
+          {"id": "cucina:price:margherita", "value": {"item": "Pizza Margherita", "value": 12, "currency": "EUR", "retrievedAt": "2026-10-06"}, "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]}
+        ],
+        "services": [
+          {"id": "cucina:service:reservas", "value": "Reservas online", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/"]}
+        ],
+        "location": [
+          {"id": "cucina:location:rincon", "value": "Rincón de Loix", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/"]}
+        ],
+        "practical": [
+          {"id": "cucina:practical:hours", "value": "Horario publicado de 12:00 a 23:00", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/"]}
+        ]
+      }
+    }
+  ]
+}

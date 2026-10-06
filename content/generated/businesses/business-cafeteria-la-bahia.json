@@ -7,30 +7,17 @@
     "current": "cafeteria-la-bahia"
   },
   "businessKind": "restaurant",
-  "contentQuality": "sufficient",
-  "shortDescription": "Cafetería y restaurante de cocina regional, arroces y mediterránea, en primera línea de la playa de Levante. Cuenta con terraza, vistas al mar y servicio de cenas.",
+  "shortDescription": "Restaurante y cafetería de cocina regional, de arroces y mediterránea, en primera línea de la playa de Levante. Cuenta con terraza y vistas al mar.",
   "body": [
     {
       "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué es"
-        }
-      ]
-    },
-    {
-      "_type": "block",
       "style": "normal",
       "markDefs": [],
       "children": [
         {
           "_type": "span",
           "marks": [],
-          "text": "Cafetería y restaurante situado en la primera línea de la playa de Levante, con una propuesta de cocina regional, arroces y especialidades mediterráneas."
+          "text": "Cafetería La Bahía combina servicio de restaurante y cafetería en Benidorm, con una propuesta de cocina regional, de arroces y mediterránea."
         }
       ]
     },
@@ -42,7 +29,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Qué esperar"
+          "text": "Cocina"
         }
       ]
     },
@@ -54,31 +41,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Puedes encontrar servicio de cenas, terraza y vistas al mar. El establecimiento admite reservas por teléfono en el 965 863 271."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Por qué ir"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Su ubicación frente a la playa de Levante, la terraza y las vistas al mar acompañan una oferta centrada en arroces y cocina mediterránea."
+          "text": "La oferta se encuadra en la cocina regional, los arroces y la gastronomía mediterránea."
         }
       ]
     },
@@ -90,7 +53,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Para quién es"
+          "text": "La experiencia"
         }
       ]
     },
@@ -102,11 +65,21 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Cenas junto a la playa de Levante"
+          "text": "El establecimiento dispone de terraza y ofrece vistas al mar. La reserva está disponible."
         }
-      ],
-      "listItem": "bullet",
-      "level": 1
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ubicación"
+        }
+      ]
     },
     {
       "_type": "block",
@@ -116,11 +89,21 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Disfrutar de una terraza con vistas al mar"
+          "text": "Se encuentra en primera línea de la playa de Levante, en Avinguda de Madrid 19, Benidorm."
         }
-      ],
-      "listItem": "bullet",
-      "level": 1
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicios"
+        }
+      ]
     },
     {
       "_type": "block",
@@ -130,11 +113,9 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Probar cocina regional, arroces y cocina mediterránea"
+          "text": "Ofrece servicio de cena y admite reservas."
         }
-      ],
-      "listItem": "bullet",
-      "level": 1
+      ]
     },
     {
       "_type": "block",
@@ -156,7 +137,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Primera línea de la playa de Levante"
+          "text": "Cocina regional, de arroces y mediterránea"
         }
       ],
       "listItem": "bullet",
@@ -170,7 +151,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Terraza disponible"
+          "text": "Terraza con vistas al mar"
         }
       ],
       "listItem": "bullet",
@@ -184,7 +165,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Vistas al mar"
+          "text": "En primera línea de la playa de Levante"
         }
       ],
       "listItem": "bullet",
@@ -198,7 +179,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Servicio de cenas y reservas por teléfono"
+          "text": "Servicio de cena y reservas"
         }
       ],
       "listItem": "bullet",
@@ -245,8 +226,8 @@
     }
   ],
   "seo": {
-    "metaTitle": "Cafetería La Bahía en la playa de Levante",
-    "metaDescription": "Cafetería y restaurante con arroces y cocina mediterránea, terraza y vistas al mar en primera línea de la playa de Levante."
+    "metaTitle": "Cafetería La Bahía en Benidorm | Playa de Levante",
+    "metaDescription": "Cafetería La Bahía ofrece cocina regional, arroces y mediterránea, con terraza, vistas al mar y servicio de cena en la playa de Levante."
   },
   "address": {
     "street": "Avinguda de Madrid - Avenida de Madrid 19",

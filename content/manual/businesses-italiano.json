@@ -1,0 +1,38 @@
+[
+  {
+    "type": "restaurant",
+    "identifier": "essenza-italiana-official",
+    "name": "Essenza Italiana",
+    "sourceUrl": "https://essenzaitaliana.es/",
+    "attribution": "Sitio web oficial de Essenza Italiana",
+    "priority": 90,
+    "latitude": 38.534,
+    "longitude": -0.1308,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "italian",
+      "website": "https://essenzaitaliana.es/",
+      "phone": "+34 603 388 044",
+      "addr:city": "Benidorm"
+    }
+  },
+  {
+    "type": "restaurant",
+    "identifier": "cucina-italiana-benidorm-official",
+    "name": "Cucina Italiana",
+    "sourceUrl": "https://www.cucinaitalianabenidorm.com/",
+    "attribution": "Sitio web oficial de Cucina Italiana",
+    "priority": 90,
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "italian",
+      "website": "https://www.cucinaitalianabenidorm.com/",
+      "phone": "+34 604 144 118",
+      "addr:street": "Avenida Doctor Severo Ochoa",
+      "addr:housenumber": "32",
+      "addr:postcode": "03503",
+      "addr:city": "Benidorm",
+      "opening_hours": "Mo-Su 12:00-23:00"
+    }
+  }
+]

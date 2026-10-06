@@ -4,10 +4,9 @@ import {pathToFileURL} from 'node:url'
 import {loadEnvFile} from 'node:process'
 import type {ContentDocument} from '../content-validation'
 import {readJson, writeJsonAtomic} from './lib/files'
-import type {EnrichedEntity, PhaseReport} from './lib/types'
+import type {EnrichedEntity, GeneratedBusinessArtifact, PhaseReport} from './lib/types'
 
 interface TextSnapshot {
-  contentQuality: unknown
   shortDescription: unknown
   body: string[]
   seo: unknown
@@ -23,7 +22,7 @@ export async function createComparisonReport(beforeDirectory: string, beforeQaPa
   const entries = await Promise.all(names.map(async (name) => {
     const before = await readJson<ContentDocument>(resolve(beforeDirectory, name))
     const enriched = await readJson<EnrichedEntity>(resolve(root, 'content/enriched', name))
-    const after = await readJson<ContentDocument>(resolve(root, 'content/generated/.staging/businesses', name))
+    const artifact = await readJson<GeneratedBusinessArtifact>(resolve(root, 'content/generated/.staging/businesses', name))
     return {
       id: before._id,
       facts: {
@@ -35,7 +34,9 @@ export async function createComparisonReport(beforeDirectory: string, beforeQaPa
         officialWebsite: enriched.sources.filter((source) => source.provider === 'official-website'),
       },
       before: textSnapshot(before),
-      after: textSnapshot(after),
+      previousContentQuality: before.contentQuality ?? null,
+      qualityTier: artifact.qualityTier,
+      after: textSnapshot(artifact.document as ContentDocument | null),
       qaBefore: beforeQa.items.find((item) => item.id === before._id) ?? null,
       qaAfter: afterQa.items.find((item) => item.id === before._id) ?? null,
     }
@@ -47,7 +48,7 @@ export async function createComparisonReport(beforeDirectory: string, beforeQaPa
     summary: {
       before: beforeQa.totals,
       after: afterQa.totals,
-      contentQuality: Object.fromEntries(['sufficient', 'insufficient'].map((quality) => [quality, entries.filter((entry) => entry.after.contentQuality === quality).length])),
+      qualityTier: Object.fromEntries(['rich', 'basic', 'insufficient'].map((tier) => [tier, entries.filter((entry) => entry.qualityTier === tier).length])),
       officialWebsiteReached: entries.filter((entry) => entry.provenance.officialWebsite.length > 0).length,
       officialWebsiteWithFacts: entries.filter((entry) => Object.keys(entry.facts.officialWebsite).length > 0).length,
     },
@@ -62,9 +63,9 @@ function presentFacts(facts: object): Record<string, unknown> {
   return Object.fromEntries(entries.filter(([, fact]) => fact.value !== null).map(([field, fact]) => [field, fact]))
 }
 
-function textSnapshot(document: ContentDocument): TextSnapshot {
+function textSnapshot(document: ContentDocument | null): TextSnapshot {
+  if (!document) return {shortDescription: null, body: [], seo: null}
   return {
-    contentQuality: document.contentQuality ?? null,
     shortDescription: document.shortDescription ?? null,
     body: Array.isArray(document.body) ? document.body.flatMap((block) => {
       if (!isRecord(block) || !Array.isArray(block.children)) return []

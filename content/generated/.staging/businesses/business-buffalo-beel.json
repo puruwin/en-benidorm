@@ -1,262 +1,204 @@
 {
-  "_id": "business-buffalo-beel",
-  "_type": "business",
-  "name": "Buffalo Beel",
-  "slug": {
-    "_type": "slug",
-    "current": "buffalo-beel"
+  "schemaVersion": 1,
+  "id": "business-buffalo-beel",
+  "type": "restaurant",
+  "qualityTier": "rich",
+  "qualityAssessment": {
+    "tier": "rich",
+    "reasons": [
+      "Identidad verificada",
+      "Ubicación verificable",
+      "Tipo de cocina verificado",
+      "Concepto del negocio verificado",
+      "Servicios relevantes verificados",
+      "Disponibilidad de reservas verificada",
+      "Facts suficientes para 3 dimensiones editoriales"
+    ],
+    "distinctiveFacts": [
+      "cuisine",
+      "concept",
+      "services",
+      "bookingAvailability"
+    ],
+    "missingUsefulFacts": [
+      "specialties",
+      "distinctiveFeatures",
+      "terrace",
+      "takeaway",
+      "delivery",
+      "accessibility",
+      "locationContext",
+      "openingInformation"
+    ],
+    "score": 3
   },
-  "businessKind": "restaurant",
-  "contentQuality": "sufficient",
-  "shortDescription": "Restaurante italiano de Buffalo Beel con pizzas caseras, pasta, carnes y pescados. También ofrece menú del día y permite reservar.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué es"
-        }
-      ]
+  "generationSkipped": false,
+  "reason": null,
+  "document": {
+    "_id": "business-buffalo-beel",
+    "_type": "business",
+    "name": "Buffalo Beel",
+    "slug": {
+      "_type": "slug",
+      "current": "buffalo-beel"
     },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Buffalo Beel es un restaurante de cocina italiana en Avinguda de Castelló, 7, Benidorm. Su propuesta reúne pizzas caseras, platos de pasta, carnes y pescados."
-        }
-      ]
+    "businessKind": "restaurant",
+    "shortDescription": "Restaurante italiano con pizzas caseras, pasta y platos de carne y pescado. Ofrece menú del día y admite reservas.",
+    "body": [
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Buffalo Beel es un restaurante de cocina italiana que combina una propuesta de pizzas caseras, pasta y platos de carne y pescado."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cocina"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Su oferta incluye pizzas elaboradas en casa, pasta y preparaciones de carne y pescado, según la descripción de su web oficial."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Servicios"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Dispone de menú del día y ofrece la posibilidad de reservar mesa."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Lo más destacado"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cocina italiana con pizzas caseras y pasta"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Menú del día"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Admite reservas"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      }
+    ],
+    "language": "es",
+    "lastVerified": "2026-10-06",
+    "sources": [
+      {
+        "_type": "source",
+        "title": "openstreetmap: node/6695338582",
+        "publisher": "© OpenStreetMap contributors",
+        "url": "https://www.openstreetmap.org/node/6695338582",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://buffalobeel.com/",
+        "publisher": "Sitio web oficial (buffalobeel.com)",
+        "url": "https://buffalobeel.com/",
+        "accessedAt": "2026-10-06"
+      }
+    ],
+    "seo": {
+      "metaTitle": "Buffalo Beel: restaurante italiano en Benidorm",
+      "metaDescription": "Restaurante italiano en Benidorm con pizzas caseras, pasta, platos de carne y pescado, menú del día y reservas."
     },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué esperar"
-        }
-      ]
+    "address": {
+      "street": "Avinguda de Castelló 7",
+      "postalCode": "03503",
+      "locality": "Benidorm"
     },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Encontrarás una carta centrada en especialidades italianas y un menú del día. El restaurante permite realizar reservas; para consultas, dispone del teléfono +34 96 589 93 29."
-        }
-      ]
+    "location": {
+      "_type": "geopoint",
+      "lat": 38.5360585,
+      "lng": -0.1097994
     },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Por qué ir"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Puede encajar si buscas cocina italiana con varias opciones de plato —pizza, pasta, carne o pescado— y la posibilidad de elegir menú del día o reservar mesa."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Para quién es"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Comidas de cocina italiana"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Quienes buscan pizzas caseras o pasta"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Elegir un menú del día"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Organizar una comida con reserva previa"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Lo más destacado"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Pizzas caseras"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Platos de pasta"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Carnes y pescados"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Menú del día disponible"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
-  "language": "es",
-  "lastVerified": "2026-10-06",
-  "sources": [
-    {
-      "_type": "source",
-      "title": "openstreetmap: node/6695338582",
-      "publisher": "© OpenStreetMap contributors",
-      "url": "https://www.openstreetmap.org/node/6695338582",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://buffalobeel.com/",
-      "publisher": "Sitio web oficial (buffalobeel.com)",
-      "url": "https://buffalobeel.com/",
-      "accessedAt": "2026-10-06"
-    }
-  ],
-  "seo": {
-    "metaTitle": "Buffalo Beel: restaurante italiano en Benidorm",
-    "metaDescription": "Buffalo Beel ofrece pizzas caseras, pasta, carnes, pescados y menú del día en Avinguda de Castelló, 7, Benidorm."
-  },
-  "address": {
-    "street": "Avinguda de Castelló 7",
-    "postalCode": "03503",
-    "locality": "Benidorm"
-  },
-  "location": {
-    "_type": "geopoint",
-    "lat": 38.5360585,
-    "lng": -0.1097994
-  },
-  "phone": "+34 96 589 93 29",
-  "website": "https://buffalobeel.com/",
-  "categories": [
-    {
-      "_type": "reference",
-      "_ref": "category-restaurantes"
-    }
-  ]
+    "phone": "+34 96 589 93 29",
+    "website": "https://buffalobeel.com/",
+    "categories": [
+      {
+        "_type": "reference",
+        "_ref": "category-restaurantes"
+      }
+    ]
+  }
 }

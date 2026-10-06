@@ -75,7 +75,10 @@ export const DINING_QUERY = defineQuery(`{
     description,
     "href": "/donde-comer/#restaurantes",
     "count": count(*[_type == "business" && references(^._id)])
-  }[count >= 3] | order(title asc)
+  }[count >= 3] | order(title asc),
+  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer"] | order(title asc){
+    title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"
+  }
 }`)
 
 export const SETTINGS_QUERY = defineQuery(`*[_id == "site-settings" && _type == "siteSettings"][0]{
@@ -109,10 +112,42 @@ export const RESTAURANT_QUERY = defineQuery(`*[_type == "business" && language =
   "images": images[]${imageProjection},
   lastVerified,
   sources[]{title, url, publisher, accessedAt},
+  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},
   "seo": {
     "title": coalesce(seo.metaTitle, name + " en Benidorm"),
     "description": coalesce(seo.metaDescription, shortDescription),
     "noIndex": seo.noIndex,
     "image": seo.socialImage${imageProjection}
   }
+}`)
+
+export const COMPARISON_SLUGS_QUERY = defineQuery(`*[_type == "comparison" && language == "es" && category == "donde-comer" && defined(slug.current)].slug.current`)
+
+export const COMPARISON_QUERY = defineQuery(`*[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{
+  title,
+  "slug": slug.current,
+  "href": "/donde-comer/" + slug.current + "/",
+  topic,
+  intro,
+  quickVerdict,
+  "entries": entries[] | order(rank asc){
+    rank, verdict, strengths, weaknesses, bestFor, featuredItem, featuredPrice, practicalNotes,
+    "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}
+  },
+  methodology,
+  criteria,
+  "author": author->{name, "slug": slug.current, role},
+  sources[]{title, url, publisher, accessedAt},
+  lastVerified,
+  "seo": {
+    "title": coalesce(seo.metaTitle, title + " · enBenidorm"),
+    "description": coalesce(seo.metaDescription, intro),
+    "noIndex": seo.noIndex,
+    "image": seo.socialImage${imageProjection}
+  }
+}`)
+
+export const AUTHOR_QUERY = defineQuery(`*[_type == "author" && language == "es" && slug.current == $slug][0]{
+  name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,
+  "seo": {"title": coalesce(seo.metaTitle, name + " · enBenidorm"), "description": coalesce(seo.metaDescription, bio), "noIndex": seo.noIndex, "image": seo.socialImage${imageProjection}}
 }`)

@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "id": "business-essenza-italiana",
+  "type": "restaurant",
+  "qualityTier": "basic",
+  "qualityAssessment": {
+    "tier": "basic",
+    "reasons": [
+      "Identidad verificada",
+      "Ubicación verificable",
+      "Tipo de cocina verificado",
+      "Concepto del negocio verificado",
+      "Información suficiente para una ficha breve y específica"
+    ],
+    "distinctiveFacts": [
+      "cuisine",
+      "concept"
+    ],
+    "missingUsefulFacts": [
+      "specialties",
+      "distinctiveFeatures",
+      "services",
+      "terrace",
+      "takeaway",
+      "delivery",
+      "bookingAvailability",
+      "accessibility",
+      "locationContext"
+    ],
+    "score": 2
+  },
+  "generationSkipped": false,
+  "reason": null,
+  "document": {
+    "_id": "business-essenza-italiana",
+    "_type": "business",
+    "name": "Essenza Italiana",
+    "slug": {
+      "_type": "slug",
+      "current": "essenza-italiana"
+    },
+    "businessKind": "restaurant",
+    "shortDescription": "Restaurante italiano en Benidorm con pasta fresca, pescado del Mediterráneo, pinse romanas y postres tradicionales.",
+    "body": [
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cocina"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Su propuesta se centra en cocina italiana, con pasta fresca, pescado del Mediterráneo, pinse romanas y dulces tradicionales."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Información práctica"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Se encuentra en Benidorm. El horario publicado indica servicio de miércoles a lunes, de 13:00 a 16:30 y de 19:30 a 22:00. Teléfono: +34 603 388 044."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Lo más destacado"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Pasta fresca, pescado del Mediterráneo y pinse romanas"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      }
+    ],
+    "language": "es",
+    "lastVerified": "2026-10-06",
+    "sources": [
+      {
+        "_type": "source",
+        "title": "manual-json: essenza-italiana-official",
+        "publisher": "Sitio web oficial de Essenza Italiana",
+        "url": "https://essenzaitaliana.es/",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://essenzaitaliana.es/",
+        "publisher": "Sitio web oficial (essenzaitaliana.es)",
+        "url": "https://essenzaitaliana.es/",
+        "accessedAt": "2026-10-06"
+      }
+    ],
+    "seo": {
+      "metaTitle": "Essenza Italiana: restaurante italiano en Benidorm",
+      "metaDescription": "Essenza Italiana ofrece cocina italiana en Benidorm, con pasta fresca, pescado del Mediterráneo, pinse romanas y dulces tradicionales."
+    },
+    "address": {
+      "locality": "Benidorm"
+    },
+    "location": {
+      "_type": "geopoint",
+      "lat": 38.534,
+      "lng": -0.1308
+    },
+    "phone": "+34 603 388 044",
+    "website": "https://essenzaitaliana.es/",
+    "categories": [
+      {
+        "_type": "reference",
+        "_ref": "category-restaurantes"
+      }
+    ]
+  }
+}

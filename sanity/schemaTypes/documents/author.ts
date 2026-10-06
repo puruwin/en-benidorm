@@ -7,6 +7,8 @@ export const author = defineType({
     defineField({name: 'slug', title: 'Slug', type: 'slug', options: {source: 'name'}, validation: (rule) => rule.required()}),
     defineField({name: 'role', title: 'Rol', type: 'string'}),
     defineField({name: 'bio', title: 'Biografía', type: 'text', rows: 5}),
+    defineField({name: 'methodology', title: 'Metodología editorial', type: 'array', of: [{type: 'string'}]}),
+    defineField({name: 'personalVisitDisclosure', title: 'Transparencia sobre visitas', type: 'text', rows: 3}),
     defineField({name: 'image', title: 'Foto', type: 'imageWithAlt'}),
     defineField({name: 'website', title: 'Web', type: 'url'}),
     defineField({name: 'socialLinks', title: 'Perfiles', type: 'array', of: [{type: 'url'}]}),

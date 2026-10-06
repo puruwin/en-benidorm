@@ -13,6 +13,7 @@ import {author} from './documents/author'
 import {beach} from './documents/beach'
 import {business} from './documents/business'
 import {category} from './documents/category'
+import {comparison} from './documents/comparison'
 import {event} from './documents/event'
 import {homePage} from './documents/homePage'
 import {place} from './documents/place'
@@ -20,5 +21,5 @@ import {siteSettings} from './documents/siteSettings'
 
 export const schemaTypes = [
   address, callout, comparisonTable, imageWithAlt, openingHours, portableText, prosCons, seo, source,
-  article, area, author, beach, business, category, event, homePage, place, siteSettings,
+  article, area, author, beach, business, category, comparison, event, homePage, place, siteSettings,
 ]

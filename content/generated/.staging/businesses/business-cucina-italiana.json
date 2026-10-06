@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "id": "business-cucina-italiana",
+  "type": "restaurant",
+  "qualityTier": "basic",
+  "qualityAssessment": {
+    "tier": "basic",
+    "reasons": [
+      "Identidad verificada",
+      "Ubicación verificable",
+      "Tipo de cocina verificado",
+      "Concepto del negocio verificado",
+      "Disponibilidad de reservas verificada",
+      "Información suficiente para una ficha breve y específica"
+    ],
+    "distinctiveFacts": [
+      "cuisine",
+      "concept",
+      "bookingAvailability"
+    ],
+    "missingUsefulFacts": [
+      "specialties",
+      "distinctiveFeatures",
+      "services",
+      "terrace",
+      "takeaway",
+      "delivery",
+      "accessibility",
+      "locationContext"
+    ],
+    "score": 2
+  },
+  "generationSkipped": false,
+  "reason": null,
+  "document": {
+    "_id": "business-cucina-italiana",
+    "_type": "business",
+    "name": "Cucina Italiana",
+    "slug": {
+      "_type": "slug",
+      "current": "cucina-italiana"
+    },
+    "businessKind": "restaurant",
+    "shortDescription": "Restaurante italiano en Rincón de Loix, con pasta fresca, pizzas artesanales y recetas tradicionales. Abre todos los días de 12:00 a 23:00 y admite reservas.",
+    "body": [
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cocina"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "La propuesta se centra en cocina italiana, con pasta fresca, pizzas artesanales y recetas tradicionales."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Información práctica"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Está en la Avenida Doctor Severo Ochoa, 32, 03503 Benidorm. Abre todos los días de 12:00 a 23:00. Se pueden hacer reservas por teléfono en el +34 604 144 118 o a través de su web."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Lo más destacado"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Pasta fresca y pizzas artesanales"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      }
+    ],
+    "language": "es",
+    "lastVerified": "2026-10-06",
+    "sources": [
+      {
+        "_type": "source",
+        "title": "manual-json: cucina-italiana-benidorm-official",
+        "publisher": "Sitio web oficial de Cucina Italiana",
+        "url": "https://www.cucinaitalianabenidorm.com/",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.cucinaitalianabenidorm.com/",
+        "publisher": "Sitio web oficial (www.cucinaitalianabenidorm.com)",
+        "url": "https://www.cucinaitalianabenidorm.com/",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
+        "publisher": "Sitio web oficial (www.cucinaitalianabenidorm.com)",
+        "url": "https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.cucinaitalianabenidorm.com/reservas-cucina-italiana",
+        "publisher": "Sitio web oficial (www.cucinaitalianabenidorm.com)",
+        "url": "https://www.cucinaitalianabenidorm.com/reservas-cucina-italiana",
+        "accessedAt": "2026-10-06"
+      }
+    ],
+    "seo": {
+      "metaTitle": "Cucina Italiana en Benidorm | Guía local",
+      "metaDescription": "Restaurante italiano en Rincón de Loix con pasta fresca, pizzas artesanales y recetas tradicionales. Abierto todos los días de 12:00 a 23:00."
+    },
+    "address": {
+      "street": "Avenida Doctor Severo Ochoa 32",
+      "postalCode": "03503",
+      "locality": "Benidorm"
+    },
+    "phone": "+34 604 144 118",
+    "website": "https://www.cucinaitalianabenidorm.com/",
+    "categories": [
+      {
+        "_type": "reference",
+        "_ref": "category-restaurantes"
+      }
+    ]
+  }
+}

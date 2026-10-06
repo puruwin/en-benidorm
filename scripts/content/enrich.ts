@@ -5,6 +5,8 @@ import {OfficialWebsiteAdapter} from './lib/adapters'
 import {enrichEntity, validateFactProvenance} from './lib/enrichment'
 import {loadJsonDirectory, removeFileIfExists, writeJsonAtomic} from './lib/files'
 import {canRunStage, loadManifest, markEntryError, saveManifest, transitionEntry} from './lib/manifest'
+import {recordQualityAssessment} from './lib/manifest'
+import {evaluateBusinessQualityTier} from './lib/quality'
 import {createReport, finishReport} from './lib/reporting'
 import type {DiscoveredEntity, PhaseReportItem} from './lib/types'
 
@@ -39,6 +41,7 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
       const enriched = enrichEntity(discovered, websiteResult)
       const provenanceErrors = validateFactProvenance(enriched)
       if (provenanceErrors.length) throw new Error(provenanceErrors.join(' '))
+      const assessment = evaluateBusinessQualityTier(enriched.facts)
       if (!options.dryRun) {
         if (options.force) {
           await Promise.all([
@@ -47,9 +50,14 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
           ])
         }
         await writeJsonAtomic(resolve(root, `content/enriched/${enriched.id}.json`), enriched)
+        recordQualityAssessment(entry, assessment, now)
         transitionEntry(entry, 'enriched', now, options.force)
       }
-      items.push({id: enriched.id, outcome: 'processed', ...(websiteMessage ? {message: websiteMessage} : {})})
+      items.push({
+        id: enriched.id, outcome: 'processed', qualityTier: assessment.tier, reasons: assessment.reasons,
+        distinctiveFacts: assessment.distinctiveFacts, missingUsefulFacts: assessment.missingUsefulFacts,
+        ...(websiteMessage ? {message: websiteMessage} : {}),
+      })
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       if (!options.dryRun) markEntryError(entry, 'enrichment', message, now)
@@ -58,7 +66,9 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
   }
 
   if (!options.dryRun) await saveManifest(manifest, root, now)
-  await finishReport(createReport('enrichment', options.dryRun, now, items), root)
+  const report = createReport('enrichment', options.dryRun, now, items)
+  report.summary = {qualityTier: qualityTotals(items)}
+  await finishReport(report, root)
   if (items.some((item) => item.outcome === 'error')) process.exitCode = 1
 }
 
@@ -72,3 +82,7 @@ async function main(): Promise<void> {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main()
+
+function qualityTotals(items: PhaseReportItem[]): Record<string, number> {
+  return Object.fromEntries(['rich', 'basic', 'insufficient'].map((tier) => [tier, items.filter((item) => item.qualityTier === tier).length]))
+}

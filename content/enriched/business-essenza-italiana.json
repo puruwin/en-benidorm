@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 2,
+  "id": "business-essenza-italiana",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "essenza-italiana",
+  "facts": {
+    "name": {
+      "value": "Essenza Italiana",
+      "sources": [
+        "manual-json:essenza-italiana-official"
+      ]
+    },
+    "businessKind": {
+      "value": "restaurant",
+      "sources": [
+        "manual-json:essenza-italiana-official"
+      ]
+    },
+    "address": {
+      "value": {
+        "locality": "Benidorm"
+      },
+      "sources": [
+        "manual-json:essenza-italiana-official"
+      ]
+    },
+    "location": {
+      "value": {
+        "lat": 38.534,
+        "lng": -0.1308
+      },
+      "sources": [
+        "manual-json:essenza-italiana-official"
+      ]
+    },
+    "phone": {
+      "value": "+34 603 388 044",
+      "sources": [
+        "manual-json:essenza-italiana-official"
+      ]
+    },
+    "website": {
+      "value": "https://essenzaitaliana.es/",
+      "sources": [
+        "manual-json:essenza-italiana-official"
+      ]
+    },
+    "openingHoursRaw": {
+      "value": null,
+      "sources": []
+    },
+    "cuisine": {
+      "value": [
+        "italian",
+        "Italian",
+        "italiana"
+      ],
+      "sources": [
+        "manual-json:essenza-italiana-official",
+        "official-website:https://essenzaitaliana.es/"
+      ]
+    },
+    "concept": {
+      "value": "Autentica cucina italiana nel cuore di Benidorm. Pasta fresca, pesce del Mediterraneo, pinse romane e dolci tradizionali. Prenota il tuo tavolo.",
+      "sources": [
+        "official-website:https://essenzaitaliana.es/"
+      ]
+    },
+    "specialties": {
+      "value": null,
+      "sources": []
+    },
+    "services": {
+      "value": null,
+      "sources": []
+    },
+    "bookingAvailability": {
+      "value": null,
+      "sources": []
+    },
+    "takeaway": {
+      "value": null,
+      "sources": []
+    },
+    "delivery": {
+      "value": null,
+      "sources": []
+    },
+    "terrace": {
+      "value": null,
+      "sources": []
+    },
+    "accessibility": {
+      "value": null,
+      "sources": []
+    },
+    "openingInformation": {
+      "value": [
+        "We-Mo 13:00-16:30",
+        "We-Mo 19:30-22:00"
+      ],
+      "sources": [
+        "official-website:https://essenzaitaliana.es/"
+      ]
+    },
+    "locationContext": {
+      "value": null,
+      "sources": []
+    },
+    "distinctiveFeatures": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "factsBySource": {
+    "openStreetMap": {
+      "name": {
+        "value": "Essenza Italiana",
+        "sources": [
+          "manual-json:essenza-italiana-official"
+        ]
+      },
+      "businessKind": {
+        "value": "restaurant",
+        "sources": [
+          "manual-json:essenza-italiana-official"
+        ]
+      },
+      "address": {
+        "value": {
+          "locality": "Benidorm"
+        },
+        "sources": [
+          "manual-json:essenza-italiana-official"
+        ]
+      },
+      "location": {
+        "value": {
+          "lat": 38.534,
+          "lng": -0.1308
+        },
+        "sources": [
+          "manual-json:essenza-italiana-official"
+        ]
+      },
+      "phone": {
+        "value": "+34 603 388 044",
+        "sources": [
+          "manual-json:essenza-italiana-official"
+        ]
+      },
+      "website": {
+        "value": "https://essenzaitaliana.es/",
+        "sources": [
+          "manual-json:essenza-italiana-official"
+        ]
+      },
+      "openingHoursRaw": {
+        "value": null,
+        "sources": []
+      },
+      "cuisine": {
+        "value": [
+          "italian"
+        ],
+        "sources": [
+          "manual-json:essenza-italiana-official"
+        ]
+      },
+      "concept": {
+        "value": null,
+        "sources": []
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
+    },
+    "officialWebsite": {
+      "cuisine": {
+        "value": [
+          "Italian",
+          "italiana"
+        ],
+        "sources": [
+          "official-website:https://essenzaitaliana.es/"
+        ]
+      },
+      "concept": {
+        "value": "Autentica cucina italiana nel cuore di Benidorm. Pasta fresca, pesce del Mediterraneo, pinse romane e dolci tradizionali. Prenota il tuo tavolo.",
+        "sources": [
+          "official-website:https://essenzaitaliana.es/"
+        ]
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": [
+          "We-Mo 13:00-16:30",
+          "We-Mo 19:30-22:00"
+        ],
+        "sources": [
+          "official-website:https://essenzaitaliana.es/"
+        ]
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
+    }
+  },
+  "editorial": {},
+  "sources": [
+    {
+      "key": "manual-json:essenza-italiana-official",
+      "provider": "manual-json",
+      "identifier": "essenza-italiana-official",
+      "url": "https://essenzaitaliana.es/",
+      "retrievedAt": "2026-10-06T00:00:00.000Z",
+      "attribution": "Sitio web oficial de Essenza Italiana",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://essenzaitaliana.es/",
+      "provider": "official-website",
+      "identifier": "https://essenzaitaliana.es/",
+      "url": "https://essenzaitaliana.es/",
+      "retrievedAt": "2026-10-06T17:16:50.692Z",
+      "attribution": "Sitio web oficial (essenzaitaliana.es)",
+      "licenseUrl": null
+    }
+  ]
+}

@@ -1,188 +1,67 @@
 {
   "phase": "qa",
   "dryRun": false,
-  "startedAt": "2026-10-06T12:38:14.628Z",
-  "finishedAt": "2026-10-06T12:38:14.654Z",
+  "startedAt": "2026-10-06T17:17:45.095Z",
+  "finishedAt": "2026-10-06T17:17:45.144Z",
   "totals": {
-    "total": 10,
-    "FAIL": 5,
-    "PASS": 5
+    "total": 1,
+    "WARNING": 1
   },
   "items": [
     {
-      "id": "business-amigos-bistro",
-      "outcome": "FAIL",
+      "id": "business-cucina-italiana",
+      "outcome": "WARNING",
       "issues": [
         {
-          "severity": "FAIL",
-          "code": "schema",
-          "path": "shortDescription",
-          "message": "Campo obligatorio; debe ser una cadena no vacía."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "body",
-          "message": "Falta la descripción editorial."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "seo",
-          "message": "Faltan title o meta description de SEO."
-        },
-        {
-          "severity": "FAIL",
-          "code": "INSUFFICIENT_FACTS",
-          "path": "contentQuality",
-          "message": "Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno."
+          "severity": "WARNING",
+          "code": "similar-content",
+          "path": "body.structure",
+          "message": "Patrón similar a business-essenza-italiana: léxico 100%, semántico 100%."
         }
+      ],
+      "qualityTier": "basic",
+      "generationSkipped": false,
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Concepto del negocio verificado",
+        "Disponibilidad de reservas verificada",
+        "Información suficiente para una ficha breve y específica"
+      ],
+      "distinctiveFacts": [
+        "cuisine",
+        "concept",
+        "bookingAvailability"
+      ],
+      "missingUsefulFacts": [
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "accessibility",
+        "locationContext"
       ]
-    },
-    {
-      "id": "business-amigos",
-      "outcome": "FAIL",
-      "issues": [
-        {
-          "severity": "FAIL",
-          "code": "schema",
-          "path": "shortDescription",
-          "message": "Campo obligatorio; debe ser una cadena no vacía."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "body",
-          "message": "Falta la descripción editorial."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "seo",
-          "message": "Faltan title o meta description de SEO."
-        },
-        {
-          "severity": "FAIL",
-          "code": "INSUFFICIENT_FACTS",
-          "path": "contentQuality",
-          "message": "Sólo hay 0 grupos de facts específicos; la ficha no puede ser útil sin relleno."
-        }
-      ]
-    },
-    {
-      "id": "business-arenas",
-      "outcome": "FAIL",
-      "issues": [
-        {
-          "severity": "FAIL",
-          "code": "schema",
-          "path": "shortDescription",
-          "message": "Campo obligatorio; debe ser una cadena no vacía."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "body",
-          "message": "Falta la descripción editorial."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "seo",
-          "message": "Faltan title o meta description de SEO."
-        },
-        {
-          "severity": "FAIL",
-          "code": "INSUFFICIENT_FACTS",
-          "path": "contentQuality",
-          "message": "Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno."
-        }
-      ]
-    },
-    {
-      "id": "business-buffalo-beel",
-      "outcome": "PASS",
-      "issues": []
-    },
-    {
-      "id": "business-cafeteria-la-bahia",
-      "outcome": "PASS",
-      "issues": []
-    },
-    {
-      "id": "business-clay-oven",
-      "outcome": "FAIL",
-      "issues": [
-        {
-          "severity": "FAIL",
-          "code": "schema",
-          "path": "shortDescription",
-          "message": "Campo obligatorio; debe ser una cadena no vacía."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "body",
-          "message": "Falta la descripción editorial."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "seo",
-          "message": "Faltan title o meta description de SEO."
-        },
-        {
-          "severity": "FAIL",
-          "code": "INSUFFICIENT_FACTS",
-          "path": "contentQuality",
-          "message": "Sólo hay 2 grupos de facts específicos; la ficha no puede ser útil sin relleno."
-        }
-      ]
-    },
-    {
-      "id": "business-country-ribs",
-      "outcome": "FAIL",
-      "issues": [
-        {
-          "severity": "FAIL",
-          "code": "schema",
-          "path": "shortDescription",
-          "message": "Campo obligatorio; debe ser una cadena no vacía."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "body",
-          "message": "Falta la descripción editorial."
-        },
-        {
-          "severity": "FAIL",
-          "code": "incomplete",
-          "path": "seo",
-          "message": "Faltan title o meta description de SEO."
-        },
-        {
-          "severity": "FAIL",
-          "code": "INSUFFICIENT_FACTS",
-          "path": "contentQuality",
-          "message": "Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno."
-        }
-      ]
-    },
-    {
-      "id": "business-dvora-gastrobar",
-      "outcome": "PASS",
-      "issues": []
-    },
-    {
-      "id": "business-la-oficina-del-gusto",
-      "outcome": "PASS",
-      "issues": []
-    },
-    {
-      "id": "business-sushi-poke-chen-s-kitchen",
-      "outcome": "PASS",
-      "issues": []
     }
-  ]
+  ],
+  "summary": {
+    "total": 1,
+    "qualityTier": {
+      "rich": 0,
+      "basic": 1,
+      "insufficient": 0
+    },
+    "qa": {
+      "PASS": 0,
+      "WARNING": 1,
+      "FAIL": 0,
+      "SKIPPED": 0
+    },
+    "generation": {
+      "generated": 1,
+      "skippedInsufficient": 0
+    }
+  }
 }

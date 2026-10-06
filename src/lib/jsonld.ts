@@ -1,4 +1,4 @@
-import type {BreadcrumbItem, BusinessDetail} from '../types/content'
+import type {BreadcrumbItem, BusinessDetail, ComparisonDetail} from '../types/content'
 
 const absoluteUrl = (path: string, site: URL): string => new URL(path, site).toString()
 
@@ -46,6 +46,23 @@ export function restaurantJsonLd(business: BusinessDetail, site: URL) {
     },
     ...(business.location ? {geo: {'@type': 'GeoCoordinates', latitude: business.location.lat, longitude: business.location.lng}} : {}),
     ...(business.images[0]?.url ? {image: business.images[0].url} : {}),
+  }
+}
+
+export function comparisonItemListJsonLd(comparison: ComparisonDetail, site: URL) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: comparison.title,
+    url: absoluteUrl(comparison.href, site),
+    numberOfItems: comparison.entries.length,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    itemListElement: comparison.entries.map((entry) => ({
+      '@type': 'ListItem',
+      position: entry.rank,
+      name: entry.business.name,
+      url: absoluteUrl(entry.business.href, site),
+    })),
   }
 }
 

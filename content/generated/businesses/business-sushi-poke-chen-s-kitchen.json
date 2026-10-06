@@ -7,30 +7,17 @@
     "current": "sushi-poke-chen-s-kitchen"
   },
   "businessKind": "restaurant",
-  "contentQuality": "sufficient",
-  "shortDescription": "Restaurante japonés de Chen's Kitchen especializado en sushi, con servicio de comidas y cenas de martes a domingo y reserva de mesa disponible.",
+  "shortDescription": "Restaurante japonés en Benidorm especializado en sushi y cocina japonesa, con servicio de reservas.",
   "body": [
     {
       "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué es"
-        }
-      ]
-    },
-    {
-      "_type": "block",
       "style": "normal",
       "markDefs": [],
       "children": [
         {
           "_type": "span",
           "marks": [],
-          "text": "SUSHI POKE Chen's Kitchen es un restaurante de cocina japonesa y sushi situado en Avinguda de Beniardà, 8, Benidorm. Su propuesta incluye sushi fresco y otros platos de cocina japonesa."
+          "text": "Chen's Kitchen es un restaurante de cocina japonesa y sushi en Benidorm."
         }
       ]
     },
@@ -42,7 +29,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Qué esperar"
+          "text": "Información práctica"
         }
       ]
     },
@@ -54,87 +41,9 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Puedes acudir de martes a domingo, de 12:00 a 16:00 y de 19:00 a 23:00. El restaurante dispone de reserva de mesa a través de sus canales oficiales."
+          "text": "Se encuentra en Avinguda de Beniardà 8, 03502. Abre de martes a domingo de 12:00 a 16:00 y de 19:00 a 23:00. Se pueden realizar reservas."
         }
       ]
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Por qué ir"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Es una dirección a tener en cuenta si buscas sushi y cocina japonesa en Benidorm, con servicio tanto al mediodía como por la noche y posibilidad de reservar."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Para quién es"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Comidas de sushi"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Cenas de cocina japonesa"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Quienes prefieren reservar mesa"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
     },
     {
       "_type": "block",
@@ -156,49 +65,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Cocina japonesa y sushi"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Sushi fresco como parte de su propuesta"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Horario partido de martes a domingo"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Reserva de mesa disponible"
+          "text": "Admite reservas"
         }
       ],
       "listItem": "bullet",
@@ -252,8 +119,8 @@
     }
   ],
   "seo": {
-    "metaTitle": "SUSHI POKE Chen's Kitchen | Sushi en Benidorm",
-    "metaDescription": "SUSHI POKE Chen's Kitchen ofrece sushi y cocina japonesa en Avinguda de Beniardà, 8, Benidorm. Abre de martes a domingo y admite reservas."
+    "metaTitle": "Chen's Kitchen: sushi japonés en Benidorm",
+    "metaDescription": "Consulta la información de Chen's Kitchen en Benidorm: cocina japonesa, sushi, horarios, dirección y reservas."
   },
   "address": {
     "street": "Avinguda de Beniardà 8",

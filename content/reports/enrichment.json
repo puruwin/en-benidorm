@@ -1,54 +1,47 @@
 {
   "phase": "enrichment",
   "dryRun": false,
-  "startedAt": "2026-10-06T12:34:57.575Z",
-  "finishedAt": "2026-10-06T12:35:13.880Z",
+  "startedAt": "2026-10-06T17:16:51.195Z",
+  "finishedAt": "2026-10-06T17:16:51.893Z",
   "totals": {
-    "total": 10,
-    "processed": 10
+    "total": 1,
+    "processed": 1
   },
   "items": [
     {
-      "id": "business-amigos-bistro",
+      "id": "business-cucina-italiana",
       "outcome": "processed",
-      "message": "Web oficial no enriquecida: fetch failed"
-    },
-    {
-      "id": "business-amigos",
-      "outcome": "processed"
-    },
-    {
-      "id": "business-arenas",
-      "outcome": "processed"
-    },
-    {
-      "id": "business-buffalo-beel",
-      "outcome": "processed"
-    },
-    {
-      "id": "business-cafeteria-la-bahia",
-      "outcome": "processed"
-    },
-    {
-      "id": "business-clay-oven",
-      "outcome": "processed"
-    },
-    {
-      "id": "business-country-ribs",
-      "outcome": "processed",
-      "message": "Web oficial no enriquecida: fetch failed"
-    },
-    {
-      "id": "business-dvora-gastrobar",
-      "outcome": "processed"
-    },
-    {
-      "id": "business-la-oficina-del-gusto",
-      "outcome": "processed"
-    },
-    {
-      "id": "business-sushi-poke-chen-s-kitchen",
-      "outcome": "processed"
+      "qualityTier": "basic",
+      "reasons": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "Tipo de cocina verificado",
+        "Concepto del negocio verificado",
+        "Disponibilidad de reservas verificada",
+        "Información suficiente para una ficha breve y específica"
+      ],
+      "distinctiveFacts": [
+        "cuisine",
+        "concept",
+        "bookingAvailability"
+      ],
+      "missingUsefulFacts": [
+        "specialties",
+        "distinctiveFeatures",
+        "services",
+        "terrace",
+        "takeaway",
+        "delivery",
+        "accessibility",
+        "locationContext"
+      ]
     }
-  ]
+  ],
+  "summary": {
+    "qualityTier": {
+      "rich": 0,
+      "basic": 1,
+      "insufficient": 0
+    }
+  }
 }

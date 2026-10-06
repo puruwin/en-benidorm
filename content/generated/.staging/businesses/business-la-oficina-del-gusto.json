@@ -1,290 +1,255 @@
 {
-  "_id": "business-la-oficina-del-gusto",
-  "_type": "business",
-  "name": "La Oficina del Gusto",
-  "slug": {
-    "_type": "slug",
-    "current": "la-oficina-del-gusto"
+  "schemaVersion": 1,
+  "id": "business-la-oficina-del-gusto",
+  "type": "restaurant",
+  "qualityTier": "rich",
+  "qualityAssessment": {
+    "tier": "rich",
+    "reasons": [
+      "Identidad verificada",
+      "Ubicación verificable",
+      "Tipo de cocina verificado",
+      "Concepto del negocio verificado",
+      "Servicio para llevar verificado",
+      "Disponibilidad de reservas verificada",
+      "Facts suficientes para 3 dimensiones editoriales"
+    ],
+    "distinctiveFacts": [
+      "cuisine",
+      "concept",
+      "takeaway",
+      "bookingAvailability"
+    ],
+    "missingUsefulFacts": [
+      "specialties",
+      "distinctiveFeatures",
+      "services",
+      "terrace",
+      "delivery",
+      "accessibility",
+      "locationContext"
+    ],
+    "score": 3
   },
-  "businessKind": "restaurant",
-  "contentQuality": "sufficient",
-  "shortDescription": "Restaurante italiano de Benidorm centrado en pasta fresca elaborada de forma artesanal, focaccias y una interpretación creativa de la cocina italiana. Ofrece reserva de mesa y comida para llevar.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué es"
-        }
-      ]
+  "generationSkipped": false,
+  "reason": null,
+  "document": {
+    "_id": "business-la-oficina-del-gusto",
+    "_type": "business",
+    "name": "La Oficina del Gusto",
+    "slug": {
+      "_type": "slug",
+      "current": "la-oficina-del-gusto"
     },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "La Oficina del Gusto es un restaurante italiano de Benidorm, en Carrer de Sant Roc, cuya propuesta gira en torno a la pasta fresca artesanal, las focaccias y la cocina italiana de autor."
-        }
-      ]
+    "businessKind": "restaurant",
+    "shortDescription": "Restaurante italiano de Benidorm con pasta fresca artesanal, focaccias y cocina italiana. Dispone de reservas y servicio para llevar.",
+    "body": [
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "La Oficina del Gusto es un restaurante italiano de Benidorm centrado en la pasta fresca artesanal, las focaccias y una propuesta de cocina italiana."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cocina"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Su oferta se enmarca en la cocina italiana y mediterránea, con pasta, pizza y focaccia como categorías principales."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Servicios"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "El establecimiento admite reservas y ofrece servicio para llevar."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Información práctica"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Se encuentra en Carrer de Sant Roc, 03501 Benidorm. El sitio web oficial publica servicio de miércoles a sábado de 13:30 a 16:30 y de 20:30 a 23:00, y los domingos de 13:00 a 16:30 y de 20:30 a 22:30. OpenStreetMap registra un horario general de miércoles a domingo, de 16:30 a 23:30. Teléfono: +34 966 81 39 11."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Lo más destacado"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Pasta fresca artesanal"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Focaccias y cocina italiana"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Reservas y servicio para llevar"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      }
+    ],
+    "language": "es",
+    "lastVerified": "2026-10-06",
+    "sources": [
+      {
+        "_type": "source",
+        "title": "openstreetmap: node/10253103370",
+        "publisher": "© OpenStreetMap contributors",
+        "url": "https://www.openstreetmap.org/node/10253103370",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.laoficinadelgusto.com/",
+        "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+        "url": "https://www.laoficinadelgusto.com/",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.laoficinadelgusto.com/Carta",
+        "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+        "url": "https://www.laoficinadelgusto.com/Carta",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.laoficinadelgusto.com/Menu",
+        "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+        "url": "https://www.laoficinadelgusto.com/Menu",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.laoficinadelgusto.com/Reservations",
+        "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+        "url": "https://www.laoficinadelgusto.com/Reservations",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.laoficinadelgusto.com/About",
+        "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+        "url": "https://www.laoficinadelgusto.com/About",
+        "accessedAt": "2026-10-06"
+      }
+    ],
+    "seo": {
+      "metaTitle": "La Oficina del Gusto | Restaurante italiano en Benidorm",
+      "metaDescription": "Restaurante italiano en Benidorm con pasta fresca artesanal, focaccias, pizza y servicio para llevar. Consulta horarios y reservas."
     },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué esperar"
-        }
-      ]
+    "address": {
+      "street": "Carrer de Sant Roc",
+      "postalCode": "03501",
+      "locality": "Benidorm"
     },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Una carta de orientación italiana y mediterránea con pasta, pizza y focaccia. El establecimiento permite reservar y también dispone de servicio para llevar."
-        }
-      ]
+    "location": {
+      "_type": "geopoint",
+      "lat": 38.5380485,
+      "lng": -0.1298417
     },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Por qué ir"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Es una dirección a tener en cuenta si buscas pasta fresca artesanal o focaccias y quieres elegir entre comer en el restaurante o llevarte la comida. La reserva está disponible a través de sus canales oficiales."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Para quién es"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Probar pasta fresca artesanal"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Comer focaccia, pizza o platos de inspiración italiana"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Reservar mesa"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Pedir comida para llevar"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Lo más destacado"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Pasta fresca elaborada artesanalmente"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Focaccias y pizzas"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Cocina italiana de autor"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Servicio de reserva y comida para llevar"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
-  "language": "es",
-  "lastVerified": "2026-10-06",
-  "sources": [
-    {
-      "_type": "source",
-      "title": "openstreetmap: node/10253103370",
-      "publisher": "© OpenStreetMap contributors",
-      "url": "https://www.openstreetmap.org/node/10253103370",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
-      "url": "https://www.laoficinadelgusto.com/",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/Carta",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
-      "url": "https://www.laoficinadelgusto.com/Carta",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/Menu",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
-      "url": "https://www.laoficinadelgusto.com/Menu",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/Reservations",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
-      "url": "https://www.laoficinadelgusto.com/Reservations",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/About",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
-      "url": "https://www.laoficinadelgusto.com/About",
-      "accessedAt": "2026-10-06"
-    }
-  ],
-  "seo": {
-    "metaTitle": "La Oficina del Gusto: restaurante italiano en Benidorm",
-    "metaDescription": "Restaurante italiano en Carrer de Sant Roc con pasta fresca artesanal, focaccias, pizzas y cocina italiana de autor. Reserva y comida para llevar."
-  },
-  "address": {
-    "street": "Carrer de Sant Roc",
-    "postalCode": "03501",
-    "locality": "Benidorm"
-  },
-  "location": {
-    "_type": "geopoint",
-    "lat": 38.5380485,
-    "lng": -0.1298417
-  },
-  "phone": "+34 966 81 39 11",
-  "website": "https://www.laoficinadelgusto.com",
-  "categories": [
-    {
-      "_type": "reference",
-      "_ref": "category-restaurantes"
-    }
-  ]
+    "phone": "+34 966 81 39 11",
+    "website": "https://www.laoficinadelgusto.com",
+    "categories": [
+      {
+        "_type": "reference",
+        "_ref": "category-restaurantes"
+      }
+    ]
+  }
 }

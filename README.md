@@ -31,6 +31,10 @@ npm run content:discover       # descubre entidades mediante adapters
 npm run content:enrich         # produce facts trazables, sin texto editorial
 npm run content:generate       # genera sólo campos editoriales en staging
 npm run content:qa             # valida y promociona candidatos aprobados
+npm run comparison:select      # selecciona Businesses relevantes y calcula scores
+npm run comparison:enrich      # crea evidence específico para comparar
+npm run comparison:generate    # genera una Comparison estructurada en staging
+npm run comparison:qa          # valida claims y promociona PASS/WARNING
 npm run content:validate       # valida seed y JSON generado sin conectar a Sanity
 npm run content:import         # valida e importa los JSON como borradores
 npm run sanity:schema:validate # valida todos los schemas
@@ -59,6 +63,7 @@ SANITY_API_TOKEN=tu_token_de_escritura
 # Exclusivas del proceso server-side de generación
 OPENAI_API_KEY=tu_openai_api_key
 OPENAI_CONTENT_MODEL=gpt-5-mini
+OPENAI_COMPARISON_MODEL=gpt-5.6-luna
 ```
 
 `SANITY_API_TOKEN` necesita permiso de escritura sobre el dataset. Es una credencial exclusivamente server-side: no debe llevar el prefijo `PUBLIC_`, importarse desde componentes o incluirse en un despliegue cliente. `.env` está ignorado por Git.
@@ -73,13 +78,32 @@ En producción, configura un webhook de Sanity que lance un nuevo despliegue cua
 
 ## Pipeline de contenido
 
-La pipeline masiva se ejecuta por fases y, en esta etapa, sólo genera documentos `Business`:
+La pipeline de Business se mantiene independiente:
 
 ```text
-discovery → enrichment → generation → QA → content/generated → importación como draft
+discovery → enrichment → quality assessment → conditional generation → QA → promotion → importación como draft
 ```
 
-Ninguna de las cuatro primeras fases se conecta a Sanity. `content:generate` escribe candidatos en `content/generated/.staging/businesses/`; sólo `content:qa` copia los que no tienen ningún `FAIL` a `content/generated/businesses/`. La publicación nunca es automática: después siguen siendo obligatorios `content:import`, la revisión manual en Sanity Studio y la publicación manual.
+Ninguna de estas fases se conecta a Sanity. `content:generate` escribe artefactos de pipeline en `content/generated/.staging/businesses/`; sólo `content:qa` extrae y copia el documento Sanity de los candidatos `basic` o `rich` sin ningún `FAIL` a `content/generated/businesses/`. La publicación nunca es automática: después siguen siendo obligatorios `content:import`, la revisión manual en Sanity Studio y la publicación manual.
+
+La capa editorial de comparativas consume esos Businesses existentes sin mezclarse con su generación:
+
+```text
+Business data → candidate selection → comparison enrichment → generation → claim QA → draft → revisión humana
+```
+
+Para el MVP de cocina italiana:
+
+```bash
+npm run comparison:select -- --topic=italiano
+npm run comparison:enrich -- --topic=italiano
+npm run comparison:generate -- --topic=italiano
+npm run comparison:qa -- --topic=italiano
+```
+
+Los cuatro comandos aceptan `--topic`, `--id`, `--limit`, `--force` y `--dry-run`. Selection excluye tiers `insufficient`, comprueba relevancia con facts respaldados y ordena de forma determinista por relevancia, especificidad, cobertura comparativa, valor distintivo y utilidad práctica. Enrichment combina facts de Business con `ManualJsonAdapter`, conserva `factual`, `self_claim` o `external_observation` y escribe `content/comparisons/enriched/`. La IA recibe exclusivamente ese artefacto y usa `gpt-5.6-luna` por defecto para Comparison.
+
+`comparison:qa` exige 4–8 Businesses existentes, ranks únicos, provenance de precios/platos/strengths/weaknesses, bindings de claims, SEO único, texto específico y ausencia de superlativos o experiencias personales inventadas. Sólo `PASS` o `WARNING` llega a `content/generated/comparisons/`; el importador lo escribe siempre como `drafts.comparison-<slug>`.
 
 Directorios y estado persistente:
 
@@ -92,7 +116,7 @@ content/reports/                     un informe JSON por fase
 content/manifest.json                estado y fechas por entidad
 ```
 
-Cada entrada del manifest mantiene ID, tipo, slug, prioridad, fuentes y los estados `discovered`, `enriched`, `generated`, `validated`, `imported`, `reviewed`, `published` o `error`. También conserva fechas de cada transición. Una ejecución normal no recalcula fases completadas; `--force` recalcula la fase elegida e invalida sus fases posteriores. La importación real marca `importedAt`, pero una importación `--dry-run` no modifica el manifest.
+Cada entrada del manifest mantiene ID, tipo, slug, prioridad, fuentes y los estados `discovered`, `enriched`, `generated`, `validated`, `imported`, `reviewed`, `published` o `error`. `qualityTier`, `qualityAssessedAt`, `qualityReasons` y `missingUsefulFacts` son metadata y no una etapa nueva. También conserva fechas de cada transición. Una ejecución normal no recalcula fases completadas; `--force` recalcula la fase elegida e invalida sus fases posteriores. La importación real marca `importedAt`, pero una importación `--dry-run` no modifica el manifest.
 
 Todos los comandos nuevos aceptan los mismos filtros:
 
@@ -107,7 +131,7 @@ npm run content:qa -- --type=cafe --limit=10
 - `--limit`: limita las entidades de esa ejecución.
 - `--id`: procesa un ID determinista concreto.
 - `--force`: vuelve a ejecutar la fase aunque ya conste como completada.
-- `--dry-run`: ejecuta lectura, transformación y comprobaciones sin escribir artefactos, informes ni manifest. En generation sí realiza la llamada al proveedor de IA, por lo que puede consumir cuota.
+- `--dry-run`: ejecuta lectura, transformación y comprobaciones sin escribir artefactos, informes ni manifest. En generation sólo realiza una llamada al proveedor de IA para entidades `basic` o `rich`.
 
 Los resúmenes legibles aparecen en consola. Las ejecuciones no dry-run actualizan `content/reports/discovery.json`, `enrichment.json`, `generation.json` y `qa.json`.
 
@@ -121,29 +145,33 @@ Cada registro conserva proveedor, identificador, URL original, fecha de consulta
 
 Los datos de OpenStreetMap se distribuyen bajo ODbL. Antes de publicar datos derivados hay que mostrar la atribución `© OpenStreetMap contributors` de forma razonablemente visible y revisar las obligaciones aplicables en [OpenStreetMap Copyright and License](https://www.openstreetmap.org/copyright) y [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/). Para cualquier adapter futuro hay que guardar su atribución/licencia en cada fuente y cumplir las condiciones del proveedor; una URL accesible no equivale por sí sola a permiso de reutilización.
 
-### Enrichment y generación
+### Enrichment, quality assessment y generación
 
 El artefacto enriquecido separa explícitamente `facts` de `editorial`. Cada fact presente contiene las claves de sus fuentes; un valor ausente queda como `null` y con una lista de fuentes vacía. `factsBySource.openStreetMap` y `factsBySource.officialWebsite` conservan ambos conjuntos de evidencia de forma independiente, mientras `facts` expone la vista integrada. No se infieren direcciones, horarios ni otros datos faltantes. `opening_hours` de OSM se conserva como fact crudo, pero no se importa como horario de Sanity mientras no exista un parser verificable para ese formato.
 
-La generación usa un `AIProvider` intercambiable. `OpenAIResponsesProvider` llama a Responses API con [Structured Outputs y JSON Schema](https://developers.openai.com/api/docs/guides/structured-outputs). El modelo y el cliente están centralizados en `scripts/content/lib/ai.ts`; `OPENAI_API_KEY` sólo se lee desde el script de Node y nunca se expone con prefijo `PUBLIC_`. La IA recibe únicamente facts, fuentes, taxonomía válida, contrato del documento e instrucciones editoriales. Su schema de salida sólo admite:
+`evaluateBusinessQualityTier` es la única fuente de verdad para la profundidad editorial. Evalúa identidad, ubicación, provenance y el significado de los facts; no usa el nombre comercial como señal semántica ni clasifica mediante un simple conteo de campos.
 
-- `contentQuality`: `sufficient` o `insufficient`
+- `insufficient`: entidad válida e identificable, pero todavía no publicable porque carece de un rasgo editorial distintivo verificable. Debe enriquecerse más. Generation crea un artefacto `generationSkipped=true`, no llama a OpenAI y QA devuelve `SKIPPED` con una sola incidencia `INSUFFICIENT_FACTS`.
+- `basic`: ficha publicable, factual y breve. Existe al menos un rasgo distintivo con provenance que permite explicar el negocio con mayor precisión que su tipo y ciudad. `basic` no significa baja calidad; significa menor profundidad factual disponible.
+- `rich`: los facts cubren el tipo o concepto y varias dimensiones adicionales —oferta, experiencia, contexto, servicios o información práctica—, por lo que justifican contenido más completo.
+
+La generación usa un `AIProvider` intercambiable. `OpenAIResponsesProvider` llama a Responses API con [Structured Outputs y JSON Schema](https://developers.openai.com/api/docs/guides/structured-outputs). El modelo y el cliente están centralizados en `scripts/content/lib/ai.ts`; `OPENAI_API_KEY` sólo se lee desde el script de Node y nunca se expone con prefijo `PUBLIC_`. La IA recibe únicamente facts, fuentes, tier ya decidido, secciones permitidas, taxonomía válida, contrato del documento e instrucciones editoriales. Su schema de salida sólo admite:
+
+- `qualityTier`: `basic` o `rich`
 - `shortDescription`
-- `whatIsIt`
-- `whatToExpect`
-- `whyGo`
-- `goodFor`
+- `description[]`: bloques opcionales `overview`, `food`, `experience`, `location`, `services`, `practical`, `goodFor` o `highlights`
 - `highlights`
 - `seo.metaTitle`
 - `seo.metaDescription`
 
-Cuando faltan facts específicos, el modelo debe devolver `insufficient`, textos/SEO nulos y arrays vacíos; no se genera relleno. Las secciones suficientes se transforman después a Portable Text. Nombre, dirección, teléfono, web, coordenadas y tipo de negocio se incorporan mediante código determinista desde los facts.
+El modelo no decide el tier. Un `basic` usa una o dos secciones breves; un `rich` sólo usa los bloques respaldados por sus facts. No hay objetivo fijo de palabras o secciones. Nombre, dirección, teléfono, web, coordenadas y tipo de negocio se incorporan mediante código determinista desde los facts. `qualityTier` permanece en metadata de pipeline y no se importa como campo público de Sanity.
 
 ### QA
 
-QA reutiliza la validación del importador y añade controles de procedencia, integridad facts/documento, completitud, duplicados de entidad, coordenadas, enums, referencias, similitud léxica y semántica aproximada dentro del lote, y duplicados exactos de títulos y meta descriptions. `GENERIC_EDITORIAL_CONTENT`, `LOW_INFORMATION_DENSITY` e `INSUFFICIENT_FACTS` impiden que una ficha factual pero genérica pase. El resultado por documento es `PASS`, `WARNING` o `FAIL`. Un `WARNING` permite la promoción para revisión humana; cualquier `FAIL` impide que el candidato quede en la carpeta importable.
+QA reutiliza la validación del importador y añade controles por tier de procedencia, integridad facts/documento, completitud, densidad factual, contenido genérico, duplicados de entidad, coordenadas, referencias y similitud de short description, meta description, párrafos y estructura dentro del lote. Un `basic` puede pasar con un solo párrafo y un highlight; no se le exige estructura rich. Un `rich` exige mayor cobertura factual y variedad. Los outcomes son `PASS`, `WARNING`, `FAIL` y `SKIPPED`: `WARNING` permite promoción para revisión humana, `FAIL` la impide y `SKIPPED` reserva la ausencia de facts para un resultado no técnico y no publicable.
 
 `scripts/content/comparison-report.ts` genera un JSON y un Markdown before/after con facts por fuente, textos y QA en `content/reports/business-before-after.*`.
+`npm run content:compare-quality` genera la comparación de tiers en `content/reports/business-quality-tier-comparison.*`.
 
 Para ejecutar la cadena sobre una muestra:
 
@@ -184,6 +212,7 @@ content/generated/places/
 content/generated/beaches/
 content/generated/events/
 content/generated/articles/
+content/generated/comparisons/
 ```
 
 Cada carpeta obliga al `_type` correspondiente. Un ejemplo mínimo de negocio es:
@@ -221,7 +250,7 @@ Para importar los JSON validados como borradores:
 npm run content:import
 ```
 
-Al finalizar muestra el número de negocios, lugares, playas, eventos y artículos procesados. Volver a ejecutar el comando actualiza el mismo borrador determinista, sin crear duplicados. La revisión y publicación se hacen después desde Studio.
+Al finalizar muestra el número de negocios, lugares, playas, eventos, artículos y comparativas procesados. Volver a ejecutar el comando actualiza el mismo borrador determinista, sin crear duplicados. La revisión y publicación se hacen después desde Studio.
 
 ## Arquitectura
 
@@ -246,6 +275,7 @@ Documentos principales:
 
 - `Article`: guías y contenido editorial, con referencias a otras entidades.
 - `Business`: restaurantes, bares, hoteles, tiendas y servicios.
+- `Comparison`: comparativas editoriales que referencian Businesses y conservan metodología, autor y fuentes.
 - `Place`: miradores, parques, monumentos, rutas y puntos de interés.
 - `Beach`: información específica de playas y calas.
 - `Event`: fechas, estado, recinto y entradas.

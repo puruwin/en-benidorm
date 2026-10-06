@@ -15,9 +15,6 @@ export const business = defineType({
       {title: 'Servicio', value: 'service'},
     ]}, validation: (rule) => rule.required()}),
     defineField({name: 'shortDescription', title: 'Descripción corta', type: 'text', rows: 3, group: 'content', validation: (rule) => rule.required().max(240)}),
-    defineField({name: 'contentQuality', title: 'Calidad de contenido', type: 'string', group: 'editorial', readOnly: true, options: {list: [
-      {title: 'Suficiente', value: 'sufficient'}, {title: 'Insuficiente', value: 'insufficient'},
-    ]}, validation: (rule) => rule.required()}),
     defineField({name: 'body', title: 'Descripción completa', type: 'portableText', group: 'content'}),
     defineField({name: 'categories', title: 'Categorías', type: 'array', group: 'content', of: [{type: 'reference', to: [{type: 'category'}]}]}),
     defineField({name: 'tags', title: 'Etiquetas', type: 'array', group: 'content', of: [{type: 'string'}], options: {layout: 'tags'}}),

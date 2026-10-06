@@ -1,11 +1,11 @@
 import {categories} from '../../../content/seed/categories'
 import type {ContentDocument} from '../../content-validation'
-import type {EnrichedEntity, GeneratedEditorial} from './types'
+import type {BusinessQualityAssessment, EnrichedEntity, GeneratedBusinessArtifact, GeneratedEditorial} from './types'
 
 export const BUSINESS_DOCUMENT_SCHEMA = {
   _type: 'business',
   factualFields: ['name', 'businessKind', 'address', 'location', 'phone', 'website', 'lastVerified', 'sources'],
-  editorialFields: ['contentQuality', 'shortDescription', 'body', 'seo'],
+  editorialFields: ['shortDescription', 'body', 'seo'],
   constraints: {language: 'es', shortDescriptionMaxLength: 240, seoTitleMaxLength: 60, seoDescriptionMaxLength: 160},
 }
 
@@ -15,9 +15,11 @@ export const EDITORIAL_INSTRUCTIONS = [
   'OSM y OfficialWebsite son fuentes independientes: usa sólo valores con provenance y no resuelvas contradicciones por tu cuenta.',
   'No copies literalmente el texto de la web oficial: sintetiza y parafrasea sus facts verificables.',
   'No uses superlativos no verificables ni afirmes que un negocio es el mejor, popular o recomendado.',
-  'Los highlights, goodFor y cada sección deben derivarse de rasgos concretos, nunca de la mera categoría, ciudad, disponibilidad de web o existencia de una ficha.',
+  'Los highlights y cada sección deben derivarse de rasgos concretos, nunca de la mera categoría, ciudad, disponibilidad de web o existencia de una ficha.',
   'No uses como relleno: "restaurante situado en Benidorm", "restaurante ubicado en Benidorm", "figura como restaurante", "establecimiento de restauración", "incluido en la oferta local", "una opción para quienes buscan", "información básica disponible" ni "consulta su sitio web oficial". Sólo podrían aparecer dentro de una frase que añada información factual específica.',
-  'Devuelve insufficient si no hay al menos dos rasgos específicos útiles además de nombre, tipo, dirección, teléfono, web y coordenadas. No rellenes espacio.',
+  'La aplicación ya ha fijado qualityTier de forma determinista. Respétalo y adapta la profundidad al tier; no decidas ni eleves el tier.',
+  'Para basic crea una descripción breve con una o dos secciones como máximo. Un solo highlight es válido.',
+  'Para rich elige únicamente las secciones semánticas justificadas por los facts. No fuerces una estructura ni una longitud fija.',
 ]
 
 export const BUSINESS_TAXONOMY = categories.map((category) => ({id: category._id, title: category.title, group: category.group}))
@@ -25,15 +27,15 @@ export const BUSINESS_TAXONOMY = categories.map((category) => ({id: category._id
 export function buildBusinessDocument(entity: EnrichedEntity, editorial: GeneratedEditorial): ContentDocument {
   const facts = entity.facts
   if (!facts.name.value || !facts.businessKind.value) throw new Error('Faltan name o businessKind factuales.')
+  if (editorial.qualityTier === 'insufficient' || !editorial.shortDescription || !editorial.seo) throw new Error('No se puede construir un documento publicable desde contenido insufficient o incompleto.')
   const document: ContentDocument = {
     _id: entity.id,
     _type: 'business',
     name: facts.name.value,
     slug: {_type: 'slug', current: entity.slug},
     businessKind: facts.businessKind.value,
-    contentQuality: editorial.contentQuality,
-    shortDescription: editorial.shortDescription ?? '',
-    body: editorial.contentQuality === 'sufficient' ? portableText(editorial) : [],
+    shortDescription: editorial.shortDescription,
+    body: portableText(editorial),
     language: 'es',
     lastVerified: latestRetrievalDate(entity),
     sources: entity.sources.map((source) => ({
@@ -43,7 +45,7 @@ export function buildBusinessDocument(entity: EnrichedEntity, editorial: Generat
       url: source.url,
       accessedAt: source.retrievedAt.slice(0, 10),
     })),
-    ...(editorial.seo ? {seo: editorial.seo} : {}),
+    seo: editorial.seo,
   }
   assignFact(document, 'address', facts.address.value)
   if (facts.location.value) document.location = {_type: 'geopoint', ...facts.location.value}
@@ -54,18 +56,41 @@ export function buildBusinessDocument(entity: EnrichedEntity, editorial: Generat
   return document
 }
 
+export function buildGenerationArtifact(
+  entity: EnrichedEntity,
+  assessment: BusinessQualityAssessment,
+  editorial?: GeneratedEditorial,
+): GeneratedBusinessArtifact {
+  if (assessment.tier === 'insufficient') return {
+    schemaVersion: 1, id: entity.id, type: entity.type, qualityTier: assessment.tier,
+    qualityAssessment: assessment, generationSkipped: true, reason: 'insufficient-facts', document: null,
+  }
+  if (!editorial) throw new Error(`Falta contenido editorial para el tier ${assessment.tier}.`)
+  return {
+    schemaVersion: 1, id: entity.id, type: entity.type, qualityTier: assessment.tier,
+    qualityAssessment: assessment, generationSkipped: false, reason: null,
+    document: buildBusinessDocument(entity, editorial),
+  }
+}
+
 function portableText(editorial: GeneratedEditorial): unknown[] {
   const block = (text: string, extra: Record<string, unknown> = {}) => ({
     _type: 'block', style: 'normal', markDefs: [], children: [{_type: 'span', marks: [], text}], ...extra,
   })
-  const section = (title: string, value: string | null) => value ? [block(title, {style: 'h2'}), block(value)] : []
-  return [
-    ...section('Qué es', editorial.whatIsIt),
-    ...section('Qué esperar', editorial.whatToExpect),
-    ...section('Por qué ir', editorial.whyGo),
-    ...(editorial.goodFor.length ? [block('Para quién es', {style: 'h2'}), ...editorial.goodFor.map((item) => block(item, {listItem: 'bullet', level: 1}))] : []),
-    ...(editorial.highlights.length ? [block('Lo más destacado', {style: 'h2'}), ...editorial.highlights.map((highlight) => block(highlight, {listItem: 'bullet', level: 1}))] : []),
-  ]
+  const titles: Record<string, string> = {
+    food: 'Cocina', experience: 'La experiencia', location: 'Ubicación', services: 'Servicios',
+    practical: 'Información práctica', goodFor: 'Puede interesarte si…', highlights: 'Lo más destacado',
+  }
+  const body: unknown[] = []
+  for (const item of editorial.description) {
+    if (item.section !== 'overview') body.push(block(titles[item.section] ?? item.section, {style: 'h2'}))
+    body.push(block(item.text))
+  }
+  if (editorial.highlights.length) {
+    body.push(block('Lo más destacado', {style: 'h2'}))
+    body.push(...editorial.highlights.map((highlight) => block(highlight, {listItem: 'bullet', level: 1})))
+  }
+  return body
 }
 
 function latestRetrievalDate(entity: EnrichedEntity): string {

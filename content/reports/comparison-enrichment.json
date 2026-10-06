@@ -1,0 +1,137 @@
+{
+  "phase": "comparison-enrichment",
+  "dryRun": false,
+  "startedAt": "2026-10-06T17:21:02.796Z",
+  "finishedAt": "2026-10-06T17:21:02.809Z",
+  "topic": "italiano",
+  "businessesSelected": [
+    {
+      "businessId": "business-la-oficina-del-gusto",
+      "rank": 1,
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 3,
+        "distinctiveValue": 3,
+        "practicalUsefulness": 5,
+        "total": 21
+      }
+    },
+    {
+      "businessId": "business-cucina-italiana",
+      "rank": 2,
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 3,
+        "distinctiveValue": 2,
+        "practicalUsefulness": 5,
+        "total": 20
+      }
+    },
+    {
+      "businessId": "business-essenza-italiana",
+      "rank": 3,
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 3,
+        "distinctiveValue": 2,
+        "practicalUsefulness": 5,
+        "total": 20
+      }
+    },
+    {
+      "businessId": "business-buffalo-beel",
+      "rank": 4,
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 3,
+        "comparisonCoverage": 3,
+        "distinctiveValue": 1,
+        "practicalUsefulness": 4,
+        "total": 16
+      }
+    }
+  ],
+  "evidenceCoverage": [
+    {
+      "businessId": "business-la-oficina-del-gusto",
+      "cuisine": 7,
+      "specialties": 0,
+      "featuredItems": 2,
+      "prices": 0,
+      "services": 2,
+      "location": 0,
+      "practical": 5,
+      "limitations": 0
+    },
+    {
+      "businessId": "business-cucina-italiana",
+      "cuisine": 2,
+      "specialties": 0,
+      "featuredItems": 3,
+      "prices": 2,
+      "services": 2,
+      "location": 1,
+      "practical": 2,
+      "limitations": 0
+    },
+    {
+      "businessId": "business-essenza-italiana",
+      "cuisine": 2,
+      "specialties": 0,
+      "featuredItems": 3,
+      "prices": 1,
+      "services": 1,
+      "location": 1,
+      "practical": 3,
+      "limitations": 0
+    },
+    {
+      "businessId": "business-buffalo-beel",
+      "cuisine": 1,
+      "specialties": 0,
+      "featuredItems": 1,
+      "prices": 0,
+      "services": 3,
+      "location": 0,
+      "practical": 1,
+      "limitations": 0
+    }
+  ],
+  "missingData": [
+    {
+      "businessId": "business-la-oficina-del-gusto",
+      "fields": [
+        "specialties",
+        "prices",
+        "location",
+        "limitations"
+      ]
+    },
+    {
+      "businessId": "business-cucina-italiana",
+      "fields": [
+        "specialties",
+        "limitations"
+      ]
+    },
+    {
+      "businessId": "business-essenza-italiana",
+      "fields": [
+        "specialties",
+        "limitations"
+      ]
+    },
+    {
+      "businessId": "business-buffalo-beel",
+      "fields": [
+        "specialties",
+        "prices",
+        "location",
+        "limitations"
+      ]
+    }
+  ]
+}

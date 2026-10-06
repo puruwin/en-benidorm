@@ -35,13 +35,14 @@ export const GENERATED_SOURCES = [
   {directory: 'content/generated/beaches', type: 'beach'},
   {directory: 'content/generated/events', type: 'event'},
   {directory: 'content/generated/articles', type: 'article'},
+  {directory: 'content/generated/comparisons', type: 'comparison'},
 ] as const
 
 const DOCUMENT_TYPES = new Set([
   'siteSettings', 'homePage', 'area', 'category', 'author',
-  'business', 'place', 'beach', 'event', 'article',
+  'business', 'place', 'beach', 'event', 'article', 'comparison',
 ])
-const SLUGGED_TYPES = new Set(['area', 'category', 'author', 'business', 'place', 'beach', 'event', 'article'])
+const SLUGGED_TYPES = new Set(['area', 'category', 'author', 'business', 'place', 'beach', 'event', 'article', 'comparison'])
 const CATEGORY_GROUPS = new Set(['section', 'businessType', 'cuisine', 'feature', 'topic', 'placeType'])
 const BUSINESS_KINDS = new Set(['restaurant', 'bar', 'pub', 'cafe', 'hotel', 'shop', 'service'])
 const PRICE_RANGES = new Set(['€', '€€', '€€€', '€€€€'])
@@ -66,6 +67,7 @@ const REFERENCE_RULES: Record<string, Record<string, readonly string[]>> = {
   beach: {'services[]': ['category'], area: ['area']},
   event: {venue: ['place', 'business'], 'categories[]': ['category']},
   article: {author: ['author'], 'categories[]': ['category'], 'relatedContent[]': ['business', 'place', 'beach', 'event', 'article']},
+  comparison: {author: ['author'], area: ['area'], 'entries[].business': ['business']},
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -255,7 +257,6 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
     enumValue('businessKind', BUSINESS_KINDS, true)
     requiredString('shortDescription')
     optionalString('shortDescription', 240)
-    enumValue('contentQuality', new Set(['sufficient', 'insufficient']), true)
     enumValue('priceRange', PRICE_RANGES)
     language()
   } else if (doc._type === 'place') {
@@ -288,6 +289,34 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
     validateDate(input, 'publishedAt', true, false, issue)
     validateDate(input, 'updatedAt', false, false, issue)
     language()
+  } else if (doc._type === 'comparison') {
+    requiredString('title')
+    validateSlug(input, issue)
+    requiredString('topic')
+    if (doc.category !== 'donde-comer') issue(input, 'category', 'El MVP sólo admite category="donde-comer".')
+    requiredString('intro')
+    requiredString('quickVerdict')
+    requiredString('methodology')
+    language()
+    validateDate(input, 'lastVerified', true, true, issue)
+    if (!Array.isArray(doc.criteria) || doc.criteria.length < 3 || doc.criteria.some((item) => typeof item !== 'string' || !item.trim())) issue(input, 'criteria', 'Debe contener al menos tres criterios no vacíos.')
+    if (!Array.isArray(doc.entries) || doc.entries.length < 4 || doc.entries.length > 8) issue(input, 'entries', 'Debe contener entre 4 y 8 negocios.')
+    else {
+      const ranks = new Set<number>()
+      const businesses = new Set<string>()
+      doc.entries.forEach((entry, index) => {
+        if (!isRecord(entry)) return issue(input, `entries[${index}]`, 'Debe ser un objeto comparisonEntry.')
+        if (entry._type !== 'comparisonEntry') issue(input, `entries[${index}]._type`, 'Debe usar _type="comparisonEntry".')
+        if (!Number.isInteger(entry.rank) || (entry.rank as number) < 1) issue(input, `entries[${index}].rank`, 'Debe ser un entero positivo.')
+        else if (ranks.has(entry.rank as number)) issue(input, `entries[${index}].rank`, 'El rank no puede repetirse.')
+        else ranks.add(entry.rank as number)
+        if (!isRecord(entry.business) || entry.business._type !== 'reference' || typeof entry.business._ref !== 'string') issue(input, `entries[${index}].business`, 'Debe ser una referencia a Business.')
+        else if (businesses.has(entry.business._ref)) issue(input, `entries[${index}].business`, 'Un Business no puede repetirse.')
+        else businesses.add(entry.business._ref)
+        for (const field of ['verdict'] as const) if (typeof entry[field] !== 'string' || !entry[field].trim()) issue(input, `entries[${index}].${field}`, 'Campo obligatorio.')
+        for (const field of ['strengths', 'weaknesses', 'bestFor', 'practicalNotes'] as const) if (!Array.isArray(entry[field]) || (entry[field] as unknown[]).some((item) => typeof item !== 'string' || !item.trim())) issue(input, `entries[${index}].${field}`, 'Debe ser un array de textos.')
+      })
+    }
   }
 
   validateReferenceFields(input, issue)

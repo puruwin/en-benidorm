@@ -1,269 +1,290 @@
 {
-  "_id": "business-cafeteria-la-bahia",
-  "_type": "business",
-  "name": "Cafetería La Bahía",
-  "slug": {
-    "_type": "slug",
-    "current": "cafeteria-la-bahia"
+  "schemaVersion": 1,
+  "id": "business-cafeteria-la-bahia",
+  "type": "restaurant",
+  "qualityTier": "rich",
+  "qualityAssessment": {
+    "tier": "rich",
+    "reasons": [
+      "Identidad verificada",
+      "Ubicación verificable",
+      "Tipo de cocina verificado",
+      "Concepto del negocio verificado",
+      "Rasgos distintivos verificados",
+      "Servicios relevantes verificados",
+      "Terraza verificada",
+      "Disponibilidad de reservas verificada",
+      "Contexto de ubicación verificado",
+      "Facts suficientes para 5 dimensiones editoriales"
+    ],
+    "distinctiveFacts": [
+      "cuisine",
+      "concept",
+      "distinctiveFeatures",
+      "services",
+      "terrace",
+      "bookingAvailability",
+      "locationContext"
+    ],
+    "missingUsefulFacts": [
+      "specialties",
+      "takeaway",
+      "delivery",
+      "accessibility",
+      "openingInformation"
+    ],
+    "score": 5
   },
-  "businessKind": "restaurant",
-  "contentQuality": "sufficient",
-  "shortDescription": "Cafetería y restaurante de cocina regional, arroces y mediterránea, en primera línea de la playa de Levante. Cuenta con terraza, vistas al mar y servicio de cenas.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué es"
-        }
-      ]
+  "generationSkipped": false,
+  "reason": null,
+  "document": {
+    "_id": "business-cafeteria-la-bahia",
+    "_type": "business",
+    "name": "Cafetería La Bahía",
+    "slug": {
+      "_type": "slug",
+      "current": "cafeteria-la-bahia"
     },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Cafetería y restaurante situado en la primera línea de la playa de Levante, con una propuesta de cocina regional, arroces y especialidades mediterráneas."
-        }
-      ]
+    "businessKind": "restaurant",
+    "shortDescription": "Restaurante y cafetería de cocina regional, de arroces y mediterránea, en primera línea de la playa de Levante. Cuenta con terraza y vistas al mar.",
+    "body": [
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cafetería La Bahía combina servicio de restaurante y cafetería en Benidorm, con una propuesta de cocina regional, de arroces y mediterránea."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cocina"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "La oferta se encuadra en la cocina regional, los arroces y la gastronomía mediterránea."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "La experiencia"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "El establecimiento dispone de terraza y ofrece vistas al mar. La reserva está disponible."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Ubicación"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Se encuentra en primera línea de la playa de Levante, en Avinguda de Madrid 19, Benidorm."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Servicios"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Ofrece servicio de cena y admite reservas."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "h2",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Lo más destacado"
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Cocina regional, de arroces y mediterránea"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Terraza con vistas al mar"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "En primera línea de la playa de Levante"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      },
+      {
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "marks": [],
+            "text": "Servicio de cena y reservas"
+          }
+        ],
+        "listItem": "bullet",
+        "level": 1
+      }
+    ],
+    "language": "es",
+    "lastVerified": "2026-10-06",
+    "sources": [
+      {
+        "_type": "source",
+        "title": "openstreetmap: node/4406717526",
+        "publisher": "© OpenStreetMap contributors",
+        "url": "https://www.openstreetmap.org/node/4406717526",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.restaurante-labahia.com/",
+        "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
+        "url": "https://www.restaurante-labahia.com/",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.restaurante-labahia.com/carta",
+        "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
+        "url": "https://www.restaurante-labahia.com/carta",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.restaurante-labahia.com/restaurante",
+        "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
+        "url": "https://www.restaurante-labahia.com/restaurante",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "official-website: https://www.restaurante-labahia.com/eventos",
+        "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
+        "url": "https://www.restaurante-labahia.com/eventos",
+        "accessedAt": "2026-10-06"
+      }
+    ],
+    "seo": {
+      "metaTitle": "Cafetería La Bahía en Benidorm | Playa de Levante",
+      "metaDescription": "Cafetería La Bahía ofrece cocina regional, arroces y mediterránea, con terraza, vistas al mar y servicio de cena en la playa de Levante."
     },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué esperar"
-        }
-      ]
+    "address": {
+      "street": "Avinguda de Madrid - Avenida de Madrid 19",
+      "postalCode": "03503",
+      "locality": "Benidorm"
     },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Puedes encontrar servicio de cenas, terraza y vistas al mar. El establecimiento admite reservas por teléfono en el 965 863 271."
-        }
-      ]
+    "location": {
+      "_type": "geopoint",
+      "lat": 38.5349254,
+      "lng": -0.1124664
     },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Por qué ir"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Su ubicación frente a la playa de Levante, la terraza y las vistas al mar acompañan una oferta centrada en arroces y cocina mediterránea."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Para quién es"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Cenas junto a la playa de Levante"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Disfrutar de una terraza con vistas al mar"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Probar cocina regional, arroces y cocina mediterránea"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Lo más destacado"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Primera línea de la playa de Levante"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Terraza disponible"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Vistas al mar"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Servicio de cenas y reservas por teléfono"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
-  "language": "es",
-  "lastVerified": "2026-10-06",
-  "sources": [
-    {
-      "_type": "source",
-      "title": "openstreetmap: node/4406717526",
-      "publisher": "© OpenStreetMap contributors",
-      "url": "https://www.openstreetmap.org/node/4406717526",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.restaurante-labahia.com/",
-      "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
-      "url": "https://www.restaurante-labahia.com/",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.restaurante-labahia.com/carta",
-      "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
-      "url": "https://www.restaurante-labahia.com/carta",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.restaurante-labahia.com/restaurante",
-      "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
-      "url": "https://www.restaurante-labahia.com/restaurante",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.restaurante-labahia.com/eventos",
-      "publisher": "Sitio web oficial (www.restaurante-labahia.com)",
-      "url": "https://www.restaurante-labahia.com/eventos",
-      "accessedAt": "2026-10-06"
-    }
-  ],
-  "seo": {
-    "metaTitle": "Cafetería La Bahía en la playa de Levante",
-    "metaDescription": "Cafetería y restaurante con arroces y cocina mediterránea, terraza y vistas al mar en primera línea de la playa de Levante."
-  },
-  "address": {
-    "street": "Avinguda de Madrid - Avenida de Madrid 19",
-    "postalCode": "03503",
-    "locality": "Benidorm"
-  },
-  "location": {
-    "_type": "geopoint",
-    "lat": 38.5349254,
-    "lng": -0.1124664
-  },
-  "phone": "+34 965 86 32 71",
-  "website": "http://www.restaurante-labahia.com/",
-  "categories": [
-    {
-      "_type": "reference",
-      "_ref": "category-restaurantes"
-    }
-  ]
+    "phone": "+34 965 86 32 71",
+    "website": "http://www.restaurante-labahia.com/",
+    "categories": [
+      {
+        "_type": "reference",
+        "_ref": "category-restaurantes"
+      }
+    ]
+  }
 }

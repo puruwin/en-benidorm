@@ -1,0 +1,89 @@
+{
+  "_id": "business-arenas",
+  "_type": "business",
+  "name": "Arenas",
+  "slug": {
+    "_type": "slug",
+    "current": "arenas"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Arenas es un restaurante de cocina regional en la avenida de Alcoy, 13, Benidorm.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Arenas es un restaurante situado en Avinguda d'Alcoi - Avenida de Alcoy 13, Benidorm, código postal 03503."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Su cocina está clasificada como regional."
+        }
+      ]
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-06",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/4406717533",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/4406717533",
+      "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: http://www.cafeteriaarenas.com/",
+      "publisher": "Sitio web oficial (www.cafeteriaarenas.com)",
+      "url": "http://www.cafeteriaarenas.com/",
+      "accessedAt": "2026-10-06"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Arenas, restaurante de cocina regional en Benidorm",
+    "metaDescription": "Arenas es un restaurante de cocina regional situado en la avenida de Alcoy, 13, Benidorm."
+  },
+  "address": {
+    "street": "Avinguda d'Alcoi - Avenida de Alcoy 13",
+    "postalCode": "03503",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5359553,
+    "lng": -0.1232182
+  },
+  "phone": "+34 96 585 69 02",
+  "website": "http://www.cafeteriaarenas.com/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

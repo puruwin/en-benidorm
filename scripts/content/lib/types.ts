@@ -16,6 +16,15 @@ export const PIPELINE_STATUSES = [
 ] as const
 export type PipelineStatus = (typeof PIPELINE_STATUSES)[number]
 export type PipelineStage = 'discovery' | 'enrichment' | 'generation' | 'qa' | 'import'
+export type QualityTier = 'insufficient' | 'basic' | 'rich'
+
+export interface BusinessQualityAssessment {
+  tier: QualityTier
+  reasons: string[]
+  distinctiveFacts: string[]
+  missingUsefulFacts: string[]
+  score?: number
+}
 
 export interface SourceProvenance {
   key: string
@@ -41,6 +50,10 @@ export interface ManifestEntry {
   importedAt: string | null
   reviewedAt: string | null
   publishedAt: string | null
+  qualityTier: QualityTier | null
+  qualityAssessedAt: string | null
+  qualityReasons: string[]
+  missingUsefulFacts: string[]
   lastError: {stage: PipelineStage; message: string; at: string} | null
 }
 
@@ -120,12 +133,12 @@ export interface EnrichedEntity {
 }
 
 export interface GeneratedEditorial {
-  contentQuality: 'sufficient' | 'insufficient'
+  qualityTier: QualityTier
   shortDescription: string | null
-  whatIsIt: string | null
-  whatToExpect: string | null
-  whyGo: string | null
-  goodFor: string[]
+  description: Array<{
+    section: EditorialSection
+    text: string
+  }>
   highlights: string[]
   seo: {
     metaTitle: string
@@ -133,20 +146,46 @@ export interface GeneratedEditorial {
   } | null
 }
 
+export type EditorialSection =
+  | 'overview'
+  | 'food'
+  | 'experience'
+  | 'location'
+  | 'services'
+  | 'practical'
+  | 'goodFor'
+  | 'highlights'
+
+export interface GeneratedBusinessArtifact {
+  schemaVersion: 1
+  id: string
+  type: EntityType
+  qualityTier: QualityTier
+  qualityAssessment: BusinessQualityAssessment
+  generationSkipped: boolean
+  reason: 'insufficient-facts' | null
+  document: Record<string, unknown> | null
+}
+
 export interface QAIssue {
-  severity: 'WARNING' | 'FAIL'
+  severity: 'WARNING' | 'FAIL' | 'SKIPPED'
   code: string
   path: string
   message: string
 }
 
-export type QAOutcome = 'PASS' | 'WARNING' | 'FAIL'
+export type QAOutcome = 'PASS' | 'WARNING' | 'FAIL' | 'SKIPPED'
 
 export interface PhaseReportItem {
   id?: string
   outcome: 'processed' | 'skipped' | 'error' | QAOutcome
   message?: string
   issues?: QAIssue[]
+  qualityTier?: QualityTier
+  reasons?: string[]
+  distinctiveFacts?: string[]
+  missingUsefulFacts?: string[]
+  generationSkipped?: boolean
 }
 
 export interface PhaseReport {
@@ -155,5 +194,6 @@ export interface PhaseReport {
   startedAt: string
   finishedAt: string
   totals: Record<string, number>
+  summary?: Record<string, unknown>
   items: PhaseReportItem[]
 }

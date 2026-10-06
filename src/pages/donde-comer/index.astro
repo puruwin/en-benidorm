@@ -23,6 +23,8 @@ const site = Astro.site ?? new URL('https://enbenidorm.es')
     </div>
   </header>
 
+  {content.comparisons.length > 0 && <section class="py-14 md:py-20" aria-labelledby="comparisons-title"><div class="container-site"><p class="text-xs font-black uppercase tracking-[.18em] text-coral">Guías para decidir</p><h2 id="comparisons-title" class="font-editorial mt-2 text-3xl md:text-4xl">Comparativas editoriales</h2><div class="mt-7 grid gap-4 md:grid-cols-2">{content.comparisons.map((comparison) => <a class="rounded-2xl border border-ink/10 bg-white p-6 shadow-[0_12px_40px_rgba(16,47,59,.05)]" href={comparison.href}><span class="text-xs font-black uppercase tracking-[.12em] text-sea-dark">Comparativa</span><h3 class="font-editorial mt-2 text-2xl">{comparison.title}</h3><span class="mt-4 inline-block font-bold text-coral">Leer guía →</span></a>)}</div></div></section>}
+
   <section class="py-14 md:py-20" aria-labelledby="categories-title">
     <div class="container-site">
       <h2 id="categories-title" class="font-editorial text-3xl md:text-4xl">Elige por estilo</h2>

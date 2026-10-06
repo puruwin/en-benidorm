@@ -7,30 +7,17 @@
     "current": "dvora-gastrobar"
   },
   "businessKind": "restaurant",
-  "contentQuality": "sufficient",
-  "shortDescription": "Dvora Gastrobar es un restaurante de cocina mediterránea con terraza en la azotea, servicio de desayunos y posibilidad de reservar.",
+  "shortDescription": "Dvora Gastrobar ofrece cocina mediterránea, servicio de desayunos y una terraza en la azotea. También admite reservas.",
   "body": [
     {
       "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Qué es"
-        }
-      ]
-    },
-    {
-      "_type": "block",
       "style": "normal",
       "markDefs": [],
       "children": [
         {
           "_type": "span",
           "marks": [],
-          "text": "Un restaurante de cocina mediterránea situado en Plaça de Sant Jaume, 5, con una terraza en la azotea."
+          "text": "Dvora Gastrobar es un restaurante de cocina mediterránea con una propuesta que incluye desayunos y servicio de reservas."
         }
       ]
     },
@@ -42,7 +29,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Qué esperar"
+          "text": "Cocina"
         }
       ]
     },
@@ -54,7 +41,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Abre todos los días de 08:00 a 00:00. Ofrece desayunos, dispone de terraza y permite realizar reservas."
+          "text": "La cocina del establecimiento se identifica como mediterránea. También ofrece servicio de desayuno."
         }
       ]
     },
@@ -66,7 +53,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Por qué ir"
+          "text": "La experiencia"
         }
       ]
     },
@@ -78,7 +65,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Es una opción concreta para combinar cocina mediterránea y desayuno con un espacio de terraza en la azotea, tanto a primera hora como durante el resto del día."
+          "text": "Cuenta con terraza y un espacio en la azotea."
         }
       ]
     },
@@ -90,7 +77,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Para quién es"
+          "text": "Servicios"
         }
       ]
     },
@@ -102,11 +89,45 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Desayunos"
+          "text": "Se pueden realizar reservas a través de los canales del establecimiento."
         }
-      ],
-      "listItem": "bullet",
-      "level": 1
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Información práctica"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Abre todos los días de 08:00 a 00:00. Está en Plaça de Sant Jaume, 5, 03501 Benidorm."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Lo más destacado"
+        }
+      ]
     },
     {
       "_type": "block",
@@ -121,46 +142,6 @@
       ],
       "listItem": "bullet",
       "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Comidas o encuentros en terraza"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Reservas"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "h2",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Lo más destacado"
-        }
-      ]
     },
     {
       "_type": "block",
@@ -198,21 +179,7 @@
         {
           "_type": "span",
           "marks": [],
-          "text": "Cocina mediterránea"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Abierto todos los días de 08:00 a 00:00"
+          "text": "Reservas disponibles"
         }
       ],
       "listItem": "bullet",
@@ -260,7 +227,7 @@
   ],
   "seo": {
     "metaTitle": "Dvora Gastrobar: cocina mediterránea en Benidorm",
-    "metaDescription": "Conoce Dvora Gastrobar en Plaça de Sant Jaume: cocina mediterránea, desayunos, terraza en la azotea y reservas."
+    "metaDescription": "Consulta la información de Dvora Gastrobar en Benidorm: cocina mediterránea, desayunos, terraza en la azotea, reservas y horarios."
   },
   "address": {
     "street": "Plaça de Sant Jaume 5",

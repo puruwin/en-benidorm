@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "id": "comparison-italiano",
+  "topic": "italiano",
+  "slug": "italiano",
+  "generatedAt": "2026-10-06T17:21:02.581Z",
+  "candidateCount": 4,
+  "candidates": [
+    {
+      "businessId": "business-la-oficina-del-gusto",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=Italian",
+        "cuisine=italiana",
+        "concept=Restaurante italiano en Benidorm especializado en pasta fresca artesanal, focaccias y cocina italiana de autor."
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 3,
+        "comparisonCoverage": 3,
+        "distinctiveValue": 1,
+        "practicalUsefulness": 5,
+        "total": 17
+      }
+    },
+    {
+      "businessId": "business-cucina-italiana",
+      "qualityTier": "basic",
+      "topicEvidence": [
+        "cuisine=italian",
+        "cuisine=italiana",
+        "concept=Cucina Italiana Benidorm es un auténtico restaurante italiano en Rincón de Loix. Disfruta de pasta fresca, pizzas artesa"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 3,
+        "comparisonCoverage": 2,
+        "distinctiveValue": 0,
+        "practicalUsefulness": 5,
+        "total": 15
+      }
+    },
+    {
+      "businessId": "business-buffalo-beel",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=italiana",
+        "concept=Buffalo Beel es tu restaurante Italiano, donde podrás degustar pizzas caseras, la mejor pasta y unas carnes y pescados d"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 2,
+        "comparisonCoverage": 3,
+        "distinctiveValue": 0,
+        "practicalUsefulness": 4,
+        "total": 14
+      }
+    },
+    {
+      "businessId": "business-essenza-italiana",
+      "qualityTier": "basic",
+      "topicEvidence": [
+        "cuisine=italian",
+        "cuisine=Italian",
+        "cuisine=italiana",
+        "concept=Autentica cucina italiana nel cuore di Benidorm. Pasta fresca, pesce del Mediterraneo, pinse romane e dolci tradizionali"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 3,
+        "comparisonCoverage": 2,
+        "distinctiveValue": 0,
+        "practicalUsefulness": 4,
+        "total": 14
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "businessId": "business-amigos-bistro",
+      "reason": "not-relevant",
+      "details": [
+        "Sin evidence verificable para topic=italiano"
+      ]
+    },
+    {
+      "businessId": "business-amigos",
+      "reason": "insufficient",
+      "details": [
+        "Identidad verificada",
+        "Ubicación verificable",
+        "No hay facts editoriales distintivos con provenance válida"
+      ]
+    },
+    {
+      "businessId": "business-arenas",
+      "reason": "not-relevant",
+      "details": [
+        "Sin evidence verificable para topic=italiano"
+      ]
+    },
+    {
+      "businessId": "business-cafeteria-la-bahia",
+      "reason": "not-relevant",
+      "details": [
+        "Sin evidence verificable para topic=italiano"
+      ]
+    },
+    {
+      "businessId": "business-clay-oven",
+      "reason": "not-relevant",
+      "details": [
+        "Sin evidence verificable para topic=italiano"
+      ]
+    },
+    {
+      "businessId": "business-country-ribs",
+      "reason": "not-relevant",
+      "details": [
+        "Sin evidence verificable para topic=italiano"
+      ]
+    },
+    {
+      "businessId": "business-dvora-gastrobar",
+      "reason": "not-relevant",
+      "details": [
+        "Sin evidence verificable para topic=italiano"
+      ]
+    },
+    {
+      "businessId": "business-sushi-poke-chen-s-kitchen",
+      "reason": "not-relevant",
+      "details": [
+        "Sin evidence verificable para topic=italiano"
+      ]
+    }
+  ]
+}

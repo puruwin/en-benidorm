@@ -1,17 +1,24 @@
 import {loadEnvFile} from 'node:process'
-import type {EnrichedEntity, GeneratedEditorial} from './types'
+import type {BusinessQualityAssessment, EditorialSection, EnrichedEntity, GeneratedEditorial} from './types'
+import type {EnrichedComparisonArtifact, GeneratedComparisonEditorial} from '../../comparison/lib/types'
 
 export const EDITORIAL_OUTPUT_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['contentQuality', 'shortDescription', 'whatIsIt', 'whatToExpect', 'whyGo', 'goodFor', 'highlights', 'seo'],
+  required: ['qualityTier', 'shortDescription', 'description', 'highlights', 'seo'],
   properties: {
-    contentQuality: {type: 'string', enum: ['sufficient', 'insufficient']},
-    shortDescription: {type: ['string', 'null'], minLength: 40, maxLength: 240},
-    whatIsIt: {type: ['string', 'null'], minLength: 40, maxLength: 500},
-    whatToExpect: {type: ['string', 'null'], minLength: 40, maxLength: 700},
-    whyGo: {type: ['string', 'null'], minLength: 40, maxLength: 500},
-    goodFor: {type: 'array', minItems: 0, maxItems: 5, items: {type: 'string', minLength: 5, maxLength: 100}},
+    qualityTier: {type: 'string', enum: ['insufficient', 'basic', 'rich']},
+    shortDescription: {type: ['string', 'null'], minLength: 30, maxLength: 240},
+    description: {
+      type: 'array', minItems: 0, maxItems: 6,
+      items: {
+        type: 'object', additionalProperties: false, required: ['section', 'text'],
+        properties: {
+          section: {type: 'string', enum: ['overview', 'food', 'experience', 'location', 'services', 'practical', 'goodFor', 'highlights']},
+          text: {type: 'string', minLength: 30, maxLength: 700},
+        },
+      },
+    },
     highlights: {type: 'array', minItems: 0, maxItems: 4, items: {type: 'string', minLength: 10, maxLength: 140}},
     seo: {
       type: ['object', 'null'],
@@ -26,6 +33,8 @@ export const EDITORIAL_OUTPUT_SCHEMA = {
 } as const
 
 export interface GenerationContext {
+  qualityAssessment: BusinessQualityAssessment & {tier: 'basic' | 'rich'}
+  allowedSections: EditorialSection[]
   facts: EnrichedEntity['facts']
   factsBySource: EnrichedEntity['factsBySource']
   sources: EnrichedEntity['sources']
@@ -36,10 +45,62 @@ export interface GenerationContext {
 
 export interface AIProvider {
   generateEditorial(context: GenerationContext): Promise<GeneratedEditorial>
+  generateComparison(context: ComparisonGenerationContext): Promise<GeneratedComparisonEditorial>
 }
 
 const DEFAULT_OPENAI_MODEL = 'gpt-5-mini'
+const DEFAULT_COMPARISON_MODEL = 'gpt-5.6-luna'
 const RESPONSES_URL = 'https://api.openai.com/v1/responses'
+
+export interface ComparisonGenerationContext {
+  comparison: EnrichedComparisonArtifact
+  ranking: Array<{businessId: string; rank: number; scores: EnrichedComparisonArtifact['businesses'][number]['scores']}>
+  author: {id: 'author-david'; name: 'David'}
+  editorialInstructions: string[]
+}
+
+export const COMPARISON_OUTPUT_SCHEMA = {
+  type: 'object', additionalProperties: false,
+  required: ['title', 'intro', 'quickVerdict', 'entries', 'methodology', 'criteria', 'seo', 'claims'],
+  properties: {
+    title: {type: 'string', minLength: 20, maxLength: 90},
+    intro: {type: 'string', minLength: 100, maxLength: 700},
+    quickVerdict: {type: 'string', minLength: 80, maxLength: 700},
+    entries: {
+      type: 'array', minItems: 4, maxItems: 8,
+      items: {
+        type: 'object', additionalProperties: false,
+        required: ['businessId', 'rank', 'verdict', 'strengths', 'weaknesses', 'bestFor', 'featuredItem', 'featuredPrice', 'practicalNotes'],
+        properties: {
+          businessId: {type: 'string'}, rank: {type: 'integer', minimum: 1, maximum: 8},
+          verdict: {type: 'string', minLength: 30, maxLength: 300},
+          strengths: {type: 'array', minItems: 1, maxItems: 4, items: {type: 'string', minLength: 8, maxLength: 160}},
+          weaknesses: {type: 'array', minItems: 0, maxItems: 3, items: {type: 'string', minLength: 8, maxLength: 160}},
+          bestFor: {type: 'array', minItems: 1, maxItems: 3, items: {type: 'string', minLength: 4, maxLength: 100}},
+          featuredItem: {type: ['string', 'null'], minLength: 3, maxLength: 140},
+          featuredPrice: {type: ['string', 'null'], minLength: 2, maxLength: 80},
+          practicalNotes: {type: 'array', minItems: 0, maxItems: 4, items: {type: 'string', minLength: 6, maxLength: 180}},
+        },
+      },
+    },
+    methodology: {type: 'string', minLength: 100, maxLength: 900},
+    criteria: {type: 'array', minItems: 3, maxItems: 5, items: {type: 'string', minLength: 10, maxLength: 180}},
+    seo: {
+      type: 'object', additionalProperties: false, required: ['metaTitle', 'metaDescription'],
+      properties: {metaTitle: {type: 'string', minLength: 20, maxLength: 60}, metaDescription: {type: 'string', minLength: 70, maxLength: 160}},
+    },
+    claims: {
+      type: 'array', minItems: 1,
+      items: {
+        type: 'object', additionalProperties: false, required: ['path', 'claim', 'supportedBy'],
+        properties: {
+          path: {type: 'string'}, claim: {type: 'string', minLength: 3},
+          supportedBy: {type: 'array', minItems: 1, items: {type: 'string'}},
+        },
+      },
+    },
+  },
+} as const
 
 export class OpenAIResponsesProvider implements AIProvider {
   private readonly apiKey: string
@@ -64,7 +125,7 @@ export class OpenAIResponsesProvider implements AIProvider {
         input: [
           {
             role: 'system',
-            content: [{type: 'input_text', text: 'Eres editor de una guía local de Benidorm. Devuelve sólo contenido editorial específico respaldado por los facts y parafrasea la fuente: nunca copies su texto literalmente. No completes ni deduzcas datos ausentes. Si los facts no permiten explicar con utilidad qué es, qué esperar y por qué ir, devuelve contentQuality="insufficient", textos y seo null, y arrays vacíos; jamás rellenes con frases genéricas.'}],
+            content: [{type: 'input_text', text: 'Eres editor de una guía local de Benidorm. El qualityTier ya ha sido decidido por código y debes devolverlo sin cambios. Usa sólo facts con provenance, parafrasea y no deduzcas desde el nombre comercial. Para basic escribe una ficha factual breve (una o dos secciones); para rich usa sólo las secciones permitidas que tengan información real. No conviertas dirección, teléfono o web en highlights. No rellenes para alcanzar longitud ni uses elogios o afirmaciones promocionales como hechos objetivos.'}],
           },
           {role: 'user', content: [{type: 'input_text', text: JSON.stringify(context)}]},
         ],
@@ -84,36 +145,77 @@ export class OpenAIResponsesProvider implements AIProvider {
     const text = responseOutputText(payload)
     if (!text) throw new Error('OpenAI Responses API no devolvió output_text.')
     const editorial = JSON.parse(text) as unknown
-    const errors = validateGeneratedEditorial(editorial)
+    const errors = validateGeneratedEditorial(editorial, context.qualityAssessment.tier)
     if (errors.length) throw new Error(`Structured Output no válido: ${errors.join(' ')}`)
     return editorial as GeneratedEditorial
   }
+
+  async generateComparison(context: ComparisonGenerationContext): Promise<GeneratedComparisonEditorial> {
+    const response = await this.fetcher(RESPONSES_URL, {
+      method: 'POST',
+      headers: {'authorization': `Bearer ${this.apiKey}`, 'content-type': 'application/json'},
+      body: JSON.stringify({
+        model: process.env.OPENAI_COMPARISON_MODEL || DEFAULT_COMPARISON_MODEL,
+        store: false,
+        max_output_tokens: 5000,
+        input: [
+          {
+            role: 'system',
+            content: [{type: 'input_text', text: [
+              'Eres editor de una guía local de Benidorm. Usa exclusivamente el artefacto de evidence recibido.',
+              'Conserva exactamente los businessId y ranks deterministas. Compara diferencias verificables; no declares un ganador absoluto.',
+              'No inventes visitas, reseñas, popularidad, calidad, velocidad, tranquilidad ni suitability. No uses primera persona.',
+              'Un self_claim sólo puede atribuirse: «según su web» o «el negocio indica»; nunca lo conviertas en hecho objetivo.',
+              'No inventes debilidades: usa weaknesses=[] si no existe evidence en limitations.',
+              'Sólo incluye featuredItem o featuredPrice si hay evidence de la categoría correspondiente.',
+              'Registra cada afirmación factual de intro, quickVerdict y entries en claims. path debe apuntar al campo y supportedBy debe contener IDs exactos del evidence.',
+              'Para arrays usa paths como entries.<businessId>.strengths.0. No registres metodología, criterios ni textos puramente editoriales sin facts.',
+            ].join(' ')}],
+          },
+          {role: 'user', content: [{type: 'input_text', text: JSON.stringify(context)}]},
+        ],
+        text: {format: {type: 'json_schema', name: 'comparison_editorial_content', strict: true, schema: COMPARISON_OUTPUT_SCHEMA}},
+      }),
+      signal: AbortSignal.timeout(180_000),
+    })
+    if (!response.ok) throw new Error(`OpenAI Responses API respondió ${response.status}: ${await response.text()}`)
+    const payload = await response.json() as unknown
+    const text = responseOutputText(payload)
+    if (!text) throw new Error('OpenAI Responses API no devolvió output_text para Comparison.')
+    return JSON.parse(text) as GeneratedComparisonEditorial
+  }
 }
 
-export function validateGeneratedEditorial(value: unknown): string[] {
+export function validateGeneratedEditorial(value: unknown, expectedTier?: 'basic' | 'rich'): string[] {
   if (!isRecord(value)) return ['La salida debe ser un objeto.']
   const errors: string[] = []
-  if (value.contentQuality !== 'sufficient' && value.contentQuality !== 'insufficient') errors.push('contentQuality debe ser sufficient o insufficient.')
-  if (value.contentQuality === 'sufficient') {
-    stringLength(value.shortDescription, 'shortDescription', 40, 240, errors)
-    stringLength(value.whatIsIt, 'whatIsIt', 40, 500, errors)
-    stringLength(value.whatToExpect, 'whatToExpect', 40, 700, errors)
-    stringLength(value.whyGo, 'whyGo', 40, 500, errors)
-    if (!isRecord(value.seo)) errors.push('seo debe ser un objeto cuando contentQuality es sufficient.')
-    else validateSeo(value.seo, errors)
-  } else if ([value.shortDescription, value.whatIsIt, value.whatToExpect, value.whyGo, value.seo].some((item) => item !== null)) {
-    errors.push('Una salida insufficient debe dejar textos y seo en null.')
+  if (value.qualityTier !== 'insufficient' && value.qualityTier !== 'basic' && value.qualityTier !== 'rich') errors.push('qualityTier debe ser insufficient, basic o rich.')
+  if (expectedTier && value.qualityTier !== expectedTier) errors.push(`qualityTier debe conservar el valor evaluado por código: ${expectedTier}.`)
+  if (value.qualityTier === 'insufficient') {
+    if (value.shortDescription !== null || value.seo !== null || !Array.isArray(value.description) || value.description.length > 0 || !Array.isArray(value.highlights) || value.highlights.length > 0) errors.push('Una salida insufficient debe dejar textos y seo en null y los arrays vacíos.')
+  } else {
+    stringLength(value.shortDescription, 'shortDescription', 30, 240, errors)
   }
-  for (const [field, maximum, minimum] of [['goodFor', 5, 5], ['highlights', 4, 10]] as const) {
-    const items = value[field]
-    if (!Array.isArray(items) || items.length > maximum || items.some((item) => typeof item !== 'string' || item.length < minimum || item.length > 140)) {
-      errors.push(`${field} debe ser un array de hasta ${maximum} textos válidos.`)
+  if (value.qualityTier !== 'insufficient' && (!Array.isArray(value.description) || value.description.length === 0 || value.description.length > 6)) {
+    errors.push('description debe contener entre 1 y 6 secciones.')
+  } else if (Array.isArray(value.description)) {
+    if (value.qualityTier === 'basic' && value.description.length > 2) errors.push('basic admite como máximo 2 secciones breves.')
+    for (const [index, section] of value.description.entries()) {
+      if (!isRecord(section) || !EDITORIAL_SECTIONS.has(String(section.section) as EditorialSection)) errors.push(`description[${index}].section no es válida.`)
+      else stringLength(section.text, `description[${index}].text`, 30, 700, errors)
     }
-    if (value.contentQuality === 'insufficient' && Array.isArray(items) && items.length) errors.push(`${field} debe estar vacío cuando contentQuality es insufficient.`)
   }
-  if (Object.keys(value).some((key) => !['contentQuality', 'shortDescription', 'whatIsIt', 'whatToExpect', 'whyGo', 'goodFor', 'highlights', 'seo'].includes(key))) errors.push('La salida contiene campos no editoriales.')
+  const highlights = value.highlights
+  if (!Array.isArray(highlights) || highlights.length > 4 || highlights.some((item) => typeof item !== 'string' || item.length < 10 || item.length > 140)) errors.push('highlights debe ser un array de hasta 4 textos válidos.')
+  if (value.qualityTier !== 'insufficient') {
+    if (!isRecord(value.seo)) errors.push('seo debe ser un objeto.')
+    else validateSeo(value.seo, errors)
+  }
+  if (Object.keys(value).some((key) => !['qualityTier', 'shortDescription', 'description', 'highlights', 'seo'].includes(key))) errors.push('La salida contiene campos no editoriales.')
   return errors
 }
+
+const EDITORIAL_SECTIONS = new Set<EditorialSection>(['overview', 'food', 'experience', 'location', 'services', 'practical', 'goodFor', 'highlights'])
 
 function validateSeo(value: Record<string, unknown>, errors: string[]): void {
   stringLength(value.metaTitle, 'seo.metaTitle', 10, 60, errors)

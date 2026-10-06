@@ -1,7 +1,7 @@
 import {resolve} from 'node:path'
 import {readJsonIfExists, writeJsonAtomic} from './files'
 import {sourceKey} from './normalize'
-import type {ContentManifest, EntityType, ManifestEntry, PipelineStage, PipelineStatus, SourceProvenance} from './types'
+import type {BusinessQualityAssessment, ContentManifest, EntityType, ManifestEntry, PipelineStage, PipelineStatus, SourceProvenance} from './types'
 
 export const MANIFEST_PATH = 'content/manifest.json'
 
@@ -16,6 +16,12 @@ export function emptyManifest(): ContentManifest {
 export async function loadManifest(root = process.cwd()): Promise<ContentManifest> {
   const manifest = await readJsonIfExists(resolve(root, MANIFEST_PATH), emptyManifest())
   if (manifest.version !== 1 || !Array.isArray(manifest.entries)) throw new Error('content/manifest.json no tiene un formato compatible.')
+  for (const entry of manifest.entries) {
+    entry.qualityTier ??= null
+    entry.qualityAssessedAt ??= null
+    entry.qualityReasons ??= []
+    entry.missingUsefulFacts ??= []
+  }
   return manifest
 }
 
@@ -47,8 +53,19 @@ export function createManifestEntry(input: {
     importedAt: null,
     reviewedAt: null,
     publishedAt: null,
+    qualityTier: null,
+    qualityAssessedAt: null,
+    qualityReasons: [],
+    missingUsefulFacts: [],
     lastError: null,
   }
+}
+
+export function recordQualityAssessment(entry: ManifestEntry, assessment: BusinessQualityAssessment, now: string): void {
+  entry.qualityTier = assessment.tier
+  entry.qualityAssessedAt = now
+  entry.qualityReasons = [...assessment.reasons]
+  entry.missingUsefulFacts = [...assessment.missingUsefulFacts]
 }
 
 export function findBySource(manifest: ContentManifest, source: SourceProvenance): ManifestEntry | undefined {

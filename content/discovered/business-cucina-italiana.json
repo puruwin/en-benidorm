@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "business-cucina-italiana",
+  "type": "restaurant",
+  "targetDocumentType": "business",
+  "slug": "cucina-italiana",
+  "priority": 90,
+  "sources": [
+    {
+      "key": "manual-json:cucina-italiana-benidorm-official",
+      "provider": "manual-json",
+      "identifier": "cucina-italiana-benidorm-official",
+      "url": "https://www.cucinaitalianabenidorm.com/",
+      "retrievedAt": "2026-10-06T00:00:00.000Z",
+      "attribution": "Sitio web oficial de Cucina Italiana",
+      "licenseUrl": null
+    }
+  ],
+  "raw": {
+    "name": "Cucina Italiana",
+    "tags": {
+      "amenity": "restaurant",
+      "cuisine": "italian",
+      "website": "https://www.cucinaitalianabenidorm.com/",
+      "phone": "+34 604 144 118",
+      "addr:street": "Avenida Doctor Severo Ochoa",
+      "addr:housenumber": "32",
+      "addr:postcode": "03503",
+      "addr:city": "Benidorm",
+      "opening_hours": "Mo-Su 12:00-23:00"
+    },
+    "latitude": null,
+    "longitude": null
+  }
+}
