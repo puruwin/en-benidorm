@@ -1,6 +1,7 @@
 import {resolve} from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {applyFilters, parsePipelineOptions, type PipelineOptions} from './lib/cli'
+import {OfficialWebsiteAdapter} from './lib/adapters'
 import {enrichEntity, validateFactProvenance} from './lib/enrichment'
 import {loadJsonDirectory, removeFileIfExists, writeJsonAtomic} from './lib/files'
 import {canRunStage, loadManifest, markEntryError, saveManifest, transitionEntry} from './lib/manifest'
@@ -12,6 +13,7 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
   const files = await loadJsonDirectory<DiscoveredEntity>(resolve(root, 'content/discovered'))
   const selected = applyFilters(files.map(({value}) => value), options)
   const items: PhaseReportItem[] = []
+  const officialWebsite = new OfficialWebsiteAdapter()
 
   for (const discovered of selected) {
     const entry = manifest.entries.find((candidate) => candidate.id === discovered.id)
@@ -24,7 +26,17 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
       continue
     }
     try {
-      const enriched = enrichEntity(discovered)
+      const base = enrichEntity(discovered)
+      let websiteResult
+      let websiteMessage: string | undefined
+      if (base.facts.website.value) {
+        try {
+          websiteResult = await officialWebsite.enrich(base.facts.website.value, now)
+        } catch (error) {
+          websiteMessage = `Web oficial no enriquecida: ${error instanceof Error ? error.message : String(error)}`
+        }
+      }
+      const enriched = enrichEntity(discovered, websiteResult)
       const provenanceErrors = validateFactProvenance(enriched)
       if (provenanceErrors.length) throw new Error(provenanceErrors.join(' '))
       if (!options.dryRun) {
@@ -37,7 +49,7 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
         await writeJsonAtomic(resolve(root, `content/enriched/${enriched.id}.json`), enriched)
         transitionEntry(entry, 'enriched', now, options.force)
       }
-      items.push({id: enriched.id, outcome: 'processed'})
+      items.push({id: enriched.id, outcome: 'processed', ...(websiteMessage ? {message: websiteMessage} : {})})
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       if (!options.dryRun) markEntryError(entry, 'enrichment', message, now)

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "business-sushi-poke-chen-s-kitchen",
   "type": "restaurant",
   "targetDocumentType": "business",
@@ -52,6 +52,249 @@
       "sources": [
         "openstreetmap:node/14178529901"
       ]
+    },
+    "cuisine": {
+      "value": [
+        "japanese",
+        "sushi",
+        "japonesa"
+      ],
+      "sources": [
+        "openstreetmap:node/14178529901",
+        "official-website:https://chenskitchen.es/",
+        "official-website:https://chenskitchen.es/reservar-mesa/",
+        "official-website:https://chenskitchen.es/sobre-nosotros/"
+      ]
+    },
+    "concept": {
+      "value": "Bienvenido a Chen's Kitchen, el restaurante japonés en Benidorm que ofrece sushi fresco y deliciosa comida japonesa en La Nucía y Alfaz del Pi.",
+      "sources": [
+        "official-website:https://chenskitchen.es/"
+      ]
+    },
+    "specialties": {
+      "value": null,
+      "sources": []
+    },
+    "services": {
+      "value": null,
+      "sources": []
+    },
+    "bookingAvailability": {
+      "value": true,
+      "sources": [
+        "official-website:https://chenskitchen.es/",
+        "official-website:https://chenskitchen.es/reservar-mesa/",
+        "official-website:https://chenskitchen.es/contacto/",
+        "official-website:https://chenskitchen.es/sobre-nosotros/"
+      ]
+    },
+    "takeaway": {
+      "value": null,
+      "sources": []
+    },
+    "delivery": {
+      "value": null,
+      "sources": []
+    },
+    "terrace": {
+      "value": null,
+      "sources": []
+    },
+    "accessibility": {
+      "value": null,
+      "sources": []
+    },
+    "openingInformation": {
+      "value": [
+        "Tu-Su 12:00-16:00",
+        "19:00-23:00"
+      ],
+      "sources": [
+        "openstreetmap:node/14178529901"
+      ]
+    },
+    "locationContext": {
+      "value": null,
+      "sources": []
+    },
+    "distinctiveFeatures": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "factsBySource": {
+    "openStreetMap": {
+      "name": {
+        "value": "SUSHI POKE Chen's Kitchen",
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "businessKind": {
+        "value": "restaurant",
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "address": {
+        "value": {
+          "street": "Avinguda de Beniardà 8",
+          "postalCode": "03502"
+        },
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "location": {
+        "value": {
+          "lat": 38.5453748,
+          "lng": -0.1327124
+        },
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "phone": {
+        "value": "+34 865 52 82 11",
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "website": {
+        "value": "http://chenskitchen.es/",
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "openingHoursRaw": {
+        "value": "Tu-Su 12:00-16:00, 19:00-23:00",
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "cuisine": {
+        "value": [
+          "japanese",
+          "sushi"
+        ],
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "concept": {
+        "value": null,
+        "sources": []
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": [
+          "Tu-Su 12:00-16:00",
+          "19:00-23:00"
+        ],
+        "sources": [
+          "openstreetmap:node/14178529901"
+        ]
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
+    },
+    "officialWebsite": {
+      "cuisine": {
+        "value": [
+          "japonesa",
+          "sushi"
+        ],
+        "sources": [
+          "official-website:https://chenskitchen.es/",
+          "official-website:https://chenskitchen.es/reservar-mesa/",
+          "official-website:https://chenskitchen.es/sobre-nosotros/"
+        ]
+      },
+      "concept": {
+        "value": "Bienvenido a Chen's Kitchen, el restaurante japonés en Benidorm que ofrece sushi fresco y deliciosa comida japonesa en La Nucía y Alfaz del Pi.",
+        "sources": [
+          "official-website:https://chenskitchen.es/"
+        ]
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": true,
+        "sources": [
+          "official-website:https://chenskitchen.es/",
+          "official-website:https://chenskitchen.es/reservar-mesa/",
+          "official-website:https://chenskitchen.es/contacto/",
+          "official-website:https://chenskitchen.es/sobre-nosotros/"
+        ]
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
     }
   },
   "editorial": {},
@@ -73,6 +316,42 @@
       "retrievedAt": "2026-10-06T11:53:45.905Z",
       "attribution": "© OpenStreetMap contributors",
       "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://chenskitchen.es/",
+      "provider": "official-website",
+      "identifier": "https://chenskitchen.es/",
+      "url": "https://chenskitchen.es/",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (chenskitchen.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://chenskitchen.es/reservar-mesa/",
+      "provider": "official-website",
+      "identifier": "https://chenskitchen.es/reservar-mesa/",
+      "url": "https://chenskitchen.es/reservar-mesa/",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (chenskitchen.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://chenskitchen.es/contacto/",
+      "provider": "official-website",
+      "identifier": "https://chenskitchen.es/contacto/",
+      "url": "https://chenskitchen.es/contacto/",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (chenskitchen.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://chenskitchen.es/sobre-nosotros/",
+      "provider": "official-website",
+      "identifier": "https://chenskitchen.es/sobre-nosotros/",
+      "url": "https://chenskitchen.es/sobre-nosotros/",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (chenskitchen.es)",
+      "licenseUrl": null
     }
   ]
 }

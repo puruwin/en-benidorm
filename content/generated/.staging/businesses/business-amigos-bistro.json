@@ -7,35 +7,9 @@
     "current": "amigos-bistro"
   },
   "businessKind": "restaurant",
-  "shortDescription": "Amigos Bistro es un restaurante situado en Benidorm.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Amigos Bistro es un restaurante situado en Benidorm. La información disponible incluye un sitio web para consultar sus datos directamente."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Restaurante en Benidorm"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
+  "contentQuality": "insufficient",
+  "shortDescription": "",
+  "body": [],
   "language": "es",
   "lastVerified": "2026-10-06",
   "sources": [
@@ -47,10 +21,6 @@
       "accessedAt": "2026-10-06"
     }
   ],
-  "seo": {
-    "metaTitle": "Amigos Bistro, restaurante en Benidorm",
-    "metaDescription": "Información de Amigos Bistro, restaurante situado en Benidorm, con sitio web para consultar sus datos."
-  },
   "address": {
     "street": "Avinguda de l'Armada Espanyola 19",
     "locality": "Benidorm"

@@ -5,16 +5,19 @@ import type {EnrichedEntity, GeneratedEditorial} from './types'
 export const BUSINESS_DOCUMENT_SCHEMA = {
   _type: 'business',
   factualFields: ['name', 'businessKind', 'address', 'location', 'phone', 'website', 'lastVerified', 'sources'],
-  editorialFields: ['shortDescription', 'body', 'seo'],
+  editorialFields: ['contentQuality', 'shortDescription', 'body', 'seo'],
   constraints: {language: 'es', shortDescriptionMaxLength: 240, seoTitleMaxLength: 60, seoDescriptionMaxLength: 160},
 }
 
 export const EDITORIAL_INSTRUCTIONS = [
   'Escribe en español claro, útil y sobrio para una guía local de Benidorm.',
   'Usa únicamente los facts suministrados; no supongas ni completes información.',
-  'No menciones direcciones, teléfonos, precios, horarios, ratings, reviews, servicios, coordenadas ni premios salvo como copia literal solicitada (no se solicita en esta fase).',
+  'OSM y OfficialWebsite son fuentes independientes: usa sólo valores con provenance y no resuelvas contradicciones por tu cuenta.',
+  'No copies literalmente el texto de la web oficial: sintetiza y parafrasea sus facts verificables.',
   'No uses superlativos no verificables ni afirmes que un negocio es el mejor, popular o recomendado.',
-  'Los highlights deben ser editoriales y derivarse de hechos disponibles, nunca servicios inventados.',
+  'Los highlights, goodFor y cada sección deben derivarse de rasgos concretos, nunca de la mera categoría, ciudad, disponibilidad de web o existencia de una ficha.',
+  'No uses como relleno: "restaurante situado en Benidorm", "restaurante ubicado en Benidorm", "figura como restaurante", "establecimiento de restauración", "incluido en la oferta local", "una opción para quienes buscan", "información básica disponible" ni "consulta su sitio web oficial". Sólo podrían aparecer dentro de una frase que añada información factual específica.',
+  'Devuelve insufficient si no hay al menos dos rasgos específicos útiles además de nombre, tipo, dirección, teléfono, web y coordenadas. No rellenes espacio.',
 ]
 
 export const BUSINESS_TAXONOMY = categories.map((category) => ({id: category._id, title: category.title, group: category.group}))
@@ -28,8 +31,9 @@ export function buildBusinessDocument(entity: EnrichedEntity, editorial: Generat
     name: facts.name.value,
     slug: {_type: 'slug', current: entity.slug},
     businessKind: facts.businessKind.value,
-    shortDescription: editorial.shortDescription,
-    body: portableText(editorial),
+    contentQuality: editorial.contentQuality,
+    shortDescription: editorial.shortDescription ?? '',
+    body: editorial.contentQuality === 'sufficient' ? portableText(editorial) : [],
     language: 'es',
     lastVerified: latestRetrievalDate(entity),
     sources: entity.sources.map((source) => ({
@@ -39,7 +43,7 @@ export function buildBusinessDocument(entity: EnrichedEntity, editorial: Generat
       url: source.url,
       accessedAt: source.retrievedAt.slice(0, 10),
     })),
-    seo: editorial.seo,
+    ...(editorial.seo ? {seo: editorial.seo} : {}),
   }
   assignFact(document, 'address', facts.address.value)
   if (facts.location.value) document.location = {_type: 'geopoint', ...facts.location.value}
@@ -54,7 +58,14 @@ function portableText(editorial: GeneratedEditorial): unknown[] {
   const block = (text: string, extra: Record<string, unknown> = {}) => ({
     _type: 'block', style: 'normal', markDefs: [], children: [{_type: 'span', marks: [], text}], ...extra,
   })
-  return [block(editorial.description), ...editorial.highlights.map((highlight) => block(highlight, {listItem: 'bullet', level: 1}))]
+  const section = (title: string, value: string | null) => value ? [block(title, {style: 'h2'}), block(value)] : []
+  return [
+    ...section('Qué es', editorial.whatIsIt),
+    ...section('Qué esperar', editorial.whatToExpect),
+    ...section('Por qué ir', editorial.whyGo),
+    ...(editorial.goodFor.length ? [block('Para quién es', {style: 'h2'}), ...editorial.goodFor.map((item) => block(item, {listItem: 'bullet', level: 1}))] : []),
+    ...(editorial.highlights.length ? [block('Lo más destacado', {style: 'h2'}), ...editorial.highlights.map((highlight) => block(highlight, {listItem: 'bullet', level: 1}))] : []),
+  ]
 }
 
 function latestRetrievalDate(entity: EnrichedEntity): string {

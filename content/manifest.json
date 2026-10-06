@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06T12:09:29.183Z",
+  "updatedAt": "2026-10-06T12:38:14.628Z",
   "entries": [
     {
       "id": "business-amigos",
       "type": "restaurant",
       "slug": "amigos",
-      "status": "generated",
+      "status": "error",
       "priority": 65,
       "sources": [
         {
@@ -20,19 +20,23 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": null,
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
-      "lastError": null
+      "lastError": {
+        "stage": "qa",
+        "message": "Campo obligatorio; debe ser una cadena no vacía. Falta la descripción editorial. Faltan title o meta description de SEO. Sólo hay 0 grupos de facts específicos; la ficha no puede ser útil sin relleno.",
+        "at": "2026-10-06T12:38:14.628Z"
+      }
     },
     {
       "id": "business-amigos-bistro",
       "type": "restaurant",
       "slug": "amigos-bistro",
-      "status": "generated",
+      "status": "error",
       "priority": 65,
       "sources": [
         {
@@ -46,19 +50,23 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": null,
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
-      "lastError": null
+      "lastError": {
+        "stage": "qa",
+        "message": "Campo obligatorio; debe ser una cadena no vacía. Falta la descripción editorial. Faltan title o meta description de SEO. Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno.",
+        "at": "2026-10-06T12:38:14.628Z"
+      }
     },
     {
       "id": "business-arenas",
       "type": "restaurant",
       "slug": "arenas",
-      "status": "generated",
+      "status": "error",
       "priority": 65,
       "sources": [
         {
@@ -72,19 +80,23 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": null,
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
-      "lastError": null
+      "lastError": {
+        "stage": "qa",
+        "message": "Campo obligatorio; debe ser una cadena no vacía. Falta la descripción editorial. Faltan title o meta description de SEO. Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno.",
+        "at": "2026-10-06T12:38:14.628Z"
+      }
     },
     {
       "id": "business-buffalo-beel",
       "type": "restaurant",
       "slug": "buffalo-beel",
-      "status": "generated",
+      "status": "validated",
       "priority": 65,
       "sources": [
         {
@@ -98,9 +110,9 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
-      "validatedAt": null,
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
+      "validatedAt": "2026-10-06T12:38:14.628Z",
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
@@ -110,7 +122,7 @@
       "id": "business-cafeteria-la-bahia",
       "type": "restaurant",
       "slug": "cafeteria-la-bahia",
-      "status": "generated",
+      "status": "validated",
       "priority": 65,
       "sources": [
         {
@@ -124,9 +136,9 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
-      "validatedAt": null,
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
+      "validatedAt": "2026-10-06T12:38:14.628Z",
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
@@ -136,7 +148,7 @@
       "id": "business-clay-oven",
       "type": "restaurant",
       "slug": "clay-oven",
-      "status": "generated",
+      "status": "error",
       "priority": 65,
       "sources": [
         {
@@ -150,19 +162,23 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": null,
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
-      "lastError": null
+      "lastError": {
+        "stage": "qa",
+        "message": "Campo obligatorio; debe ser una cadena no vacía. Falta la descripción editorial. Faltan title o meta description de SEO. Sólo hay 2 grupos de facts específicos; la ficha no puede ser útil sin relleno.",
+        "at": "2026-10-06T12:38:14.628Z"
+      }
     },
     {
       "id": "business-country-ribs",
       "type": "restaurant",
       "slug": "country-ribs",
-      "status": "generated",
+      "status": "error",
       "priority": 65,
       "sources": [
         {
@@ -176,19 +192,23 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": null,
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
-      "lastError": null
+      "lastError": {
+        "stage": "qa",
+        "message": "Campo obligatorio; debe ser una cadena no vacía. Falta la descripción editorial. Faltan title o meta description de SEO. Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno.",
+        "at": "2026-10-06T12:38:14.628Z"
+      }
     },
     {
       "id": "business-dvora-gastrobar",
       "type": "restaurant",
       "slug": "dvora-gastrobar",
-      "status": "generated",
+      "status": "validated",
       "priority": 70,
       "sources": [
         {
@@ -202,9 +222,9 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
-      "validatedAt": null,
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
+      "validatedAt": "2026-10-06T12:38:14.628Z",
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
@@ -214,7 +234,7 @@
       "id": "business-la-oficina-del-gusto",
       "type": "restaurant",
       "slug": "la-oficina-del-gusto",
-      "status": "generated",
+      "status": "validated",
       "priority": 70,
       "sources": [
         {
@@ -228,9 +248,9 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
-      "validatedAt": null,
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
+      "validatedAt": "2026-10-06T12:38:14.628Z",
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,
@@ -240,7 +260,7 @@
       "id": "business-sushi-poke-chen-s-kitchen",
       "type": "restaurant",
       "slug": "sushi-poke-chen-s-kitchen",
-      "status": "generated",
+      "status": "validated",
       "priority": 70,
       "sources": [
         {
@@ -263,9 +283,9 @@
         }
       ],
       "discoveredAt": "2026-10-06T11:53:45.905Z",
-      "enrichedAt": "2026-10-06T12:02:11.005Z",
-      "generatedAt": "2026-10-06T12:09:29.183Z",
-      "validatedAt": null,
+      "enrichedAt": "2026-10-06T12:34:57.575Z",
+      "generatedAt": "2026-10-06T12:37:36.276Z",
+      "validatedAt": "2026-10-06T12:38:14.628Z",
       "importedAt": null,
       "reviewedAt": null,
       "publishedAt": null,

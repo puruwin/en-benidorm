@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "business-country-ribs",
   "type": "restaurant",
   "targetDocumentType": "business",
@@ -51,6 +51,211 @@
     "openingHoursRaw": {
       "value": null,
       "sources": []
+    },
+    "cuisine": {
+      "value": [
+        "ribs"
+      ],
+      "sources": [
+        "openstreetmap:node/8016140838"
+      ]
+    },
+    "concept": {
+      "value": null,
+      "sources": []
+    },
+    "specialties": {
+      "value": null,
+      "sources": []
+    },
+    "services": {
+      "value": null,
+      "sources": []
+    },
+    "bookingAvailability": {
+      "value": null,
+      "sources": []
+    },
+    "takeaway": {
+      "value": null,
+      "sources": []
+    },
+    "delivery": {
+      "value": null,
+      "sources": []
+    },
+    "terrace": {
+      "value": null,
+      "sources": []
+    },
+    "accessibility": {
+      "value": null,
+      "sources": []
+    },
+    "openingInformation": {
+      "value": null,
+      "sources": []
+    },
+    "locationContext": {
+      "value": null,
+      "sources": []
+    },
+    "distinctiveFeatures": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "factsBySource": {
+    "openStreetMap": {
+      "name": {
+        "value": "Country Ribs",
+        "sources": [
+          "openstreetmap:node/8016140838"
+        ]
+      },
+      "businessKind": {
+        "value": "restaurant",
+        "sources": [
+          "openstreetmap:node/8016140838"
+        ]
+      },
+      "address": {
+        "value": {
+          "street": "Avinguda del Derramador",
+          "postalCode": "03503",
+          "locality": "Benidorm"
+        },
+        "sources": [
+          "openstreetmap:node/8016140838"
+        ]
+      },
+      "location": {
+        "value": {
+          "lat": 38.538164,
+          "lng": -0.1121105
+        },
+        "sources": [
+          "openstreetmap:node/8016140838"
+        ]
+      },
+      "phone": {
+        "value": "+34 966 804 505",
+        "sources": [
+          "openstreetmap:node/8016140838"
+        ]
+      },
+      "website": {
+        "value": "http://country-ribs.com/es/?page_id=12",
+        "sources": [
+          "openstreetmap:node/8016140838"
+        ]
+      },
+      "openingHoursRaw": {
+        "value": null,
+        "sources": []
+      },
+      "cuisine": {
+        "value": [
+          "ribs"
+        ],
+        "sources": [
+          "openstreetmap:node/8016140838"
+        ]
+      },
+      "concept": {
+        "value": null,
+        "sources": []
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
+    },
+    "officialWebsite": {
+      "cuisine": {
+        "value": null,
+        "sources": []
+      },
+      "concept": {
+        "value": null,
+        "sources": []
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
     }
   },
   "editorial": {},

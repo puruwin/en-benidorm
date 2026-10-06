@@ -7,35 +7,9 @@
     "current": "amigos"
   },
   "businessKind": "restaurant",
-  "shortDescription": "Amigos es un restaurante situado en Benidorm.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Amigos es un restaurante ubicado en Benidorm. Para obtener información adicional, consulta su sitio web oficial."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Restaurante en Benidorm"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
+  "contentQuality": "insufficient",
+  "shortDescription": "",
+  "body": [],
   "language": "es",
   "lastVerified": "2026-10-06",
   "sources": [
@@ -45,12 +19,15 @@
       "publisher": "© OpenStreetMap contributors",
       "url": "https://www.openstreetmap.org/node/4405795085",
       "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://amigosbarbenidorm.weebly.com/",
+      "publisher": "Sitio web oficial (amigosbarbenidorm.weebly.com)",
+      "url": "https://amigosbarbenidorm.weebly.com/",
+      "accessedAt": "2026-10-06"
     }
   ],
-  "seo": {
-    "metaTitle": "Amigos, restaurante en Benidorm",
-    "metaDescription": "Información sobre Amigos, restaurante situado en Benidorm, Alicante."
-  },
   "address": {
     "street": "Carrer de la Palma 14",
     "locality": "Benidorm"

@@ -1,6 +1,6 @@
 import {readFile} from 'node:fs/promises'
 import {loadEnvFile} from 'node:process'
-import {ENTITY_TYPES, type EntityType, type SourceProvenance} from './types'
+import {ENTITY_TYPES, type BusinessFacts, type EntityType, type Fact, type SourceProvenance} from './types'
 import {sourceKey} from './normalize'
 
 export interface SourceRecord {
@@ -24,6 +24,73 @@ export interface DiscoveryRequest {
 export interface SourceAdapter {
   readonly provider: string
   discover(request: DiscoveryRequest): Promise<SourceRecord[]>
+}
+
+export type OfficialWebsiteFacts = Pick<BusinessFacts,
+  | 'cuisine' | 'concept' | 'specialties' | 'services' | 'bookingAvailability'
+  | 'takeaway' | 'delivery' | 'terrace' | 'accessibility' | 'openingInformation'
+  | 'locationContext' | 'distinctiveFeatures'>
+
+export interface OfficialWebsiteResult {
+  facts: OfficialWebsiteFacts
+  sources: SourceProvenance[]
+}
+
+const WEBSITE_LINK_LIMIT = 5
+const RELEVANT_LINK = /(?:carta|menu|men[uú]|reserv|booking|contact|ubicaci|localiz|nosotros|about|servici|restaurante|food|drink)/i
+
+/** Extracts attributable facts from public pages owned by the business. */
+export class OfficialWebsiteAdapter {
+  readonly provider = 'official-website'
+
+  constructor(private readonly fetcher: typeof fetch = fetch) {}
+
+  async enrich(website: string, retrievedAt: string): Promise<OfficialWebsiteResult> {
+    const initial = publicWebsiteUrl(website)
+    const queue = [initial]
+    const visited = new Set<string>()
+    const pages: WebsitePage[] = []
+    while (queue.length && pages.length < WEBSITE_LINK_LIMIT) {
+      const requested = queue.shift()!
+      const canonical = canonicalWebsiteUrl(requested)
+      if (visited.has(canonical)) continue
+      visited.add(canonical)
+      const response = await this.fetcher(requested, {
+        headers: {'accept': 'text/html,application/xhtml+xml', 'user-agent': 'enBenidorm-content-pipeline/1.0'},
+        redirect: 'follow',
+        signal: AbortSignal.timeout(20_000),
+      })
+      if (!response.ok) {
+        if (pages.length === 0) throw new Error(`La web oficial respondió ${response.status} ${response.statusText}.`)
+        continue
+      }
+      const contentType = response.headers.get('content-type') ?? ''
+      if (contentType && !/html|xhtml/i.test(contentType)) continue
+      const finalUrl = publicWebsiteUrl(response.url || requested)
+      if (new URL(finalUrl).hostname !== new URL(initial).hostname && pages.length === 0) {
+        // A canonical www/non-www redirect is accepted; unrelated redirect targets are not crawled.
+        if (registrableHost(new URL(finalUrl).hostname) !== registrableHost(new URL(initial).hostname)) throw new Error('La web oficial redirige a un dominio distinto.')
+      }
+      const finalCanonical = canonicalWebsiteUrl(finalUrl)
+      if (pages.some((page) => canonicalWebsiteUrl(page.url) === finalCanonical)) continue
+      visited.add(finalCanonical)
+      const html = (await response.text()).slice(0, 1_500_000)
+      const source = websiteSource(finalUrl, retrievedAt)
+      pages.push({url: finalUrl, html, source})
+      for (const link of extractLinks(html, finalUrl)) {
+        if (pages.length + queue.length >= WEBSITE_LINK_LIMIT || !RELEVANT_LINK.test(link)) continue
+        if (registrableHost(new URL(link).hostname) === registrableHost(new URL(initial).hostname)) queue.push(link)
+      }
+    }
+    if (pages.length === 0) throw new Error('La web oficial no devolvió ninguna página HTML pública.')
+    return extractWebsiteFacts(pages)
+  }
+}
+
+interface WebsitePage {
+  url: string
+  html: string
+  source: SourceProvenance
 }
 
 interface OverpassElement {
@@ -282,6 +349,252 @@ function parseManualRecord(value: unknown, index: number, retrievedAt: string): 
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function extractWebsiteFacts(pages: WebsitePage[]): OfficialWebsiteResult {
+  const facts = emptyWebsiteFacts()
+  for (const page of pages) {
+    const structured = extractJsonLd(page.html)
+    const visible = htmlToText(page.html)
+    const metaDescription = extractMetaDescription(page.html)
+    const descriptions = compactStrings([
+      ...structured.flatMap((item) => jsonLdStrings(item, 'description')),
+      metaDescription,
+    ]).filter((value) => value.length >= 20 && !GENERIC_DESCRIPTION.test(value))
+    const evidenceText = `${visible} ${descriptions.join(' ')}`
+    mergeFact(facts.concept, descriptions[0] ?? null, page.source.key)
+    mergeListFact(facts.cuisine, [
+      ...structured.flatMap((item) => jsonLdStrings(item, 'servesCuisine')),
+      ...controlledMatches(evidenceText, CUISINES),
+    ], page.source.key)
+    mergeListFact(facts.specialties, [
+      ...structured.flatMap(menuItemNames),
+      ...labelledList(visible, /(?:especialidades?|platos? estrella|specialties?)\s*[:\-]\s*/i),
+    ], page.source.key)
+    mergeListFact(facts.services, controlledMatches(visible, SERVICES), page.source.key)
+    mergeBooleanFact(facts.bookingAvailability, hasBookingEvidence(page.html, visible), page.source.key)
+    mergeBooleanFact(facts.takeaway, explicitBoolean(visible, /(?:para llevar|takeaway|take away|recogida en local)/i, /(?:no (?:ofrecemos|hay|disponemos de) (?:comida )?para llevar|no takeaway)/i), page.source.key)
+    mergeBooleanFact(facts.delivery, explicitBoolean(visible, /(?:servicio a domicilio|entrega a domicilio|delivery|home delivery)/i, /(?:no (?:ofrecemos|hay|disponemos de) (?:servicio a domicilio|delivery)|no delivery)/i), page.source.key)
+    mergeBooleanFact(facts.terrace, explicitBoolean(visible, /(?:terraza|terrace|outdoor seating)/i, /(?:sin terraza|no (?:tenemos|hay|disponemos de) terraza)/i), page.source.key)
+    mergeListFact(facts.accessibility, controlledMatches(visible, ACCESSIBILITY), page.source.key)
+    mergeListFact(facts.openingInformation, [
+      ...structured.flatMap((item) => jsonLdStrings(item, 'openingHours')),
+      ...structured.flatMap(openingSpecification),
+    ], page.source.key)
+    mergeFact(facts.locationContext, controlledMatches(visible, LOCATION_CONTEXT).join(', ') || null, page.source.key)
+    mergeListFact(facts.distinctiveFeatures, controlledMatches(visible, DISTINCTIVE_FEATURES), page.source.key)
+  }
+  return {facts, sources: [...new Map(pages.map((page) => [page.source.key, page.source])).values()]}
+}
+
+const GENERIC_DESCRIPTION = /(?:write something about yourself|no need to be fancy|just an overview|lorem ipsum|website is under construction)/i
+
+const CUISINES: Array<[RegExp, string]> = [
+  [/\bmediterr[aá]nea\b/i, 'mediterránea'], [/\bindia\b|\bindian\b/i, 'india'], [/\bitaliana\b|\bitalian\b/i, 'italiana'],
+  [/\bmexicana\b|\bmexican\b/i, 'mexicana'], [/\bjaponesa\b|\bjapanese\b/i, 'japonesa'], [/\bsushi\b/i, 'sushi'],
+  [/\bpoke\b/i, 'poke'], [/\basi[aá]tica\b|\basian\b/i, 'asiática'], [/\bchina\b|\bchinese\b/i, 'china'],
+  [/\bespa[nñ]ola\b|\bspanish cuisine\b/i, 'española'], [/\bamericana\b|\bamerican\b/i, 'americana'],
+  [/\bbarbacoa\b|\bbarbecue\b|\bbbq\b/i, 'barbacoa'], [/\bmarisco(?:s)?\b|\bseafood\b/i, 'mariscos'],
+  [/\barroces?\b|\bpaellas?\b/i, 'arroces'], [/\bvegetariana\b|\bvegetarian\b/i, 'vegetariana'], [/\bvegana\b|\bvegan\b/i, 'vegana'],
+]
+const SERVICES: Array<[RegExp, string]> = [
+  [/\bdesayunos?\b|\bbreakfast\b/i, 'desayuno'], [/\balmuerzos?\b|\blunch\b/i, 'almuerzo'], [/\bcenas?\b|\bdinner\b/i, 'cena'],
+  [/\bmen[uú] del d[ií]a\b/i, 'menú del día'], [/\bmen[uú] infantil\b|\bkids menu\b/i, 'menú infantil'],
+  [/\bopciones? sin gluten\b|\bgluten[- ]free\b/i, 'opciones sin gluten'], [/\bopciones? vegetarianas?\b/i, 'opciones vegetarianas'],
+]
+const ACCESSIBILITY: Array<[RegExp, string]> = [
+  [/\bacceso (?:para|en) silla de ruedas\b|\bwheelchair accessible\b/i, 'acceso para silla de ruedas'],
+  [/\bba[nñ]o adaptado\b|\baccessible toilet\b/i, 'baño adaptado'],
+]
+const LOCATION_CONTEXT: Array<[RegExp, string]> = [
+  [/\bprimera l[ií]nea de playa\b|\bbeachfront\b/i, 'primera línea de playa'], [/\bcasco antiguo\b|\bold town\b/i, 'casco antiguo'],
+  [/\bplaya de levante\b/i, 'playa de Levante'], [/\bplaya de poniente\b/i, 'playa de Poniente'], [/\bcentro de benidorm\b/i, 'centro de Benidorm'],
+]
+const DISTINCTIVE_FEATURES: Array<[RegExp, string]> = [
+  [/\bvistas? al mar\b|\bsea views?\b/i, 'vistas al mar'], [/\bm[uú]sica en directo\b|\blive music\b/i, 'música en directo'],
+  [/\brooftop\b|\bazotea\b/i, 'rooftop'], [/\bcocina abierta\b|\bopen kitchen\b/i, 'cocina abierta'],
+  [/\bhorno de le[nñ]a\b|\bwood[- ]fired oven\b/i, 'horno de leña'], [/\bproductos? locales?\b|\blocal produce\b/i, 'producto local'],
+]
+
+function emptyWebsiteFacts(): OfficialWebsiteFacts {
+  const fact = <T>(): Fact<T> => ({value: null, sources: []})
+  return {
+    cuisine: fact(), concept: fact(), specialties: fact(), services: fact(), bookingAvailability: fact(),
+    takeaway: fact(), delivery: fact(), terrace: fact(), accessibility: fact(), openingInformation: fact(),
+    locationContext: fact(), distinctiveFeatures: fact(),
+  }
+}
+
+function mergeFact(fact: Fact<string>, value: string | null, source: string): void {
+  const clean = value?.replace(/\s+/g, ' ').trim().slice(0, 600) || null
+  if (!clean) return
+  if (fact.value === null) {
+    fact.value = clean
+    fact.sources.push(source)
+  } else if (normalizeComparable(fact.value) === normalizeComparable(clean) && !fact.sources.includes(source)) fact.sources.push(source)
+}
+
+function mergeListFact(fact: Fact<string[]>, values: Array<string | null>, source: string): void {
+  const clean = compactStrings(values).map((value) => value.replace(/\s+/g, ' ').trim().slice(0, 160)).filter((value) => value.length >= 2)
+  if (!clean.length) return
+  fact.value = uniqueNormalized([...(fact.value ?? []), ...clean]).slice(0, 20)
+  if (!fact.sources.includes(source)) fact.sources.push(source)
+}
+
+function mergeBooleanFact(fact: Fact<boolean>, value: boolean | null, source: string): void {
+  if (value === null || (fact.value !== null && fact.value !== value)) return
+  fact.value = value
+  if (!fact.sources.includes(source)) fact.sources.push(source)
+}
+
+function extractJsonLd(html: string): Record<string, unknown>[] {
+  const items: Record<string, unknown>[] = []
+  for (const match of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const parsed = JSON.parse(decodeEntities(match[1] ?? '')) as unknown
+      collectRecords(parsed, items)
+    } catch { /* Invalid publisher JSON-LD is ignored. */ }
+  }
+  return items
+}
+
+function collectRecords(value: unknown, target: Record<string, unknown>[]): void {
+  if (Array.isArray(value)) for (const item of value) collectRecords(item, target)
+  else if (isRecord(value)) {
+    target.push(value)
+    if ('@graph' in value) collectRecords(value['@graph'], target)
+  }
+}
+
+function jsonLdStrings(item: Record<string, unknown>, key: string): string[] {
+  const value = item[key]
+  if (typeof value === 'string') return [value]
+  if (Array.isArray(value)) return value.filter((entry): entry is string => typeof entry === 'string')
+  return []
+}
+
+function menuItemNames(item: Record<string, unknown>): string[] {
+  const type = item['@type']
+  if (type !== 'MenuItem' && !(Array.isArray(type) && type.includes('MenuItem'))) return []
+  return typeof item.name === 'string' ? [item.name] : []
+}
+
+function openingSpecification(item: Record<string, unknown>): string[] {
+  const specs = Array.isArray(item.openingHoursSpecification) ? item.openingHoursSpecification : []
+  return specs.flatMap((spec) => {
+    if (!isRecord(spec)) return []
+    const days = Array.isArray(spec.dayOfWeek) ? spec.dayOfWeek : [spec.dayOfWeek]
+    const dayText = days.filter((day): day is string => typeof day === 'string').map((day) => day.split('/').at(-1)).join(', ')
+    const opens = typeof spec.opens === 'string' ? spec.opens : ''
+    const closes = typeof spec.closes === 'string' ? spec.closes : ''
+    return dayText && opens && closes ? [`${dayText}: ${opens}-${closes}`] : []
+  })
+}
+
+function hasBookingEvidence(html: string, text: string): boolean | null {
+  if (/(?:no (?:aceptamos|se admiten) reservas|walk[- ]ins? only)/i.test(text)) return false
+  return /(?:reservar|reserva (?:tu|una) mesa|book (?:a )?table|online booking)/i.test(text)
+    || /href=["'][^"']*(?:reserv|booking)/i.test(html) ? true : null
+}
+
+function explicitBoolean(text: string, yes: RegExp, no: RegExp): boolean | null {
+  if (no.test(text)) return false
+  return yes.test(text) ? true : null
+}
+
+function controlledMatches(text: string, patterns: Array<[RegExp, string]>): string[] {
+  return patterns.filter(([pattern]) => pattern.test(text)).map(([, label]) => label)
+}
+
+function labelledList(text: string, label: RegExp): string[] {
+  const match = label.exec(text)
+  if (!match) return []
+  return text.slice((match.index ?? 0) + match[0].length, (match.index ?? 0) + match[0].length + 240)
+    .split(/[|•·;,.]/).map((item) => item.trim()).filter((item) => item.length >= 3 && item.length <= 80).slice(0, 8)
+}
+
+function extractMetaDescription(html: string): string | null {
+  const tags = html.match(/<meta\b[^>]*>/gi) ?? []
+  for (const tag of tags) {
+    if (!/(?:name|property)=["'](?:description|og:description)["']/i.test(tag)) continue
+    const content = /content=["']([^"']+)["']/i.exec(tag)?.[1]
+    if (content) return decodeEntities(content)
+  }
+  return null
+}
+
+function htmlToText(html: string): string {
+  return decodeEntities(html.replace(/<(?:script|style|noscript|svg)\b[\s\S]*?<\/(?:script|style|noscript|svg)>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()).slice(0, 300_000)
+}
+
+function extractLinks(html: string, base: string): string[] {
+  const links: string[] = []
+  for (const match of html.matchAll(/<a\b[^>]*href=["']([^"'#]+)["']/gi)) {
+    try {
+      const url = new URL(decodeEntities(match[1] ?? ''), base)
+      if (url.protocol === 'http:' || url.protocol === 'https:') links.push(canonicalWebsiteUrl(url.toString()))
+    } catch { /* Ignore malformed publisher URLs. */ }
+  }
+  return [...new Set(links)]
+}
+
+function websiteSource(url: string, retrievedAt: string): SourceProvenance {
+  const canonical = canonicalWebsiteUrl(url)
+  return {
+    key: sourceKey('official-website', canonical), provider: 'official-website', identifier: canonical, url: canonical,
+    retrievedAt, attribution: `Sitio web oficial (${new URL(canonical).hostname})`, licenseUrl: null,
+  }
+}
+
+function publicWebsiteUrl(value: string): string {
+  const url = new URL(value)
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') throw new Error('La web oficial debe usar HTTP o HTTPS.')
+  const hostname = url.hostname.toLowerCase()
+  if (hostname === 'localhost' || hostname.endsWith('.local') || /^(?:127\.|10\.|192\.168\.|169\.254\.)/.test(hostname)) {
+    throw new Error('La web oficial debe ser una URL pública.')
+  }
+  return url.toString()
+}
+
+function canonicalWebsiteUrl(value: string): string {
+  const url = new URL(value)
+  url.hash = ''
+  return url.toString()
+}
+
+function registrableHost(hostname: string): string {
+  return hostname.toLowerCase().replace(/^www\./, '')
+}
+
+function compactStrings(values: Array<string | null | undefined>): string[] {
+  return values.filter((value): value is string => typeof value === 'string' && Boolean(value.trim()))
+}
+
+function normalizeComparable(value: string): string {
+  return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim()
+}
+
+function uniqueNormalized(values: string[]): string[] {
+  const seen = new Set<string>()
+  return values.filter((value) => {
+    const key = normalizeComparable(value)
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
+function decodeEntities(value: string): string {
+  const entities: Record<string, string> = {amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', nbsp: ' '}
+  return value.replace(/&(#x?[\da-f]+|\w+);/gi, (_, entity: string) => {
+    if (entity.startsWith('#')) {
+      const hex = entity[1]?.toLowerCase() === 'x'
+      const code = Number.parseInt(entity.slice(hex ? 2 : 1), hex ? 16 : 10)
+      return Number.isFinite(code) ? String.fromCodePoint(code) : _
+    }
+    return entities[entity.toLowerCase()] ?? _
+  })
 }
 
 let environmentLoaded = false

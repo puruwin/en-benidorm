@@ -7,49 +7,9 @@
     "current": "clay-oven"
   },
   "businessKind": "restaurant",
-  "shortDescription": "Clay Oven es un restaurante situado en Benidorm.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Clay Oven es un restaurante situado en Benidorm. Puedes consultar más información en su sitio web oficial."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Restaurante en Benidorm"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Sitio web oficial disponible"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
+  "contentQuality": "insufficient",
+  "shortDescription": "",
+  "body": [],
   "language": "es",
   "lastVerified": "2026-10-06",
   "sources": [
@@ -59,12 +19,15 @@
       "publisher": "© OpenStreetMap contributors",
       "url": "https://www.openstreetmap.org/node/8000751659",
       "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.clayovenbenidorm.com/",
+      "publisher": "Sitio web oficial (www.clayovenbenidorm.com)",
+      "url": "https://www.clayovenbenidorm.com/",
+      "accessedAt": "2026-10-06"
     }
   ],
-  "seo": {
-    "metaTitle": "Clay Oven, restaurante en Benidorm",
-    "metaDescription": "Información de Clay Oven, restaurante situado en Benidorm, y enlace a su sitio web oficial."
-  },
   "address": {
     "street": "Calle de Lepanto 21",
     "postalCode": "03503",

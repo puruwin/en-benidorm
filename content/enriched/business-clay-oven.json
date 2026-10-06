@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "business-clay-oven",
   "type": "restaurant",
   "targetDocumentType": "business",
@@ -51,6 +51,215 @@
     "openingHoursRaw": {
       "value": null,
       "sources": []
+    },
+    "cuisine": {
+      "value": [
+        "india"
+      ],
+      "sources": [
+        "official-website:https://www.clayovenbenidorm.com/"
+      ]
+    },
+    "concept": {
+      "value": "Indian Restaurant Benidorm",
+      "sources": [
+        "official-website:https://www.clayovenbenidorm.com/"
+      ]
+    },
+    "specialties": {
+      "value": null,
+      "sources": []
+    },
+    "services": {
+      "value": null,
+      "sources": []
+    },
+    "bookingAvailability": {
+      "value": null,
+      "sources": []
+    },
+    "takeaway": {
+      "value": null,
+      "sources": []
+    },
+    "delivery": {
+      "value": null,
+      "sources": []
+    },
+    "terrace": {
+      "value": null,
+      "sources": []
+    },
+    "accessibility": {
+      "value": null,
+      "sources": []
+    },
+    "openingInformation": {
+      "value": null,
+      "sources": []
+    },
+    "locationContext": {
+      "value": null,
+      "sources": []
+    },
+    "distinctiveFeatures": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "factsBySource": {
+    "openStreetMap": {
+      "name": {
+        "value": "Clay Oven",
+        "sources": [
+          "openstreetmap:node/8000751659"
+        ]
+      },
+      "businessKind": {
+        "value": "restaurant",
+        "sources": [
+          "openstreetmap:node/8000751659"
+        ]
+      },
+      "address": {
+        "value": {
+          "street": "Calle de Lepanto 21",
+          "postalCode": "03503",
+          "locality": "Benidorm"
+        },
+        "sources": [
+          "openstreetmap:node/8000751659"
+        ]
+      },
+      "location": {
+        "value": {
+          "lat": 38.53823,
+          "lng": -0.113111
+        },
+        "sources": [
+          "openstreetmap:node/8000751659"
+        ]
+      },
+      "phone": {
+        "value": "+34 640 074 610",
+        "sources": [
+          "openstreetmap:node/8000751659"
+        ]
+      },
+      "website": {
+        "value": "https://www.clayovenbenidorm.com/",
+        "sources": [
+          "openstreetmap:node/8000751659"
+        ]
+      },
+      "openingHoursRaw": {
+        "value": null,
+        "sources": []
+      },
+      "cuisine": {
+        "value": null,
+        "sources": []
+      },
+      "concept": {
+        "value": null,
+        "sources": []
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
+    },
+    "officialWebsite": {
+      "cuisine": {
+        "value": [
+          "india"
+        ],
+        "sources": [
+          "official-website:https://www.clayovenbenidorm.com/"
+        ]
+      },
+      "concept": {
+        "value": "Indian Restaurant Benidorm",
+        "sources": [
+          "official-website:https://www.clayovenbenidorm.com/"
+        ]
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
     }
   },
   "editorial": {},
@@ -63,6 +272,15 @@
       "retrievedAt": "2026-10-06T11:53:45.905Z",
       "attribution": "© OpenStreetMap contributors",
       "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://www.clayovenbenidorm.com/",
+      "provider": "official-website",
+      "identifier": "https://www.clayovenbenidorm.com/",
+      "url": "https://www.clayovenbenidorm.com/",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (www.clayovenbenidorm.com)",
+      "licenseUrl": null
     }
   ]
 }

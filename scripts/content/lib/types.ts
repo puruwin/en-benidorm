@@ -79,33 +79,58 @@ export interface FactualAddress {
   country?: string
 }
 
+export interface BusinessFacts {
+  name: Fact<string>
+  businessKind: Fact<BusinessKind>
+  address: Fact<FactualAddress>
+  location: Fact<{lat: number; lng: number}>
+  phone: Fact<string>
+  website: Fact<string>
+  openingHoursRaw: Fact<string>
+  cuisine: Fact<string[]>
+  concept: Fact<string>
+  specialties: Fact<string[]>
+  services: Fact<string[]>
+  bookingAvailability: Fact<boolean>
+  takeaway: Fact<boolean>
+  delivery: Fact<boolean>
+  terrace: Fact<boolean>
+  accessibility: Fact<string[]>
+  openingInformation: Fact<string[]>
+  locationContext: Fact<string>
+  distinctiveFeatures: Fact<string[]>
+}
+
 export interface EnrichedEntity {
-  schemaVersion: 1
+  schemaVersion: 2
   id: string
   type: EntityType
   targetDocumentType: 'business' | 'place'
   slug: string
-  facts: {
-    name: Fact<string>
-    businessKind: Fact<BusinessKind>
-    address: Fact<FactualAddress>
-    location: Fact<{lat: number; lng: number}>
-    phone: Fact<string>
-    website: Fact<string>
-    openingHoursRaw: Fact<string>
+  facts: BusinessFacts
+  factsBySource: {
+    openStreetMap: BusinessFacts
+    officialWebsite: Pick<BusinessFacts,
+      | 'cuisine' | 'concept' | 'specialties' | 'services' | 'bookingAvailability'
+      | 'takeaway' | 'delivery' | 'terrace' | 'accessibility' | 'openingInformation'
+      | 'locationContext' | 'distinctiveFeatures'>
   }
   editorial: Record<string, never>
   sources: SourceProvenance[]
 }
 
 export interface GeneratedEditorial {
-  shortDescription: string
-  description: string
+  contentQuality: 'sufficient' | 'insufficient'
+  shortDescription: string | null
+  whatIsIt: string | null
+  whatToExpect: string | null
+  whyGo: string | null
+  goodFor: string[]
   highlights: string[]
   seo: {
     metaTitle: string
     metaDescription: string
-  }
+  } | null
 }
 
 export interface QAIssue {

@@ -7,49 +7,9 @@
     "current": "country-ribs"
   },
   "businessKind": "restaurant",
-  "shortDescription": "Country Ribs es un restaurante ubicado en Benidorm.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Country Ribs figura como restaurante en Benidorm, con ubicación registrada en la avenida del Derramador."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Restaurante en Benidorm"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Ubicación en Avinguda del Derramador"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
+  "contentQuality": "insufficient",
+  "shortDescription": "",
+  "body": [],
   "language": "es",
   "lastVerified": "2026-10-06",
   "sources": [
@@ -61,10 +21,6 @@
       "accessedAt": "2026-10-06"
     }
   ],
-  "seo": {
-    "metaTitle": "Country Ribs, restaurante en Benidorm",
-    "metaDescription": "Información sobre Country Ribs, restaurante ubicado en Benidorm."
-  },
   "address": {
     "street": "Avinguda del Derramador",
     "postalCode": "03503",

@@ -255,6 +255,7 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
     enumValue('businessKind', BUSINESS_KINDS, true)
     requiredString('shortDescription')
     optionalString('shortDescription', 240)
+    enumValue('contentQuality', new Set(['sufficient', 'insufficient']), true)
     enumValue('priceRange', PRICE_RANGES)
     language()
   } else if (doc._type === 'place') {

@@ -113,7 +113,9 @@ Los resúmenes legibles aparecen en consola. Las ejecuciones no dry-run actualiz
 
 ### Discovery y fuentes
 
-`SourceAdapter` desacopla la pipeline del proveedor. La primera implementación, `OpenStreetMapAdapter`, consulta por separado nodos, vías y relaciones de Overpass sobre el bounding box de control y filtra después sus centros contra el polígono oficial que Nominatim devuelve para la relación administrativa de Benidorm (`341148`). Esta estrategia evita las consultas `nwr(area)` costosas sin admitir resultados de municipios vecinos. Localiza restaurantes, bares/pubs, cafeterías, hoteles, atracciones y tiendas con nombre. `ManualJsonAdapter` permite añadir en el futuro lotes revisados con el mismo contrato, sin acoplar las demás fases a un formato de proveedor.
+`SourceAdapter` desacopla la pipeline del proveedor. `OpenStreetMapAdapter` consulta por separado nodos, vías y relaciones de Overpass sobre el bounding box de control y filtra después sus centros contra el polígono oficial que Nominatim devuelve para la relación administrativa de Benidorm (`341148`). Esta estrategia evita las consultas `nwr(area)` costosas sin admitir resultados de municipios vecinos. Localiza restaurantes, bares/pubs, cafeterías, hoteles, atracciones y tiendas con nombre. `ManualJsonAdapter` permite añadir lotes revisados con el mismo contrato.
+
+Durante enrichment, `OfficialWebsiteAdapter` sólo se ejecuta si OSM aporta un website. Sigue un máximo de cinco páginas públicas del mismo dominio, prioriza carta, reservas, contacto y páginas descriptivas, y extrae facts verificables desde JSON-LD y señales explícitas del HTML. No guarda el texto para publicarlo: conserva valores estructurados y provenance por página. Un fallo HTTP deja los facts correspondientes en `null` y se registra como aviso; no se sustituye por una inferencia.
 
 Cada registro conserva proveedor, identificador, URL original, fecha de consulta, atribución y URL de licencia. No se extraen ni copian fichas de Google Maps. Las atracciones se descubren y enriquecen, pero no se convierten artificialmente en `Business`: quedan preparadas para una futura pipeline `Place`.
 
@@ -121,21 +123,27 @@ Los datos de OpenStreetMap se distribuyen bajo ODbL. Antes de publicar datos der
 
 ### Enrichment y generación
 
-El artefacto enriquecido separa explícitamente `facts` de `editorial`. Cada fact presente contiene las claves de sus fuentes; un valor ausente queda como `null` y con una lista de fuentes vacía. No se infieren direcciones, horarios ni otros datos faltantes. `opening_hours` de OSM se conserva como fact crudo, pero no se importa como horario de Sanity mientras no exista un parser verificable para ese formato.
+El artefacto enriquecido separa explícitamente `facts` de `editorial`. Cada fact presente contiene las claves de sus fuentes; un valor ausente queda como `null` y con una lista de fuentes vacía. `factsBySource.openStreetMap` y `factsBySource.officialWebsite` conservan ambos conjuntos de evidencia de forma independiente, mientras `facts` expone la vista integrada. No se infieren direcciones, horarios ni otros datos faltantes. `opening_hours` de OSM se conserva como fact crudo, pero no se importa como horario de Sanity mientras no exista un parser verificable para ese formato.
 
 La generación usa un `AIProvider` intercambiable. `OpenAIResponsesProvider` llama a Responses API con [Structured Outputs y JSON Schema](https://developers.openai.com/api/docs/guides/structured-outputs). El modelo y el cliente están centralizados en `scripts/content/lib/ai.ts`; `OPENAI_API_KEY` sólo se lee desde el script de Node y nunca se expone con prefijo `PUBLIC_`. La IA recibe únicamente facts, fuentes, taxonomía válida, contrato del documento e instrucciones editoriales. Su schema de salida sólo admite:
 
+- `contentQuality`: `sufficient` o `insufficient`
 - `shortDescription`
-- `description`
+- `whatIsIt`
+- `whatToExpect`
+- `whyGo`
+- `goodFor`
 - `highlights`
 - `seo.metaTitle`
 - `seo.metaDescription`
 
-Nombre, dirección, teléfono, web, coordenadas y tipo de negocio se incorporan después mediante código determinista desde los facts. Precios, horarios estructurados, ratings, reviews, servicios, premios y enlaces de Google Maps no se generan en esta fase.
+Cuando faltan facts específicos, el modelo debe devolver `insufficient`, textos/SEO nulos y arrays vacíos; no se genera relleno. Las secciones suficientes se transforman después a Portable Text. Nombre, dirección, teléfono, web, coordenadas y tipo de negocio se incorporan mediante código determinista desde los facts.
 
 ### QA
 
-QA reutiliza la validación del importador y añade controles de procedencia, integridad facts/documento, completitud, duplicados de entidad, coordenadas, enums, referencias, similitud editorial y duplicados exactos de títulos y meta descriptions. El resultado por documento es `PASS`, `WARNING` o `FAIL`. Un `WARNING` permite la promoción para revisión humana; cualquier `FAIL` impide que el candidato quede en la carpeta importable.
+QA reutiliza la validación del importador y añade controles de procedencia, integridad facts/documento, completitud, duplicados de entidad, coordenadas, enums, referencias, similitud léxica y semántica aproximada dentro del lote, y duplicados exactos de títulos y meta descriptions. `GENERIC_EDITORIAL_CONTENT`, `LOW_INFORMATION_DENSITY` e `INSUFFICIENT_FACTS` impiden que una ficha factual pero genérica pase. El resultado por documento es `PASS`, `WARNING` o `FAIL`. Un `WARNING` permite la promoción para revisión humana; cualquier `FAIL` impide que el candidato quede en la carpeta importable.
+
+`scripts/content/comparison-report.ts` genera un JSON y un Markdown before/after con facts por fuente, textos y QA en `content/reports/business-before-after.*`.
 
 Para ejecutar la cadena sobre una muestra:
 

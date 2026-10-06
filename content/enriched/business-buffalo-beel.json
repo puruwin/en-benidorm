@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "business-buffalo-beel",
   "type": "restaurant",
   "targetDocumentType": "business",
@@ -51,6 +51,227 @@
     "openingHoursRaw": {
       "value": null,
       "sources": []
+    },
+    "cuisine": {
+      "value": [
+        "italiana"
+      ],
+      "sources": [
+        "official-website:https://buffalobeel.com/"
+      ]
+    },
+    "concept": {
+      "value": "Buffalo Beel es tu restaurante Italiano, donde podrás degustar pizzas caseras, la mejor pasta y unas carnes y pescados de primera calidad. Ven a visitarnos, no te defraudaremos",
+      "sources": [
+        "official-website:https://buffalobeel.com/"
+      ]
+    },
+    "specialties": {
+      "value": null,
+      "sources": []
+    },
+    "services": {
+      "value": [
+        "menú del día"
+      ],
+      "sources": [
+        "official-website:https://buffalobeel.com/"
+      ]
+    },
+    "bookingAvailability": {
+      "value": true,
+      "sources": [
+        "official-website:https://buffalobeel.com/"
+      ]
+    },
+    "takeaway": {
+      "value": null,
+      "sources": []
+    },
+    "delivery": {
+      "value": null,
+      "sources": []
+    },
+    "terrace": {
+      "value": null,
+      "sources": []
+    },
+    "accessibility": {
+      "value": null,
+      "sources": []
+    },
+    "openingInformation": {
+      "value": null,
+      "sources": []
+    },
+    "locationContext": {
+      "value": null,
+      "sources": []
+    },
+    "distinctiveFeatures": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "factsBySource": {
+    "openStreetMap": {
+      "name": {
+        "value": "Buffalo Beel",
+        "sources": [
+          "openstreetmap:node/6695338582"
+        ]
+      },
+      "businessKind": {
+        "value": "restaurant",
+        "sources": [
+          "openstreetmap:node/6695338582"
+        ]
+      },
+      "address": {
+        "value": {
+          "street": "Avinguda de Castelló 7",
+          "postalCode": "03503",
+          "locality": "Benidorm"
+        },
+        "sources": [
+          "openstreetmap:node/6695338582"
+        ]
+      },
+      "location": {
+        "value": {
+          "lat": 38.5360585,
+          "lng": -0.1097994
+        },
+        "sources": [
+          "openstreetmap:node/6695338582"
+        ]
+      },
+      "phone": {
+        "value": "+34 96 589 93 29",
+        "sources": [
+          "openstreetmap:node/6695338582"
+        ]
+      },
+      "website": {
+        "value": "https://buffalobeel.com/",
+        "sources": [
+          "openstreetmap:node/6695338582"
+        ]
+      },
+      "openingHoursRaw": {
+        "value": null,
+        "sources": []
+      },
+      "cuisine": {
+        "value": null,
+        "sources": []
+      },
+      "concept": {
+        "value": null,
+        "sources": []
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
+    },
+    "officialWebsite": {
+      "cuisine": {
+        "value": [
+          "italiana"
+        ],
+        "sources": [
+          "official-website:https://buffalobeel.com/"
+        ]
+      },
+      "concept": {
+        "value": "Buffalo Beel es tu restaurante Italiano, donde podrás degustar pizzas caseras, la mejor pasta y unas carnes y pescados de primera calidad. Ven a visitarnos, no te defraudaremos",
+        "sources": [
+          "official-website:https://buffalobeel.com/"
+        ]
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": [
+          "menú del día"
+        ],
+        "sources": [
+          "official-website:https://buffalobeel.com/"
+        ]
+      },
+      "bookingAvailability": {
+        "value": true,
+        "sources": [
+          "official-website:https://buffalobeel.com/"
+        ]
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": null,
+        "sources": []
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
     }
   },
   "editorial": {},
@@ -63,6 +284,15 @@
       "retrievedAt": "2026-10-06T11:53:45.905Z",
       "attribution": "© OpenStreetMap contributors",
       "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://buffalobeel.com/",
+      "provider": "official-website",
+      "identifier": "https://buffalobeel.com/",
+      "url": "https://buffalobeel.com/",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (buffalobeel.com)",
+      "licenseUrl": null
     }
   ]
 }

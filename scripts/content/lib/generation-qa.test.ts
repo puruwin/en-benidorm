@@ -4,6 +4,7 @@ import {validateGeneratedEditorial} from './ai'
 import {enrichEntity} from './enrichment'
 import {buildBusinessDocument} from './generation'
 import {inspectCandidates, jaccard} from './qa'
+import type {OfficialWebsiteResult} from './adapters'
 import type {DiscoveredEntity, GeneratedEditorial} from './types'
 
 const discovered: DiscoveredEntity = {
@@ -17,10 +18,25 @@ const discovered: DiscoveredEntity = {
 }
 
 const editorial: GeneratedEditorial = {
-  shortDescription: 'Una cafetería de Benidorm identificada en la fuente disponible, pendiente de revisión editorial.',
-  description: 'Café Sol figura como cafetería en Benidorm según la fuente consultada. Esta ficha resume únicamente la información disponible y debe revisarse antes de publicarse.',
-  highlights: ['Ficha basada exclusivamente en la fuente indicada y pendiente de revisión manual.'],
-  seo: {metaTitle: 'Café Sol en Benidorm | enBenidorm', metaDescription: 'Información verificada disponible sobre Café Sol en Benidorm, con ubicación y enlace oficial cuando constan en la fuente.'},
+  contentQuality: 'sufficient',
+  shortDescription: 'Café Sol combina cocina mediterránea y servicio de desayuno.',
+  whatIsIt: 'Una cafetería de cocina mediterránea con servicio de desayuno.',
+  whatToExpect: 'La propuesta documentada combina recetas mediterráneas y desayunos.',
+  whyGo: 'Interesa por reunir cocina mediterránea y desayuno en una misma propuesta.',
+  goodFor: ['Desayunar con cocina mediterránea'],
+  highlights: ['Cocina mediterránea', 'Servicio de desayuno'],
+  seo: {metaTitle: 'Café Sol: cocina mediterránea', metaDescription: 'Café Sol ofrece una propuesta de cocina mediterránea con servicio de desayuno documentado.'},
+}
+
+const official: OfficialWebsiteResult = {
+  sources: [{key: 'official-website:https://example.com/', provider: 'official-website', identifier: 'https://example.com/', url: 'https://example.com/', retrievedAt: '2026-10-06T10:00:00.000Z', attribution: 'Sitio web oficial (example.com)', licenseUrl: null}],
+  facts: {
+    cuisine: {value: ['mediterránea'], sources: ['official-website:https://example.com/']}, concept: {value: null, sources: []},
+    specialties: {value: null, sources: []}, services: {value: ['desayuno'], sources: ['official-website:https://example.com/']},
+    bookingAvailability: {value: null, sources: []}, takeaway: {value: null, sources: []}, delivery: {value: null, sources: []},
+    terrace: {value: null, sources: []}, accessibility: {value: null, sources: []}, openingInformation: {value: null, sources: []},
+    locationContext: {value: null, sources: []}, distinctiveFeatures: {value: null, sources: []},
+  },
 }
 
 test('el schema de generación rechaza campos factuales o longitudes inválidas', () => {
@@ -30,9 +46,10 @@ test('el schema de generación rechaza campos factuales o longitudes inválidas'
 })
 
 test('QA aprueba un documento completo y detecta alteración factual', () => {
-  const enriched = enrichEntity(discovered)
+  const enriched = enrichEntity(discovered, official)
   const document = buildBusinessDocument(enriched, editorial)
-  assert.equal(inspectCandidates([{document, enriched}])[0]?.outcome, 'PASS')
+  const initial = inspectCandidates([{document, enriched}])[0]
+  assert.equal(initial?.outcome, 'PASS', JSON.stringify(initial?.issues))
   const altered = {...document, website: 'https://inventado.example'}
   const result = inspectCandidates([{document: altered, enriched}])[0]
   assert.equal(result?.outcome, 'FAIL')
@@ -42,4 +59,19 @@ test('QA aprueba un documento completo y detecta alteración factual', () => {
 test('QA mide contenido excesivamente similar', () => {
   assert.equal(jaccard('uno dos tres', 'uno dos tres'), 1)
   assert.equal(jaccard('uno dos', 'tres cuatro'), 0)
+})
+
+test('QA bloquea relleno genérico y una salida marcada como insuficiente', () => {
+  const enriched = enrichEntity(discovered, official)
+  const generic = buildBusinessDocument(enriched, editorial)
+  generic.shortDescription = 'Café Sol es un restaurante situado en Benidorm.'
+  assert.ok(inspectCandidates([{document: generic, enriched}])[0]?.issues.some((issue) => issue.code === 'GENERIC_EDITORIAL_CONTENT'))
+
+  const insufficient: GeneratedEditorial = {
+    contentQuality: 'insufficient', shortDescription: null, whatIsIt: null, whatToExpect: null, whyGo: null,
+    goodFor: [], highlights: [], seo: null,
+  }
+  assert.deepEqual(validateGeneratedEditorial(insufficient), [])
+  const result = inspectCandidates([{document: buildBusinessDocument(enriched, insufficient), enriched}])[0]
+  assert.ok(result?.issues.some((issue) => issue.code === 'INSUFFICIENT_FACTS'))
 })

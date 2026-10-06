@@ -7,49 +7,9 @@
     "current": "arenas"
   },
   "businessKind": "restaurant",
-  "shortDescription": "Arenas es un restaurante situado en Benidorm, incluido en la oferta local de establecimientos donde comer.",
-  "body": [
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Arenas es un restaurante de Benidorm. Esta ficha reúne la información básica disponible del establecimiento para facilitar su consulta dentro de la guía local."
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Restaurante en Benidorm"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "markDefs": [],
-      "children": [
-        {
-          "_type": "span",
-          "marks": [],
-          "text": "Establecimiento incluido en la categoría Dónde comer"
-        }
-      ],
-      "listItem": "bullet",
-      "level": 1
-    }
-  ],
+  "contentQuality": "insufficient",
+  "shortDescription": "",
+  "body": [],
   "language": "es",
   "lastVerified": "2026-10-06",
   "sources": [
@@ -59,12 +19,15 @@
       "publisher": "© OpenStreetMap contributors",
       "url": "https://www.openstreetmap.org/node/4406717533",
       "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: http://www.cafeteriaarenas.com/",
+      "publisher": "Sitio web oficial (www.cafeteriaarenas.com)",
+      "url": "http://www.cafeteriaarenas.com/",
+      "accessedAt": "2026-10-06"
     }
   ],
-  "seo": {
-    "metaTitle": "Arenas, restaurante en Benidorm",
-    "metaDescription": "Consulta la información básica de Arenas, restaurante situado en Benidorm, en esta guía local."
-  },
   "address": {
     "street": "Avinguda d'Alcoi - Avenida de Alcoy 13",
     "postalCode": "03503",

@@ -44,6 +44,7 @@ export async function runGeneration(
       provider ??= new OpenAIResponsesProvider()
       const editorial = await provider.generateEditorial({
         facts: enriched.facts,
+        factsBySource: enriched.factsBySource,
         sources: enriched.sources,
         taxonomy: BUSINESS_TAXONOMY,
         documentSchema: BUSINESS_DOCUMENT_SCHEMA,

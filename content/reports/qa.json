@@ -1,0 +1,188 @@
+{
+  "phase": "qa",
+  "dryRun": false,
+  "startedAt": "2026-10-06T12:38:14.628Z",
+  "finishedAt": "2026-10-06T12:38:14.654Z",
+  "totals": {
+    "total": 10,
+    "FAIL": 5,
+    "PASS": 5
+  },
+  "items": [
+    {
+      "id": "business-amigos-bistro",
+      "outcome": "FAIL",
+      "issues": [
+        {
+          "severity": "FAIL",
+          "code": "schema",
+          "path": "shortDescription",
+          "message": "Campo obligatorio; debe ser una cadena no vacía."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "body",
+          "message": "Falta la descripción editorial."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "seo",
+          "message": "Faltan title o meta description de SEO."
+        },
+        {
+          "severity": "FAIL",
+          "code": "INSUFFICIENT_FACTS",
+          "path": "contentQuality",
+          "message": "Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno."
+        }
+      ]
+    },
+    {
+      "id": "business-amigos",
+      "outcome": "FAIL",
+      "issues": [
+        {
+          "severity": "FAIL",
+          "code": "schema",
+          "path": "shortDescription",
+          "message": "Campo obligatorio; debe ser una cadena no vacía."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "body",
+          "message": "Falta la descripción editorial."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "seo",
+          "message": "Faltan title o meta description de SEO."
+        },
+        {
+          "severity": "FAIL",
+          "code": "INSUFFICIENT_FACTS",
+          "path": "contentQuality",
+          "message": "Sólo hay 0 grupos de facts específicos; la ficha no puede ser útil sin relleno."
+        }
+      ]
+    },
+    {
+      "id": "business-arenas",
+      "outcome": "FAIL",
+      "issues": [
+        {
+          "severity": "FAIL",
+          "code": "schema",
+          "path": "shortDescription",
+          "message": "Campo obligatorio; debe ser una cadena no vacía."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "body",
+          "message": "Falta la descripción editorial."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "seo",
+          "message": "Faltan title o meta description de SEO."
+        },
+        {
+          "severity": "FAIL",
+          "code": "INSUFFICIENT_FACTS",
+          "path": "contentQuality",
+          "message": "Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno."
+        }
+      ]
+    },
+    {
+      "id": "business-buffalo-beel",
+      "outcome": "PASS",
+      "issues": []
+    },
+    {
+      "id": "business-cafeteria-la-bahia",
+      "outcome": "PASS",
+      "issues": []
+    },
+    {
+      "id": "business-clay-oven",
+      "outcome": "FAIL",
+      "issues": [
+        {
+          "severity": "FAIL",
+          "code": "schema",
+          "path": "shortDescription",
+          "message": "Campo obligatorio; debe ser una cadena no vacía."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "body",
+          "message": "Falta la descripción editorial."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "seo",
+          "message": "Faltan title o meta description de SEO."
+        },
+        {
+          "severity": "FAIL",
+          "code": "INSUFFICIENT_FACTS",
+          "path": "contentQuality",
+          "message": "Sólo hay 2 grupos de facts específicos; la ficha no puede ser útil sin relleno."
+        }
+      ]
+    },
+    {
+      "id": "business-country-ribs",
+      "outcome": "FAIL",
+      "issues": [
+        {
+          "severity": "FAIL",
+          "code": "schema",
+          "path": "shortDescription",
+          "message": "Campo obligatorio; debe ser una cadena no vacía."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "body",
+          "message": "Falta la descripción editorial."
+        },
+        {
+          "severity": "FAIL",
+          "code": "incomplete",
+          "path": "seo",
+          "message": "Faltan title o meta description de SEO."
+        },
+        {
+          "severity": "FAIL",
+          "code": "INSUFFICIENT_FACTS",
+          "path": "contentQuality",
+          "message": "Sólo hay 1 grupos de facts específicos; la ficha no puede ser útil sin relleno."
+        }
+      ]
+    },
+    {
+      "id": "business-dvora-gastrobar",
+      "outcome": "PASS",
+      "issues": []
+    },
+    {
+      "id": "business-la-oficina-del-gusto",
+      "outcome": "PASS",
+      "issues": []
+    },
+    {
+      "id": "business-sushi-poke-chen-s-kitchen",
+      "outcome": "PASS",
+      "issues": []
+    }
+  ]
+}

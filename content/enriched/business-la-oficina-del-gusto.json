@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "business-la-oficina-del-gusto",
   "type": "restaurant",
   "targetDocumentType": "business",
@@ -53,6 +53,303 @@
       "sources": [
         "openstreetmap:node/10253103370"
       ]
+    },
+    "cuisine": {
+      "value": [
+        "pizza",
+        "Italian",
+        "Pasta",
+        "Pizza",
+        "Focaccia",
+        "Mediterranean",
+        "mediterránea",
+        "italiana"
+      ],
+      "sources": [
+        "openstreetmap:node/10253103370",
+        "official-website:https://www.laoficinadelgusto.com/",
+        "official-website:https://www.laoficinadelgusto.com/Carta",
+        "official-website:https://www.laoficinadelgusto.com/Menu",
+        "official-website:https://www.laoficinadelgusto.com/Reservations",
+        "official-website:https://www.laoficinadelgusto.com/About"
+      ]
+    },
+    "concept": {
+      "value": "Restaurante italiano en Benidorm especializado en pasta fresca artesanal, focaccias y cocina italiana de autor.",
+      "sources": [
+        "official-website:https://www.laoficinadelgusto.com/",
+        "official-website:https://www.laoficinadelgusto.com/Carta",
+        "official-website:https://www.laoficinadelgusto.com/Menu",
+        "official-website:https://www.laoficinadelgusto.com/Reservations",
+        "official-website:https://www.laoficinadelgusto.com/About"
+      ]
+    },
+    "specialties": {
+      "value": null,
+      "sources": []
+    },
+    "services": {
+      "value": null,
+      "sources": []
+    },
+    "bookingAvailability": {
+      "value": true,
+      "sources": [
+        "official-website:https://www.laoficinadelgusto.com/",
+        "official-website:https://www.laoficinadelgusto.com/Carta",
+        "official-website:https://www.laoficinadelgusto.com/Menu",
+        "official-website:https://www.laoficinadelgusto.com/Reservations",
+        "official-website:https://www.laoficinadelgusto.com/About"
+      ]
+    },
+    "takeaway": {
+      "value": true,
+      "sources": [
+        "official-website:https://www.laoficinadelgusto.com/",
+        "official-website:https://www.laoficinadelgusto.com/Carta",
+        "official-website:https://www.laoficinadelgusto.com/Menu",
+        "official-website:https://www.laoficinadelgusto.com/Reservations",
+        "official-website:https://www.laoficinadelgusto.com/About"
+      ]
+    },
+    "delivery": {
+      "value": null,
+      "sources": []
+    },
+    "terrace": {
+      "value": null,
+      "sources": []
+    },
+    "accessibility": {
+      "value": null,
+      "sources": []
+    },
+    "openingInformation": {
+      "value": [
+        "We-Su 16:30-23:30",
+        "Wednesday, Thursday, Friday, Saturday: 13:30-16:30",
+        "Wednesday, Thursday, Friday, Saturday: 20:30-23:00",
+        "Sunday: 13:00-16:30",
+        "Sunday: 20:30-22:30"
+      ],
+      "sources": [
+        "openstreetmap:node/10253103370",
+        "official-website:https://www.laoficinadelgusto.com/",
+        "official-website:https://www.laoficinadelgusto.com/Carta",
+        "official-website:https://www.laoficinadelgusto.com/Menu",
+        "official-website:https://www.laoficinadelgusto.com/Reservations",
+        "official-website:https://www.laoficinadelgusto.com/About"
+      ]
+    },
+    "locationContext": {
+      "value": null,
+      "sources": []
+    },
+    "distinctiveFeatures": {
+      "value": null,
+      "sources": []
+    }
+  },
+  "factsBySource": {
+    "openStreetMap": {
+      "name": {
+        "value": "La Oficina del Gusto",
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "businessKind": {
+        "value": "restaurant",
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "address": {
+        "value": {
+          "street": "Carrer de Sant Roc",
+          "postalCode": "03501",
+          "locality": "Benidorm"
+        },
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "location": {
+        "value": {
+          "lat": 38.5380485,
+          "lng": -0.1298417
+        },
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "phone": {
+        "value": "+34 966 81 39 11",
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "website": {
+        "value": "https://www.laoficinadelgusto.com",
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "openingHoursRaw": {
+        "value": "We-Su 16:30-23:30",
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "cuisine": {
+        "value": [
+          "pizza"
+        ],
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "concept": {
+        "value": null,
+        "sources": []
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": null,
+        "sources": []
+      },
+      "takeaway": {
+        "value": null,
+        "sources": []
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": [
+          "We-Su 16:30-23:30"
+        ],
+        "sources": [
+          "openstreetmap:node/10253103370"
+        ]
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
+    },
+    "officialWebsite": {
+      "cuisine": {
+        "value": [
+          "Italian",
+          "Pasta",
+          "Pizza",
+          "Focaccia",
+          "Mediterranean",
+          "mediterránea",
+          "italiana"
+        ],
+        "sources": [
+          "official-website:https://www.laoficinadelgusto.com/",
+          "official-website:https://www.laoficinadelgusto.com/Carta",
+          "official-website:https://www.laoficinadelgusto.com/Menu",
+          "official-website:https://www.laoficinadelgusto.com/Reservations",
+          "official-website:https://www.laoficinadelgusto.com/About"
+        ]
+      },
+      "concept": {
+        "value": "Restaurante italiano en Benidorm especializado en pasta fresca artesanal, focaccias y cocina italiana de autor.",
+        "sources": [
+          "official-website:https://www.laoficinadelgusto.com/",
+          "official-website:https://www.laoficinadelgusto.com/Carta",
+          "official-website:https://www.laoficinadelgusto.com/Menu",
+          "official-website:https://www.laoficinadelgusto.com/Reservations",
+          "official-website:https://www.laoficinadelgusto.com/About"
+        ]
+      },
+      "specialties": {
+        "value": null,
+        "sources": []
+      },
+      "services": {
+        "value": null,
+        "sources": []
+      },
+      "bookingAvailability": {
+        "value": true,
+        "sources": [
+          "official-website:https://www.laoficinadelgusto.com/",
+          "official-website:https://www.laoficinadelgusto.com/Carta",
+          "official-website:https://www.laoficinadelgusto.com/Menu",
+          "official-website:https://www.laoficinadelgusto.com/Reservations",
+          "official-website:https://www.laoficinadelgusto.com/About"
+        ]
+      },
+      "takeaway": {
+        "value": true,
+        "sources": [
+          "official-website:https://www.laoficinadelgusto.com/",
+          "official-website:https://www.laoficinadelgusto.com/Carta",
+          "official-website:https://www.laoficinadelgusto.com/Menu",
+          "official-website:https://www.laoficinadelgusto.com/Reservations",
+          "official-website:https://www.laoficinadelgusto.com/About"
+        ]
+      },
+      "delivery": {
+        "value": null,
+        "sources": []
+      },
+      "terrace": {
+        "value": null,
+        "sources": []
+      },
+      "accessibility": {
+        "value": null,
+        "sources": []
+      },
+      "openingInformation": {
+        "value": [
+          "Wednesday, Thursday, Friday, Saturday: 13:30-16:30",
+          "Wednesday, Thursday, Friday, Saturday: 20:30-23:00",
+          "Sunday: 13:00-16:30",
+          "Sunday: 20:30-22:30"
+        ],
+        "sources": [
+          "official-website:https://www.laoficinadelgusto.com/",
+          "official-website:https://www.laoficinadelgusto.com/Carta",
+          "official-website:https://www.laoficinadelgusto.com/Menu",
+          "official-website:https://www.laoficinadelgusto.com/Reservations",
+          "official-website:https://www.laoficinadelgusto.com/About"
+        ]
+      },
+      "locationContext": {
+        "value": null,
+        "sources": []
+      },
+      "distinctiveFeatures": {
+        "value": null,
+        "sources": []
+      }
     }
   },
   "editorial": {},
@@ -65,6 +362,51 @@
       "retrievedAt": "2026-10-06T11:53:45.905Z",
       "attribution": "© OpenStreetMap contributors",
       "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://www.laoficinadelgusto.com/",
+      "provider": "official-website",
+      "identifier": "https://www.laoficinadelgusto.com/",
+      "url": "https://www.laoficinadelgusto.com/",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.laoficinadelgusto.com/Carta",
+      "provider": "official-website",
+      "identifier": "https://www.laoficinadelgusto.com/Carta",
+      "url": "https://www.laoficinadelgusto.com/Carta",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.laoficinadelgusto.com/Menu",
+      "provider": "official-website",
+      "identifier": "https://www.laoficinadelgusto.com/Menu",
+      "url": "https://www.laoficinadelgusto.com/Menu",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.laoficinadelgusto.com/Reservations",
+      "provider": "official-website",
+      "identifier": "https://www.laoficinadelgusto.com/Reservations",
+      "url": "https://www.laoficinadelgusto.com/Reservations",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.laoficinadelgusto.com/About",
+      "provider": "official-website",
+      "identifier": "https://www.laoficinadelgusto.com/About",
+      "url": "https://www.laoficinadelgusto.com/About",
+      "retrievedAt": "2026-10-06T12:34:57.575Z",
+      "attribution": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "licenseUrl": null
     }
   ]
 }

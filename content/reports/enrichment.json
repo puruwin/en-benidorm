@@ -1,8 +1,8 @@
 {
   "phase": "enrichment",
   "dryRun": false,
-  "startedAt": "2026-10-06T12:02:11.005Z",
-  "finishedAt": "2026-10-06T12:02:11.019Z",
+  "startedAt": "2026-10-06T12:34:57.575Z",
+  "finishedAt": "2026-10-06T12:35:13.880Z",
   "totals": {
     "total": 10,
     "processed": 10
@@ -10,7 +10,8 @@
   "items": [
     {
       "id": "business-amigos-bistro",
-      "outcome": "processed"
+      "outcome": "processed",
+      "message": "Web oficial no enriquecida: fetch failed"
     },
     {
       "id": "business-amigos",
@@ -34,7 +35,8 @@
     },
     {
       "id": "business-country-ribs",
-      "outcome": "processed"
+      "outcome": "processed",
+      "message": "Web oficial no enriquecida: fetch failed"
     },
     {
       "id": "business-dvora-gastrobar",
