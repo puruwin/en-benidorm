@@ -48,5 +48,16 @@ export async function getRestaurantSlugs(): Promise<string[]> {
 export async function getRestaurantBySlug(slug: string): Promise<BusinessDetail | null> {
   if (isDemoMode) return demoBusinesses.find((business) => business.slug === slug) ?? null
   assertSanityConfigured()
-  return sanityClient.fetch<BusinessDetail | null>(RESTAURANT_QUERY, {slug})
+  const business = await sanityClient.fetch<BusinessDetail | null>(RESTAURANT_QUERY, {slug})
+  if (!business) return null
+
+  return {
+    ...business,
+    categories: business.categories ?? [],
+    description: business.description ?? [],
+    hours: business.hours ?? [],
+    features: business.features ?? [],
+    images: business.images ?? [],
+    sources: business.sources ?? [],
+  }
 }

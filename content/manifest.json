@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06T12:38:14.628Z",
+  "updatedAt": "2026-10-06T12:54:26.172Z",
   "entries": [
     {
       "id": "business-amigos",
@@ -96,7 +96,7 @@
       "id": "business-buffalo-beel",
       "type": "restaurant",
       "slug": "buffalo-beel",
-      "status": "validated",
+      "status": "imported",
       "priority": 65,
       "sources": [
         {
@@ -113,7 +113,7 @@
       "enrichedAt": "2026-10-06T12:34:57.575Z",
       "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": "2026-10-06T12:38:14.628Z",
-      "importedAt": null,
+      "importedAt": "2026-10-06T12:54:26.172Z",
       "reviewedAt": null,
       "publishedAt": null,
       "lastError": null
@@ -122,7 +122,7 @@
       "id": "business-cafeteria-la-bahia",
       "type": "restaurant",
       "slug": "cafeteria-la-bahia",
-      "status": "validated",
+      "status": "imported",
       "priority": 65,
       "sources": [
         {
@@ -139,7 +139,7 @@
       "enrichedAt": "2026-10-06T12:34:57.575Z",
       "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": "2026-10-06T12:38:14.628Z",
-      "importedAt": null,
+      "importedAt": "2026-10-06T12:54:26.172Z",
       "reviewedAt": null,
       "publishedAt": null,
       "lastError": null
@@ -208,7 +208,7 @@
       "id": "business-dvora-gastrobar",
       "type": "restaurant",
       "slug": "dvora-gastrobar",
-      "status": "validated",
+      "status": "imported",
       "priority": 70,
       "sources": [
         {
@@ -225,7 +225,7 @@
       "enrichedAt": "2026-10-06T12:34:57.575Z",
       "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": "2026-10-06T12:38:14.628Z",
-      "importedAt": null,
+      "importedAt": "2026-10-06T12:54:26.172Z",
       "reviewedAt": null,
       "publishedAt": null,
       "lastError": null
@@ -234,7 +234,7 @@
       "id": "business-la-oficina-del-gusto",
       "type": "restaurant",
       "slug": "la-oficina-del-gusto",
-      "status": "validated",
+      "status": "imported",
       "priority": 70,
       "sources": [
         {
@@ -251,7 +251,7 @@
       "enrichedAt": "2026-10-06T12:34:57.575Z",
       "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": "2026-10-06T12:38:14.628Z",
-      "importedAt": null,
+      "importedAt": "2026-10-06T12:54:26.172Z",
       "reviewedAt": null,
       "publishedAt": null,
       "lastError": null
@@ -260,7 +260,7 @@
       "id": "business-sushi-poke-chen-s-kitchen",
       "type": "restaurant",
       "slug": "sushi-poke-chen-s-kitchen",
-      "status": "validated",
+      "status": "imported",
       "priority": 70,
       "sources": [
         {
@@ -286,7 +286,7 @@
       "enrichedAt": "2026-10-06T12:34:57.575Z",
       "generatedAt": "2026-10-06T12:37:36.276Z",
       "validatedAt": "2026-10-06T12:38:14.628Z",
-      "importedAt": null,
+      "importedAt": "2026-10-06T12:54:26.172Z",
       "reviewedAt": null,
       "publishedAt": null,
       "lastError": null

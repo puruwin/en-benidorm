@@ -4,7 +4,7 @@ import type {EditorialImage} from '../../types/content'
 import {urlFor} from '../../lib/sanity/image'
 
 interface Props {
-  image: EditorialImage
+  image?: EditorialImage | null
   class?: string
   priority?: boolean
   sizes?: string
@@ -12,18 +12,18 @@ interface Props {
 
 const {image, class: className, priority = false, sizes = '100vw'} = Astro.props
 const widths = [480, 768, 1080, 1440]
-const sanityBuilder = image.sanity ? urlFor(image.sanity).auto('format').fit('max') : undefined
-const sanityUrl = sanityBuilder?.width(1440).url() ?? (image.url?.includes('cdn.sanity.io') ? `${image.url}?auto=format&fit=max&w=1440` : undefined)
+const sanityBuilder = image?.sanity ? urlFor(image.sanity).auto('format').fit('max') : undefined
+const sanityUrl = sanityBuilder?.width(1440).url() ?? (image?.url?.includes('cdn.sanity.io') ? `${image.url}?auto=format&fit=max&w=1440` : undefined)
 const srcset = sanityBuilder
   ? widths.map((width) => `${sanityBuilder.width(width).url()} ${width}w`).join(', ')
-  : image.url?.includes('cdn.sanity.io')
+  : image?.url?.includes('cdn.sanity.io')
     ? widths.map((width) => `${image.url}?auto=format&fit=max&w=${width} ${width}w`).join(', ')
     : undefined
 ---
 
-{image.local ? (
+{image?.local ? (
   <Image src={image.local} alt={image.alt} class={className} layout="full-width" priority={priority} />
-) : image.url ? (
+) : image?.url ? (
   <img
     src={sanityUrl ?? image.url}
     srcset={srcset}
