@@ -1,0 +1,300 @@
+{
+  "topic": "arroces",
+  "sources": [
+    {
+      "key": "official-website:https://www.restaurante-labahia.com/carta",
+      "provider": "official-website",
+      "identifier": "https://www.restaurante-labahia.com/carta",
+      "url": "https://www.restaurante-labahia.com/carta",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "provider": "official-website",
+      "identifier": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "url": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "provider": "official-website",
+      "identifier": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "url": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.jardinmediterraneo.com/carta/",
+      "provider": "official-website",
+      "identifier": "https://www.jardinmediterraneo.com/carta/",
+      "url": "https://www.jardinmediterraneo.com/carta/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.jardinmediterraneo.com/menu/",
+      "provider": "official-website",
+      "identifier": "https://www.jardinmediterraneo.com/menu/",
+      "url": "https://www.jardinmediterraneo.com/menu/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "provider": "official-website",
+      "identifier": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "url": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+      "provider": "official-website",
+      "identifier": "https://www.marisqueriacordoba.com/la-carta.html",
+      "url": "https://www.marisqueriacordoba.com/la-carta.html",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.marisqueriacordoba.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/carta/Platos/7",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/carta/Platos/7",
+      "url": "https://restauranteulia.es/carta/Platos/7",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/",
+      "url": "https://restauranteulia.es/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://trastobar.eatbu.com/?lang=es",
+      "provider": "official-website",
+      "identifier": "https://trastobar.eatbu.com/?lang=es",
+      "url": "https://trastobar.eatbu.com/?lang=es",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial de Trasto Bar (eatbu.com)",
+      "licenseUrl": null
+    }
+  ],
+  "businesses": [
+    {
+      "businessId": "business-cafeteria-la-bahia",
+      "evidence": {
+        "featuredItems": [
+          {
+            "id": "la-bahia:item:arroz-a-banda",
+            "value": "Arroz a banda",
+            "nature": "self_claim",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          },
+          {
+            "id": "la-bahia:item:paella-mixta",
+            "value": "Paella mixta",
+            "nature": "self_claim",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          }
+        ],
+        "prices": [
+          {
+            "id": "la-bahia:price:menu-diario",
+            "value": {
+              "item": "Menú diario",
+              "value": 18.75,
+              "currency": "EUR",
+              "priceQualifier": "desde; 19,75 € los domingos",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          },
+          {
+            "id": "la-bahia:price:menu-grupo-1",
+            "value": {
+              "item": "Menú 1 para grupos",
+              "value": 34.75,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 8 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          }
+        ],
+        "services": [
+          {
+            "id": "la-bahia:service:menu-diario",
+            "value": "Menú diario",
+            "nature": "factual",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          },
+          {
+            "id": "la-bahia:service:menu-grupos-reserva",
+            "value": "Menús para grupos con reserva",
+            "nature": "factual",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          }
+        ],
+        "limitations": [
+          {
+            "id": "la-bahia:limitation:menu-temporada",
+            "value": "El menú diario varía según temporada",
+            "nature": "factual",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          },
+          {
+            "id": "la-bahia:limitation:menu-grupos-minimo",
+            "value": "El menú para grupos exige un mínimo de 8 personas",
+            "nature": "factual",
+            "sourceKeys": ["official-website:https://www.restaurante-labahia.com/carta"]
+          }
+        ]
+      }
+    },
+    {
+      "businessId": "business-ongi-etorri",
+      "evidence": {
+        "specialties": [
+          {"id": "ongi:specialty:arroz-a-banda", "value": "Arroz a banda", "nature": "self_claim", "sourceKeys": ["official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/"]},
+          {"id": "ongi:specialty:arroz-caldoso-bogavante", "value": "Arroz caldoso con bogavante", "nature": "self_claim", "sourceKeys": ["official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/"]},
+          {"id": "ongi:specialty:paella-marisco", "value": "Paella de marisco", "nature": "self_claim", "sourceKeys": ["official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/"]}
+        ],
+        "featuredItems": [
+          {"id": "ongi:item:arroz-a-banda", "value": "Arroz a banda", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:item:arroz-caldoso-bogavante", "value": "Arroz caldoso con bogavante", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:item:arroz-negro", "value": "Arroz negro", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:item:paella-marisco", "value": "Paella de marisco", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:item:fideua-marisco", "value": "Fideuá de marisco", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]}
+        ],
+        "prices": [
+          {"id": "ongi:price:arroz-a-banda", "value": {"item": "Arroz a banda", "value": 16.5, "currency": "EUR", "priceQualifier": "por persona; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:price:arroz-caldoso-bogavante", "value": {"item": "Arroz caldoso con bogavante", "value": 29.5, "currency": "EUR", "priceQualifier": "por persona; mínimo 2 personas; por encargo", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:price:arroz-negro", "value": {"item": "Arroz negro", "value": 16.5, "currency": "EUR", "priceQualifier": "por persona; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:price:paella-marisco", "value": {"item": "Paella de marisco", "value": 19.5, "currency": "EUR", "priceQualifier": "por persona; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:price:fideua-marisco", "value": {"item": "Fideuá de marisco", "value": 19.5, "currency": "EUR", "priceQualifier": "por persona; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]}
+        ],
+        "services": [
+          {"id": "ongi:service:encargo", "value": "Arroz caldoso con bogavante por encargo", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]}
+        ],
+        "limitations": [
+          {"id": "ongi:limitation:minimo-dos", "value": "Los arroces y paellas exigen un mínimo de 2 personas", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]},
+          {"id": "ongi:limitation:bogavante-encargo", "value": "El arroz caldoso con bogavante requiere encargo", "nature": "factual", "sourceKeys": ["official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-jardin-mediterraneo",
+      "evidence": {
+        "featuredItems": [
+          {"id": "jardin:item:arroz-a-banda", "value": "Arroz a banda", "nature": "self_claim", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/carta/"]},
+          {"id": "jardin:item:paella-valenciana", "value": "Paella valenciana", "nature": "self_claim", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/carta/"]},
+          {"id": "jardin:item:arroz-negro", "value": "Arroz negro", "nature": "self_claim", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/carta/"]},
+          {"id": "jardin:item:arroz-caldoso-bogavante", "value": "Arroz caldoso de bogavante", "nature": "self_claim", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/carta/"]},
+          {"id": "jardin:item:arroz-meloso-rape", "value": "Arroz meloso de rape y almejas", "nature": "self_claim", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/carta/"]},
+          {"id": "jardin:item:fideua-marisco", "value": "Fideuá de marisco", "nature": "self_claim", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/carta/"]}
+        ],
+        "services": [
+          {"id": "jardin:service:menus-diarios", "value": "Menús turísticos diarios", "nature": "factual", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/menu/"]},
+          {"id": "jardin:service:menus-grupos", "value": "Menús especiales y personalizables para grupos y eventos", "nature": "factual", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/menu/"]}
+        ],
+        "limitations": [
+          {"id": "jardin:limitation:carta-actualizacion", "value": "La carta digital está en actualización y no publica precios de los arroces", "nature": "external_observation", "sourceKeys": ["official-website:https://www.jardinmediterraneo.com/carta/"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-la-cava-aragonesa",
+      "evidence": {
+        "featuredItems": [
+          {"id": "cava:item:arroz-a-banda", "value": "Arroz a banda", "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:item:arroz-bogavante", "value": "Arroz con bogavante", "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:item:arroz-kokotxas", "value": "Arroz con kokotxas de bacalao y zamburiñas", "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:item:arroz-negro", "value": "Arroz negro", "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:item:paella-marisco", "value": "Paella de marisco", "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]}
+        ],
+        "prices": [
+          {"id": "cava:price:arroz-a-banda", "value": {"item": "Arroz a banda", "value": 19.3, "currency": "EUR", "priceQualifier": "cada unidad", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:price:arroz-bogavante", "value": {"item": "Arroz con bogavante", "value": 24.6, "currency": "EUR", "priceQualifier": "cada unidad", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:price:arroz-kokotxas", "value": {"item": "Arroz con kokotxas de bacalao y zamburiñas", "value": 22, "currency": "EUR", "priceQualifier": "cada unidad", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:price:arroz-negro", "value": {"item": "Arroz negro", "value": 19.3, "currency": "EUR", "priceQualifier": "cada unidad", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]},
+          {"id": "cava:price:paella-marisco", "value": {"item": "Paella de marisco", "value": 20.5, "currency": "EUR", "priceQualifier": "cada unidad", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-marisqueria-cordoba",
+      "evidence": {
+        "featuredItems": [
+          {"id": "cordoba:item:paella-mariscos", "value": "Paella de mariscos", "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]},
+          {"id": "cordoba:item:arroz-bogavante", "value": "Arroz con bogavante y mariscos", "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]},
+          {"id": "cordoba:item:arroz-a-banda", "value": "Arroz a banda", "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]},
+          {"id": "cordoba:item:fideua-mariscos", "value": "Fideuá de mariscos", "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]}
+        ],
+        "prices": [
+          {"id": "cordoba:price:paella-mariscos", "value": {"item": "Paella de mariscos", "value": 10, "currency": "EUR", "priceQualifier": "por ración; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]},
+          {"id": "cordoba:price:arroz-bogavante", "value": {"item": "Arroz con bogavante y mariscos", "value": 16, "currency": "EUR", "priceQualifier": "por ración; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]},
+          {"id": "cordoba:price:arroz-a-banda", "value": {"item": "Arroz a banda", "value": 10, "currency": "EUR", "priceQualifier": "por ración; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]},
+          {"id": "cordoba:price:fideua-mariscos", "value": {"item": "Fideuá de mariscos", "value": 10, "currency": "EUR", "priceQualifier": "por ración; mínimo 2 personas", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]}
+        ],
+        "limitations": [
+          {"id": "cordoba:limitation:minimo-dos", "value": "Los arroces y la fideuá exigen un mínimo de 2 personas", "nature": "factual", "sourceKeys": ["official-website:https://www.marisqueriacordoba.com/la-carta.html"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-ulia",
+      "evidence": {
+        "specialties": [
+          {"id": "ulia:specialty:arroces", "value": "Arroces", "nature": "self_claim", "sourceKeys": ["official-website:https://restauranteulia.es/"]}
+        ],
+        "featuredItems": [
+          {"id": "ulia:item:arroz-senyoret", "value": "Arroz senyoret", "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:item:arroz-a-banda", "value": "Arroz a banda", "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:item:arroz-negro", "value": "Arroz negro", "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:item:arroz-bogavante", "value": "Arroz con bogavante", "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:item:arroz-langosta", "value": "Arroz con langosta de la Bahía", "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]}
+        ],
+        "prices": [
+          {"id": "ulia:price:arroz-senyoret", "value": {"item": "Arroz senyoret", "value": 17.9, "currency": "EUR", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:price:arroz-a-banda", "value": {"item": "Arroz a banda", "value": 15.4, "currency": "EUR", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:price:arroz-negro", "value": {"item": "Arroz negro", "value": 16.5, "currency": "EUR", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:price:arroz-bogavante", "value": {"item": "Arroz con bogavante", "value": 21.9, "currency": "EUR", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]},
+          {"id": "ulia:price:arroz-langosta", "value": {"item": "Arroz con langosta de la Bahía", "value": 35, "currency": "EUR", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://restauranteulia.es/carta/Platos/7"]}
+        ]
+      }
+    },
+    {
+      "businessId": "business-restaurante-trasto-bar",
+      "evidence": {
+        "featuredItems": [
+          {"id": "trasto:item:paella-menu-dia", "value": "Paella del menú del día", "nature": "self_claim", "sourceKeys": ["official-website:https://trastobar.eatbu.com/?lang=es"]}
+        ],
+        "prices": [
+          {"id": "trasto:price:menu-dia", "value": {"item": "Menú del día", "value": 5.5, "currency": "EUR", "priceQualifier": "incluye entrante, plato principal, pan y bebida", "retrievedAt": "2026-10-07"}, "nature": "factual", "sourceKeys": ["official-website:https://trastobar.eatbu.com/?lang=es"]}
+        ],
+        "services": [
+          {"id": "trasto:service:menu-dia", "value": "Menú del día", "nature": "factual", "sourceKeys": ["official-website:https://trastobar.eatbu.com/?lang=es"]},
+          {"id": "trasto:service:takeaway", "value": "Servicio para llevar", "nature": "factual", "sourceKeys": ["official-website:https://trastobar.eatbu.com/?lang=es"]}
+        ],
+        "limitations": [
+          {"id": "trasto:limitation:paella-disponibilidad", "value": "La web no indica qué días incluye paella el menú del día", "nature": "external_observation", "sourceKeys": ["official-website:https://trastobar.eatbu.com/?lang=es"]}
+        ]
+      }
+    }
+  ]
+}

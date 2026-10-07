@@ -1,0 +1,256 @@
+{
+  "_id": "business-ongi-etorri",
+  "_type": "business",
+  "name": "Ongi Etorri",
+  "slug": {
+    "_type": "slug",
+    "current": "ongi-etorri"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Restaurante de cocina española, mediterránea y regional en la playa de Poniente, con arroces, mariscos, terraza, cocina abierta y servicio para llevar.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ongi Etorri es un restaurante identificado en su web como Ongi Etorri Manolo 1. Su propuesta reúne cocina regional y española con referencias mediterráneas, arroces y mariscos."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La oferta se encuadra en las cocinas española, mediterránea y regional, con arroces y mariscos. También ofrece servicio de desayuno."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La experiencia"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "El restaurante cuenta con cocina abierta y terraza. La web indica que admite reservas."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ubicación"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Se encuentra en la Avinguda de l'Armada Espanyola 20, en la zona de la playa de Poniente de Benidorm."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicios"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ofrece servicio para llevar, además de desayunos y disponibilidad de reservas."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Lo más destacado"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina abierta"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Terraza disponible"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicio para llevar"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Admite reservas"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-07",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/4406771698",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/4406771698",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://ongietorribenidorm.com/",
+      "publisher": "Sitio web oficial (ongietorribenidorm.com)",
+      "url": "https://ongietorribenidorm.com/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+      "publisher": "Sitio web oficial (ongietorribenidorm.com)",
+      "url": "https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "publisher": "Sitio web oficial (ongietorribenidorm.com)",
+      "url": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "publisher": "Sitio web oficial (ongietorribenidorm.com)",
+      "url": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+      "publisher": "Sitio web oficial (ongietorribenidorm.com)",
+      "url": "https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+      "accessedAt": "2026-10-07"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Ongi Etorri: restaurante en Poniente, Benidorm",
+    "metaDescription": "Restaurante de cocina española, mediterránea y regional con arroces, mariscos, terraza, cocina abierta y servicio para llevar en Poniente."
+  },
+  "address": {
+    "street": "Avinguda de l'Armada Espanyola 20",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5369891,
+    "lng": -0.1478428
+  },
+  "phone": "+34 965 85 24 87",
+  "website": "http://www.ongietorribenidorm.com/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

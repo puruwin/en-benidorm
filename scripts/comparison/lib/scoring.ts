@@ -8,8 +8,12 @@ const TOPIC_ALIASES: Record<string, string[]> = {
   arroces: ['arroz', 'arroces', 'paella', 'paellas'],
 }
 
+export function topicAliases(topic: string): string[] {
+  return TOPIC_ALIASES[topic] ?? [topic]
+}
+
 export function topicEvidence(entity: EnrichedEntity, topic: string): string[] {
-  const aliases = TOPIC_ALIASES[topic] ?? [topic]
+  const aliases = topicAliases(topic)
   const evidence: string[] = []
   for (const field of ['cuisine', 'specialties'] as const) {
     if (entity.facts[field].sources.length === 0) continue

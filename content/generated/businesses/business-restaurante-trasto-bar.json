@@ -1,0 +1,227 @@
+{
+  "_id": "business-restaurante-trasto-bar",
+  "_type": "business",
+  "name": "Restaurante Trasto bar",
+  "slug": {
+    "_type": "slug",
+    "current": "restaurante-trasto-bar"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Bar restaurante con cocina al mediodía, tapas, bocadillos, hamburguesas, paella y propuestas dulces. Cuenta con terraza, servicio para llevar y opción de reservar.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Trasto Bar es un restaurante con servicio de bar y cocina al mediodía. Su propuesta combina bebidas, tapas y platos informales con un ambiente acompañado de música."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La oferta incluye tapas, bocadillos, hamburguesas, patatas fritas y paella. También dispone de opciones dulces como creps, gofres, tortitas, tartas, helado y tiramisú, además de café, zumos, cerveza, vino y cócteles."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La experiencia"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "El establecimiento dispone de terraza y el sitio web describe un ambiente familiar con música."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicios"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ofrece menú del día, servicio para llevar y posibilidad de reservar. El menú del día anunciado incluye entrante, plato principal, pan y bebida por 5,50 €."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Información práctica"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Dirección: Paseo de las Acacias 22, 03502. El horario publicado es de 06:30 a 22:00 los lunes y de miércoles a domingo; no consta información de apertura para el martes."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Lo más destacado"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Terraza disponible"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicio para llevar"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Posibilidad de reservar"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Menú del día con entrante, plato principal, pan y bebida"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-07",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/14098608901",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/14098608901",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://trastobar.eatbu.com/?lang=es",
+      "publisher": "Sitio web oficial (trastobar.eatbu.com)",
+      "url": "https://trastobar.eatbu.com/?lang=es",
+      "accessedAt": "2026-10-07"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Trasto Bar: tapas y cocina en Benidorm",
+    "metaDescription": "Consulta la propuesta de Trasto Bar: tapas, hamburguesas, paella, dulces, terraza, menú del día, servicio para llevar y reservas."
+  },
+  "address": {
+    "street": "Paseo de las Acacias 22",
+    "postalCode": "03502"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5443328,
+    "lng": -0.1344246
+  },
+  "website": "https://trastobar.eatbu.com/?lang=es",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

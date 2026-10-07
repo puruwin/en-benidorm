@@ -1,7 +1,7 @@
 {
   "_id": "comparison-italiano",
   "_type": "comparison",
-  "title": "Restaurantes italianos en Benidorm: carta, precios y horarios",
+  "title": "Restaurantes italianos en Benidorm: diferencias y qué buscar",
   "slug": {
     "_type": "slug",
     "current": "italiano"
@@ -9,8 +9,46 @@
   "language": "es",
   "topic": "italiano",
   "category": "donde-comer",
-  "intro": "Esta comparativa pone el foco en diferencias comprobables: platos publicados, precios disponibles, reservas, ubicación y horarios. No todos los locales han sido visitados personalmente.",
-  "quickVerdict": "La Oficina del Gusto destaca por documentar pasta fresca artesanal y focaccias, además de pizza y servicio para llevar. Cucina Italiana publica una carta con spaghetti alla carbonara a 16,95 € y Pizza Margherita a 12 €, y sitúa el restaurante en Rincón de Loix. Essenza Italiana ofrece platos como pinsa al pistacchio con burrata y tagliatelle con gambas y crema de pistacho, este último a 20 €. Buffalo Beel indica en su web que ofrece pizzas caseras y publica horario diario de 14:00 a 23:00.",
+  "intro": "La oferta italiana en Benidorm combina propuestas centradas en pasta fresca, pizza y otros formatos de cocina italiana. Esta guía ayuda a escoger según el tipo de carta, la amplitud del horario y la información práctica disponible, sin asumir que todas las propuestas ofrecen lo mismo.",
+  "quickVerdict": "Mientras La Oficina del Gusto y Essenza Italiana ponen el acento en la pasta fresca, Cucina Italiana y Buffalo Beel amplían la elección hacia la pizza y horarios distintos.",
+  "choiceGuide": [
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-la-oficina-del-gusto"
+      },
+      "label": "Para buscar pasta fresca y focaccias",
+      "reason": "La carta gira en torno a pasta fresca artesanal, focaccias y pizza; además, acepta reservas y ofrece servicio para llevar."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-cucina-italiana"
+      },
+      "label": "Si buscas combinar pasta y pizza con horario amplio",
+      "reason": "Su propuesta incluye Carbonara, pizza y lasaña, con servicio publicado todos los días de mediodía a noche."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-essenza-italiana"
+      },
+      "label": "Para probar pinsa y pasta fresca",
+      "reason": "La propuesta reúne pinsa y pasta fresca, con reservas por WhatsApp y una pausa semanal los martes."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-buffalo-beel"
+      },
+      "label": "Si priorizas un servicio diario y menú del día",
+      "reason": "El negocio indica pizzas caseras según su web, ofrece menú del día y permite reservas online."
+    }
+  ],
   "entries": [
     {
       "_type": "comparisonEntry",
@@ -18,25 +56,28 @@
         "_type": "reference",
         "_ref": "business-la-oficina-del-gusto"
       },
-      "rank": 1,
-      "verdict": "La propuesta documentada combina cocina italiana, pizza, pasta y focaccias. La carta destaca la pasta fresca artesanal y las focaccias; también constan reservas y servicio para llevar.",
+      "verdict": "Es una propuesta italiana y mediterránea enfocada en pasta fresca artesanal, focaccias y pizza, con una franja de servicio concentrada de miércoles a domingo.",
       "strengths": [
-        "Cocina italiana con pizza, pasta y focaccias.",
-        "La carta publica pasta fresca artesanal y focaccias.",
-        "Acepta reservas y ofrece servicio para llevar."
+        "La carta incluye pasta fresca artesanal.",
+        "También incluye focaccias, pizza y servicio para llevar."
       ],
-      "weaknesses": [],
+      "limitations": [
+        "No encontramos precios publicados en la carta consultada."
+      ],
       "bestFor": [
         "Pasta fresca artesanal",
-        "Focaccias",
-        "Servicio para llevar"
+        "Focaccia"
       ],
-      "featuredItem": "Pasta fresca artesanal",
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Pasta fresca artesanal",
+        "source": "official-website:https://www.laoficinadelgusto.com/Carta",
+        "retrievedAt": "2026-10-06"
+      },
       "practicalNotes": [
-        "Horario publicado: miércoles a domingo de 16:30 a 23:30.",
-        "Miércoles, jueves, viernes y sábado: 13:30-16:30 y 20:30-23:00.",
-        "Domingo: 13:00-16:30 y 20:30-22:30.",
-        "Acepta reservas y ofrece servicio para llevar."
+        "Mi–Sá: 13:30–16:30 / 20:30–23:00",
+        "Do: 13:00–16:30 / 20:30–22:30",
+        "Reservas: aceptadas"
       ]
     },
     {
@@ -45,26 +86,28 @@
         "_type": "reference",
         "_ref": "business-cucina-italiana"
       },
-      "rank": 2,
-      "verdict": "Cucina Italiana publica una carta concreta con spaghetti alla carbonara, Pizza Margherita y lasaña con ragú. Está situado en Rincón de Loix y ofrece reservas online.",
+      "verdict": "Combina especialidades reconocibles de pasta y pizza con una franja diaria continua de servicio, por lo que encaja en planes con más flexibilidad horaria.",
       "strengths": [
-        "Restaurante italiano ubicado en Rincón de Loix.",
-        "Carta publicada con spaghetti alla carbonara, Pizza Margherita y lasaña con ragú.",
-        "Dispone de reservas online."
+        "La carta incluye Carbonara, pizza y lasaña.",
+        "Acepta reservas online."
       ],
-      "weaknesses": [],
+      "limitations": [],
       "bestFor": [
-        "Spaghetti alla carbonara",
-        "Pizza Margherita",
-        "Lasaña con ragú"
+        "Carbonara",
+        "Pizza"
       ],
-      "featuredItem": "Pizza Margherita",
-      "featuredPrice": "12 €",
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Spaghetti alla carbonara",
+        "price": 16.95,
+        "currency": "EUR",
+        "source": "official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
+        "retrievedAt": "2026-10-06"
+      },
       "practicalNotes": [
-        "Horario publicado: todos los días de 12:00 a 23:00.",
-        "La Pizza Margherita figura a 12 € en la carta consultada.",
-        "Los spaghetti alla carbonara figuran a 16,95 € en la carta consultada.",
-        "Acepta reservas y ofrece reservas online."
+        "Lu–Do: 12:00–23:00",
+        "Zona: Rincón de Loix",
+        "Reservas: online"
       ]
     },
     {
@@ -73,26 +116,28 @@
         "_type": "reference",
         "_ref": "business-essenza-italiana"
       },
-      "rank": 3,
-      "verdict": "Essenza Italiana publica una oferta que incluye pinsa, pasta fresca y tagliatelle con gambas y crema de pistacho. Las reservas se realizan por WhatsApp y el horario publicado cierra los martes.",
+      "verdict": "Se distingue por combinar pasta fresca con pinsa, una alternativa de formato frente a las propuestas más centradas en pizza, y concentra el servicio de miércoles a lunes.",
       "strengths": [
-        "La web publica pinsa al pistacchio con burrata, pasta fresca y tagliatelle con gambas y crema de pistacho.",
-        "Ofrece reservas por WhatsApp.",
-        "El negocio indica en su web que cuenta con vistas al Mediterráneo."
+        "La propuesta incluye pinsa y pasta fresca.",
+        "Dispone de reservas por WhatsApp."
       ],
-      "weaknesses": [],
+      "limitations": [],
       "bestFor": [
-        "Pinsa al pistacchio con burrata",
-        "Pasta fresca",
-        "Tagliatelle con gambas y crema de pistacho"
+        "Pinsa",
+        "Pasta fresca"
       ],
-      "featuredItem": "Tagliatelle con gambas y crema de pistacho",
-      "featuredPrice": "20 €",
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Tagliatelle con gambas y crema de pistacho",
+        "price": 20,
+        "currency": "EUR",
+        "source": "official-website:https://essenzaitaliana.es/",
+        "retrievedAt": "2026-10-06"
+      },
       "practicalNotes": [
-        "Horario publicado: miércoles a lunes de 13:00 a 16:30 y de 19:30 a 22:00.",
-        "Martes cerrado según el horario publicado.",
-        "Las tagliatelle con gambas y crema de pistacho figuran a 20 €.",
-        "Reservas por WhatsApp."
+        "Mi–Lu: 13:00–16:30 / 19:30–22:00",
+        "Martes: cerrado",
+        "Reservas: por WhatsApp"
       ]
     },
     {
@@ -101,34 +146,37 @@
         "_type": "reference",
         "_ref": "business-buffalo-beel"
       },
-      "rank": 4,
-      "verdict": "Buffalo Beel publica una propuesta italiana con menú del día y reservas. Según su web, ofrece pizzas caseras; el horario publicado es diario, de 14:00 a 23:00.",
+      "verdict": "Presenta una propuesta italiana con pizzas caseras según su web, menú del día y servicio todos los días.",
       "strengths": [
-        "Cocina italiana según la información publicada.",
-        "Según su web, ofrece pizzas caseras.",
-        "Dispone de menú del día y acepta reservas online."
+        "El negocio indica pizzas caseras según su web.",
+        "Ofrece menú del día y reservas online."
       ],
-      "weaknesses": [],
+      "limitations": [
+        "No encontramos precios publicados en la web consultada."
+      ],
       "bestFor": [
         "Pizzas caseras según su web",
-        "Menú del día",
-        "Horario diario de tarde"
+        "menú del día"
       ],
-      "featuredItem": "Pizzas caseras (según su web)",
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Pizzas caseras (según su web)",
+        "source": "official-website:https://buffalobeel.com/",
+        "retrievedAt": "2026-10-06"
+      },
       "practicalNotes": [
-        "Horario publicado: todos los días de 14:00 a 23:00.",
-        "Dispone de menú del día.",
-        "Acepta reservas y ofrece reservas online."
+        "Todos los días: 14:00–23:00",
+        "Reservas: online"
       ]
     }
   ],
-  "methodology": "La posición se calcula con cinco criterios explícitos: relevancia, especificidad, cobertura comparativa, valor distintivo y utilidad práctica; los empates se resuelven de forma estable. Para esta guía se consultaron datos abiertos de OpenStreetMap, webs oficiales y cartas públicas, con última comprobación el 6 de octubre de 2026. No todos los locales han sido visitados personalmente. Los precios son referencias fechadas y pueden cambiar; conviene confirmarlos antes de reservar.",
+  "methodology": "Comparamos cartas, especialidades, precios publicados, horarios, reservas, ubicación y servicios a partir de webs oficiales, cartas públicas y OpenStreetMap. No todos los establecimientos han sido visitados personalmente y los precios pueden cambiar.",
   "criteria": [
-    "Relevancia: relación directa y documentada con la cocina italiana.",
-    "Especificidad: nivel de detalle verificable sobre cocina, platos y especialidades.",
-    "Cobertura comparativa: número de dimensiones útiles con evidence disponible.",
-    "Valor distintivo: rasgos concretos que permiten diferenciar una propuesta de otra.",
-    "Utilidad práctica: reservas, horarios, ubicación, servicios y precios publicados."
+    "Carta y especialidades",
+    "Platos y precios publicados",
+    "Horarios y reservas",
+    "Ubicación y servicios",
+    "Diferencias útiles para elegir"
   ],
   "author": {
     "_type": "reference",
@@ -137,99 +185,86 @@
   "sources": [
     {
       "_type": "source",
-      "title": "openstreetmap: node/10253103370",
-      "publisher": "© OpenStreetMap contributors",
+      "title": "OpenStreetMap",
+      "publisher": "La Oficina del Gusto",
       "url": "https://www.openstreetmap.org/node/10253103370",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "title": "Web oficial",
+      "publisher": "La Oficina del Gusto",
       "url": "https://www.laoficinadelgusto.com/",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/Carta",
-      "publisher": "Carta pública en la web oficial de La Oficina del Gusto",
+      "title": "Carta",
+      "publisher": "La Oficina del Gusto",
       "url": "https://www.laoficinadelgusto.com/Carta",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/Menu",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "title": "Menú",
+      "publisher": "La Oficina del Gusto",
       "url": "https://www.laoficinadelgusto.com/Menu",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/Reservations",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "title": "Reservas",
+      "publisher": "La Oficina del Gusto",
       "url": "https://www.laoficinadelgusto.com/Reservations",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://www.laoficinadelgusto.com/About",
-      "publisher": "Sitio web oficial (www.laoficinadelgusto.com)",
+      "title": "Sobre el restaurante",
+      "publisher": "La Oficina del Gusto",
       "url": "https://www.laoficinadelgusto.com/About",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "manual-json: cucina-italiana-benidorm-official",
-      "publisher": "Sitio web oficial de Cucina Italiana",
+      "title": "Web oficial",
+      "publisher": "Cucina Italiana",
       "url": "https://www.cucinaitalianabenidorm.com/",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://www.cucinaitalianabenidorm.com/",
-      "publisher": "Sitio web oficial de Cucina Italiana",
-      "url": "https://www.cucinaitalianabenidorm.com/",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
-      "publisher": "Carta pública en la web oficial de Cucina Italiana",
+      "title": "Carta",
+      "publisher": "Cucina Italiana",
       "url": "https://www.cucinaitalianabenidorm.com/menu-cocina-italiana",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://www.cucinaitalianabenidorm.com/reservas-cucina-italiana",
-      "publisher": "Sitio web oficial (www.cucinaitalianabenidorm.com)",
+      "title": "Reservas",
+      "publisher": "Cucina Italiana",
       "url": "https://www.cucinaitalianabenidorm.com/reservas-cucina-italiana",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "manual-json: essenza-italiana-official",
-      "publisher": "Sitio web oficial de Essenza Italiana",
+      "title": "Web oficial y carta",
+      "publisher": "Essenza Italiana",
       "url": "https://essenzaitaliana.es/",
       "accessedAt": "2026-10-06"
     },
     {
       "_type": "source",
-      "title": "official-website: https://essenzaitaliana.es/",
-      "publisher": "Carta pública y datos prácticos en la web oficial de Essenza Italiana",
-      "url": "https://essenzaitaliana.es/",
-      "accessedAt": "2026-10-06"
-    },
-    {
-      "_type": "source",
-      "title": "official-website: https://buffalobeel.com/",
-      "publisher": "Sitio web oficial de Buffalo Beel",
+      "title": "Web oficial",
+      "publisher": "Buffalo Beel",
       "url": "https://buffalobeel.com/",
       "accessedAt": "2026-10-06"
     }
   ],
   "lastVerified": "2026-10-06",
   "seo": {
-    "metaTitle": "Restaurantes italianos en Benidorm: precios y horarios",
-    "metaDescription": "Comparativa de restaurantes italianos en Benidorm con platos publicados, precios comprobados, reservas, ubicaciones y horarios."
+    "metaTitle": "Restaurantes italianos en Benidorm: guía para elegir",
+    "metaDescription": "Compara propuestas italianas en Benidorm según pasta, pizza, pinsa, horarios, reservas y precios publicados.",
+    "noIndex": false
   }
 }

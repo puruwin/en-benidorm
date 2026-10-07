@@ -1,0 +1,157 @@
+{
+  "_id": "business-ulia",
+  "_type": "business",
+  "name": "Ulia",
+  "slug": {
+    "_type": "slug",
+    "current": "ulia"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Restaurante de cocina regional y española, con mariscos, arroces, servicio de almuerzo y comida para llevar en primera línea de la Playa de Poniente.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ulia es un restaurante de cocina regional y española. Su oferta incluye mariscos y arroces, y el establecimiento se presenta en primera línea de la Playa de Poniente."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicios"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ofrece servicio de almuerzo y comida para llevar."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Lo más destacado"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina regional y española con mariscos y arroces"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicio de almuerzo y comida para llevar"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-07",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/4405971162",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/4405971162",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://restauranteulia.es/",
+      "publisher": "Sitio web oficial (restauranteulia.es)",
+      "url": "https://restauranteulia.es/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://restauranteulia.es/Base/ChangeLang/es",
+      "publisher": "Sitio web oficial (restauranteulia.es)",
+      "url": "https://restauranteulia.es/Base/ChangeLang/es",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://restauranteulia.es/Base/ChangeLang/en",
+      "publisher": "Sitio web oficial (restauranteulia.es)",
+      "url": "https://restauranteulia.es/Base/ChangeLang/en",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://restauranteulia.es/Base/ChangeLang/ru",
+      "publisher": "Sitio web oficial (restauranteulia.es)",
+      "url": "https://restauranteulia.es/Base/ChangeLang/ru",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://restauranteulia.es/Base/ChangeLang/fr",
+      "publisher": "Sitio web oficial (restauranteulia.es)",
+      "url": "https://restauranteulia.es/Base/ChangeLang/fr",
+      "accessedAt": "2026-10-07"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Ulia: restaurante de arroces en Benidorm",
+    "metaDescription": "Restaurante Ulia en Benidorm, con cocina regional y española, mariscos, arroces, servicio de almuerzo y comida para llevar."
+  },
+  "address": {
+    "street": "Avinguda de Vicent Llorca Alós 15",
+    "postalCode": "03502",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5329759,
+    "lng": -0.1572315
+  },
+  "phone": "+34 965 856 828",
+  "website": "http://www.restauranteulia.es/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

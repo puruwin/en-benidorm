@@ -54,32 +54,52 @@ const RESPONSES_URL = 'https://api.openai.com/v1/responses'
 
 export interface ComparisonGenerationContext {
   comparison: EnrichedComparisonArtifact
-  ranking: Array<{businessId: string; rank: number; scores: EnrichedComparisonArtifact['businesses'][number]['scores']}>
+  selection: Array<{businessId: string; selectionScore: number}>
   author: {id: 'author-david'; name: 'David'}
   editorialInstructions: string[]
 }
 
 export const COMPARISON_OUTPUT_SCHEMA = {
   type: 'object', additionalProperties: false,
-  required: ['title', 'intro', 'quickVerdict', 'entries', 'methodology', 'criteria', 'seo', 'claims'],
+  required: ['title', 'intro', 'quickVerdict', 'choiceGuide', 'entries', 'methodology', 'criteria', 'seo', 'claims'],
   properties: {
     title: {type: 'string', minLength: 20, maxLength: 90},
     intro: {type: 'string', minLength: 100, maxLength: 700},
     quickVerdict: {type: 'string', minLength: 80, maxLength: 700},
+    choiceGuide: {
+      type: 'array', minItems: 4, maxItems: 8,
+      items: {
+        type: 'object', additionalProperties: false, required: ['businessId', 'label', 'reason'],
+        properties: {
+          businessId: {type: 'string'},
+          label: {type: 'string', minLength: 5, maxLength: 80},
+          reason: {type: 'string', minLength: 20, maxLength: 220},
+        },
+      },
+    },
     entries: {
       type: 'array', minItems: 4, maxItems: 8,
       items: {
         type: 'object', additionalProperties: false,
-        required: ['businessId', 'rank', 'verdict', 'strengths', 'weaknesses', 'bestFor', 'featuredItem', 'featuredPrice', 'practicalNotes'],
+        required: ['businessId', 'verdict', 'strengths', 'limitations', 'bestFor', 'featuredItem', 'practicalNotes'],
         properties: {
-          businessId: {type: 'string'}, rank: {type: 'integer', minimum: 1, maximum: 8},
+          businessId: {type: 'string'},
           verdict: {type: 'string', minLength: 30, maxLength: 300},
-          strengths: {type: 'array', minItems: 1, maxItems: 4, items: {type: 'string', minLength: 8, maxLength: 160}},
-          weaknesses: {type: 'array', minItems: 0, maxItems: 3, items: {type: 'string', minLength: 8, maxLength: 160}},
+          strengths: {type: 'array', minItems: 2, maxItems: 3, items: {type: 'string', minLength: 8, maxLength: 160}},
+          limitations: {type: 'array', minItems: 0, maxItems: 3, items: {type: 'string', minLength: 8, maxLength: 160}},
           bestFor: {type: 'array', minItems: 1, maxItems: 3, items: {type: 'string', minLength: 4, maxLength: 100}},
-          featuredItem: {type: ['string', 'null'], minLength: 3, maxLength: 140},
-          featuredPrice: {type: ['string', 'null'], minLength: 2, maxLength: 80},
-          practicalNotes: {type: 'array', minItems: 0, maxItems: 4, items: {type: 'string', minLength: 6, maxLength: 180}},
+          featuredItem: {
+            type: ['object', 'null'], additionalProperties: false,
+            required: ['name', 'price', 'currency', 'priceQualifier', 'source', 'retrievedAt'],
+            properties: {
+              name: {type: 'string', minLength: 3, maxLength: 140},
+              price: {type: ['number', 'null'], minimum: 0},
+              currency: {type: ['string', 'null'], enum: ['EUR', null]},
+              priceQualifier: {type: ['string', 'null']},
+              source: {type: 'string'}, retrievedAt: {type: 'string'},
+            },
+          },
+          practicalNotes: {type: 'array', minItems: 0, maxItems: 3, items: {type: 'string', minLength: 6, maxLength: 180}},
         },
       },
     },
@@ -157,18 +177,35 @@ export class OpenAIResponsesProvider implements AIProvider {
       body: JSON.stringify({
         model: process.env.OPENAI_COMPARISON_MODEL || DEFAULT_COMPARISON_MODEL,
         store: false,
-        max_output_tokens: 5000,
+        max_output_tokens: 12000,
         input: [
           {
             role: 'system',
             content: [{type: 'input_text', text: [
               'Eres editor de una guía local de Benidorm. Usa exclusivamente el artefacto de evidence recibido.',
-              'Conserva exactamente los businessId y ranks deterministas. Compara diferencias verificables; no declares un ganador absoluto.',
-              'No inventes visitas, reseñas, popularidad, calidad, velocidad, tranquilidad ni suitability. No uses primera persona.',
+              'Responde a searchIntent. Conserva exactamente los businessId y su orden, pero no publiques ranks ni declares un ganador.',
+              'Sintetiza diferencias cruzadas, trade-offs y casos de uso; no redactes una sucesión A tiene X, B tiene Y.',
+              'La intro explica contexto, variedad y utilidad sin enumerar Businesses ni precios exactos.',
+              'quickVerdict es una única frase breve para introducir choiceGuide: debe nombrar al menos dos Businesses y usar lenguaje explícito de contraste como “mientras”, pero no incluye cifras de precios.',
+              'No uses mejor, peor, excelente, recomendado, calidad, popular, auténtico, barato ni caro sin comparación cuantitativa suficiente.',
+              'No inventes visitas, reseñas, velocidad, tranquilidad ni suitability. No uses primera persona.',
               'Un self_claim sólo puede atribuirse: «según su web» o «el negocio indica»; nunca lo conviertas en hecho objetivo.',
-              'No inventes debilidades: usa weaknesses=[] si no existe evidence en limitations.',
-              'Sólo incluye featuredItem o featuredPrice si hay evidence de la categoría correspondiente.',
-              'Registra cada afirmación factual de intro, quickVerdict y entries en claims. path debe apuntar al campo y supportedBy debe contener IDs exactos del evidence.',
+              'No inventes limitaciones: usa limitations=[] si no existe evidence en limitations.',
+              'El verdict resume diferencias; no anticipa una limitation que ya aparecerá en su bloque propio.',
+              'choiceGuide debe cubrir cada negocio con label condicional y reason respaldada. Usa “Para...” o “Si buscas...”, nunca “mejor para”.',
+              'choiceGuide no repite cifras de precios ni horarios completos: explica por qué elegir cada opción en una o dos frases cortas.',
+              'bestFor debe contener una o dos especialidades o rasgos centrales de la propuesta; nunca incluyas horas, días, ubicación, zona ni reservas en bestFor.',
+              'No repitas el precio de featuredItem en strengths. Los precios exactos sólo van en featuredItem.',
+              'Escribe para personas: usa “la carta incluye”, “figuraba a” o “no encontramos”; evita documentado, registra, evidencia, se documentaron y según la información publicada.',
+              'Todo el copy público debe sonar idiomático en español: traduce etiquetas de cuisine escritas en otros idiomas y evita mayúsculas internas innecesarias. La grafía exacta sólo es obligatoria dentro de claims.',
+              'choiceGuide puede mencionar que el horario es amplio o diario, pero deja las horas exactas exclusivamente en practicalNotes.',
+              'practicalNotes usa líneas compactas: “Mi–Sá: 13:30–16:30 / 20:30–23:00”, “Zona: …”, “Reservas: …”.',
+              'Sólo incluye featuredItem si hay evidence de featuredItems y copia exactamente name, price, currency, priceQualifier, source y retrievedAt.',
+              'Registra cada afirmación factual de intro, quickVerdict, choiceGuide y entries en claims. path debe apuntar al campo y supportedBy debe contener IDs exactos del evidence.',
+              'En claims reutiliza los términos y la grafía exacta del evidence; no cambies singular por plural ni reformules el término que demuestra el soporte.',
+              'Los IDs de evidence sólo pueden aparecer dentro de claims.supportedBy. Nunca añadas IDs, referencias entre corchetes ni citas técnicas al texto editorial.',
+              'No menciones platos, servicios o atributos ausentes del evidence, aunque aparezcan en el nombre o parezcan plausibles.',
+              'Evita también “la única opción”, “es la opción de la comparativa” y fórmulas que aparenten exhaustividad o superioridad.',
               'Para arrays usa paths como entries.<businessId>.strengths.0. No registres metodología, criterios ni textos puramente editoriales sin facts.',
             ].join(' ')}],
           },

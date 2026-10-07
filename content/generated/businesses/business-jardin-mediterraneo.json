@@ -1,0 +1,243 @@
+{
+  "_id": "business-jardin-mediterraneo",
+  "_type": "business",
+  "name": "Jardín Mediterráneo",
+  "slug": {
+    "_type": "slug",
+    "current": "jardin-mediterraneo"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Jardín Mediterráneo ofrece cocina mediterránea, regional, americana, mariscos y arroces junto a la playa de Levante, con terraza, desayunos, reservas y servicio para llevar.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Jardín Mediterráneo es un restaurante con un concepto centrado en la cocina mediterránea en la zona de la playa de Levante de Benidorm."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Su propuesta incluye cocina mediterránea y regional, además de platos de cocina americana, mariscos y arroces."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La experiencia"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "El establecimiento dispone de terraza, según la información publicada en su sitio web."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ubicación"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Se encuentra en Avinguda d'Alcoi - Avenida de Alcoy 22, 03503 Benidorm, en el entorno de la playa de Levante."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicios"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ofrece desayunos, permite realizar reservas y cuenta con servicio para llevar."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Lo más destacado"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina mediterránea, regional, americana, mariscos y arroces"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Terraza en la zona de la playa de Levante"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Reservas y servicio para llevar"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-07",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/4343227072",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/4343227072",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.jardinmediterraneo.com/",
+      "publisher": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "url": "https://www.jardinmediterraneo.com/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.jardinmediterraneo.com/restaurante/",
+      "publisher": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "url": "https://www.jardinmediterraneo.com/restaurante/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.jardinmediterraneo.com/carta/",
+      "publisher": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "url": "https://www.jardinmediterraneo.com/carta/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.jardinmediterraneo.com/menu/",
+      "publisher": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "url": "https://www.jardinmediterraneo.com/menu/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.jardinmediterraneo.com/reservas/",
+      "publisher": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "url": "https://www.jardinmediterraneo.com/reservas/",
+      "accessedAt": "2026-10-07"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Jardín Mediterráneo | Restaurante en Benidorm",
+    "metaDescription": "Restaurante de cocina mediterránea, arroces y mariscos en la playa de Levante de Benidorm, con terraza, desayunos, reservas y servicio para llevar."
+  },
+  "address": {
+    "street": "Avinguda d'Alcoi - Avenida de Alcoy 22",
+    "postalCode": "03503",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5358932,
+    "lng": -0.121272
+  },
+  "phone": "+34 96 585 00 11",
+  "website": "http://www.jardinmediterraneo.com/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

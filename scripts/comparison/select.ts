@@ -15,7 +15,7 @@ export async function runComparisonSelection(options: ComparisonOptions, root = 
   const artifact = await selectComparisonCandidates(options, root, now)
   const report = {
     phase: 'comparison-selection', dryRun: options.dryRun, startedAt: now, finishedAt: new Date().toISOString(),
-    topic: artifact.topic, candidateBusinesses: artifact.candidates, excludedBusinesses: artifact.excluded,
+    topic: artifact.topic, searchIntent: artifact.searchIntent, candidateBusinesses: artifact.candidates, excludedBusinesses: artifact.excluded,
     totals: {candidates: artifact.candidates.length, excluded: artifact.excluded.length},
   }
   if (!options.dryRun) {

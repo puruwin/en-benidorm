@@ -7,3 +7,13 @@ sanity-dist/
 !.env.example
 schema.json
 *.log
+
+# Runtime state and regenerable content-pipeline artifacts.
+/content/discovered/*.json
+/content/enriched/*.json
+/content/comparisons/candidates/*.json
+/content/comparisons/enriched/*.json
+/content/generated/.staging/**/*.json
+/content/reports/*
+!/content/reports/.gitkeep
+/content/manifest.json

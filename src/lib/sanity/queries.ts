@@ -76,7 +76,7 @@ export const DINING_QUERY = defineQuery(`{
     "href": "/donde-comer/#restaurantes",
     "count": count(*[_type == "business" && references(^._id)])
   }[count >= 3] | order(title asc),
-  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer"] | order(title asc){
+  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer" && seo.noIndex != true] | order(title asc){
     title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"
   }
 }`)
@@ -130,8 +130,9 @@ export const COMPARISON_QUERY = defineQuery(`*[_type == "comparison" && language
   topic,
   intro,
   quickVerdict,
-  "entries": entries[] | order(rank asc){
-    rank, verdict, strengths, weaknesses, bestFor, featuredItem, featuredPrice, practicalNotes,
+  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},
+  entries[]{
+    verdict, strengths, limitations, bestFor, featuredItem, practicalNotes,
     "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}
   },
   methodology,

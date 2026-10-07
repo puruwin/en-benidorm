@@ -67,7 +67,7 @@ const REFERENCE_RULES: Record<string, Record<string, readonly string[]>> = {
   beach: {'services[]': ['category'], area: ['area']},
   event: {venue: ['place', 'business'], 'categories[]': ['category']},
   article: {author: ['author'], 'categories[]': ['category'], 'relatedContent[]': ['business', 'place', 'beach', 'event', 'article']},
-  comparison: {author: ['author'], area: ['area'], 'entries[].business': ['business']},
+  comparison: {author: ['author'], area: ['area'], 'choiceGuide[].business': ['business'], 'entries[].business': ['business']},
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -300,21 +300,39 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
     language()
     validateDate(input, 'lastVerified', true, true, issue)
     if (!Array.isArray(doc.criteria) || doc.criteria.length < 3 || doc.criteria.some((item) => typeof item !== 'string' || !item.trim())) issue(input, 'criteria', 'Debe contener al menos tres criterios no vacíos.')
+    if (!Array.isArray(doc.choiceGuide) || doc.choiceGuide.length < 4 || doc.choiceGuide.length > 8) issue(input, 'choiceGuide', 'Debe contener entre 4 y 8 recomendaciones condicionales.')
+    else {
+      const choices = new Set<string>()
+      doc.choiceGuide.forEach((choice, index) => {
+        if (!isRecord(choice) || choice._type !== 'comparisonChoice') return issue(input, `choiceGuide[${index}]`, 'Debe ser un objeto comparisonChoice.')
+        if (!isRecord(choice.business) || choice.business._type !== 'reference' || typeof choice.business._ref !== 'string') issue(input, `choiceGuide[${index}].business`, 'Debe ser una referencia a Business.')
+        else if (choices.has(choice.business._ref)) issue(input, `choiceGuide[${index}].business`, 'Un Business no puede repetirse en choiceGuide.')
+        else choices.add(choice.business._ref)
+        for (const field of ['label', 'reason'] as const) if (typeof choice[field] !== 'string' || !choice[field].trim()) issue(input, `choiceGuide[${index}].${field}`, 'Campo obligatorio.')
+      })
+    }
     if (!Array.isArray(doc.entries) || doc.entries.length < 4 || doc.entries.length > 8) issue(input, 'entries', 'Debe contener entre 4 y 8 negocios.')
     else {
-      const ranks = new Set<number>()
       const businesses = new Set<string>()
       doc.entries.forEach((entry, index) => {
         if (!isRecord(entry)) return issue(input, `entries[${index}]`, 'Debe ser un objeto comparisonEntry.')
         if (entry._type !== 'comparisonEntry') issue(input, `entries[${index}]._type`, 'Debe usar _type="comparisonEntry".')
-        if (!Number.isInteger(entry.rank) || (entry.rank as number) < 1) issue(input, `entries[${index}].rank`, 'Debe ser un entero positivo.')
-        else if (ranks.has(entry.rank as number)) issue(input, `entries[${index}].rank`, 'El rank no puede repetirse.')
-        else ranks.add(entry.rank as number)
         if (!isRecord(entry.business) || entry.business._type !== 'reference' || typeof entry.business._ref !== 'string') issue(input, `entries[${index}].business`, 'Debe ser una referencia a Business.')
         else if (businesses.has(entry.business._ref)) issue(input, `entries[${index}].business`, 'Un Business no puede repetirse.')
         else businesses.add(entry.business._ref)
         for (const field of ['verdict'] as const) if (typeof entry[field] !== 'string' || !entry[field].trim()) issue(input, `entries[${index}].${field}`, 'Campo obligatorio.')
-        for (const field of ['strengths', 'weaknesses', 'bestFor', 'practicalNotes'] as const) if (!Array.isArray(entry[field]) || (entry[field] as unknown[]).some((item) => typeof item !== 'string' || !item.trim())) issue(input, `entries[${index}].${field}`, 'Debe ser un array de textos.')
+        for (const field of ['strengths', 'limitations', 'bestFor', 'practicalNotes'] as const) if (!Array.isArray(entry[field]) || (entry[field] as unknown[]).some((item) => typeof item !== 'string' || !item.trim())) issue(input, `entries[${index}].${field}`, 'Debe ser un array de textos.')
+        if (entry.featuredItem !== undefined) {
+          if (!isRecord(entry.featuredItem)) issue(input, `entries[${index}].featuredItem`, 'Debe ser un plato destacado normalizado.')
+          else {
+            if (typeof entry.featuredItem.name !== 'string' || !entry.featuredItem.name.trim()) issue(input, `entries[${index}].featuredItem.name`, 'El nombre es obligatorio.')
+            if (entry.featuredItem.price !== undefined && (typeof entry.featuredItem.price !== 'number' || entry.featuredItem.price < 0)) issue(input, `entries[${index}].featuredItem.price`, 'El precio debe ser positivo.')
+            if (entry.featuredItem.currency !== undefined && entry.featuredItem.currency !== 'EUR') issue(input, `entries[${index}].featuredItem.currency`, 'La moneda admitida es EUR.')
+            if (entry.featuredItem.priceQualifier !== undefined && (typeof entry.featuredItem.priceQualifier !== 'string' || !entry.featuredItem.priceQualifier.trim())) issue(input, `entries[${index}].featuredItem.priceQualifier`, 'El contexto del precio debe ser texto no vacío.')
+            if (typeof entry.featuredItem.source !== 'string' || !entry.featuredItem.source) issue(input, `entries[${index}].featuredItem.source`, 'La procedencia es obligatoria.')
+            if (typeof entry.featuredItem.retrievedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(entry.featuredItem.retrievedAt)) issue(input, `entries[${index}].featuredItem.retrievedAt`, 'La fecha de comprobación debe usar YYYY-MM-DD.')
+          }
+        }
       })
     }
   }

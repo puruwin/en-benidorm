@@ -6,7 +6,7 @@ import type {EnrichedEntity} from '../content/lib/types'
 import {parseComparisonOptions} from './lib/cli'
 import {enrichComparison} from './lib/enrichment'
 import {ManualJsonAdapter} from './lib/manual-adapter'
-import type {ComparisonCandidateArtifact, ComparisonOptions} from './lib/types'
+import {EVIDENCE_CATEGORIES, type ComparisonCandidateArtifact, type ComparisonOptions} from './lib/types'
 
 export async function runComparisonEnrichment(options: ComparisonOptions, root = process.cwd(), now = new Date().toISOString()): Promise<void> {
   const destination = resolve(root, `content/comparisons/enriched/${options.id}.json`)
@@ -17,9 +17,22 @@ export async function runComparisonEnrichment(options: ComparisonOptions, root =
   const artifact = enrichComparison(candidates, entities, manual, now)
   const report = {
     phase: 'comparison-enrichment', dryRun: options.dryRun, startedAt: now, finishedAt: new Date().toISOString(), topic: artifact.topic,
-    businessesSelected: artifact.businesses.map((business, index) => ({businessId: business.businessId, rank: index + 1, scores: business.scores})),
-    evidenceCoverage: artifact.businesses.map((business) => ({businessId: business.businessId, ...Object.fromEntries(Object.entries(business.evidence).map(([key, facts]) => [key, facts.length]))})),
+    searchIntent: artifact.searchIntent,
+    businessesSelected: artifact.businesses.map((business) => ({
+      businessId: business.businessId,
+      selectionScore: candidates.candidates.find((candidate) => candidate.businessId === business.businessId)?.scores.total ?? business.scores.total,
+      enrichedScore: business.scores.total,
+      scores: business.scores,
+    })),
+    evidenceCoverage: {
+      perBusiness: artifact.businesses.map((business) => ({businessId: business.businessId, ...Object.fromEntries(Object.entries(business.evidence).map(([key, facts]) => [key, facts.length]))})),
+      perDimension: Object.fromEntries(EVIDENCE_CATEGORIES.map((dimension) => [dimension, {
+        businessesCovered: artifact.businesses.filter((business) => business.evidence[dimension].length > 0).length,
+        factCount: artifact.businesses.reduce((sum, business) => sum + business.evidence[dimension].length, 0),
+      }])),
+    },
     missingData: artifact.businesses.map((business) => ({businessId: business.businessId, fields: Object.entries(business.evidence).filter(([, facts]) => facts.length === 0).map(([field]) => field)})),
+    sourceConflicts: artifact.sourceConflicts,
   }
   if (!options.dryRun) {
     await writeJsonAtomic(destination, artifact)

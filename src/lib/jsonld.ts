@@ -56,10 +56,10 @@ export function comparisonItemListJsonLd(comparison: ComparisonDetail, site: URL
     name: comparison.title,
     url: absoluteUrl(comparison.href, site),
     numberOfItems: comparison.entries.length,
-    itemListOrder: 'https://schema.org/ItemListOrderAscending',
-    itemListElement: comparison.entries.map((entry) => ({
+    itemListOrder: 'https://schema.org/ItemListUnordered',
+    itemListElement: comparison.entries.map((entry, index) => ({
       '@type': 'ListItem',
-      position: entry.rank,
+      position: index + 1,
       name: entry.business.name,
       url: absoluteUrl(entry.business.href, site),
     })),

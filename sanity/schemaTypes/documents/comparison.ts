@@ -17,18 +17,38 @@ export const comparison = defineType({
     defineField({name: 'intro', title: 'Introducción', type: 'text', rows: 5, group: 'content', validation: (rule) => rule.required()}),
     defineField({name: 'quickVerdict', title: 'Veredicto rápido', type: 'text', rows: 5, group: 'content', validation: (rule) => rule.required()}),
     defineField({
+      name: 'choiceGuide', title: '¿Cuál elegir?', type: 'array', group: 'content', validation: (rule) => rule.required().min(4).max(8).unique(),
+      of: [defineArrayMember({
+        name: 'comparisonChoice', title: 'Recomendación condicional', type: 'object',
+        fields: [
+          defineField({name: 'business', title: 'Negocio', type: 'reference', to: [{type: 'business'}], validation: (rule) => rule.required()}),
+          defineField({name: 'label', title: 'Caso de uso', type: 'string', validation: (rule) => rule.required()}),
+          defineField({name: 'reason', title: 'Motivo respaldado', type: 'text', rows: 2, validation: (rule) => rule.required()}),
+        ],
+        preview: {select: {title: 'label', subtitle: 'business.name'}},
+      })],
+    }),
+    defineField({
       name: 'entries', title: 'Negocios comparados', type: 'array', group: 'content', validation: (rule) => rule.required().min(4).max(8).unique(),
       of: [defineArrayMember({
         name: 'comparisonEntry', title: 'Entrada', type: 'object',
         fields: [
           defineField({name: 'business', title: 'Negocio', type: 'reference', to: [{type: 'business'}], validation: (rule) => rule.required()}),
-          defineField({name: 'rank', title: 'Posición', type: 'number', validation: (rule) => rule.required().integer().min(1)}),
           defineField({name: 'verdict', title: 'Veredicto', type: 'text', rows: 3, validation: (rule) => rule.required()}),
           defineField({name: 'strengths', title: 'Puntos fuertes', type: 'array', of: [{type: 'string'}], validation: (rule) => rule.required().min(1)}),
-          defineField({name: 'weaknesses', title: 'Inconvenientes verificados', type: 'array', of: [{type: 'string'}]}),
+          defineField({name: 'limitations', title: 'Limitaciones verificadas', type: 'array', of: [{type: 'string'}]}),
           defineField({name: 'bestFor', title: 'Adecuado para', type: 'array', of: [{type: 'string'}], validation: (rule) => rule.required().min(1)}),
-          defineField({name: 'featuredItem', title: 'Plato destacado', type: 'string'}),
-          defineField({name: 'featuredPrice', title: 'Precio de referencia', type: 'string'}),
+          defineField({
+            name: 'featuredItem', title: 'Plato destacado', type: 'object',
+            fields: [
+              defineField({name: 'name', title: 'Nombre', type: 'string', validation: (rule) => rule.required()}),
+              defineField({name: 'price', title: 'Precio', type: 'number', validation: (rule) => rule.min(0)}),
+              defineField({name: 'currency', title: 'Moneda', type: 'string', options: {list: ['EUR']}}),
+              defineField({name: 'priceQualifier', title: 'Contexto del precio', type: 'string', description: 'Por persona, por ración, mínimo de comensales u otra condición publicada.'}),
+              defineField({name: 'source', title: 'Clave de fuente', type: 'string', readOnly: true, validation: (rule) => rule.required()}),
+              defineField({name: 'retrievedAt', title: 'Comprobado el', type: 'date', validation: (rule) => rule.required()}),
+            ],
+          }),
           defineField({name: 'practicalNotes', title: 'Notas prácticas', type: 'array', of: [{type: 'string'}]}),
         ],
         preview: {select: {title: 'business.name', subtitle: 'verdict'}},

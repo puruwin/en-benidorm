@@ -100,15 +100,19 @@ export interface ComparisonLink {
 }
 
 export interface ComparisonEntryDetail {
-  rank: number
   verdict: string
   strengths: string[]
-  weaknesses: string[]
+  limitations: string[]
   bestFor: string[]
-  featuredItem?: string
-  featuredPrice?: string
+  featuredItem?: {name: string; price?: number; currency?: 'EUR'; priceQualifier?: string; source: string; retrievedAt: string}
   practicalNotes: string[]
   business: Pick<BusinessDetail, 'name' | 'slug' | 'href' | 'kind' | 'phone' | 'website'>
+}
+
+export interface ComparisonChoiceDetail {
+  label: string
+  reason: string
+  business: Pick<BusinessDetail, 'name' | 'slug' | 'href'>
 }
 
 export interface AuthorDetail {
@@ -125,6 +129,7 @@ export interface ComparisonDetail extends ComparisonLink {
   topic: string
   intro: string
   quickVerdict: string
+  choiceGuide: ComparisonChoiceDetail[]
   entries: ComparisonEntryDetail[]
   methodology: string
   criteria: string[]

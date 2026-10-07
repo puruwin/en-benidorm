@@ -39,6 +39,7 @@ export interface ComparisonCandidateArtifact {
   schemaVersion: 1
   id: string
   topic: string
+  searchIntent: string
   slug: string
   generatedAt: string
   candidateCount: number
@@ -50,10 +51,20 @@ export interface ComparisonPrice {
   item: string
   value: number
   currency: 'EUR'
+  priceQualifier?: string
   retrievedAt: string
 }
 
-export type ComparisonEvidenceValue = string | boolean | ComparisonPrice
+export interface ComparisonFeaturedItem {
+  name: string
+  price?: number | null
+  currency?: 'EUR' | null
+  priceQualifier?: string | null
+  source: string
+  retrievedAt: string
+}
+
+export type ComparisonEvidenceValue = string | boolean | ComparisonPrice | ComparisonFeaturedItem
 
 export interface ComparisonEvidenceFact {
   id: string
@@ -78,26 +89,40 @@ export interface EnrichedComparisonBusiness {
   sources: SourceProvenance[]
 }
 
+export interface ComparisonSourceConflict {
+  businessId: string
+  dimension: 'practical'
+  preferredSourceKeys: string[]
+  conflictingSourceKeys: string[]
+  resolution: string
+}
+
 export interface EnrichedComparisonArtifact {
   schemaVersion: 1
   id: string
   topic: string
+  searchIntent: string
   slug: string
   enrichedAt: string
   businesses: EnrichedComparisonBusiness[]
   sources: SourceProvenance[]
+  sourceConflicts: ComparisonSourceConflict[]
 }
 
 export interface ComparisonEntryEditorial {
   businessId: string
-  rank: number
   verdict: string
   strengths: string[]
-  weaknesses: string[]
+  limitations: string[]
   bestFor: string[]
-  featuredItem: string | null
-  featuredPrice: string | null
+  featuredItem: ComparisonFeaturedItem | null
   practicalNotes: string[]
+}
+
+export interface ComparisonChoiceGuideItem {
+  businessId: string
+  label: string
+  reason: string
 }
 
 export interface ComparisonClaim {
@@ -110,6 +135,7 @@ export interface GeneratedComparisonEditorial {
   title: string
   intro: string
   quickVerdict: string
+  choiceGuide: ComparisonChoiceGuideItem[]
   entries: ComparisonEntryEditorial[]
   methodology: string
   criteria: string[]
@@ -121,6 +147,8 @@ export interface GeneratedComparisonArtifact {
   schemaVersion: 1
   id: string
   topic: string
+  searchIntent: string
+  indexability: 'index' | 'noindex'
   generatedAt: string
   editorial: GeneratedComparisonEditorial
   document: ContentDocument
@@ -137,7 +165,16 @@ export interface ComparisonQAResult {
   id: string
   topic: string
   outcome: ComparisonOutcome
+  searchIntentSatisfied: boolean
+  contentValueSatisfied: boolean
+  indexability: 'index' | 'noindex'
+  coverage: ComparisonCoverageReport
   issues: ComparisonQAIssue[]
   claimsGenerated: number
   claimsRejected: number
+}
+
+export interface ComparisonCoverageReport {
+  perBusiness: Array<{businessId: string; coveredDimensions: EvidenceCategory[]; counts: Record<EvidenceCategory, number>}>
+  perDimension: Record<EvidenceCategory, {businessesCovered: number; factCount: number}>
 }

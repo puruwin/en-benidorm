@@ -5,6 +5,11 @@ import type {ContentManifest, EnrichedEntity} from '../../content/lib/types'
 import {compareScores, scoreBusiness, topicEvidence} from './scoring'
 import type {ComparisonCandidateArtifact, ComparisonOptions, ExcludedCandidate} from './types'
 
+const SEARCH_INTENTS: Readonly<Record<string, string>> = {
+  italiano: 'elegir restaurante italiano en Benidorm',
+  arroces: 'elegir dónde comer arroz en Benidorm',
+}
+
 export async function selectComparisonCandidates(
   options: ComparisonOptions,
   root = process.cwd(),
@@ -37,5 +42,9 @@ export async function selectComparisonCandidates(
     details: [`Quedó fuera del límite ${limit} tras el orden determinista.`],
   })
   const selected = candidates.slice(0, limit)
-  return {schemaVersion: 1, id, topic, slug: topic, generatedAt: now, candidateCount: selected.length, candidates: selected, excluded}
+  return {schemaVersion: 1, id, topic, searchIntent: searchIntentFor(topic), slug: topic, generatedAt: now, candidateCount: selected.length, candidates: selected, excluded}
+}
+
+function searchIntentFor(topic: string): string {
+  return SEARCH_INTENTS[topic] ?? `elegir ${topic} en Benidorm`
 }

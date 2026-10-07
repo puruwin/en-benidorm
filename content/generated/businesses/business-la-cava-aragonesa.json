@@ -1,0 +1,257 @@
+{
+  "_id": "business-la-cava-aragonesa",
+  "_type": "business",
+  "name": "La Cava Aragonesa",
+  "slug": {
+    "_type": "slug",
+    "current": "la-cava-aragonesa"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Restaurante del centro de Benidorm especializado en tapas, con cocina regional, arroces y mariscos. Dispone de terraza y permite reservar mesa.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La Cava Aragonesa es un restaurante situado en el centro de Benidorm. Su propuesta combina tapas con una bodega de vinos y una oferta de cocina regional, de mariscos, arroces y platos de estilo americano."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La cocina incluye especialidades regionales, mariscos, arroces y platos de inspiración americana. El establecimiento también identifica las tapas como parte de su propuesta y cuenta con una bodega de vinos."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La experiencia"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "El restaurante dispone de terraza para sus clientes."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ubicación"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Se encuentra en Plaça de la Constitució, 2, en Benidorm."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Servicios"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ofrece servicio de cena y permite realizar reservas."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Lo más destacado"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Tapas y bodega de vinos"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina regional, mariscos, arroces y platos de estilo americano"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Terraza disponible"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Admite reservas"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-07",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/4343358694",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/4343358694",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.lacavaaragonesa.es/",
+      "publisher": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "url": "https://www.lacavaaragonesa.es/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "publisher": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "url": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.lacavaaragonesa.es/menu-la-cava/",
+      "publisher": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "url": "https://www.lacavaaragonesa.es/menu-la-cava/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+      "publisher": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "url": "https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+      "publisher": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "url": "https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+      "accessedAt": "2026-10-07"
+    }
+  ],
+  "seo": {
+    "metaTitle": "La Cava Aragonesa: tapas en Benidorm",
+    "metaDescription": "La Cava Aragonesa ofrece tapas, cocina regional, arroces, mariscos y bodega de vinos en el centro de Benidorm, con terraza y reservas."
+  },
+  "address": {
+    "street": "Plaça de la Constitució 2",
+    "postalCode": "03501",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.535448,
+    "lng": -0.1308699
+  },
+  "phone": "+34 96 680 12 06",
+  "website": "http://www.lacavaaragonesa.es/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

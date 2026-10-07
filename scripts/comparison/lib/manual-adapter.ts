@@ -75,7 +75,9 @@ function parseFact(value: unknown, businessId: string, category: EvidenceCategor
 function validValue(value: unknown): value is ComparisonEvidenceValue {
   if (typeof value === 'string') return Boolean(value.trim())
   if (typeof value === 'boolean') return true
-  return isRecord(value) && typeof value.item === 'string' && typeof value.value === 'number' && value.currency === 'EUR' && typeof value.retrievedAt === 'string'
+  return isRecord(value) && typeof value.item === 'string' && typeof value.value === 'number' && value.currency === 'EUR'
+    && (value.priceQualifier === undefined || (typeof value.priceQualifier === 'string' && Boolean(value.priceQualifier.trim())))
+    && typeof value.retrievedAt === 'string'
 }
 function isNature(value: unknown): value is EvidenceNature { return value === 'factual' || value === 'self_claim' || value === 'external_observation' }
 function isRecord(value: unknown): value is Record<string, unknown> { return typeof value === 'object' && value !== null && !Array.isArray(value) }

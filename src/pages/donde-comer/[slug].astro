@@ -5,6 +5,7 @@ import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import {getComparisonBySlug, getComparisonSlugs} from '../../lib/content-source'
 import {breadcrumbJsonLd, comparisonItemListJsonLd} from '../../lib/jsonld'
+import {compactPracticalLines} from '../../lib/comparison-presentation'
 import type {BreadcrumbItem} from '../../types/content'
 
 export async function getStaticPaths() {
@@ -17,8 +18,9 @@ const comparison = slug ? await getComparisonBySlug(slug) : null
 if (!comparison) throw new Error(`No se encontró la comparativa estática: ${slug ?? 'sin slug'}`)
 const breadcrumbs: BreadcrumbItem[] = [{label: 'Inicio', href: '/'}, {label: 'Dónde comer', href: '/donde-comer/'}, {label: comparison.title}]
 const site = Astro.site ?? new URL('https://enbenidorm.es')
-const showPrice = comparison.entries.some((entry) => entry.featuredPrice)
+const showPrice = comparison.entries.some((entry) => typeof entry.featuredItem?.price === 'number')
 const showPractical = comparison.entries.some((entry) => entry.practicalNotes.length > 0)
+const euro = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'})
 ---
 
 <BaseLayout seo={comparison.seo} jsonLd={[breadcrumbJsonLd(breadcrumbs, site), comparisonItemListJsonLd(comparison, site)]} demo={false}>
@@ -26,49 +28,51 @@ const showPractical = comparison.entries.some((entry) => entry.practicalNotes.le
     <header class="bg-sand pb-14 pt-8 md:pb-20">
       <div class="container-site">
         <Breadcrumbs items={breadcrumbs} />
-        <p class="mt-12 text-xs font-black uppercase tracking-[.18em] text-coral">Comparativa local · {comparison.topic}</p>
-        <h1 class="font-editorial mt-3 max-w-5xl text-5xl leading-[.95] tracking-[-.045em] md:text-7xl">{comparison.title}</h1>
+        <h1 class="font-editorial mt-12 max-w-5xl text-5xl leading-[.95] tracking-[-.045em] md:text-7xl">{comparison.title}</h1>
         <p class="mt-7 max-w-3xl text-lg leading-relaxed text-ink/75">{comparison.intro}</p>
       </div>
     </header>
 
     <div class="container-site py-12 md:py-16">
-      <section class="rounded-[1.75rem] bg-sea-dark p-7 text-white md:p-10" aria-labelledby="quick-verdict-title">
-        <p class="text-xs font-black uppercase tracking-[.18em] text-sky">En pocas palabras</p>
-        <h2 id="quick-verdict-title" class="font-editorial mt-2 text-3xl">Veredicto rápido</h2>
-        <p class="mt-4 max-w-4xl text-base leading-relaxed text-white/85 md:text-lg">{comparison.quickVerdict}</p>
+      <section aria-labelledby="choice-guide-title">
+        <h2 id="choice-guide-title" class="font-editorial text-3xl md:text-4xl">¿Cuál elegir?</h2>
+        <p class="mt-4 max-w-4xl leading-relaxed text-ink/70">{comparison.quickVerdict}</p>
+        <div class="mt-7 grid gap-4 md:grid-cols-2">{comparison.choiceGuide.map((choice) => <article class="rounded-2xl border border-ink/10 bg-sand p-5 md:p-6"><p class="text-sm font-bold text-coral">{choice.label}</p><h3 class="font-editorial mt-1 text-2xl"><a class="text-sea-dark underline decoration-sea-dark/25 underline-offset-4" href={choice.business.href}>{choice.business.name}</a></h3><p class="mt-3 text-sm leading-relaxed text-ink/70 md:text-base">{choice.reason}</p></article>)}</div>
       </section>
 
       <section class="mt-14" aria-labelledby="comparison-table-title">
         <h2 id="comparison-table-title" class="font-editorial text-3xl md:text-4xl">Comparación rápida</h2>
-        <div class="mt-6 overflow-x-auto rounded-2xl border border-ink/10">
-          <table class="w-full min-w-[44rem] border-collapse text-left text-sm">
-            <thead class="bg-sand text-xs uppercase tracking-[.1em] text-ink/60"><tr><th class="p-4">#</th><th class="p-4">Restaurante</th><th class="p-4">Destaca por</th>{showPrice && <th class="p-4">Precio / referencia</th>}{showPractical && <th class="p-4">Dato práctico</th>}</tr></thead>
-            <tbody>{comparison.entries.map((entry) => <tr class="border-t border-ink/10 align-top"><td class="p-4 font-black text-coral">{entry.rank}</td><td class="p-4"><a class="font-bold text-sea-dark underline" href={entry.business.href}>{entry.business.name}</a></td><td class="p-4">{entry.strengths[0]}</td>{showPrice && <td class="p-4">{entry.featuredPrice ?? '—'}</td>}{showPractical && <td class="p-4">{entry.practicalNotes[0] ?? '—'}</td>}</tr>)}</tbody>
+        <div class="mt-6 grid gap-3 md:hidden">{comparison.entries.map((entry) => <article class="rounded-2xl border border-ink/10 bg-white p-5"><h3 class="font-bold"><a class="text-sea-dark underline" href={entry.business.href}>{entry.business.name}</a></h3><p class="mt-2 text-sm text-ink/70">{entry.bestFor.join(' · ')}</p>{typeof entry.featuredItem?.price === 'number' && <p class="mt-3 text-sm"><span class="font-bold">Referencia:</span> {entry.featuredItem.name} — {euro.format(entry.featuredItem.price)}{entry.featuredItem.priceQualifier ? ` (${entry.featuredItem.priceQualifier})` : ''}</p>}<div class="mt-3 space-y-1 text-sm text-ink/65">{compactPracticalLines(entry.practicalNotes).slice(0, 2).map((line) => <p>{line}</p>)}</div></article>)}</div>
+        <div class="mt-6 hidden overflow-x-auto rounded-2xl border border-ink/10 md:block" tabindex="0" aria-label="Tabla comparativa de restaurantes">
+          <table class="w-full min-w-[48rem] border-collapse text-left text-sm">
+            <thead class="bg-sand text-xs uppercase tracking-[.1em] text-ink/60"><tr><th class="p-4">Restaurante</th><th class="p-4">Destaca por</th>{showPrice && <th class="p-4">Precio publicado</th>}{showPractical && <th class="p-4">Dato práctico</th>}</tr></thead>
+            <tbody>{comparison.entries.map((entry) => <tr class="border-t border-ink/10 align-top"><td class="p-4"><a class="font-bold text-sea-dark underline" href={entry.business.href}>{entry.business.name}</a></td><td class="max-w-52 p-4">{entry.bestFor.join(' · ')}</td>{showPrice && <td class="max-w-56 p-4">{typeof entry.featuredItem?.price === 'number' ? <><span class="block">{entry.featuredItem.name}</span><strong>{euro.format(entry.featuredItem.price)}</strong>{entry.featuredItem.priceQualifier && <span class="block text-xs text-ink/60">{entry.featuredItem.priceQualifier}</span>}</> : '—'}</td>}{showPractical && <td class="max-w-60 p-4">{compactPracticalLines(entry.practicalNotes).slice(0, 2).map((line) => <span class="block">{line}</span>)}</td>}</tr>)}</tbody>
           </table>
         </div>
       </section>
 
       <section class="mt-16 space-y-8" aria-labelledby="entries-title">
-        <h2 id="entries-title" class="font-editorial text-3xl md:text-4xl">Uno por uno</h2>
+        <h2 id="entries-title" class="font-editorial text-3xl md:text-4xl">Los restaurantes</h2>
         {comparison.entries.map((entry) => (
-          <article class="rounded-[1.75rem] border border-ink/10 bg-white p-6 shadow-[0_12px_40px_rgba(16,47,59,.05)] md:p-9" aria-labelledby={`entry-${entry.rank}`}>
-            <div class="flex flex-wrap items-start justify-between gap-4"><div><p class="text-xs font-black uppercase tracking-[.14em] text-coral">Puesto {entry.rank}</p><h3 id={`entry-${entry.rank}`} class="font-editorial mt-1 text-3xl md:text-4xl">{entry.business.name}</h3></div><div class="flex flex-wrap gap-2">{entry.bestFor.map((tag) => <span class="rounded-full bg-sky px-3 py-1 text-xs font-bold text-sea-dark">{tag}</span>)}</div></div>
+          <article class="rounded-[1.75rem] border border-ink/10 bg-white p-6 shadow-[0_12px_40px_rgba(16,47,59,.05)] md:p-9" aria-labelledby={`entry-${entry.business.slug}`}>
+            <h3 id={`entry-${entry.business.slug}`} class="font-editorial text-3xl md:text-4xl">{entry.business.name}</h3>
+            <div class="mt-3 flex flex-wrap gap-2">{entry.bestFor.map((tag) => <span class="rounded-full bg-sky px-3 py-1 text-xs font-bold text-sea-dark">{tag}</span>)}</div>
             <p class="mt-5 max-w-3xl leading-relaxed text-ink/75">{entry.verdict}</p>
             <div class="mt-7 grid gap-7 md:grid-cols-2">
-              <div><h4 class="text-xs font-black uppercase tracking-[.13em] text-sea-dark">Puntos fuertes</h4><ul class="mt-3 space-y-2">{entry.strengths.map((strength) => <li class="flex gap-2"><span aria-hidden="true">+</span><span>{strength}</span></li>)}</ul></div>
-              {entry.weaknesses.length > 0 && <div><h4 class="text-xs font-black uppercase tracking-[.13em] text-ink/55">Inconvenientes documentados</h4><ul class="mt-3 space-y-2">{entry.weaknesses.map((weakness) => <li>{weakness}</li>)}</ul></div>}
+              <div><h4 class="text-xs font-black uppercase tracking-[.13em] text-sea-dark">Diferencias concretas</h4><ul class="mt-3 space-y-2">{entry.strengths.map((strength) => <li class="flex gap-2"><span aria-hidden="true">+</span><span>{strength}</span></li>)}</ul></div>
+              {entry.limitations.length > 0 && <div><h4 class="text-xs font-black uppercase tracking-[.13em] text-ink/55">Lo que no pudimos comprobar</h4><ul class="mt-3 space-y-2 text-ink/70">{entry.limitations.map((limitation) => <li>{limitation}</li>)}</ul></div>}
             </div>
-            {(entry.featuredItem || entry.featuredPrice || entry.practicalNotes.length > 0) && <dl class="mt-7 grid gap-4 border-t border-ink/10 pt-6 text-sm md:grid-cols-3">{entry.featuredItem && <div><dt class="font-black uppercase tracking-[.1em] text-ink/50">Plato de referencia</dt><dd class="mt-1 font-bold">{entry.featuredItem}</dd></div>}{entry.featuredPrice && <div><dt class="font-black uppercase tracking-[.1em] text-ink/50">Precio comprobado</dt><dd class="mt-1 font-bold">{entry.featuredPrice}</dd></div>}{entry.practicalNotes.length > 0 && <div><dt class="font-black uppercase tracking-[.1em] text-ink/50">En la práctica</dt><dd class="mt-1">{entry.practicalNotes.join(' · ')}</dd></div>}</dl>}
-            <div class="mt-7 flex flex-wrap gap-4 text-sm"><a class="rounded-full bg-ink px-5 py-2 font-bold text-white" href={entry.business.href}>Ver ficha</a>{entry.business.phone && <a class="font-bold text-sea-dark underline" href={`tel:${entry.business.phone.replace(/\s/g, '')}`}>{entry.business.phone}</a>}{entry.business.website && <a class="font-bold text-sea-dark underline" href={entry.business.website} rel="noopener noreferrer">Web oficial ↗</a>}</div>
+            {(entry.featuredItem || entry.practicalNotes.length > 0) && <dl class="mt-7 grid gap-6 border-t border-ink/10 pt-6 text-sm md:grid-cols-2">{entry.featuredItem && <div><dt class="font-black uppercase tracking-[.1em] text-ink/50">En la carta</dt><dd class="mt-2 font-bold">{entry.featuredItem.name}</dd>{typeof entry.featuredItem.price === 'number' && <><dd class="mt-1 text-lg font-black text-sea-dark">{euro.format(entry.featuredItem.price)}</dd>{entry.featuredItem.priceQualifier && <dd class="mt-1 text-ink/65">{entry.featuredItem.priceQualifier}</dd>}</>}</div>}{entry.practicalNotes.length > 0 && <div><dt class="font-black uppercase tracking-[.1em] text-ink/50">Información práctica</dt><dd class="mt-2 space-y-1">{compactPracticalLines(entry.practicalNotes).map((line) => <span class="block">{line}</span>)}</dd></div>}</dl>}
+            <div class="mt-7 flex flex-wrap items-center gap-3 text-sm"><a class="rounded-full bg-ink px-5 py-2.5 font-bold text-white" href={entry.business.href}>Ver ficha</a>{entry.business.phone && <a class="rounded-full border border-ink/20 px-5 py-2.5 font-bold text-sea-dark" href={`tel:${entry.business.phone.replace(/\s/g, '')}`} aria-label={`Llamar a ${entry.business.name}`}>Llamar</a>}{entry.business.website && <a class="rounded-full border border-ink/20 px-5 py-2.5 font-bold text-sea-dark" href={entry.business.website} rel="noopener noreferrer" aria-label={`Abrir la web oficial de ${entry.business.name}`}>Web oficial ↗</a>}</div>
           </article>
         ))}
       </section>
 
-      <div class="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <section aria-labelledby="methodology-title"><h2 id="methodology-title" class="font-editorial text-3xl md:text-4xl">Cómo hacemos esta comparativa</h2><p class="mt-5 leading-relaxed text-ink/75">{comparison.methodology}</p><h3 class="font-editorial mt-8 text-2xl">Criterios utilizados</h3><ul class="mt-4 space-y-3">{comparison.criteria.map((criterion) => <li class="border-l-2 border-coral pl-4">{criterion}</li>)}</ul><Sources sources={comparison.sources} /></section>
-        <aside class="h-fit rounded-2xl bg-sand p-6"><LastVerified date={comparison.lastVerified} /><p class="mt-6 text-xs font-black uppercase tracking-[.13em] text-ink/50">Autor</p><p class="mt-2 font-bold"><a class="text-sea-dark underline" href={`/sobre-${comparison.author.slug}/`}>{comparison.author.name}</a></p>{comparison.author.role && <p class="mt-1 text-sm text-ink/65">{comparison.author.role}</p>}<p class="mt-6 text-sm"><a class="font-bold text-sea-dark underline" href="/donde-comer/">Volver a Dónde comer</a></p></aside>
-      </div>
+      <section class="mt-16" aria-labelledby="criteria-title"><h2 id="criteria-title" class="font-editorial text-3xl md:text-4xl">Qué hemos comparado</h2><ul class="mt-6 flex flex-wrap gap-3">{comparison.criteria.map((criterion) => <li class="rounded-full bg-sand px-4 py-2 text-sm font-bold text-sea-dark">{criterion}</li>)}</ul></section>
+
+      <section class="mt-16 grid gap-8 border-t border-ink/15 pt-10 lg:grid-cols-[minmax(0,1fr)_22rem]" aria-labelledby="methodology-title"><div><h2 id="methodology-title" class="font-editorial text-3xl md:text-4xl">Cómo hacemos esta guía</h2><p class="mt-5 max-w-3xl leading-relaxed text-ink/75">{comparison.methodology}</p></div><aside class="h-fit rounded-2xl bg-sand p-6"><LastVerified date={comparison.lastVerified} /><p class="mt-6 text-xs font-black uppercase tracking-[.13em] text-ink/50">Autor</p><p class="mt-2 font-bold"><a class="text-sea-dark underline" href={`/sobre-${comparison.author.slug}/`}>{comparison.author.name}</a></p>{comparison.author.role && <p class="mt-1 text-sm text-ink/65">{comparison.author.role}</p>}<p class="mt-6 text-sm"><a class="font-bold text-sea-dark underline" href="/donde-comer/">Volver a Dónde comer</a></p></aside></section>
+
+      <Sources sources={comparison.sources} grouped={true} />
     </div>
   </article>
 </BaseLayout>

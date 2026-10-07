@@ -13,14 +13,26 @@ export async function runComparisonQA(options: ComparisonOptions, root = process
   const businessDocuments = new Map((await loadJsonDirectory<ContentDocument>(resolve(root, 'content/generated/businesses'))).map(({value}) => [value._id, value]))
   const allGenerated = (await loadJsonDirectory<GeneratedComparisonArtifact>(resolve(root, 'content/generated/.staging/comparisons'))).map(({value}) => value)
   const result = inspectComparison(generated, enriched, businessDocuments, allGenerated)
+  generated.indexability = result.indexability
+  const seo = generated.document.seo && typeof generated.document.seo === 'object' && !Array.isArray(generated.document.seo) ? generated.document.seo : {}
+  generated.document.seo = {...seo, noIndex: result.indexability === 'noindex'}
   const destination = resolve(root, `content/generated/comparisons/${options.id}.json`)
   if (!options.dryRun) {
+    await writeJsonAtomic(stagingPath, generated)
     if (result.outcome === 'FAIL') await removeFileIfExists(destination)
     else await writeJsonAtomic(destination, generated.document)
     await writeJsonAtomic(resolve(root, 'content/reports/comparison-qa.json'), {
       phase: 'comparison-qa', dryRun: false, startedAt: now, finishedAt: new Date().toISOString(),
       topic: result.topic, qaOutcome: result.outcome, claimsGenerated: result.claimsGenerated, claimsRejected: result.claimsRejected,
-      issues: result.issues,
+      searchIntent: generated.searchIntent, searchIntentSatisfied: result.searchIntentSatisfied,
+      contentValueSatisfied: result.contentValueSatisfied, indexability: result.indexability,
+      checks: {
+        SEARCH_INTENT: result.searchIntentSatisfied ? 'PASS' : 'FAIL',
+        CONTENT_VALUE: result.contentValueSatisfied ? 'PASS' : 'FAIL',
+        CLAIM_SUPPORT: result.claimsRejected === 0 ? 'PASS' : 'FAIL',
+        INDEXABILITY: result.indexability === 'index' ? 'PASS' : 'FAIL',
+      },
+      coverage: result.coverage, issues: result.issues,
     })
   }
   console.log(`comparison-qa${options.dryRun ? ' (dry-run)' : ''}: outcome=${result.outcome}, claims=${result.claimsGenerated}, rejected=${result.claimsRejected}, issues=${result.issues.length}`)

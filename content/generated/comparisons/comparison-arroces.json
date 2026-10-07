@@ -1,0 +1,568 @@
+{
+  "_id": "comparison-arroces",
+  "_type": "comparison",
+  "title": "Dónde comer arroz en Benidorm: cartas, estilos y precios",
+  "slug": {
+    "_type": "slug",
+    "current": "arroces"
+  },
+  "language": "es",
+  "topic": "arroces",
+  "category": "donde-comer",
+  "intro": "La oferta de arroces en Benidorm reúne cartas centradas en preparaciones marineras, propuestas mediterráneas y formatos de menú. Esta comparación sirve para distinguir entre restaurantes con varios arroces a la carta, opciones vinculadas a menús diarios y locales donde la carta digital no muestra precios, además de tener en cuenta condiciones como el mínimo de comensales o el encargo previo.",
+  "quickVerdict": "Mientras Ongi Etorri concentra varias preparaciones de arroz por persona, Cafetería La Bahía combina arroces con un menú diario y una propuesta frente al mar.",
+  "choiceGuide": [
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-ongi-etorri"
+      },
+      "label": "Para compartir varios arroces y elegir entre preparaciones marineras",
+      "reason": "La carta incluye arroz a banda, arroz negro, paella de marisco y arroz caldoso con bogavante; además, acepta reservas y ofrece servicio para llevar (según su web)."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-cafeteria-la-bahia"
+      },
+      "label": "Si buscas unir arroz y menú diario junto a la playa",
+      "reason": "La propuesta combina arroces con menú diario, terraza y vistas al mar; la carta menciona arroz a banda y paella mixta según su web."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-la-cava-aragonesa"
+      },
+      "label": "Para explorar arroces con mariscos y combinaciones menos habituales",
+      "reason": "La carta incluye arroz con kokotxas de bacalao y zamburiñas, además de arroz con bogavante, arroz negro y paella de marisco."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-jardin-mediterraneo"
+      },
+      "label": "Si prefieres una carta amplia de arroces mediterráneos",
+      "reason": "Según su web, incluye paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-marisqueria-cordoba"
+      },
+      "label": "Para combinar arroces y mariscos en el centro",
+      "reason": "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos; también dispone de terraza."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-restaurante-trasto-bar"
+      },
+      "label": "Si buscas una paella dentro de un menú del día",
+      "reason": "Su web incluye paella del menú del día y ofrece menú del día, reservas, servicio para llevar y terraza; conviene comprobar cuándo aparece la paella."
+    },
+    {
+      "_type": "comparisonChoice",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-ulia"
+      },
+      "label": "Para comparar varios arroces de marisco en una carta específica",
+      "reason": "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía; también ofrece servicio para llevar."
+    }
+  ],
+  "entries": [
+    {
+      "_type": "comparisonEntry",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-ongi-etorri"
+      },
+      "verdict": "Ongi Etorri presenta una carta de arroces variada, con alternativas de marisco y preparaciones caldosas, y permite comparar varias opciones por persona.",
+      "strengths": [
+        "La carta incluye arroz a banda, arroz negro, paella de marisco y fideuá de marisco (según su web).",
+        "Según su web, sus especialidades incluyen arroz a banda, arroz caldoso con bogavante y paella de marisco.",
+        "También ofrece reservas, servicio para llevar y terraza."
+      ],
+      "limitations": [
+        "Los arroces y paellas exigen un mínimo de 2 personas.",
+        "El arroz caldoso con bogavante requiere encargo."
+      ],
+      "bestFor": [
+        "Arroces de marisco",
+        "Arroz caldoso con bogavante"
+      ],
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Arroz a banda",
+        "price": 16.5,
+        "currency": "EUR",
+        "priceQualifier": "por persona; mínimo 2 personas",
+        "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+        "retrievedAt": "2026-10-07"
+      },
+      "practicalNotes": [
+        "Zona: playa de Poniente",
+        "Reservas: sí",
+        "Servicio: para llevar"
+      ]
+    },
+    {
+      "_type": "comparisonEntry",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-cafeteria-la-bahia"
+      },
+      "verdict": "Cafetería La Bahía combina una propuesta de arroces con menú diario, terraza y vistas al mar, de modo que el formato de comida pesa tanto como la elección del arroz.",
+      "strengths": [
+        "La carta incluye arroz a banda y paella mixta según su web.",
+        "Ofrece menú diario, terraza y menús para grupos con reserva.",
+        "El negocio indica una ubicación en primera línea de playa, playa de Levante, con vistas al mar."
+      ],
+      "limitations": [
+        "El menú diario varía según temporada.",
+        "El menú para grupos exige un mínimo de 8 personas."
+      ],
+      "bestFor": [
+        "Arroz a banda según su web",
+        "Menú diario"
+      ],
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Arroz a banda (según su web)",
+        "source": "official-website:https://www.restaurante-labahia.com/carta",
+        "retrievedAt": "2026-10-07"
+      },
+      "practicalNotes": [
+        "Zona: primera línea de playa, playa de Levante",
+        "Reservas: sí",
+        "Menú: diario"
+      ]
+    },
+    {
+      "_type": "comparisonEntry",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-la-cava-aragonesa"
+      },
+      "verdict": "La Cava Aragonesa se diferencia por una carta de arroces con mariscos y combinaciones concretas, junto con una propuesta que incluye opciones regionales y americanas.",
+      "strengths": [
+        "La carta incluye arroz a banda, arroz con bogavante, arroz con kokotxas de bacalao y zamburiñas, arroz negro y paella de marisco.",
+        "Ofrece reservas y terraza.",
+        "Se encuentra en el centro de Benidorm."
+      ],
+      "limitations": [],
+      "bestFor": [
+        "Arroz con kokotxas de bacalao y zamburiñas",
+        "Arroces con mariscos"
+      ],
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Arroz a banda",
+        "price": 19.3,
+        "currency": "EUR",
+        "priceQualifier": "cada unidad",
+        "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+        "retrievedAt": "2026-10-07"
+      },
+      "practicalNotes": [
+        "Zona: centro de Benidorm",
+        "Reservas: sí"
+      ]
+    },
+    {
+      "_type": "comparisonEntry",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-jardin-mediterraneo"
+      },
+      "verdict": "Jardín Mediterráneo ofrece una selección amplia de arroces y fideuá según su web.",
+      "strengths": [
+        "Según su web, la carta incluye arroz a banda, paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco.",
+        "Ofrece menús turísticos diarios y menús especiales y personalizables para grupos y eventos.",
+        "También dispone de reservas, servicio para llevar y terraza."
+      ],
+      "limitations": [
+        "La carta digital está en actualización y no publica precios de los arroces."
+      ],
+      "bestFor": [
+        "Arroces mediterráneos",
+        "Arroz meloso de rape y almejas según su web"
+      ],
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Arroz a banda (según su web)",
+        "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+        "retrievedAt": "2026-10-07"
+      },
+      "practicalNotes": [
+        "Zona: playa de Levante",
+        "Reservas: sí",
+        "Menús: turísticos diarios"
+      ]
+    },
+    {
+      "_type": "comparisonEntry",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-marisqueria-cordoba"
+      },
+      "verdict": "Marisquería Córdoba vincula los arroces con una carta de mariscos y ofrece varias preparaciones en raciones, con terraza en el centro de Benidorm.",
+      "strengths": [
+        "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos.",
+        "La propuesta combina mariscos, arroces y cocina española.",
+        "Dispone de terraza y cocina abierta."
+      ],
+      "limitations": [
+        "Los arroces y la fideuá exigen un mínimo de 2 personas."
+      ],
+      "bestFor": [
+        "Paella de mariscos",
+        "Arroz con bogavante y mariscos"
+      ],
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Paella de mariscos",
+        "price": 10,
+        "currency": "EUR",
+        "priceQualifier": "por ración; mínimo 2 personas",
+        "source": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+        "retrievedAt": "2026-10-07"
+      },
+      "practicalNotes": [
+        "Zona: centro de Benidorm",
+        "Servicio: terraza"
+      ]
+    },
+    {
+      "_type": "comparisonEntry",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-restaurante-trasto-bar"
+      },
+      "verdict": "Restaurante Trasto bar plantea la paella como parte de un menú del día, junto con una oferta de bar y servicios prácticos, en lugar de una carta extensa de arroces.",
+      "strengths": [
+        "Su web incluye paella del menú del día.",
+        "Ofrece menú del día, reservas, servicio para llevar y terraza.",
+        "La carta también incluye tapas, hamburguesa y sándwich."
+      ],
+      "limitations": [
+        "La web no indica qué días incluye paella el menú del día."
+      ],
+      "bestFor": [
+        "Paella del menú del día",
+        "menú del día"
+      ],
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Paella del menú del día (según su web)",
+        "source": "official-website:https://trastobar.eatbu.com/?lang=es",
+        "retrievedAt": "2026-10-07"
+      },
+      "practicalNotes": [
+        "Lu, Mi–Do: 06:30–22:00",
+        "Reservas: sí",
+        "Servicio: para llevar"
+      ]
+    },
+    {
+      "_type": "comparisonEntry",
+      "business": {
+        "_type": "reference",
+        "_ref": "business-ulia"
+      },
+      "verdict": "Ulia reúne una carta específica de arroces con distintas preparaciones de marisco, desde arroz a banda y arroz negro hasta opciones con bogavante o langosta (según su web).",
+      "strengths": [
+        "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía.",
+        "Según su web, el negocio presenta los arroces como especialidad.",
+        "Ofrece almuerzo y servicio para llevar."
+      ],
+      "limitations": [],
+      "bestFor": [
+        "Arroz senyoret",
+        "Arroz con langosta de la Bahía"
+      ],
+      "featuredItem": {
+        "_type": "comparisonFeaturedItem",
+        "name": "Arroz senyoret",
+        "price": 17.9,
+        "currency": "EUR",
+        "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+        "retrievedAt": "2026-10-07"
+      },
+      "practicalNotes": [
+        "Servicio: almuerzo y para llevar"
+      ]
+    }
+  ],
+  "methodology": "Comparamos cartas, especialidades, precios publicados, horarios, reservas, ubicación y servicios a partir de webs oficiales, cartas públicas y OpenStreetMap. No todos los establecimientos han sido visitados personalmente y los precios pueden cambiar.",
+  "criteria": [
+    "Carta y especialidades",
+    "Platos y precios publicados",
+    "Horarios y reservas",
+    "Ubicación y servicios",
+    "Diferencias útiles para elegir"
+  ],
+  "author": {
+    "_type": "reference",
+    "_ref": "author-david"
+  },
+  "sources": [
+    {
+      "_type": "source",
+      "title": "OpenStreetMap",
+      "publisher": "Ongi Etorri",
+      "url": "https://www.openstreetmap.org/node/4406771698",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ongi Etorri",
+      "url": "https://ongietorribenidorm.com/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ongi Etorri",
+      "url": "https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Carta",
+      "publisher": "Ongi Etorri",
+      "url": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ongi Etorri",
+      "url": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ongi Etorri",
+      "url": "https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "OpenStreetMap",
+      "publisher": "Cafetería La Bahía",
+      "url": "https://www.openstreetmap.org/node/4406717526",
+      "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Cafetería La Bahía",
+      "url": "https://www.restaurante-labahia.com/",
+      "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "Carta",
+      "publisher": "Cafetería La Bahía",
+      "url": "https://www.restaurante-labahia.com/carta",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Cafetería La Bahía",
+      "url": "https://www.restaurante-labahia.com/restaurante",
+      "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Cafetería La Bahía",
+      "url": "https://www.restaurante-labahia.com/eventos",
+      "accessedAt": "2026-10-06"
+    },
+    {
+      "_type": "source",
+      "title": "OpenStreetMap",
+      "publisher": "La Cava Aragonesa",
+      "url": "https://www.openstreetmap.org/node/4343358694",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "La Cava Aragonesa",
+      "url": "https://www.lacavaaragonesa.es/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Carta",
+      "publisher": "La Cava Aragonesa",
+      "url": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Menú",
+      "publisher": "La Cava Aragonesa",
+      "url": "https://www.lacavaaragonesa.es/menu-la-cava/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Reservas",
+      "publisher": "La Cava Aragonesa",
+      "url": "https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "La Cava Aragonesa",
+      "url": "https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "OpenStreetMap",
+      "publisher": "Jardín Mediterráneo",
+      "url": "https://www.openstreetmap.org/node/4343227072",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Jardín Mediterráneo",
+      "url": "https://www.jardinmediterraneo.com/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Jardín Mediterráneo",
+      "url": "https://www.jardinmediterraneo.com/restaurante/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Carta",
+      "publisher": "Jardín Mediterráneo",
+      "url": "https://www.jardinmediterraneo.com/carta/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Menú",
+      "publisher": "Jardín Mediterráneo",
+      "url": "https://www.jardinmediterraneo.com/menu/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Reservas",
+      "publisher": "Jardín Mediterráneo",
+      "url": "https://www.jardinmediterraneo.com/reservas/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "OpenStreetMap",
+      "publisher": "Marisquería Córdoba",
+      "url": "https://www.openstreetmap.org/node/5020741321",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Marisquería Córdoba",
+      "url": "http://www.marisqueriacordoba.com/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Carta",
+      "publisher": "Marisquería Córdoba",
+      "url": "http://www.marisqueriacordoba.com/la-carta.html",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Carta",
+      "publisher": "Marisquería Córdoba",
+      "url": "https://www.marisqueriacordoba.com/la-carta.html",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Restaurante Trasto bar",
+      "url": "https://trastobar.eatbu.com/?lang=es",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "OpenStreetMap",
+      "publisher": "Ulia",
+      "url": "https://www.openstreetmap.org/node/4405971162",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ulia",
+      "url": "https://restauranteulia.es/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ulia",
+      "url": "https://restauranteulia.es/Base/ChangeLang/es",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ulia",
+      "url": "https://restauranteulia.es/Base/ChangeLang/en",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ulia",
+      "url": "https://restauranteulia.es/Base/ChangeLang/ru",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Web oficial",
+      "publisher": "Ulia",
+      "url": "https://restauranteulia.es/Base/ChangeLang/fr",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "Carta",
+      "publisher": "Ulia",
+      "url": "https://restauranteulia.es/carta/Platos/7",
+      "accessedAt": "2026-10-07"
+    }
+  ],
+  "lastVerified": "2026-10-07",
+  "seo": {
+    "metaTitle": "Dónde comer arroz en Benidorm: comparación de restaurantes",
+    "metaDescription": "Compara restaurantes de Benidorm para comer arroz según sus cartas, especialidades, precios publicados, menús y condiciones.",
+    "noIndex": false
+  }
+}

@@ -51,15 +51,25 @@
     {
       "businessId": "business-la-oficina-del-gusto",
       "evidence": {
+        "specialties": [
+          {"id": "oficina:specialty:pasta-fresca", "value": "Pasta fresca", "nature": "factual", "sourceKeys": ["official-website:https://www.laoficinadelgusto.com/Carta"]},
+          {"id": "oficina:specialty:focaccia", "value": "Focaccia", "nature": "factual", "sourceKeys": ["official-website:https://www.laoficinadelgusto.com/Carta"]}
+        ],
         "featuredItems": [
           {"id": "oficina:item:pasta-fresca", "value": "Pasta fresca artesanal", "nature": "factual", "sourceKeys": ["official-website:https://www.laoficinadelgusto.com/Carta"]},
           {"id": "oficina:item:focaccias", "value": "Focaccias", "nature": "factual", "sourceKeys": ["official-website:https://www.laoficinadelgusto.com/Carta"]}
+        ],
+        "limitations": [
+          {"id": "oficina:limitation:no-prices", "value": "No se documentaron precios en la carta consultada", "nature": "external_observation", "sourceKeys": ["official-website:https://www.laoficinadelgusto.com/Carta"]}
         ]
       }
     },
     {
       "businessId": "business-buffalo-beel",
       "evidence": {
+        "specialties": [
+          {"id": "buffalo:specialty:pizzas", "value": "Pizzas caseras según su web", "nature": "self_claim", "sourceKeys": ["official-website:https://buffalobeel.com/"]}
+        ],
         "featuredItems": [
           {"id": "buffalo:item:pizzas-caseras", "value": "Pizzas caseras", "nature": "self_claim", "sourceKeys": ["official-website:https://buffalobeel.com/"]}
         ],
@@ -69,12 +79,19 @@
         ],
         "practical": [
           {"id": "buffalo:practical:hours", "value": "Abierto todos los días de 14:00 a 23:00", "nature": "factual", "sourceKeys": ["official-website:https://buffalobeel.com/"]}
+        ],
+        "limitations": [
+          {"id": "buffalo:limitation:no-prices", "value": "No se documentaron precios en la web consultada", "nature": "external_observation", "sourceKeys": ["official-website:https://buffalobeel.com/"]}
         ]
       }
     },
     {
       "businessId": "business-essenza-italiana",
       "evidence": {
+        "specialties": [
+          {"id": "essenza:specialty:pinsa", "value": "Pinsa", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]},
+          {"id": "essenza:specialty:pasta-fresca", "value": "Pasta fresca", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]}
+        ],
         "featuredItems": [
           {"id": "essenza:item:pinsa", "value": "Pinsa al pistacchio con burrata", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]},
           {"id": "essenza:item:pasta-fresca", "value": "Pasta fresca", "nature": "factual", "sourceKeys": ["official-website:https://essenzaitaliana.es/"]},
@@ -97,6 +114,10 @@
     {
       "businessId": "business-cucina-italiana",
       "evidence": {
+        "specialties": [
+          {"id": "cucina:specialty:carbonara", "value": "Carbonara", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]},
+          {"id": "cucina:specialty:pizza", "value": "Pizza", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]}
+        ],
         "featuredItems": [
           {"id": "cucina:item:carbonara", "value": "Spaghetti alla carbonara", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]},
           {"id": "cucina:item:margherita", "value": "Pizza Margherita", "nature": "factual", "sourceKeys": ["official-website:https://www.cucinaitalianabenidorm.com/menu-cocina-italiana"]},

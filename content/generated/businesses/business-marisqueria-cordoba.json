@@ -1,0 +1,197 @@
+{
+  "_id": "business-marisqueria-cordoba",
+  "_type": "business",
+  "name": "Marisquería Córdoba",
+  "slug": {
+    "_type": "slug",
+    "current": "marisqueria-cordoba"
+  },
+  "businessKind": "restaurant",
+  "shortDescription": "Marisquería del centro de Benidorm especializada en mariscos, arroces y cocina española, con terraza y cocina abierta.",
+  "body": [
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Marisquería Córdoba es un restaurante de cocina centrada en mariscos, arroces y propuestas de cocina española."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La oferta gastronómica se identifica con los mariscos y los arroces, dentro de una propuesta de cocina española."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "La experiencia"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "El establecimiento cuenta con cocina abierta y terraza."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Ubicación"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Se encuentra en el centro de Benidorm, en Passeig de la Carretera, 22, 03501 Benidorm."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Lo más destacado"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Mariscos y arroces"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Cocina abierta"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Terraza en el centro de Benidorm"
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    }
+  ],
+  "language": "es",
+  "lastVerified": "2026-10-07",
+  "sources": [
+    {
+      "_type": "source",
+      "title": "openstreetmap: node/5020741321",
+      "publisher": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/node/5020741321",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: http://www.marisqueriacordoba.com/",
+      "publisher": "Sitio web oficial (www.marisqueriacordoba.com)",
+      "url": "http://www.marisqueriacordoba.com/",
+      "accessedAt": "2026-10-07"
+    },
+    {
+      "_type": "source",
+      "title": "official-website: http://www.marisqueriacordoba.com/la-carta.html",
+      "publisher": "Sitio web oficial (www.marisqueriacordoba.com)",
+      "url": "http://www.marisqueriacordoba.com/la-carta.html",
+      "accessedAt": "2026-10-07"
+    }
+  ],
+  "seo": {
+    "metaTitle": "Marisquería Córdoba en Benidorm | Mariscos y arroces",
+    "metaDescription": "Marisquería Córdoba, en el centro de Benidorm: mariscos, arroces y cocina española, con terraza y cocina abierta."
+  },
+  "address": {
+    "street": "Passeig de la Carretera 22",
+    "postalCode": "03501",
+    "locality": "Benidorm"
+  },
+  "location": {
+    "_type": "geopoint",
+    "lat": 38.5363002,
+    "lng": -0.1313209
+  },
+  "website": "http://www.marisqueriacordoba.com/",
+  "categories": [
+    {
+      "_type": "reference",
+      "_ref": "category-restaurantes"
+    }
+  ]
+}

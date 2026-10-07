@@ -90,7 +90,7 @@ export async function getComparisonBySlug(slug: string): Promise<ComparisonDetai
   assertSanityConfigured()
   const comparison = await sanityClient.fetch<ComparisonDetail | null>(COMPARISON_QUERY, {slug})
   if (!comparison) return null
-  return {...comparison, entries: comparison.entries ?? [], criteria: comparison.criteria ?? [], sources: comparison.sources ?? []}
+  return {...comparison, choiceGuide: comparison.choiceGuide ?? [], entries: comparison.entries ?? [], criteria: comparison.criteria ?? [], sources: comparison.sources ?? []}
 }
 
 export async function getAuthorBySlug(slug: string): Promise<AuthorDetail | null> {
@@ -108,18 +108,29 @@ function localAuthor(slug: string): AuthorDetail | null {
 function localComparisonLinks(): ComparisonLink[] {
   return localComparisons.flatMap((document) => {
     const slug = slugValue(document.slug)
-    return slug && typeof document.title === 'string' ? [{title: document.title, slug, href: `/donde-comer/${slug}/`}] : []
+    const seo = isRecord(document.seo) ? document.seo : undefined
+    return slug && typeof document.title === 'string' && seo?.noIndex !== true ? [{title: document.title, slug, href: `/donde-comer/${slug}/`}] : []
   })
 }
 
 function localComparisonDetail(document: LocalDocument): ComparisonDetail {
   const slug = slugValue(document.slug)!
   const entries = Array.isArray(document.entries) ? document.entries : []
+  const choices = Array.isArray(document.choiceGuide) ? document.choiceGuide : []
   const authorReference = isRecord(document.author) ? document.author : undefined
   const author = authors.find((item) => item._id === authorReference?._ref)
   return {
     title: String(document.title), slug, href: `/donde-comer/${slug}/`, topic: String(document.topic),
     intro: String(document.intro), quickVerdict: String(document.quickVerdict),
+    choiceGuide: choices.flatMap((choice) => {
+      if (!isRecord(choice) || !isRecord(choice.business)) return []
+      const businessReference = choice.business
+      if (typeof businessReference._ref !== 'string') return []
+      const business = localBusinesses.find((item) => item._id === businessReference._ref)
+      const businessSlug = business ? slugValue(business.slug) : undefined
+      if (!business || !businessSlug) return []
+      return [{label: String(choice.label), reason: String(choice.reason), business: {name: String(business.name), slug: businessSlug, href: `/restaurantes/${businessSlug}/`}}]
+    }),
     entries: entries.flatMap((entry) => {
       if (!isRecord(entry)) return []
       const businessReference = isRecord(entry.business) ? entry.business : undefined
@@ -127,10 +138,12 @@ function localComparisonDetail(document: LocalDocument): ComparisonDetail {
       const business = localBusinesses.find((item) => item._id === businessReference._ref)
       if (!business) return []
       const businessSlug = slugValue(business.slug)!
+      const featured = isRecord(entry.featuredItem) && typeof entry.featuredItem.name === 'string' && typeof entry.featuredItem.source === 'string' && typeof entry.featuredItem.retrievedAt === 'string'
+        ? {name: entry.featuredItem.name, ...(typeof entry.featuredItem.price === 'number' ? {price: entry.featuredItem.price, ...(entry.featuredItem.currency === 'EUR' ? {currency: 'EUR' as const} : {}), ...(typeof entry.featuredItem.priceQualifier === 'string' ? {priceQualifier: entry.featuredItem.priceQualifier} : {})} : {}), source: entry.featuredItem.source, retrievedAt: entry.featuredItem.retrievedAt}
+        : undefined
       return [{
-        rank: Number(entry.rank), verdict: String(entry.verdict), strengths: stringList(entry.strengths), weaknesses: stringList(entry.weaknesses),
-        bestFor: stringList(entry.bestFor), ...(typeof entry.featuredItem === 'string' ? {featuredItem: entry.featuredItem} : {}),
-        ...(typeof entry.featuredPrice === 'string' ? {featuredPrice: entry.featuredPrice} : {}), practicalNotes: stringList(entry.practicalNotes),
+        verdict: String(entry.verdict), strengths: stringList(entry.strengths), limitations: stringList(entry.limitations),
+        bestFor: stringList(entry.bestFor), ...(featured ? {featuredItem: featured} : {}), practicalNotes: stringList(entry.practicalNotes),
         business: {name: String(business.name), slug: businessSlug, href: `/restaurantes/${businessSlug}/`, kind: String(business.businessKind), ...(typeof business.phone === 'string' ? {phone: business.phone} : {}), ...(typeof business.website === 'string' ? {website: business.website} : {})},
       }]
     }),
