@@ -1,5 +1,16 @@
-export const ENTITY_TYPES = ['restaurant', 'bar', 'cafe', 'hotel', 'attraction', 'shop'] as const
+export const ENTITY_TYPES = ['restaurant', 'bar', 'cafe', 'hotel', 'attraction', 'shop', 'service'] as const
 export type EntityType = (typeof ENTITY_TYPES)[number]
+
+export const DISCOVERY_CATEGORIES = ['hospitality', 'professional-services', 'retail', 'attractions'] as const
+export type DiscoveryCategory = (typeof DISCOVERY_CATEGORIES)[number]
+
+export interface GeographicScope {
+  name: string
+  /** South, west, north, east (Overpass order). */
+  bbox: [number, number, number, number]
+  /** Optional OSM relation used to exclude bbox neighbours with an official boundary. */
+  boundaryRelationId?: number
+}
 
 export const BUSINESS_KINDS = ['restaurant', 'bar', 'pub', 'cafe', 'hotel', 'shop', 'service'] as const
 export type BusinessKind = (typeof BUSINESS_KINDS)[number]
@@ -43,6 +54,72 @@ export interface SourceProvenance {
   sourceClass?: SourceClass
   /** The entity level supported by claims from this source. */
   claimScope?: ClaimScope
+  /** Transport/dataset metadata. It never replaces provider identity. */
+  dataset?: {
+    kind: 'overpass-api' | 'local-osm-extract' | 'manual'
+    name: string
+    sourceUrl: string | null
+    downloadedAt?: string
+  }
+}
+
+export type DiscoveryRunStatus = 'success' | 'partial' | 'failed' | 'anomalous-empty'
+export type DiscoveryUnitStatus = 'success' | 'failed' | 'checkpoint'
+
+export interface DiscoveryAttempt {
+  endpoint: string
+  startedAt: string
+  finishedAt: string
+  outcome: 'success' | 'http-error' | 'timeout' | 'network-error' | 'invalid-response'
+  statusCode?: number
+  retryAfterMs?: number
+  message?: string
+}
+
+export interface DiscoveryUnitResult {
+  key: string
+  query?: string
+  type: EntityType | 'mixed'
+  primitive: 'node' | 'way' | 'relation' | 'extract'
+  bbox: GeographicScope['bbox']
+  status: DiscoveryUnitStatus
+  recordCount: number
+  attempts: DiscoveryAttempt[]
+}
+
+export interface ProbableDuplicate {
+  incomingSourceKeys: string[]
+  existingBusinessId: string
+  confidence: 'strong' | 'probable'
+  signals: Array<'name' | 'proximity' | 'phone' | 'domain'>
+  distanceMeters?: number
+}
+
+export interface DiscoveryRun {
+  schemaVersion: 1
+  id: string
+  provider: string
+  status: DiscoveryRunStatus
+  startedAt: string
+  finishedAt: string
+  geography: GeographicScope
+  categories: DiscoveryCategory[]
+  units: DiscoveryUnitResult[]
+  checkpointPath: string | null
+  resumedUnits: number
+  totals: {
+    queries: number
+    attempts: number
+    retries: number
+    found: number
+    unique: number
+    new: number
+    existing: number
+    exactDuplicates: number
+    probableDuplicates: number
+  }
+  probableDuplicates: ProbableDuplicate[]
+  coverageByCategory: Partial<Record<DiscoveryCategory, {units: number; completed: number; records: number}>>
 }
 
 export interface ManifestEntry {
@@ -64,6 +141,44 @@ export interface ManifestEntry {
   qualityReasons: string[]
   missingUsefulFacts: string[]
   lastError: {stage: PipelineStage; message: string; at: string} | null
+  /** Optional so manifests created before P3A.1 remain readable. */
+  discovery?: DiscoveryLifecycle
+}
+
+export type DiscoveryPurpose = 'editorial-comparison' | 'editorial-business' | 'opportunity-analysis'
+
+export interface DiscoveryResearchSelection {
+  purpose: DiscoveryPurpose
+  contextId: string
+  selectedAt: string
+  researchedAt: string | null
+}
+
+export interface EditorialEligibilityAssessment {
+  contextId: string
+  status: 'eligible' | 'ineligible' | 'unassessed'
+  assessedAt: string
+  reason?: string
+}
+
+export interface DiscoveryHistoryEvent {
+  at: string
+  kind: 'discovered' | 'seen' | 'source-added' | 'selected-for-research' | 'researched' | 'editorial-assessed'
+  sourceKeys: string[]
+  contextId?: string
+}
+
+/** Reusable discovery contract. Opportunity Analysis may consume it but does not own or mutate identity. */
+export interface DiscoveryLifecycle {
+  state: 'discovered'
+  firstSeenAt: string
+  lastSeenAt: string
+  categories: DiscoveryCategory[]
+  geographicScopes: string[]
+  sourceIdentifiers: Array<{provider: string; identifier: string}>
+  researchSelections: DiscoveryResearchSelection[]
+  editorialEligibility: EditorialEligibilityAssessment[]
+  history: DiscoveryHistoryEvent[]
 }
 
 export interface ContentManifest {
@@ -73,7 +188,7 @@ export interface ContentManifest {
 }
 
 export interface DiscoveredEntity {
-  schemaVersion: 1
+  schemaVersion: 1 | 2
   id: string
   type: EntityType
   targetDocumentType: 'business' | 'place'
@@ -86,6 +201,8 @@ export interface DiscoveredEntity {
     latitude: number | null
     longitude: number | null
   }
+  /** Snapshot metadata; the manifest is the canonical lifecycle/identity index. */
+  discovery?: Pick<DiscoveryLifecycle, 'firstSeenAt' | 'lastSeenAt' | 'categories' | 'geographicScopes'>
 }
 
 export interface Fact<T> {

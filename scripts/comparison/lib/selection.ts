@@ -1,7 +1,8 @@
 import {resolve} from 'node:path'
 import {readJsonIfExists, loadJsonDirectory} from '../../content/lib/files'
 import {evaluateBusinessQualityTier} from '../../content/lib/quality'
-import type {ContentManifest, EnrichedEntity, QualityTier} from '../../content/lib/types'
+import {enrichEntity} from '../../content/lib/enrichment'
+import type {ContentManifest, DiscoveredEntity, EnrichedEntity, QualityTier} from '../../content/lib/types'
 import {
   classifyTopicMatch, comparePotentialCandidates, compareScores, legacyEvidenceLabel,
   potentialCandidateScore, scoreBusiness,
@@ -13,18 +14,26 @@ export async function selectComparisonCandidates(
   options: ComparisonOptions,
   root = process.cwd(),
   now = new Date().toISOString(),
+  dependencies: {includeDiscovered?: boolean} = {},
 ): Promise<ComparisonCandidateArtifact> {
   const topic = options.topic!
   const id = options.id!
   const config = topicConfig(topic)
   const enrichedFiles = await loadJsonDirectory<EnrichedEntity>(resolve(root, 'content/enriched'))
+  const enrichedById = new Map(enrichedFiles.map(({value}) => [value.id, value]))
+  if (dependencies.includeDiscovered ?? true) {
+    const discoveredFiles = await loadJsonDirectory<DiscoveredEntity>(resolve(root, 'content/discovered'))
+    for (const {value} of discoveredFiles) if (value.targetDocumentType === 'business' && !enrichedById.has(value.id)) {
+      enrichedById.set(value.id, enrichEntity(value))
+    }
+  }
   const manifest = await readJsonIfExists<ContentManifest>(resolve(root, 'content/manifest.json'), {version: 1, updatedAt: null, entries: []})
   const manifestById = new Map(manifest.entries.map((entry) => [entry.id, entry]))
   const excluded: ExcludedCandidate[] = []
   const direct: ComparisonCandidate[] = []
   const potential: ComparisonCandidate[] = []
 
-  for (const {value: entity} of enrichedFiles) {
+  for (const entity of enrichedById.values()) {
     const assessment = evaluateBusinessQualityTier(entity.facts)
     const qualityTier: QualityTier = manifestById.get(entity.id)?.qualityTier === 'insufficient' ? 'insufficient' : assessment.tier
     if (!hasMinimumIdentity(entity)) {
@@ -88,7 +97,7 @@ export async function selectComparisonCandidates(
     generatedAt: now,
     candidateCount: candidates.length,
     summary: {
-      considered: enrichedFiles.length,
+      considered: enrichedById.size,
       direct: selectedDirect.length,
       potential: selectedPotential.length,
       excluded: excluded.length,

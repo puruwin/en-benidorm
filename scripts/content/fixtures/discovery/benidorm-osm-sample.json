@@ -1,0 +1,51 @@
+{
+  "fixture": {
+    "kind": "real-osm-catalog-sample",
+    "description": "Muestra reproducible derivada de tres registros OSM reales ya presentes en el catálogo de EnBenidorm; no representa cobertura completa ni negocios nuevos.",
+    "capturedAt": "2026-10-15T08:27:06.568Z"
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 6703870295,
+      "lat": 38.536207,
+      "lon": -0.1290806,
+      "tags": {
+        "name": "100 Montaditos",
+        "amenity": "restaurant",
+        "cuisine": "sandwich",
+        "contact:website": "https://spain.100montaditos.com",
+        "addr:street": "Carrer del Pal",
+        "addr:housenumber": "5"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5522417399,
+      "lat": 38.5369484,
+      "lon": -0.1480133,
+      "tags": {
+        "name": "Amigos Bistro",
+        "amenity": "restaurant",
+        "contact:phone": "+34 965 856 199",
+        "contact:website": "http://amigosbistro.com/",
+        "addr:street": "Avinguda de l'Armada Espanyola",
+        "addr:housenumber": "19"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8000605832,
+      "lat": 38.5391376,
+      "lon": -0.123234,
+      "tags": {
+        "name": "Valor",
+        "amenity": "cafe",
+        "contact:phone": "+34 965862663",
+        "contact:website": "https://www.valor.es/chocolateria/chocolateria-valor-benidorm/",
+        "addr:street": "Calle de Lepanto",
+        "addr:housenumber": "2"
+      }
+    }
+  ]
+}

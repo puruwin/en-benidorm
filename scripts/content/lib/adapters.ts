@@ -1,7 +1,9 @@
 import {readFile} from 'node:fs/promises'
+import {basename, resolve} from 'node:path'
 import {loadEnvFile} from 'node:process'
-import {ENTITY_TYPES, type BusinessFacts, type CommercialItem, type EntityType, type Fact, type SourceProvenance} from './types'
-import {sourceKey} from './normalize'
+import {ENTITY_TYPES, type BusinessFacts, type CommercialItem, type DiscoveryAttempt, type DiscoveryCategory, type DiscoveryRunStatus, type DiscoveryUnitResult, type EntityType, type Fact, type GeographicScope, type SourceProvenance} from './types'
+import {readJsonIfExists, writeJsonAtomic} from './files'
+import {shortHash, sourceKey} from './normalize'
 import {crawlOfficialWebsite, htmlToEvidenceText, type CrawledWebsitePage, type WebsiteCrawlerOptions} from './website-crawler'
 import {extractCommercialInformation, type CommercialExtractionSummary} from './commercial-extractor'
 
@@ -19,6 +21,9 @@ export interface SourceRecord {
 
 export interface DiscoveryRequest {
   type?: EntityType
+  categories?: DiscoveryCategory[]
+  geography?: GeographicScope
+  /** Legacy adapter hint. Catalog persistence must never be truncated by it. */
   limit?: number
   retrievedAt: string
 }
@@ -26,6 +31,42 @@ export interface DiscoveryRequest {
 export interface SourceAdapter {
   readonly provider: string
   discover(request: DiscoveryRequest): Promise<SourceRecord[]>
+  discoverDetailed?(request: DiscoveryRequest): Promise<DiscoveryAdapterOutput>
+}
+
+export interface DiscoveryAdapterOutput {
+  records: SourceRecord[]
+  status: DiscoveryRunStatus
+  units: DiscoveryUnitResult[]
+  checkpointPath: string | null
+  resumedUnits: number
+}
+
+interface DiscoveryCheckpoint {
+  schemaVersion: 1
+  requestKey: string
+  updatedAt: string
+  completed: Record<string, SourceRecord[]>
+}
+
+export class FileDiscoveryCheckpointStore {
+  private pending: Promise<void> = Promise.resolve()
+
+  constructor(private readonly root = process.cwd()) {}
+
+  path(requestKey: string): string {
+    return resolve(this.root, `content/discovery/checkpoints/${shortHash(requestKey, 16)}.json`)
+  }
+
+  async load(requestKey: string): Promise<DiscoveryCheckpoint> {
+    return readJsonIfExists(this.path(requestKey), {schemaVersion: 1, requestKey, updatedAt: new Date(0).toISOString(), completed: {}})
+  }
+
+  async save(checkpoint: DiscoveryCheckpoint): Promise<void> {
+    const snapshot = structuredClone(checkpoint)
+    this.pending = this.pending.then(() => writeJsonAtomic(this.path(checkpoint.requestKey), snapshot))
+    await this.pending
+  }
 }
 
 export type OfficialWebsiteFacts = Pick<BusinessFacts,
@@ -95,9 +136,9 @@ const DEFAULT_OVERPASS_URLS = [
   'https://overpass.kumi.systems/api/interpreter',
   'https://overpass-api.de/api/interpreter',
 ] as const
-const BENIDORM_RELATION_ID = 341148
-const BENIDORM_BBOX = '38.5011769,-0.1869109,38.6101333,-0.0667580'
-const NOMINATIM_BOUNDARY_URL = `https://nominatim.openstreetmap.org/lookup?osm_ids=R${BENIDORM_RELATION_ID}&format=geojson&polygon_geojson=1`
+export const BENIDORM_SCOPE: GeographicScope = {
+  name: 'Benidorm', bbox: [38.5011769, -0.1869109, 38.6101333, -0.0667580], boundaryRelationId: 341148,
+}
 
 export class OpenStreetMapAdapter implements SourceAdapter {
   readonly provider = 'openstreetmap'
@@ -106,6 +147,16 @@ export class OpenStreetMapAdapter implements SourceAdapter {
   constructor(
     endpoint?: string | readonly string[],
     private readonly fetcher: typeof fetch = fetch,
+    private readonly options: {
+      concurrency?: number
+      tileGrid?: number
+      timeoutMs?: number
+      maxAttempts?: number
+      baseBackoffMs?: number
+      sleep?: (milliseconds: number) => Promise<void>
+      checkpointStore?: FileDiscoveryCheckpointStore
+      resume?: boolean
+    } = {},
   ) {
     loadEnvironment()
     if (endpoint) this.endpoints = typeof endpoint === 'string' ? [endpoint] : endpoint
@@ -118,33 +169,64 @@ export class OpenStreetMapAdapter implements SourceAdapter {
   }
 
   async discover(request: DiscoveryRequest): Promise<SourceRecord[]> {
-    const boundary = await this.loadBenidormBoundary()
-    if (!request.type && request.limit) {
-      const records: SourceRecord[] = []
-      for (const type of ENTITY_TYPES) {
-        const remaining = request.limit - records.length
-        if (remaining <= 0) break
-        const elements = await this.requestType(type)
-        records.push(...elements.flatMap((element) => this.toSourceRecord(element, request.retrievedAt)))
+    return (await this.discoverDetailed(request)).records
+  }
+
+  async discoverDetailed(request: DiscoveryRequest): Promise<DiscoveryAdapterOutput> {
+    const geography = request.geography ?? BENIDORM_SCOPE
+    const types = request.type ? [request.type] : typesForCategories(request.categories)
+    const boxes = splitBbox(geography.bbox, this.options.tileGrid ?? 1)
+    const units = types.flatMap((type) => boxes.flatMap((bbox) => (['node', 'way', 'relation'] as const).map((primitive) => ({
+      key: `${type}:${primitive}:${bbox.join(',')}`, type, primitive, bbox,
+    }))))
+    const requestKey = JSON.stringify({queryVersion: 'p3a1b-v1', provider: this.provider, geography, types, boxes})
+    const checkpointStore = this.options.checkpointStore
+    const checkpoint = checkpointStore && this.options.resume
+      ? await checkpointStore.load(requestKey)
+      : {schemaVersion: 1 as const, requestKey, updatedAt: request.retrievedAt, completed: {}}
+    const resumedUnits = units.filter((unit) => checkpoint.completed[unit.key]).length
+    const results = await mapConcurrent(units, this.options.concurrency ?? 2, async (unit) => {
+      const cached = checkpoint.completed[unit.key]
+      if (cached) return {
+        records: cached,
+        unit: {...unitResult(unit, 'checkpoint', cached.length, []), query: buildOverpassQuery(unit.type, undefined, unit.primitive, unit.bbox)},
       }
-      return records.filter((record) => insideBoundary(record, boundary))
+      const result = await this.requestUnit(unit, request.retrievedAt)
+      if (result.unit.status === 'success' && checkpointStore) {
+        checkpoint.completed[unit.key] = result.records
+        checkpoint.updatedAt = request.retrievedAt
+        await checkpointStore.save(checkpoint)
+      }
+      return result
+    })
+    const successfulRecords = results.flatMap((result) => result.records)
+    const failed = results.filter((result) => result.unit.status === 'failed').length
+    let records = successfulRecords
+    if (geography.boundaryRelationId && records.length) {
+      try {
+        const boundary = await this.loadBoundary(geography.boundaryRelationId)
+        records = records.filter((record) => insideBoundary(record, boundary))
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        return {
+          records: [], status: 'failed', checkpointPath: checkpointStore?.path(requestKey) ?? null, resumedUnits,
+          units: results.map((result) => ({...result.unit, status: 'failed', attempts: [...result.unit.attempts, boundaryFailureAttempt(message)]})),
+        }
+      }
     }
-    const elements = await this.requestType(request.type)
-    return elements
-      .flatMap((element) => this.toSourceRecord(element, request.retrievedAt))
-      .filter((record) => insideBoundary(record, boundary))
+    const status: DiscoveryRunStatus = failed === units.length ? 'failed'
+      : failed > 0 ? 'partial'
+        : records.length === 0 ? 'anomalous-empty'
+          : 'success'
+    return {
+      records, status, units: results.map((result) => result.unit),
+      checkpointPath: checkpointStore?.path(requestKey) ?? null, resumedUnits,
+    }
   }
 
-  private async requestType(type?: EntityType): Promise<OverpassElement[]> {
-    const elements: OverpassElement[] = []
-    for (const primitive of ['node', 'way', 'relation'] as const) {
-      elements.push(...await this.request(buildOverpassQuery(type, undefined, primitive)))
-    }
-    return elements
-  }
-
-  private async loadBenidormBoundary(): Promise<unknown> {
-    const response = await this.fetcher(NOMINATIM_BOUNDARY_URL, {
+  private async loadBoundary(relationId: number): Promise<unknown> {
+    const url = `https://nominatim.openstreetmap.org/lookup?osm_ids=R${relationId}&format=geojson&polygon_geojson=1`
+    const response = await this.fetcher(url, {
       headers: {'user-agent': 'enBenidorm-content-pipeline/1.0'},
       signal: AbortSignal.timeout(30_000),
     })
@@ -157,31 +239,50 @@ export class OpenStreetMapAdapter implements SourceAdapter {
     return geometry
   }
 
-  private async request(query: string): Promise<OverpassElement[]> {
-    const failures: string[] = []
-    for (const endpoint of this.endpoints) {
+  private async requestUnit(
+    unit: {key: string; type: EntityType; primitive: 'node' | 'way' | 'relation'; bbox: GeographicScope['bbox']},
+    retrievedAt: string,
+  ): Promise<{records: SourceRecord[]; unit: DiscoveryUnitResult}> {
+    const attempts: DiscoveryAttempt[] = []
+    const maxAttempts = this.options.maxAttempts ?? Math.max(3, this.endpoints.length + 1)
+    const sleep = this.options.sleep ?? ((milliseconds: number) => new Promise((done) => setTimeout(done, milliseconds)))
+    const query = buildOverpassQuery(unit.type, undefined, unit.primitive, unit.bbox)
+    for (let index = 0; index < maxAttempts; index += 1) {
+      const endpoint = this.endpoints[index % this.endpoints.length]!
+      const startedAt = new Date().toISOString()
       try {
         const response = await this.fetcher(endpoint, {
           method: 'POST',
           headers: {'content-type': 'application/x-www-form-urlencoded;charset=UTF-8', 'user-agent': 'enBenidorm-content-pipeline/1.0'},
           body: new URLSearchParams({data: query}),
-          signal: AbortSignal.timeout(20_000),
+          signal: AbortSignal.timeout(this.options.timeoutMs ?? 20_000),
         })
         if (!response.ok) {
-          failures.push(`${endpoint}: ${response.status} ${response.statusText}`)
+          const retryAfterMs = parseRetryAfter(response.headers.get('retry-after'))
+          attempts.push({endpoint, startedAt, finishedAt: new Date().toISOString(), outcome: 'http-error', statusCode: response.status, ...(retryAfterMs !== undefined ? {retryAfterMs} : {}), message: response.statusText})
+          if (index + 1 < maxAttempts) await sleep(retryAfterMs ?? backoff(this.options.baseBackoffMs ?? 250, index))
           continue
         }
         const payload = await response.json() as OverpassResponse
-        if (!Array.isArray(payload.elements)) throw new Error('La respuesta no contiene elements.')
-        return payload.elements
+        if (!Array.isArray(payload.elements)) {
+          attempts.push({endpoint, startedAt, finishedAt: new Date().toISOString(), outcome: 'invalid-response', message: 'La respuesta no contiene elements.'})
+          if (index + 1 < maxAttempts) await sleep(backoff(this.options.baseBackoffMs ?? 250, index))
+          continue
+        }
+        attempts.push({endpoint, startedAt, finishedAt: new Date().toISOString(), outcome: 'success', statusCode: response.status})
+        const records = payload.elements.flatMap((element) => this.toSourceRecord(element, retrievedAt, endpoint))
+        return {records, unit: {...unitResult(unit, 'success', records.length, attempts), query}}
       } catch (error) {
-        failures.push(`${endpoint}: ${error instanceof Error ? error.message : String(error)}`)
+        const message = error instanceof Error ? error.message : String(error)
+        const outcome = /timeout|aborted/i.test(message) ? 'timeout' as const : 'network-error' as const
+        attempts.push({endpoint, startedAt, finishedAt: new Date().toISOString(), outcome, message})
+        if (index + 1 < maxAttempts) await sleep(backoff(this.options.baseBackoffMs ?? 250, index))
       }
     }
-    throw new Error(`Ninguna instancia de OpenStreetMap/Overpass respondió correctamente (${failures.join('; ')}).`)
+    return {records: [], unit: {...unitResult(unit, 'failed', 0, attempts), query}}
   }
 
-  private toSourceRecord(element: OverpassElement, retrievedAt: string): SourceRecord[] {
+  private toSourceRecord(element: OverpassElement, retrievedAt: string, endpoint: string): SourceRecord[] {
     const tags = element.tags ?? {}
     const type = osmEntityType(tags)
     const name = tags.name?.trim()
@@ -199,6 +300,7 @@ export class OpenStreetMapAdapter implements SourceAdapter {
       licenseUrl: 'https://www.openstreetmap.org/copyright',
       sourceClass: 'open-data',
       claimScope: 'establishment',
+      dataset: {kind: 'overpass-api', name: 'OpenStreetMap via Overpass API', sourceUrl: endpoint},
     }
     return [{
       type,
@@ -206,6 +308,33 @@ export class OpenStreetMapAdapter implements SourceAdapter {
       sources: [source],
       raw: {name, tags, latitude: lat, longitude: lon},
     }]
+  }
+}
+
+export class LocalOsmExtractAdapter implements SourceAdapter {
+  readonly provider = 'openstreetmap'
+
+  constructor(
+    private readonly path: string,
+    private readonly metadata: {sourceUrl?: string; downloadedAt?: string} = {},
+  ) {}
+
+  async discover(request: DiscoveryRequest): Promise<SourceRecord[]> {
+    return (await this.discoverDetailed(request)).records
+  }
+
+  async discoverDetailed(request: DiscoveryRequest): Promise<DiscoveryAdapterOutput> {
+    const parsed = JSON.parse(await readFile(this.path, 'utf8')) as OverpassResponse
+    if (!Array.isArray(parsed.elements)) throw new Error('El extracto OSM local debe ser JSON Overpass con elements[].')
+    const geography = request.geography ?? BENIDORM_SCOPE
+    const wanted = new Set(request.type ? [request.type] : typesForCategories(request.categories))
+    const records = parsed.elements.flatMap((element) => localExtractRecord(element, request.retrievedAt, this.path, this.metadata))
+      .filter((record) => wanted.has(record.type) && insideBbox(record, geography.bbox))
+    const unit: DiscoveryUnitResult = {
+      key: `extract:${resolve(this.path)}`, type: request.type ?? 'mixed', primitive: 'extract', bbox: geography.bbox,
+      status: 'success', recordCount: records.length, attempts: [],
+    }
+    return {records, status: records.length ? 'success' : 'anomalous-empty', units: [unit], checkpointPath: null, resumedUnits: 0}
   }
 }
 
@@ -226,12 +355,14 @@ export function buildOverpassQuery(
   type?: EntityType,
   limit?: number,
   primitive: 'node' | 'way' | 'relation' = 'node',
+  bbox: GeographicScope['bbox'] = BENIDORM_SCOPE.bbox,
 ): string {
   const selectors = type ? selectorsFor(type) : [
     ...selectorsFor('restaurant'), ...selectorsFor('bar'), ...selectorsFor('cafe'),
-    ...selectorsFor('hotel'), ...selectorsFor('attraction'), ...selectorsFor('shop'),
+    ...selectorsFor('hotel'), ...selectorsFor('attraction'), ...selectorsFor('shop'), ...selectorsFor('service'),
   ]
-  return `[out:json][timeout:15];\n(\n${selectors.map((selector) => `  ${primitive}["name"]${selector}(${BENIDORM_BBOX});`).join('\n')}\n);\nout center${limit ? ` ${limit}` : ''};`
+  const box = bbox.join(',')
+  return `[out:json][timeout:15];\n(\n${selectors.map((selector) => `  ${primitive}["name"]${selector}(${box});`).join('\n')}\n);\nout center${limit ? ` ${limit}` : ''};`
 }
 
 function selectorsFor(type: EntityType): string[] {
@@ -240,7 +371,8 @@ function selectorsFor(type: EntityType): string[] {
   if (type === 'cafe') return ['["amenity"="cafe"]']
   if (type === 'hotel') return ['["tourism"="hotel"]']
   if (type === 'attraction') return ['["tourism"="attraction"]']
-  return ['["shop"]']
+  if (type === 'shop') return ['["shop"]']
+  return ['["office"]']
 }
 
 function osmEntityType(tags: Record<string, string>): EntityType | undefined {
@@ -250,6 +382,7 @@ function osmEntityType(tags: Record<string, string>): EntityType | undefined {
   if (tags.tourism === 'hotel') return 'hotel'
   if (tags.tourism === 'attraction') return 'attraction'
   if (tags.shop) return 'shop'
+  if (tags.office) return 'service'
   return undefined
 }
 
@@ -297,7 +430,7 @@ function coordinate(value: unknown): [number, number] | undefined {
 function parseManualRecord(value: unknown, index: number, retrievedAt: string): SourceRecord {
   if (!isRecord(value)) throw new Error(`Registro manual ${index}: debe ser un objeto.`)
   const type = value.type
-  if (typeof type !== 'string' || !['restaurant', 'bar', 'cafe', 'hotel', 'attraction', 'shop'].includes(type)) {
+  if (typeof type !== 'string' || !ENTITY_TYPES.includes(type as EntityType)) {
     throw new Error(`Registro manual ${index}: type no admitido.`)
   }
   if (typeof value.identifier !== 'string' || typeof value.name !== 'string' || typeof value.sourceUrl !== 'string') {
@@ -328,6 +461,110 @@ function parseManualRecord(value: unknown, index: number, retrievedAt: string): 
       longitude: typeof value.longitude === 'number' ? value.longitude : null,
     },
   }
+}
+
+function typesForCategories(categories?: readonly DiscoveryCategory[]): EntityType[] {
+  // Preserve the pre-P3A.1 default; professional services are opt-in.
+  if (!categories?.length) return ENTITY_TYPES.filter((type) => type !== 'service')
+  const types = new Set<EntityType>()
+  for (const category of categories) {
+    if (category === 'hospitality') for (const type of ['restaurant', 'bar', 'cafe', 'hotel'] as const) types.add(type)
+    else if (category === 'professional-services') types.add('service')
+    else if (category === 'retail') types.add('shop')
+    else if (category === 'attractions') types.add('attraction')
+  }
+  return [...types]
+}
+
+function unitResult(
+  unit: {key: string; type: EntityType; primitive: 'node' | 'way' | 'relation'; bbox: GeographicScope['bbox']},
+  status: DiscoveryUnitResult['status'],
+  recordCount: number,
+  attempts: DiscoveryAttempt[],
+): DiscoveryUnitResult {
+  return {...unit, status, recordCount, attempts}
+}
+
+function splitBbox(bbox: GeographicScope['bbox'], grid: number): GeographicScope['bbox'][] {
+  if (grid <= 1) return [bbox]
+  const [south, west, north, east] = bbox
+  const latitudeStep = (north - south) / grid
+  const longitudeStep = (east - west) / grid
+  const boxes: GeographicScope['bbox'][] = []
+  for (let row = 0; row < grid; row += 1) for (let column = 0; column < grid; column += 1) {
+    boxes.push([
+      south + latitudeStep * row,
+      west + longitudeStep * column,
+      row === grid - 1 ? north : south + latitudeStep * (row + 1),
+      column === grid - 1 ? east : west + longitudeStep * (column + 1),
+    ])
+  }
+  return boxes
+}
+
+async function mapConcurrent<T, R>(items: readonly T[], concurrency: number, operation: (item: T) => Promise<R>): Promise<R[]> {
+  const results = new Array<R>(items.length)
+  let next = 0
+  await Promise.all(Array.from({length: Math.min(concurrency, items.length)}, async () => {
+    while (next < items.length) {
+      const index = next
+      next += 1
+      results[index] = await operation(items[index]!)
+    }
+  }))
+  return results
+}
+
+function parseRetryAfter(value: string | null): number | undefined {
+  if (!value) return undefined
+  if (/^\d+$/.test(value.trim())) return Number(value.trim()) * 1_000
+  const timestamp = Date.parse(value)
+  return Number.isNaN(timestamp) ? undefined : Math.max(0, timestamp - Date.now())
+}
+
+function backoff(base: number, attemptIndex: number): number {
+  return Math.min(30_000, base * 2 ** attemptIndex)
+}
+
+function boundaryFailureAttempt(message: string): DiscoveryAttempt {
+  const at = new Date().toISOString()
+  return {endpoint: 'nominatim-boundary', startedAt: at, finishedAt: at, outcome: 'network-error', message}
+}
+
+function localExtractRecord(
+  element: OverpassElement,
+  retrievedAt: string,
+  path: string,
+  metadata: {sourceUrl?: string; downloadedAt?: string},
+): SourceRecord[] {
+  const tags = element.tags ?? {}
+  const type = osmEntityType(tags)
+  const name = tags.name?.trim()
+  if (!type || !name) return []
+  const identifier = `${element.type}/${element.id}`
+  const latitude = element.lat ?? element.center?.lat ?? null
+  const longitude = element.lon ?? element.center?.lon ?? null
+  return [{
+    type, priority: sourcePriority(tags),
+    sources: [{
+      key: sourceKey('openstreetmap', identifier), provider: 'openstreetmap', identifier,
+      url: `https://www.openstreetmap.org/${identifier}`, retrievedAt,
+      attribution: '© OpenStreetMap contributors', licenseUrl: 'https://www.openstreetmap.org/copyright',
+      sourceClass: 'open-data', claimScope: 'establishment',
+      dataset: {
+        kind: 'local-osm-extract', name: basename(path), sourceUrl: metadata.sourceUrl ?? null,
+        ...(metadata.downloadedAt ? {downloadedAt: metadata.downloadedAt} : {}),
+      },
+    }],
+    raw: {name, tags, latitude, longitude},
+  }]
+}
+
+function insideBbox(record: SourceRecord, bbox: GeographicScope['bbox']): boolean {
+  const {latitude, longitude} = record.raw
+  if (latitude === null || longitude === null) return false
+  const [south, west, north, east] = bbox
+  return latitude >= south && latitude <= north && longitude >= west && longitude <= east
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

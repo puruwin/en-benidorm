@@ -21,6 +21,6 @@ test('deduplica por clave y detecta entidades equivalentes', () => {
   assert.deepEqual(deduplicateBy(records, (record) => String(record.id)), [{id: 1}, {id: 2}])
   assert.equal(
     entityFingerprint({type: 'cafe', name: 'Café Sol', latitude: 38.54001, longitude: -0.13001}),
-    entityFingerprint({type: 'cafe', name: 'Cafe Sol', latitude: 38.54002, longitude: -0.13002}),
+    entityFingerprint({type: 'cafe', name: 'Cafe Sol', latitude: 38.540012, longitude: -0.130012}),
   )
 })

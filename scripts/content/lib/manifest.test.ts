@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {canRunStage, createManifestEntry, markEntryError, transitionEntry} from './manifest'
+import {canRunStage, createManifestEntry, markEntryError, markResearched, markSelectedForResearch, recordEditorialEligibility, transitionEntry} from './manifest'
 import type {SourceProvenance} from './types'
 
 const source: SourceProvenance = {
@@ -28,4 +28,20 @@ test('un error conserva etapa y permite reintentar sólo esa fase', () => {
   markEntryError(entry, 'generation', 'fallo', '2026-10-06T12:00:00.000Z')
   assert.equal(canRunStage(entry, 'generation', false), true)
   assert.equal(canRunStage(entry, 'enrichment', false), false)
+})
+
+test('discovered, selectedForResearch, researched y editorialEligible son estados independientes y contextuales', () => {
+  const entry = createManifestEntry({id: 'business-cafe-sol', type: 'cafe', slug: 'cafe-sol', priority: 50, sources: [source], now: source.retrievedAt})
+  assert.equal(entry.discovery?.state, 'discovered')
+  assert.equal(entry.discovery?.researchSelections.length, 0)
+  assert.equal(entry.discovery?.editorialEligibility.length, 0)
+
+  markSelectedForResearch(entry, 'editorial-comparison', 'comparison-desayunos', '2026-10-06T11:00:00.000Z')
+  assert.equal(entry.discovery?.researchSelections[0]?.researchedAt, null)
+  assert.equal(entry.discovery?.editorialEligibility.length, 0)
+
+  markResearched(entry, 'editorial-comparison', 'comparison-desayunos', '2026-10-06T12:00:00.000Z')
+  recordEditorialEligibility(entry, 'comparison-desayunos', 'eligible', '2026-10-06T12:00:00.000Z')
+  assert.equal(entry.discovery?.researchSelections[0]?.researchedAt, '2026-10-06T12:00:00.000Z')
+  assert.equal(entry.discovery?.editorialEligibility[0]?.status, 'eligible')
 })

@@ -28,6 +28,7 @@ npm run studio                 # Sanity Studio local
 npm run studio:build           # build del Studio en sanity-dist/
 npm run content:seed           # crea la configuración y taxonomía inicial
 npm run content:discover       # descubre entidades mediante adapters
+npm run opportunities:analyze # analiza señales comerciales públicas, sin tocar Selection
 npm run content:enrich         # produce facts trazables, sin texto editorial
 npm run content:generate       # genera sólo campos editoriales en staging
 npm run content:qa             # valida y promociona candidatos aprobados
@@ -161,12 +162,12 @@ content/generated/.staging/         candidatos aún no importables
 content/generated/businesses/       documentos aprobados por QA
 content/reports/                     un informe JSON por fase
 content/reports/comparisons/<topic>/ último report real de cada fase de Comparison
-content/manifest.json                estado y fechas por entidad
+content/manifest.json                catálogo canónico, identidad, lifecycle y estado por entidad
 ```
 
 Cada Comparison conserva `selection.json`, `enrichment.json`, `generation.json` y `qa.json` bajo su propio topic. Los reports globales `content/reports/comparison-*.json` continúan como puntero compatible a la última ejecución. Al forzar una fase, sus reports posteriores no se borran: quedan con `stale: true`, mientras la fase recién ejecutada vuelve a `stale: false`. Content Lab prioriza estos reports por topic y sólo recurre a artefactos, al report global coincidente o a inferencia para datos anteriores a esta estructura.
 
-Cada entrada del manifest mantiene ID, tipo, slug, prioridad, fuentes y los estados `discovered`, `enriched`, `generated`, `validated`, `imported`, `reviewed`, `published` o `error`. `qualityTier`, `qualityAssessedAt`, `qualityReasons` y `missingUsefulFacts` son metadata y no una etapa nueva. También conserva fechas de cada transición. Una ejecución normal no recalcula fases completadas; `--force` recalcula la fase elegida e invalida sus fases posteriores. La importación real marca `importedAt`, pero una importación `--dry-run` no modifica el manifest.
+Cada entrada del manifest mantiene el `businessId` canónico, tipo, slug, prioridad, aliases de fuentes y los estados `discovered`, `enriched`, `generated`, `validated`, `imported`, `reviewed`, `published` o `error`. Desde P3A.1, `discovery` separa primera/última detección, selección para research, investigación y elegibilidad editorial, siempre con contexto e historial. Los manifests legacy se normalizan al leerlos. `qualityTier`, `qualityAssessedAt`, `qualityReasons` y `missingUsefulFacts` son metadata y no una etapa nueva. También conserva fechas de cada transición. Discovery refresca incrementalmente sin borrar ni invalidar artefactos downstream; `--force` en las fases derivadas mantiene la invalidación posterior existente. La importación real marca `importedAt`, pero una importación `--dry-run` no modifica el manifest.
 
 Todos los comandos nuevos aceptan los mismos filtros:
 
@@ -177,8 +178,8 @@ npm run content:generate -- --id=business-restaurante-x
 npm run content:qa -- --type=cafe --limit=10
 ```
 
-- `--type`: `restaurant`, `bar`, `cafe`, `hotel`, `attraction` o `shop`; se aceptan también varios alias plurales.
-- `--limit`: limita las entidades de esa ejecución.
+- `--type`: `restaurant`, `bar`, `cafe`, `hotel`, `attraction`, `shop` o `service`; se aceptan también varios alias plurales.
+- `--limit`: limita las entidades de las fases derivadas; en Discovery es alias legacy de `--research-limit` y no trunca el catálogo.
 - `--id`: procesa un ID determinista concreto.
 - `--force`: vuelve a ejecutar la fase aunque ya conste como completada.
 - `--dry-run`: ejecuta lectura, transformación y comprobaciones sin escribir artefactos, informes ni manifest. En generation sólo realiza una llamada al proveedor de IA para entidades `basic` o `rich`.
@@ -186,6 +187,10 @@ npm run content:qa -- --type=cafe --limit=10
 Los resúmenes legibles aparecen en consola. Las ejecuciones no dry-run actualizan `content/reports/discovery.json`, `enrichment.json`, `generation.json` y `qa.json`.
 
 ### Discovery y fuentes
+
+P3A.1 amplía Discovery por zona y categoría sin crear otro catálogo. `--category` admite `hospitality`/`hosteleria`, `professional-services`/`servicios`, `retail` y `attractions`; `--area` etiqueta el ámbito y `--bbox` permite definirlo. `--research-limit` limita únicamente la selección para investigar: nunca trunca los negocios persistidos. Véase [la arquitectura, piloto y limitaciones](docs/content-lab-p3a1.md).
+
+P3A.1b añade runs `success`, `partial`, `failed` y `anomalous-empty`, reintentos con backoff/`Retry-After`, concurrencia limitada, tiles y checkpoints reanudables. `--osm-extract` permite importar un JSON Overpass local previamente descargado, sin descargas automáticas. Las coincidencias probables entre proveedores se reportan para revisión y nunca se fusionan automáticamente. Véase [la estabilización y regresión de Comparison](docs/content-lab-p3a1b.md).
 
 `SourceAdapter` desacopla la pipeline del proveedor. `OpenStreetMapAdapter` consulta por separado nodos, vías y relaciones de Overpass sobre el bounding box de control y filtra después sus centros contra el polígono oficial que Nominatim devuelve para la relación administrativa de Benidorm (`341148`). Esta estrategia evita las consultas `nwr(area)` costosas sin admitir resultados de municipios vecinos. Localiza restaurantes, bares/pubs, cafeterías, hoteles, atracciones y tiendas con nombre. `ManualJsonAdapter` permite añadir lotes revisados con el mismo contrato.
 

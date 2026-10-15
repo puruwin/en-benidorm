@@ -2,7 +2,9 @@ import {stat} from 'node:fs/promises'
 import {resolve} from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {loadJsonDirectory, readJson, writeJsonAtomic} from '../content/lib/files'
-import type {EnrichedEntity} from '../content/lib/types'
+import {enrichEntity} from '../content/lib/enrichment'
+import {loadManifest, markResearched, recordEditorialEligibility, saveManifest} from '../content/lib/manifest'
+import type {DiscoveredEntity, EnrichedEntity} from '../content/lib/types'
 import {parseComparisonOptions} from './lib/cli'
 import {enrichComparison} from './lib/enrichment'
 import {evaluateComparisonDataGate} from './lib/gate'
@@ -22,9 +24,13 @@ export async function runComparisonEnrichment(
   const destination = resolve(root, `content/comparisons/enriched/${options.id}.json`)
   if (!options.force && await exists(destination)) { console.log(`comparison-enrichment: skipped=1 (${options.id}; usa --force para recalcular)`); return }
   const candidates = await readJson<ComparisonCandidateArtifact>(resolve(root, `content/comparisons/candidates/${options.id}.json`))
-  const entities = new Map((await loadJsonDirectory<EnrichedEntity>(resolve(root, 'content/enriched'))).map(({value}) => [value.id, value]))
+  const enrichedEntities = new Map((await loadJsonDirectory<EnrichedEntity>(resolve(root, 'content/enriched'))).map(({value}) => [value.id, value]))
+  const entities = new Map(enrichedEntities)
+  for (const {value} of await loadJsonDirectory<DiscoveredEntity>(resolve(root, 'content/discovered'))) {
+    if (value.targetDocumentType === 'business' && !entities.has(value.id)) entities.set(value.id, enrichEntity(value))
+  }
   const manual = await new ManualJsonAdapter(resolve(root, `content/manual/comparisons/${candidates.topic}.json`)).load()
-  const manualObservations = await loadManualComparisonObservations(resolve(root, 'content/manual/comparison-observations'), entities)
+  const manualObservations = await loadManualComparisonObservations(resolve(root, 'content/manual/comparison-observations'), enrichedEntities)
   const existingEvidenceByBusiness = mergePlanningEvidence(manual.businesses, manualObservations.businesses)
   const research = await researchPotentialCandidates(candidates, entities, now, {
     ...researchOptions,
@@ -106,6 +112,17 @@ export async function runComparisonEnrichment(
   }
   if (!options.dryRun) {
     await writeJsonAtomic(destination, artifact)
+    const manifest = await loadManifest(root)
+    const investigationsById = new Map((artifact.investigations ?? []).map((item) => [item.businessId, item]))
+    for (const candidate of candidates.candidates) {
+      const entry = manifest.entries.find((item) => item.id === candidate.businessId)
+      if (!entry) continue
+      markResearched(entry, 'editorial-comparison', artifact.id, now)
+      const investigation = investigationsById.get(candidate.businessId)
+      const eligible = artifact.businesses.some((business) => business.businessId === candidate.businessId)
+      recordEditorialEligibility(entry, artifact.id, eligible ? 'eligible' : 'ineligible', now, investigation?.reasons.join('; '))
+    }
+    await saveManifest(manifest, root, now)
     await writeComparisonReport({topic: artifact.topic, phase: 'comparison-enrichment', report, root, invalidateDownstream: options.force})
   }
   console.log(`comparison-enrichment${options.dryRun ? ' (dry-run)' : ''}: investigated=${artifact.investigations?.length ?? artifact.businesses.length}, direct=${directCount}, potential=${potentialCount}, confirmed=${artifact.businesses.length}, potential-confirmed=${potentialConfirmed}, manual-loaded=${manualSummary.manualObservationsLoaded}, manual-evidence=${manualSummary.manualEvidenceAdded}, manual-confirmed=${manualSummary.manualConfirmedCandidates}, rejected=${artifact.investigations?.filter((item) => item.outcome === 'rejected').length ?? 0}, websites=${researchSummary.websitesFound}, reached=${researchSummary.websitesReached}, pages=${researchSummary.pagesVisited}, evidence=${artifact.businesses.flatMap((business) => Object.values(business.evidence).flat()).length}`)

@@ -1,7 +1,7 @@
 import {resolve} from 'node:path'
 import {readJsonIfExists, writeJsonAtomic} from './files'
 import {sourceKey} from './normalize'
-import type {BusinessQualityAssessment, ContentManifest, EntityType, ManifestEntry, PipelineStage, PipelineStatus, SourceProvenance} from './types'
+import type {BusinessQualityAssessment, ContentManifest, DiscoveryCategory, DiscoveryPurpose, EntityType, ManifestEntry, PipelineStage, PipelineStatus, SourceProvenance} from './types'
 
 export const MANIFEST_PATH = 'content/manifest.json'
 
@@ -21,6 +21,7 @@ export async function loadManifest(root = process.cwd()): Promise<ContentManifes
     entry.qualityAssessedAt ??= null
     entry.qualityReasons ??= []
     entry.missingUsefulFacts ??= []
+    entry.discovery ??= lifecycleFromLegacy(entry)
   }
   return manifest
 }
@@ -38,6 +39,8 @@ export function createManifestEntry(input: {
   priority: number
   sources: SourceProvenance[]
   now: string
+  categories?: DiscoveryCategory[]
+  geographicScope?: string
 }): ManifestEntry {
   return {
     id: input.id,
@@ -58,7 +61,53 @@ export function createManifestEntry(input: {
     qualityReasons: [],
     missingUsefulFacts: [],
     lastError: null,
+    discovery: {
+      state: 'discovered', firstSeenAt: input.now, lastSeenAt: input.now,
+      categories: [...new Set(input.categories ?? [])],
+      geographicScopes: input.geographicScope ? [input.geographicScope] : [],
+      sourceIdentifiers: input.sources.map(({provider, identifier}) => ({provider, identifier})),
+      researchSelections: [], editorialEligibility: [],
+      history: [{at: input.now, kind: 'discovered', sourceKeys: input.sources.map((source) => source.key)}],
+    },
   }
+}
+
+export function recordDiscoverySighting(
+  entry: ManifestEntry,
+  input: {now: string; sources: SourceProvenance[]; categories: DiscoveryCategory[]; geographicScope: string; isNewSource: boolean},
+): void {
+  const lifecycle = entry.discovery ??= lifecycleFromLegacy(entry)
+  lifecycle.lastSeenAt = input.now
+  lifecycle.categories = [...new Set([...lifecycle.categories, ...input.categories])]
+  lifecycle.geographicScopes = [...new Set([...lifecycle.geographicScopes, input.geographicScope])]
+  lifecycle.sourceIdentifiers = uniqueSourceIdentifiers([...lifecycle.sourceIdentifiers, ...input.sources.map(({provider, identifier}) => ({provider, identifier}))])
+  lifecycle.history.push({at: input.now, kind: input.isNewSource ? 'source-added' : 'seen', sourceKeys: input.sources.map((source) => source.key)})
+}
+
+export function markSelectedForResearch(entry: ManifestEntry, purpose: DiscoveryPurpose, contextId: string, now: string): void {
+  const lifecycle = entry.discovery ??= lifecycleFromLegacy(entry)
+  const existing = lifecycle.researchSelections.find((item) => item.purpose === purpose && item.contextId === contextId)
+  if (existing) return
+  lifecycle.researchSelections.push({purpose, contextId, selectedAt: now, researchedAt: null})
+  lifecycle.history.push({at: now, kind: 'selected-for-research', sourceKeys: [], contextId})
+}
+
+export function markResearched(entry: ManifestEntry, purpose: DiscoveryPurpose, contextId: string, now: string): void {
+  markSelectedForResearch(entry, purpose, contextId, now)
+  const lifecycle = entry.discovery!
+  const selection = lifecycle.researchSelections.find((item) => item.purpose === purpose && item.contextId === contextId)!
+  if (selection.researchedAt) return
+  selection.researchedAt = now
+  lifecycle.history.push({at: now, kind: 'researched', sourceKeys: [], contextId})
+}
+
+export function recordEditorialEligibility(entry: ManifestEntry, contextId: string, status: 'eligible' | 'ineligible' | 'unassessed', now: string, reason?: string): void {
+  const lifecycle = entry.discovery ??= lifecycleFromLegacy(entry)
+  const assessment = {contextId, status, assessedAt: now, ...(reason ? {reason} : {})}
+  const index = lifecycle.editorialEligibility.findIndex((item) => item.contextId === contextId)
+  if (index >= 0) lifecycle.editorialEligibility[index] = assessment
+  else lifecycle.editorialEligibility.push(assessment)
+  lifecycle.history.push({at: now, kind: 'editorial-assessed', sourceKeys: [], contextId})
 }
 
 export function recordQualityAssessment(entry: ManifestEntry, assessment: BusinessQualityAssessment, now: string): void {
@@ -117,4 +166,18 @@ type TimestampField = 'discoveredAt' | 'enrichedAt' | 'generatedAt' | 'validated
 
 function timestampField(status: Exclude<PipelineStatus, 'error'>): TimestampField | undefined {
   return `${status}At` as TimestampField
+}
+
+function lifecycleFromLegacy(entry: ManifestEntry): NonNullable<ManifestEntry['discovery']> {
+  const firstSeenAt = entry.discoveredAt ?? entry.sources[0]?.retrievedAt ?? '1970-01-01T00:00:00.000Z'
+  return {
+    state: 'discovered', firstSeenAt, lastSeenAt: firstSeenAt, categories: [], geographicScopes: [],
+    sourceIdentifiers: uniqueSourceIdentifiers(entry.sources.map(({provider, identifier}) => ({provider, identifier}))),
+    researchSelections: [], editorialEligibility: [],
+    history: [{at: firstSeenAt, kind: 'discovered', sourceKeys: entry.sources.map((source) => source.key)}],
+  }
+}
+
+function uniqueSourceIdentifiers(values: Array<{provider: string; identifier: string}>): Array<{provider: string; identifier: string}> {
+  return [...new Map(values.map((value) => [`${value.provider}:${value.identifier}`, value])).values()]
 }

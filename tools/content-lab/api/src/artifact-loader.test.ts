@@ -78,6 +78,19 @@ test('artifact loader distingue missing e invalid JSON sin tumbar la app', async
   } finally { await rm(root, {recursive: true, force: true}) }
 })
 
+test('Content Lab carga Opportunity Analysis desde artefactos independientes', async () => {
+  const root = await mkdtemp(resolve(tmpdir(), 'content-lab-opportunities-'))
+  try {
+    await mkdir(resolve(root, 'content/reports/opportunities'), {recursive: true})
+    await mkdir(resolve(root, 'content/opportunities'), {recursive: true})
+    await writeFile(resolve(root, 'content/reports/opportunities/latest.json'), JSON.stringify({businessesAnalyzed: 1, analyses: [{businessId: 'business-uno'}]}))
+    await writeFile(resolve(root, 'content/opportunities/business-uno.json'), JSON.stringify({businessId: 'business-uno', status: 'analyzed'}))
+    const loader = new ArtifactLoader(root)
+    assert.equal((await loader.opportunities()).status, 'available')
+    assert.equal(((await loader.opportunity('business-uno')).data as any).status, 'analyzed')
+  } finally { await rm(root, {recursive: true, force: true}) }
+})
+
 test('report agregado sólo se asocia al topic al que pertenece', async () => {
   const root = await mkdtemp(resolve(tmpdir(), 'content-lab-report-'))
   try {

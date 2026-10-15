@@ -32,6 +32,12 @@ test('el query evita nwr/area y consulta una primitiva sobre el bbox de control'
   assert.doesNotMatch(query, /nwr|area\(/)
 })
 
+test('servicios profesionales usa office y admite un bbox configurable', () => {
+  const query = buildOverpassQuery('service', undefined, 'node', [38.5, -0.18, 38.6, -0.06])
+  assert.match(query, /node\["name"\]\["office"\]\(38\.5,-0\.18,38\.6,-0\.06\)/)
+  assert.doesNotMatch(query, /amenity|shop/)
+})
+
 test('OfficialWebsiteAdapter extrae sólo facts verificables y conserva provenance por página', async () => {
   const html = `<!doctype html><html><head><meta name="description" content="Bistró de cocina mediterránea frente a la playa de Levante.">
     <script type="application/ld+json">{"@type":"Restaurant","servesCuisine":["Mediterránea"],"openingHours":["Mo-Su 09:00-23:00"]}</script></head>

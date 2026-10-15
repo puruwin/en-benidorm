@@ -2,6 +2,7 @@ import {stat} from 'node:fs/promises'
 import {resolve} from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {writeJsonAtomic} from '../content/lib/files'
+import {loadManifest, markSelectedForResearch, saveManifest} from '../content/lib/manifest'
 import {parseComparisonOptions} from './lib/cli'
 import {writeComparisonReport} from './lib/reporting'
 import {selectComparisonCandidates} from './lib/selection'
@@ -34,6 +35,12 @@ export async function runComparisonSelection(options: ComparisonOptions, root = 
   }
   if (!options.dryRun) {
     await writeJsonAtomic(destination, artifact)
+    const manifest = await loadManifest(root)
+    const selected = new Set(artifact.candidates.map((candidate) => candidate.businessId))
+    for (const entry of manifest.entries) if (selected.has(entry.id)) {
+      markSelectedForResearch(entry, 'editorial-comparison', artifact.id, now)
+    }
+    await saveManifest(manifest, root, now)
     await writeComparisonReport({topic: artifact.topic, phase: 'comparison-selection', report, root, invalidateDownstream: options.force})
   }
   console.log(`comparison-selection${options.dryRun ? ' (dry-run)' : ''}: considered=${artifact.summary?.considered ?? artifact.candidates.length + artifact.excluded.length}, direct=${direct.length}, potential=${potential.length}, excluded=${artifact.excluded.length}`)

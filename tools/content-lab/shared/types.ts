@@ -87,3 +87,25 @@ export interface CodexPromptRequest {
   displayName?: string
   mode?: 'issue' | 'general' | 'configure-topic'
 }
+
+export interface OpportunityAnalysisView {
+  businessId: string
+  businessName: string
+  category: string
+  status: string
+  signals: Array<{id: string; type: string; observation: string; sourceKeys: string[]; observedAt: string; confidence: string}>
+  hypotheses: Array<{id: string; area: string; hypothesis: string; basedOnSignalIds: string[]; confidence: string; limitations: string[]}>
+  suggestedActions: Array<{type: string; reason: string}>
+  summary: {evidenceStrength: string; opportunityAreas: string[]; manualReviewRequired: boolean}
+}
+
+export interface OpportunityReportView {
+  generatedAt: string
+  businessesAnalyzed: number
+  actionableHypotheses: number
+  needsReview: number
+  notActionable: number
+  provenanceCoverage: {signals: number; coveredSignals: number; ratio: number}
+  selection: {description: string; businessIds: string[]}
+  analyses: OpportunityAnalysisView[]
+}

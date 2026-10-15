@@ -14,6 +14,8 @@ const paths = {
   manual: (topic: string) => `content/manual/comparisons/${topic}.json`,
   topicReport: (topic: string, phase: PipelinePhase) => `content/reports/comparisons/${topic}/${phase}.json`,
   globalReport: (phase: PipelinePhase) => `content/reports/comparison-${phase}.json`,
+  opportunities: 'content/reports/opportunities/latest.json',
+  opportunity: (businessId: string) => `content/opportunities/${businessId}.json`,
 }
 
 export class ArtifactLoader {
@@ -61,6 +63,8 @@ export class ArtifactLoader {
   }
 
   async evidence(topic: unknown) { return this.enrichment(topic) }
+  async opportunities() { return this.readKnown(paths.opportunities) }
+  async opportunity(businessId: string) { return this.readKnown(paths.opportunity(businessId)) }
 
   async topics(): Promise<ComparisonSummary[]> {
     const topics = new Set<string>()

@@ -1,4 +1,4 @@
-import type {CodexPromptRequest, ComparisonSummary, PipelineRun} from '../../shared/types'
+import type {ArtifactResponse, CodexPromptRequest, ComparisonSummary, OpportunityReportView, PipelineRun} from '../../shared/types'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {...init, headers: {'Content-Type': 'application/json', ...init?.headers}})
@@ -13,6 +13,6 @@ export const api = {
   runs: () => request<PipelineRun[]>('/api/runs'),
   run: (topic: string, phase: string, options: Record<string, unknown>) => request<PipelineRun>(`/api/comparisons/${encodeURIComponent(topic)}/run/${phase}`, {method: 'POST', body: JSON.stringify(options)}),
   cancel: (id: string) => request<PipelineRun>(`/api/runs/${id}/cancel`, {method: 'POST'}),
+  opportunities: () => request<ArtifactResponse<OpportunityReportView>>('/api/opportunities'),
   prompt: (topic: string, body: CodexPromptRequest) => request<{prompt: string}>(`/api/comparisons/${encodeURIComponent(topic)}/codex-prompt`, {method: 'POST', body: JSON.stringify(body)}),
 }
-

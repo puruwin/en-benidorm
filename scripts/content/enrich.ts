@@ -4,7 +4,7 @@ import {applyFilters, parsePipelineOptions, type PipelineOptions} from './lib/cl
 import {OfficialWebsiteAdapter} from './lib/adapters'
 import {enrichEntity, validateFactProvenance} from './lib/enrichment'
 import {loadJsonDirectory, removeFileIfExists, writeJsonAtomic} from './lib/files'
-import {canRunStage, loadManifest, markEntryError, saveManifest, transitionEntry} from './lib/manifest'
+import {canRunStage, loadManifest, markEntryError, markResearched, recordEditorialEligibility, saveManifest, transitionEntry} from './lib/manifest'
 import {recordQualityAssessment} from './lib/manifest'
 import {evaluateBusinessQualityTier} from './lib/quality'
 import {createReport, finishReport} from './lib/reporting'
@@ -51,6 +51,11 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
         }
         await writeJsonAtomic(resolve(root, `content/enriched/${enriched.id}.json`), enriched)
         recordQualityAssessment(entry, assessment, now)
+        markResearched(entry, 'editorial-business', 'discovery-default', now)
+        recordEditorialEligibility(
+          entry, 'business-profile', assessment.tier === 'insufficient' ? 'ineligible' : 'eligible', now,
+          assessment.reasons.join('; '),
+        )
         transitionEntry(entry, 'enriched', now, options.force)
       }
       items.push({

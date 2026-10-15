@@ -10,6 +10,11 @@ export function validateTopic(value: unknown): string {
   return value
 }
 
+export function validateBusinessId(value: unknown): string {
+  if (typeof value !== 'string' || !/^business-[a-z0-9][a-z0-9-]*$/.test(value)) throw new Error('Business ID inválido.')
+  return value
+}
+
 export function validatePhase(value: unknown): PipelinePhase {
   if (typeof value !== 'string' || !PHASES.includes(value as PipelinePhase)) throw new Error('Fase no soportada.')
   return value as PipelinePhase
@@ -35,4 +40,3 @@ export function parseRunOptions(value: unknown): {limit?: number; force?: boolea
   }
   return result
 }
-

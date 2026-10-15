@@ -21,6 +21,8 @@
     "comparison:enrich": "node --import tsx scripts/comparison/enrich.ts",
     "comparison:generate": "node --import tsx scripts/comparison/generate.ts",
     "comparison:qa": "node --import tsx scripts/comparison/qa.ts",
+    "comparison:regression": "node --import tsx scripts/comparison/regression.ts",
+    "opportunities:analyze": "node --import tsx scripts/opportunities/analyze.ts",
     "content-lab": "node tools/content-lab/dev.mjs",
     "content-lab:web": "vite --config tools/content-lab/web/vite.config.ts",
     "content-lab:api": "node --import tsx tools/content-lab/api/src/server.ts",
@@ -28,7 +30,7 @@
     "content-lab:test": "node --import tsx --test tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "content:import": "node --import tsx scripts/import-content.ts",
     "content:validate": "node --import tsx scripts/validate-content.ts",
-    "test": "node --import tsx --test scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
+    "test": "node --import tsx --test scripts/content/*.test.ts scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts scripts/opportunities/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "sanity:schema:validate": "sanity schema validate",
     "sanity:schema:extract": "sanity schema extract --path schema.json --force",
     "typegen": "npm run sanity:schema:extract && sanity typegen generate"

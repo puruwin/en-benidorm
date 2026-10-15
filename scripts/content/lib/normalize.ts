@@ -39,7 +39,7 @@ export function entityFingerprint(value: {
 }): string {
   const coordinates = value.latitude === null || value.longitude === null
     ? 'unknown'
-    : `${value.latitude.toFixed(4)},${value.longitude.toFixed(4)}`
+    : `${value.latitude.toFixed(5)},${value.longitude.toFixed(5)}`
   return `${value.type}:${normalizeText(value.name)}:${coordinates}`
 }
 

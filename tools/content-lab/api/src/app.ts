@@ -3,7 +3,7 @@ import type {CodexPromptRequest, QaIssue} from '../../shared/types'
 import {ArtifactLoader} from './artifact-loader'
 import {buildCodexPrompt, SUPPORTED_ISSUES} from './prompt-builder/index'
 import {RunManager} from './run-manager'
-import {parseRunOptions, validatePhase, validateTopic} from './validation'
+import {parseRunOptions, validateBusinessId, validatePhase, validateTopic} from './validation'
 
 export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager} = {}) {
   const app = Fastify({logger: true})
@@ -25,6 +25,8 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
   app.get<{Params: {topic: string}}>('/api/comparisons/:topic/generation', async (request) => loader.generation(request.params.topic))
   app.get<{Params: {topic: string}}>('/api/comparisons/:topic/qa', async (request) => loader.topicReport(request.params.topic, 'qa'))
   app.get<{Params: {topic: string}}>('/api/comparisons/:topic/evidence', async (request) => loader.evidence(request.params.topic))
+  app.get('/api/opportunities', async () => loader.opportunities())
+  app.get<{Params: {businessId: string}}>('/api/opportunities/:businessId', async (request) => loader.opportunity(validateBusinessId(request.params.businessId)))
 
   app.post<{Params: {topic: string; phase: string}; Body: unknown}>('/api/comparisons/:topic/run/:phase', async (request, reply) => {
     const topic = validateTopic(request.params.topic)
