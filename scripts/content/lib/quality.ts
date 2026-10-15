@@ -12,7 +12,7 @@ const USEFUL_FIELDS = [
 
 /** Decides editorial depth from normalized, sourced facts. It never derives meaning from the business name. */
 export function evaluateBusinessQualityTier(facts: BusinessFacts): BusinessQualityAssessment {
-  const valid = (field: keyof BusinessFacts) => hasUsefulSourcedValue(facts[field])
+  const valid = (field: keyof BusinessFacts) => Boolean(facts[field] && hasUsefulSourcedValue(facts[field]!))
   const identityVerified = valid('name') && valid('businessKind')
   const locationVerified = valid('address') || valid('location') || valid('locationContext')
   const distinctiveFacts = DISTINCTIVE_FIELDS.filter(valid)

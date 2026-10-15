@@ -1,7 +1,9 @@
 import {readFile} from 'node:fs/promises'
 import {loadEnvFile} from 'node:process'
-import {ENTITY_TYPES, type BusinessFacts, type EntityType, type Fact, type SourceProvenance} from './types'
+import {ENTITY_TYPES, type BusinessFacts, type CommercialItem, type EntityType, type Fact, type SourceProvenance} from './types'
 import {sourceKey} from './normalize'
+import {crawlOfficialWebsite, htmlToEvidenceText, type CrawledWebsitePage, type WebsiteCrawlerOptions} from './website-crawler'
+import {extractCommercialInformation, type CommercialExtractionSummary} from './commercial-extractor'
 
 export interface SourceRecord {
   type: EntityType
@@ -29,15 +31,17 @@ export interface SourceAdapter {
 export type OfficialWebsiteFacts = Pick<BusinessFacts,
   | 'cuisine' | 'concept' | 'specialties' | 'services' | 'bookingAvailability'
   | 'takeaway' | 'delivery' | 'terrace' | 'accessibility' | 'openingInformation'
-  | 'locationContext' | 'distinctiveFeatures'>
+  | 'locationContext' | 'distinctiveFeatures' | 'commercialItems'>
 
 export interface OfficialWebsiteResult {
   facts: OfficialWebsiteFacts
   sources: SourceProvenance[]
+  extraction?: CommercialExtractionSummary
 }
 
-const WEBSITE_LINK_LIMIT = 5
-const RELEVANT_LINK = /(?:carta|menu|men[uú]|reserv|booking|contact|ubicaci|localiz|nosotros|about|servici|restaurante|food|drink)/i
+export type OfficialWebsiteOptions = Pick<WebsiteCrawlerOptions,
+  'linkHints' | 'maxPages' | 'maxDepth' | 'timeoutMs' | 'maxRedirects' | 'cache' | 'documentCache'
+  | 'dnsLookup' | 'maxDocuments' | 'maxPdfBytes' | 'maxPdfPages'> & {expectedName?: string | null}
 
 /** Extracts attributable facts from public pages owned by the business. */
 export class OfficialWebsiteAdapter {
@@ -45,52 +49,27 @@ export class OfficialWebsiteAdapter {
 
   constructor(private readonly fetcher: typeof fetch = fetch) {}
 
-  async enrich(website: string, retrievedAt: string): Promise<OfficialWebsiteResult> {
-    const initial = publicWebsiteUrl(website)
-    const queue = [initial]
-    const visited = new Set<string>()
-    const pages: WebsitePage[] = []
-    while (queue.length && pages.length < WEBSITE_LINK_LIMIT) {
-      const requested = queue.shift()!
-      const canonical = canonicalWebsiteUrl(requested)
-      if (visited.has(canonical)) continue
-      visited.add(canonical)
-      const response = await this.fetcher(requested, {
-        headers: {'accept': 'text/html,application/xhtml+xml', 'user-agent': 'enBenidorm-content-pipeline/1.0'},
-        redirect: 'follow',
-        signal: AbortSignal.timeout(20_000),
-      })
-      if (!response.ok) {
-        if (pages.length === 0) throw new Error(`La web oficial respondió ${response.status} ${response.statusText}.`)
-        continue
-      }
-      const contentType = response.headers.get('content-type') ?? ''
-      if (contentType && !/html|xhtml/i.test(contentType)) continue
-      const finalUrl = publicWebsiteUrl(response.url || requested)
-      if (new URL(finalUrl).hostname !== new URL(initial).hostname && pages.length === 0) {
-        // A canonical www/non-www redirect is accepted; unrelated redirect targets are not crawled.
-        if (registrableHost(new URL(finalUrl).hostname) !== registrableHost(new URL(initial).hostname)) throw new Error('La web oficial redirige a un dominio distinto.')
-      }
-      const finalCanonical = canonicalWebsiteUrl(finalUrl)
-      if (pages.some((page) => canonicalWebsiteUrl(page.url) === finalCanonical)) continue
-      visited.add(finalCanonical)
-      const html = (await response.text()).slice(0, 1_500_000)
-      const source = websiteSource(finalUrl, retrievedAt)
-      pages.push({url: finalUrl, html, source})
-      for (const link of extractLinks(html, finalUrl)) {
-        if (pages.length + queue.length >= WEBSITE_LINK_LIMIT || !RELEVANT_LINK.test(link)) continue
-        if (registrableHost(new URL(link).hostname) === registrableHost(new URL(initial).hostname)) queue.push(link)
-      }
-    }
-    if (pages.length === 0) throw new Error('La web oficial no devolvió ninguna página HTML pública.')
-    return extractWebsiteFacts(pages)
+  async enrich(
+    website: string,
+    retrievedAt: string,
+    options: OfficialWebsiteOptions = {},
+  ): Promise<OfficialWebsiteResult> {
+    const crawl = await crawlOfficialWebsite(website, retrievedAt, {
+      fetcher: this.fetcher,
+      maxPages: options.maxPages ?? 5,
+      maxDepth: options.maxDepth ?? 1,
+      timeoutMs: options.timeoutMs ?? 20_000,
+      ...(options.linkHints ? {linkHints: options.linkHints} : {}),
+      ...(options.maxRedirects !== undefined ? {maxRedirects: options.maxRedirects} : {}),
+      ...(options.cache ? {cache: options.cache} : {}),
+      ...(options.documentCache ? {documentCache: options.documentCache} : {}),
+      ...(options.dnsLookup ? {dnsLookup: options.dnsLookup} : {}),
+      ...(options.maxDocuments !== undefined ? {maxDocuments: options.maxDocuments} : {}),
+      ...(options.maxPdfBytes !== undefined ? {maxPdfBytes: options.maxPdfBytes} : {}),
+      ...(options.maxPdfPages !== undefined ? {maxPdfPages: options.maxPdfPages} : {}),
+    })
+    return extractOfficialWebsiteFacts(crawl.pages, crawl.documents, options.expectedName !== undefined ? {expectedName: options.expectedName} : {})
   }
-}
-
-interface WebsitePage {
-  url: string
-  html: string
-  source: SourceProvenance
 }
 
 interface OverpassElement {
@@ -218,6 +197,8 @@ export class OpenStreetMapAdapter implements SourceAdapter {
       retrievedAt,
       attribution: '© OpenStreetMap contributors',
       licenseUrl: 'https://www.openstreetmap.org/copyright',
+      sourceClass: 'open-data',
+      claimScope: 'establishment',
     }
     return [{
       type,
@@ -333,6 +314,8 @@ function parseManualRecord(value: unknown, index: number, retrievedAt: string): 
     retrievedAt,
     attribution: typeof value.attribution === 'string' ? value.attribution : 'Fuente manual indicada en sourceUrl',
     licenseUrl: typeof value.licenseUrl === 'string' ? value.licenseUrl : null,
+    sourceClass: 'third-party',
+    claimScope: 'unknown',
   }
   return {
     type: type as EntityType,
@@ -351,11 +334,15 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-function extractWebsiteFacts(pages: WebsitePage[]): OfficialWebsiteResult {
+export function extractOfficialWebsiteFacts(
+  pages: readonly CrawledWebsitePage[],
+  documents: readonly import('./website-crawler').CrawledWebsiteDocument[] = [],
+  context: {expectedName?: string | null} = {},
+): OfficialWebsiteResult {
   const facts = emptyWebsiteFacts()
   for (const page of pages) {
     const structured = extractJsonLd(page.html)
-    const visible = htmlToText(page.html)
+    const visible = htmlToEvidenceText(page.html)
     const metaDescription = extractMetaDescription(page.html)
     const descriptions = compactStrings([
       ...structured.flatMap((item) => jsonLdStrings(item, 'description')),
@@ -384,7 +371,14 @@ function extractWebsiteFacts(pages: WebsitePage[]): OfficialWebsiteResult {
     mergeFact(facts.locationContext, controlledMatches(visible, LOCATION_CONTEXT).join(', ') || null, page.source.key)
     mergeListFact(facts.distinctiveFeatures, controlledMatches(visible, DISTINCTIVE_FEATURES), page.source.key)
   }
-  return {facts, sources: [...new Map(pages.map((page) => [page.source.key, page.source])).values()]}
+  const commercial = extractCommercialInformation(pages, documents, context)
+  mergeCommercialFact(facts.commercialItems!, commercial.items)
+  for (const item of commercial.openingHours) mergeListFact(facts.openingInformation, [item.value], item.sourceKey)
+  const sources = [
+    ...pages.map((page) => page.source),
+    ...documents.flatMap((document) => document.pages.map((page) => page.source)),
+  ]
+  return {facts, sources: [...new Map(sources.map((source) => [source.key, source])).values()], extraction: commercial.summary}
 }
 
 const GENERIC_DESCRIPTION = /(?:write something about yourself|no need to be fancy|just an overview|lorem ipsum|website is under construction)/i
@@ -422,7 +416,14 @@ function emptyWebsiteFacts(): OfficialWebsiteFacts {
     cuisine: fact(), concept: fact(), specialties: fact(), services: fact(), bookingAvailability: fact(),
     takeaway: fact(), delivery: fact(), terrace: fact(), accessibility: fact(), openingInformation: fact(),
     locationContext: fact(), distinctiveFeatures: fact(),
+    commercialItems: fact(),
   }
+}
+
+function mergeCommercialFact(fact: Fact<CommercialItem[]>, values: CommercialItem[]): void {
+  if (!values.length) return
+  fact.value = values
+  fact.sources = [...new Set(values.map((item) => item.sourceKey))]
 }
 
 function mergeFact(fact: Fact<string>, value: string | null, source: string): void {
@@ -521,50 +522,6 @@ function extractMetaDescription(html: string): string | null {
     if (content) return decodeEntities(content)
   }
   return null
-}
-
-function htmlToText(html: string): string {
-  return decodeEntities(html.replace(/<(?:script|style|noscript|svg)\b[\s\S]*?<\/(?:script|style|noscript|svg)>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()).slice(0, 300_000)
-}
-
-function extractLinks(html: string, base: string): string[] {
-  const links: string[] = []
-  for (const match of html.matchAll(/<a\b[^>]*href=["']([^"'#]+)["']/gi)) {
-    try {
-      const url = new URL(decodeEntities(match[1] ?? ''), base)
-      if (url.protocol === 'http:' || url.protocol === 'https:') links.push(canonicalWebsiteUrl(url.toString()))
-    } catch { /* Ignore malformed publisher URLs. */ }
-  }
-  return [...new Set(links)]
-}
-
-function websiteSource(url: string, retrievedAt: string): SourceProvenance {
-  const canonical = canonicalWebsiteUrl(url)
-  return {
-    key: sourceKey('official-website', canonical), provider: 'official-website', identifier: canonical, url: canonical,
-    retrievedAt, attribution: `Sitio web oficial (${new URL(canonical).hostname})`, licenseUrl: null,
-  }
-}
-
-function publicWebsiteUrl(value: string): string {
-  const url = new URL(value)
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') throw new Error('La web oficial debe usar HTTP o HTTPS.')
-  const hostname = url.hostname.toLowerCase()
-  if (hostname === 'localhost' || hostname.endsWith('.local') || /^(?:127\.|10\.|192\.168\.|169\.254\.)/.test(hostname)) {
-    throw new Error('La web oficial debe ser una URL pública.')
-  }
-  return url.toString()
-}
-
-function canonicalWebsiteUrl(value: string): string {
-  const url = new URL(value)
-  url.hash = ''
-  return url.toString()
-}
-
-function registrableHost(hostname: string): string {
-  return hostname.toLowerCase().replace(/^www\./, '')
 }
 
 function compactStrings(values: Array<string | null | undefined>): string[] {

@@ -1,0 +1,20 @@
+{
+  "businessId": "business-my-bakery",
+  "observedAt": "2026-10-08",
+  "observer": "David",
+  "sourceType": "first-party-observation",
+  "observations": [
+    {
+      "dimension": "services",
+      "value": "desayunos"
+    },
+    {
+      "dimension": "services",
+      "value": "brunch"
+    },
+    {
+      "dimension": "services",
+      "value": "meriendas"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enbenidorm.local/schemas/manual-comparison-observation.json",
+  "title": "Manual Comparison Observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["businessId", "observedAt", "observer", "sourceType", "observations"],
+  "properties": {
+    "businessId": {"type": "string", "minLength": 1},
+    "observedAt": {"type": "string", "format": "date"},
+    "observer": {"type": "string", "minLength": 1},
+    "sourceType": {"const": "first-party-observation"},
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["dimension", "value"],
+        "properties": {
+          "dimension": {
+            "enum": ["cuisine", "specialties", "featuredItems", "prices", "services", "location", "practical", "limitations", "distinctiveFeatures"]
+          },
+          "value": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

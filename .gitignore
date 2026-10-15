@@ -16,4 +16,7 @@ schema.json
 /content/generated/.staging/**/*.json
 /content/reports/*
 !/content/reports/.gitkeep
+!/content/reports/comparisons/
+/content/reports/comparisons/*
+!/content/reports/comparisons/.gitkeep
 /content/manifest.json

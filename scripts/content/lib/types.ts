@@ -18,6 +18,11 @@ export type PipelineStatus = (typeof PIPELINE_STATUSES)[number]
 export type PipelineStage = 'discovery' | 'enrichment' | 'generation' | 'qa' | 'import'
 export type QualityTier = 'insufficient' | 'basic' | 'rich'
 
+export const SOURCE_CLASSES = ['official-location', 'official-brand', 'open-data', 'manual-first-party', 'third-party'] as const
+export type SourceClass = (typeof SOURCE_CLASSES)[number]
+export const CLAIM_SCOPES = ['establishment', 'brand', 'unknown'] as const
+export type ClaimScope = (typeof CLAIM_SCOPES)[number]
+
 export interface BusinessQualityAssessment {
   tier: QualityTier
   reasons: string[]
@@ -34,6 +39,10 @@ export interface SourceProvenance {
   retrievedAt: string
   attribution: string
   licenseUrl: string | null
+  /** Optional for backwards compatibility; consumers normalize legacy records. */
+  sourceClass?: SourceClass
+  /** The entity level supported by claims from this source. */
+  claimScope?: ClaimScope
 }
 
 export interface ManifestEntry {
@@ -84,6 +93,31 @@ export interface Fact<T> {
   sources: string[]
 }
 
+export type CommercialFactFormat = 'html' | 'json-ld' | 'embedded-json' | 'pdf'
+export type CommercialItemKind = 'product' | 'service' | 'specialty'
+
+export interface CommercialPrice {
+  amount: number
+  currency: 'EUR'
+  raw: string
+  observedAt: string
+  confidence: 'explicit'
+  priceQualifier?: 'from'
+}
+
+/** A page-scoped commercial claim. sourceKey identifies the exact HTML page or PDF page. */
+export interface CommercialItem {
+  name: string
+  kind: CommercialItemKind
+  description?: string
+  price?: CommercialPrice
+  url?: string
+  sourceKey: string
+  observedAt: string
+  format: CommercialFactFormat
+  pageNumber?: number
+}
+
 export interface FactualAddress {
   street?: string
   postalCode?: string
@@ -112,6 +146,8 @@ export interface BusinessFacts {
   openingInformation: Fact<string[]>
   locationContext: Fact<string>
   distinctiveFeatures: Fact<string[]>
+  /** Optional on legacy artifacts. */
+  commercialItems?: Fact<CommercialItem[]>
 }
 
 export interface EnrichedEntity {
@@ -126,7 +162,7 @@ export interface EnrichedEntity {
     officialWebsite: Pick<BusinessFacts,
       | 'cuisine' | 'concept' | 'specialties' | 'services' | 'bookingAvailability'
       | 'takeaway' | 'delivery' | 'terrace' | 'accessibility' | 'openingInformation'
-      | 'locationContext' | 'distinctiveFeatures'>
+      | 'locationContext' | 'distinctiveFeatures' | 'commercialItems'>
   }
   editorial: Record<string, never>
   sources: SourceProvenance[]

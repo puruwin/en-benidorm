@@ -45,3 +45,14 @@ test('OfficialWebsiteAdapter extrae sólo facts verificables y conserva provenan
   assert.equal(result.facts.terrace.value, true)
   assert.ok(result.facts.openingInformation.sources.every((source) => result.sources.some((item) => item.key === source)))
 })
+
+test('OfficialWebsiteAdapter comparte hints editoriales con el crawler común', async () => {
+  const calls: string[] = []
+  const fetcher = (async (input: string | URL | globalThis.Request) => {
+    const url = String(input); calls.push(url)
+    return new Response(new URL(url).pathname === '/' ? '<a href="/desayunos">Ver desayunos</a>' : '<main>Desayuno diario.</main>', {status: 200, headers: {'content-type': 'text/html'}})
+  }) as typeof fetch
+  const result = await new OfficialWebsiteAdapter(fetcher).enrich('https://restaurant.example/', '2026-10-15T00:00:00.000Z', {linkHints: ['desayunos'], maxPages: 2})
+  assert.equal(calls.length, 2)
+  assert.deepEqual(result.facts.services.value, ['desayuno'])
+})

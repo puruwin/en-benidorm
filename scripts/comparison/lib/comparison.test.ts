@@ -12,12 +12,14 @@ import {compactPracticalLines, hasDuplicateSectionHeadings} from '../../../src/l
 import {enrichComparison, emptyEvidence} from './enrichment'
 import {evaluateComparisonDataGate} from './gate'
 import {ManualJsonAdapter} from './manual-adapter'
+import type {ManualObservationData} from './manual-observations'
 import {inspectComparison} from './qa'
 import {selectComparisonCandidates} from './selection'
-import {compareScores, scoreBusiness, topicEvidence} from './scoring'
+import {classifyTopicMatch, comparePotentialCandidates, compareScores, normalizedPhraseMatch, potentialCandidateScore, scoreBusiness, topicEvidence} from './scoring'
+import {normalizeTopicConfig, topicConfig} from './topic-config'
 import type {ComparisonCandidateArtifact, EnrichedComparisonArtifact, GeneratedComparisonArtifact} from './types'
 
-test('candidate filtering excluye insufficient e irrelevantes', async () => {
+test('candidate filtering separa relevancia temática de qualityTier insufficient', async () => {
   const root = await mkdtemp(resolve(tmpdir(), 'enbenidorm-comparison-'))
   try {
     const eligible = entity('business-italiano', ['italiana'])
@@ -30,7 +32,8 @@ test('candidate filtering excluye insufficient e irrelevantes', async () => {
     const result = await selectComparisonCandidates({topic: 'italiano', id: 'comparison-italiano', dryRun: false, force: false}, root, '2026-10-06T00:00:00.000Z')
     assert.equal(result.searchIntent, 'elegir restaurante italiano en Benidorm')
     assert.deepEqual(result.candidates.map((candidate) => candidate.businessId), ['business-italiano'])
-    assert.deepEqual(new Set(result.excluded.map((item) => item.reason)), new Set(['insufficient', 'not-relevant']))
+    assert.deepEqual(new Set(result.excluded.map((item) => item.reason)), new Set(['not-relevant']))
+    assert.equal(result.excluded.find((item) => item.businessId === 'business-vacio')?.qualityTier, 'insufficient')
   } finally { await rm(root, {recursive: true, force: true}) }
 })
 
@@ -52,6 +55,237 @@ test('topic arroces usa configuración data-driven y exige evidencia explícita'
     assert.deepEqual(result.candidates[0]?.topicEvidence, ['specialties=Arroz a banda'])
     assert.ok(result.excluded.some((candidate) => candidate.businessId === 'business-mediterraneo' && candidate.reason === 'not-relevant'))
   } finally { await rm(root, {recursive: true, force: true}) }
+})
+
+test('topic desayunos considera una cafetería sin evidencia como potential, no direct', async () => {
+  const root = await mkdtemp(resolve(tmpdir(), 'enbenidorm-comparison-desayunos-'))
+  try {
+    const breakfast = entity('business-desayunos', ['cafetería'])
+    breakfast.facts.businessKind = sourced('cafe', 'source:business-desayunos')
+    const irrelevant = entity('business-irrelevante', ['mediterránea'])
+    await mkdir(resolve(root, 'content/enriched'), {recursive: true})
+    await writeJsonAtomic(resolve(root, 'content/enriched/breakfast.json'), breakfast)
+    await writeJsonAtomic(resolve(root, 'content/enriched/irrelevant.json'), irrelevant)
+    await writeJsonAtomic(resolve(root, 'content/manifest.json'), {version: 1, updatedAt: null, entries: [manifest(breakfast), manifest(irrelevant)]})
+
+    const result = await selectComparisonCandidates({topic: 'desayunos', id: 'comparison-desayunos', dryRun: false, force: false}, root, '2026-10-08T00:00:00.000Z')
+
+    assert.equal(result.searchIntent, 'elegir dónde desayunar en Benidorm')
+    assert.deepEqual(result.candidates.map((candidate) => candidate.businessId), ['business-desayunos'])
+    assert.equal(result.candidates[0]?.matchType, 'potential')
+    assert.deepEqual(result.candidates[0]?.topicEvidence, [])
+    assert.ok(result.candidates[0]?.evidence?.some((item) => item.field === 'businessKind' && item.value === 'cafe'))
+    assert.ok(result.excluded.some((candidate) => candidate.businessId === 'business-irrelevante' && candidate.reason === 'not-relevant'))
+  } finally { await rm(root, {recursive: true, force: true}) }
+})
+
+test('matching normaliza diacríticos y respeta palabras y frases completas', () => {
+  assert.equal(normalizedPhraseMatch('Bollería artesanal', 'bolleria'), true)
+  assert.equal(normalizedPhraseMatch('Full English breakfast todo el día', 'full english breakfast'), true)
+  assert.equal(normalizedPhraseMatch('desayunos completos', 'desayuno'), false)
+  assert.equal(normalizedPhraseMatch('breakfasting', 'breakfast'), false)
+})
+
+test('Tepuy no es direct por Café de París', () => {
+  const tepuy = entity('business-tepuy', ['burger', 'española'])
+  tepuy.facts.concept = sourced('Burgers, parrilla y sabores con alma caribeña. Entrecot Café de París, arepas y cachapas.', 'official:tepuy')
+
+  const match = classifyTopicMatch(tepuy, 'desayunos')
+
+  assert.equal(match.matchType, 'excluded')
+  assert.equal(match.evidence.some((item) => item.strength === 'direct'), false)
+})
+
+test('The Brunch Box y Caffe Trieste son direct y conservan evidence', () => {
+  const brunchBox = entity('business-the-brunch-box', ['Brunch', 'Breakfast'])
+  brunchBox.facts.businessKind = sourced('cafe', 'source:business-the-brunch-box')
+  brunchBox.facts.concept = sourced("The Brunch Box — Benidorm's favourite American brunch & full English breakfast.", 'official:brunch-box')
+  const trieste = entity('business-caffe-trieste', ['breakfast'])
+  trieste.facts.businessKind = sourced('cafe', 'source:business-caffe-trieste')
+
+  const brunchMatch = classifyTopicMatch(brunchBox, 'desayunos')
+  const triesteMatch = classifyTopicMatch(trieste, 'desayunos')
+
+  assert.equal(brunchMatch.matchType, 'direct')
+  assert.ok(brunchMatch.evidence.some((item) => item.field === 'cuisine' && item.value === 'Breakfast' && item.strength === 'direct'))
+  assert.ok(brunchMatch.evidence.some((item) => item.field === 'concept' && item.matchedTerm === 'full english breakfast'))
+  assert.equal(triesteMatch.matchType, 'direct')
+  assert.ok(triesteMatch.evidence.some((item) => item.field === 'cuisine' && item.value === 'breakfast'))
+})
+
+test('restaurant genérico y openingHours aislado quedan excluded', () => {
+  const generic = entity('business-generic', ['mediterránea'])
+  const early = entity('business-early', null)
+  early.facts.openingHoursRaw = sourced('Mo-Su 07:00-18:00', 'source:business-early')
+  early.facts.openingInformation = sourced(['Abre a las 07:00'], 'source:business-early')
+
+  assert.equal(classifyTopicMatch(generic, 'desayunos').matchType, 'excluded')
+  assert.equal(classifyTopicMatch(early, 'desayunos').matchType, 'excluded')
+})
+
+test('ranking potential premia señales, quality, web y specificity sin popularidad', () => {
+  const weak = entity('business-weak-cafe', null)
+  weak.facts.businessKind = sourced('cafe', 'source:business-weak-cafe')
+  weak.facts.website = {value: null, sources: []}
+  const stronger = entity('business-strong-cafe', null)
+  stronger.facts.businessKind = sourced('cafe', 'source:business-strong-cafe')
+  stronger.facts.concept = sourced('Tostadas y croissant artesano', 'official:strong')
+  const weakMatch = classifyTopicMatch(weak, 'desayunos')
+  const strongMatch = classifyTopicMatch(stronger, 'desayunos')
+  const weakCandidate = {businessId: weak.id, scores: scoreBusiness(weak, 'desayunos'), potentialScore: potentialCandidateScore(weak, 'insufficient', weakMatch.evidence)}
+  const strongCandidate = {businessId: stronger.id, scores: scoreBusiness(stronger, 'desayunos'), potentialScore: potentialCandidateScore(stronger, 'basic', strongMatch.evidence)}
+
+  assert.deepEqual([weakCandidate, strongCandidate].sort(comparePotentialCandidates).map((item) => item.businessId), ['business-strong-cafe', 'business-weak-cafe'])
+  assert.ok(strongCandidate.potentialScore.total > weakCandidate.potentialScore.total)
+})
+
+test('maxPotentialCandidates limita la investigación a 25 y conserva el resto como excluded', async () => {
+  const root = await mkdtemp(resolve(tmpdir(), 'enbenidorm-comparison-potential-limit-'))
+  try {
+    const cafes = Array.from({length: 27}, (_, index) => {
+      const item = entity(`business-cafe-${String(index).padStart(2, '0')}`, null)
+      item.facts.businessKind = sourced('cafe', `source:${item.id}`)
+      return item
+    })
+    for (const item of cafes) await writeJsonAtomic(resolve(root, `content/enriched/${item.id}.json`), item)
+
+    const result = await selectComparisonCandidates({topic: 'desayunos', id: 'comparison-desayunos', dryRun: false, force: false}, root)
+
+    assert.equal(result.summary?.direct, 0)
+    assert.equal(result.summary?.potential, 25)
+    assert.equal(result.excluded.filter((item) => item.reason === 'outside-potential-limit').length, 2)
+  } finally { await rm(root, {recursive: true, force: true}) }
+})
+
+test('aliases legacy migran a directEvidence y los topics estrictos no crean potential genéricos', () => {
+  assert.deepEqual(normalizeTopicConfig({topic: 'legacy', aliases: ['Uno', 'Dos']}).directEvidence, ['Uno', 'Dos'])
+  assert.deepEqual(topicConfig('sushi').directEvidence, ['sushi', 'japonesa', 'japonesas', 'japonés', 'japoneses', 'japanese'])
+  assert.equal(classifyTopicMatch(entity('business-generic-one', ['mediterránea']), 'italiano').matchType, 'excluded')
+  assert.equal(classifyTopicMatch(entity('business-generic-two', ['mediterránea']), 'arroces').matchType, 'excluded')
+})
+
+test('enrichment confirma potential sólo con evidence directa nueva y rechaza el resto', () => {
+  const confirmed = entity('business-confirmed-cafe', null)
+  confirmed.facts.businessKind = sourced('cafe', 'source:business-confirmed-cafe')
+  const rejected = entity('business-rejected-cafe', null)
+  rejected.facts.businessKind = sourced('cafe', 'source:business-rejected-cafe')
+  const candidate = (item: EnrichedEntity): ComparisonCandidateArtifact['candidates'][number] => ({
+    businessId: item.id,
+    qualityTier: 'basic',
+    matchType: 'potential',
+    evidence: classifyTopicMatch(item, 'desayunos').evidence,
+    topicEvidence: [],
+    scores: scoreBusiness(item, 'desayunos'),
+  })
+  const artifact: ComparisonCandidateArtifact = {
+    schemaVersion: 2, id: 'comparison-desayunos', topic: 'desayunos', searchIntent: 'elegir dónde desayunar en Benidorm', slug: 'desayunos', generatedAt: '2026-10-08T00:00:00.000Z', candidateCount: 2,
+    candidates: [candidate(confirmed), candidate(rejected)], excluded: [],
+  }
+  const manualSource = source('official:confirmed', 'official-website')
+  const result = enrichComparison(artifact, new Map([[confirmed.id, confirmed], [rejected.id, rejected]]), {
+    topic: 'desayunos', sources: [manualSource], businesses: [{
+      businessId: confirmed.id,
+      evidence: {specialties: [{id: 'confirmed:breakfast', value: 'Full English breakfast', nature: 'factual', sourceKeys: [manualSource.key]}]},
+    }],
+  }, '2026-10-08T00:00:00.000Z')
+
+  assert.deepEqual(result.businesses.map((item) => item.businessId), [confirmed.id])
+  assert.equal(result.businesses[0]?.origin, 'potential')
+  assert.ok(result.businesses[0]?.topicEvidence.includes('specialties=Full English breakfast'))
+  assert.equal(result.investigations?.find((item) => item.businessId === confirmed.id)?.outcome, 'confirmed')
+  assert.equal(result.investigations?.find((item) => item.businessId === rejected.id)?.outcome, 'rejected')
+})
+
+test('una observación manual directa confirma potential y una señal supporting no', () => {
+  const direct = entity('business-manual-direct', null)
+  direct.facts.businessKind = sourced('cafe', 'source:business-manual-direct')
+  const supporting = entity('business-manual-supporting', null)
+  supporting.facts.businessKind = sourced('cafe', 'source:business-manual-supporting')
+  const candidate = (item: EnrichedEntity): ComparisonCandidateArtifact['candidates'][number] => ({
+    businessId: item.id, qualityTier: 'basic', matchType: 'potential',
+    evidence: classifyTopicMatch(item, 'desayunos').evidence, topicEvidence: [], scores: scoreBusiness(item, 'desayunos'),
+  })
+  const artifact: ComparisonCandidateArtifact = {
+    schemaVersion: 2, id: 'comparison-desayunos', topic: 'desayunos', searchIntent: 'elegir dónde desayunar en Benidorm',
+    slug: 'desayunos', generatedAt: '2026-10-08T00:00:00.000Z', candidateCount: 2,
+    candidates: [candidate(direct), candidate(supporting)], excluded: [],
+  }
+  const observations: ManualObservationData = {
+    records: [],
+    sources: [manualObservationSource(direct.id), manualObservationSource(supporting.id)],
+    businesses: [manualObservationBusiness(direct.id, 'desayunos'), manualObservationBusiness(supporting.id, 'café')],
+  }
+
+  const result = enrichComparison(artifact, new Map([[direct.id, direct], [supporting.id, supporting]]), {
+    topic: 'desayunos', sources: [], businesses: [],
+  }, '2026-10-08T00:00:00.000Z', new Map(), observations)
+
+  assert.deepEqual(result.businesses.map((item) => item.businessId), [direct.id])
+  assert.equal(result.businesses[0]?.confirmationEvidence?.[0]?.sourceStage, 'manual-observation')
+  assert.equal(result.investigations?.find((item) => item.businessId === supporting.id)?.outcome, 'rejected')
+})
+
+test('deduplica evidence web y manual conservando ambas provenances', () => {
+  const item = entity('business-duplicate-brunch', null)
+  item.facts.businessKind = sourced('cafe', 'source:business-duplicate-brunch')
+  item.facts.services = sourced(['brunch'], 'source:business-duplicate-brunch')
+  const artifact: ComparisonCandidateArtifact = {
+    schemaVersion: 2, id: 'comparison-desayunos', topic: 'desayunos', searchIntent: 'elegir dónde desayunar en Benidorm',
+    slug: 'desayunos', generatedAt: '2026-10-08T00:00:00.000Z', candidateCount: 1,
+    candidates: [{businessId: item.id, qualityTier: 'basic', matchType: 'potential', evidence: [], topicEvidence: [], scores: scoreBusiness(item, 'desayunos')}], excluded: [],
+  }
+  const observations: ManualObservationData = {
+    records: [], sources: [manualObservationSource(item.id)], businesses: [manualObservationBusiness(item.id, 'brunch')],
+  }
+
+  const result = enrichComparison(artifact, new Map([[item.id, item]]), {topic: 'desayunos', sources: [], businesses: []},
+    '2026-10-08T00:00:00.000Z', new Map(), observations)
+  const brunch = result.businesses[0]?.evidence.services.filter((fact) => fact.value === 'brunch') ?? []
+
+  assert.equal(brunch.length, 1)
+  assert.deepEqual(new Set(brunch[0]?.provenance?.map((item) => item.sourceStage)), new Set(['existing', 'manual-observation']))
+  assert.equal(brunch[0]?.sourceKeys.length, 2)
+})
+
+test('genera evidence IDs estables y únicos al expandir arrays y añadir facts', () => {
+  const item = entity('business-evidence-ids', ['italiana'])
+  item.facts.specialties = sourced(['Pasta', 'Pizza'], 'source:business-evidence-ids')
+  item.facts.services = sourced(['Desayuno', 'Brunch'], 'source:business-evidence-ids')
+  item.facts.accessibility = sourced(['Acceso', 'Baño adaptado'], 'source:business-evidence-ids')
+  const artifact: ComparisonCandidateArtifact = {
+    schemaVersion: 2, id: 'comparison-test', topic: 'italiano', searchIntent: 'test', slug: 'test', generatedAt: '2026-10-15T00:00:00.000Z', candidateCount: 1,
+    candidates: [{businessId: item.id, qualityTier: 'basic', matchType: 'direct', evidence: [], topicEvidence: ['cuisine=italiana'], scores: scoreBusiness(item, 'italiano')}], excluded: [],
+  }
+  const result = enrichComparison(artifact, new Map([[item.id, item]]), {topic: 'italiano', sources: [], businesses: []}, '2026-10-15T00:00:00.000Z')
+  const ids = Object.values(result.businesses[0]!.evidence).flat().map((fact) => fact.id)
+  assert.equal(new Set(ids).size, ids.length)
+  assert.deepEqual(result.businesses[0]!.evidence.specialties.map((fact) => fact.id), [
+    'business-evidence-ids:specialties:business-0', 'business-evidence-ids:specialties:business-1',
+  ])
+  assert.deepEqual(result.businesses[0]!.evidence.services.map((fact) => fact.id), [
+    'business-evidence-ids:services:business-0', 'business-evidence-ids:services:business-1',
+    'business-evidence-ids:services:business-2', 'business-evidence-ids:services:business-3',
+  ])
+})
+
+test('un conflicto manual con una fuente publicada queda registrado sin resolución automática', () => {
+  const item = entity('business-conflicting-brunch', null)
+  item.facts.businessKind = sourced('cafe', 'source:business-conflicting-brunch')
+  item.facts.services = sourced(['brunch ya no disponible'], 'source:business-conflicting-brunch')
+  const artifact: ComparisonCandidateArtifact = {
+    schemaVersion: 2, id: 'comparison-desayunos', topic: 'desayunos', searchIntent: 'elegir dónde desayunar en Benidorm',
+    slug: 'desayunos', generatedAt: '2026-10-08T00:00:00.000Z', candidateCount: 1,
+    candidates: [{businessId: item.id, qualityTier: 'basic', matchType: 'potential', evidence: [], topicEvidence: [], scores: scoreBusiness(item, 'desayunos')}], excluded: [],
+  }
+  const observations: ManualObservationData = {
+    records: [], sources: [manualObservationSource(item.id)], businesses: [manualObservationBusiness(item.id, 'brunch')],
+  }
+
+  const result = enrichComparison(artifact, new Map([[item.id, item]]), {topic: 'desayunos', sources: [], businesses: []},
+    '2026-10-08T00:00:00.000Z', new Map(), observations)
+
+  assert.equal(result.sourceConflicts[0]?.dimension, 'services')
+  assert.match(result.sourceConflicts[0]?.resolution ?? '', /no resuelto/i)
 })
 
 test('el adapter manual conserva el contexto genérico de un precio', async () => {
@@ -115,6 +349,23 @@ test('el gate previo detiene datasets insuficientes y deja pasar cobertura compa
 
   assert.equal(stopped.pass, false)
   assert.deepEqual(new Set(stopped.issues.map((issue) => issue.code)), new Set(['MINIMUM_BUSINESSES', 'LOW_COMPARATIVE_VALUE', 'INSUFFICIENT_EVIDENCE_COVERAGE']))
+})
+
+test('el gate bloquea un cierre confirmado pero sólo avisa ante estado contradictorio', () => {
+  const fixture = comparisonFixture()
+  fixture.enriched.businesses[0]!.operationalStatus = {status: 'closed', assessedAt: '2026-10-15T00:00:00.000Z', sourceKeys: ['source:business-uno'], needsVerification: false, reasons: [], signals: []}
+  assert.ok(evaluateComparisonDataGate(fixture.enriched).issues.some((issue) => issue.code === 'INELIGIBLE_OPERATIONAL_STATUS'))
+  fixture.enriched.businesses[0]!.operationalStatus = {status: 'unknown', assessedAt: '2026-10-15T00:00:00.000Z', sourceKeys: ['source:business-uno'], needsVerification: true, reasons: ['Conflicto'], signals: []}
+  const review = evaluateComparisonDataGate(fixture.enriched)
+  assert.equal(review.pass, true)
+  assert.ok(review.warnings.some((warning) => warning.code === 'OPERATIONAL_STATUS_REVIEW'))
+})
+
+test('QA no permite afirmar apertura cuando operationalStatus no está confirmado', () => {
+  const fixture = comparisonFixture()
+  fixture.enriched.businesses[0]!.operationalStatus = {status: 'unknown', assessedAt: '2026-10-15T00:00:00.000Z', sourceKeys: [], needsVerification: true, reasons: ['Sin confirmación'], signals: []}
+  fixture.generated.editorial.entries[0]!.practicalNotes[0] = 'Está abierto todos los días.'
+  assert.ok(inspectComparison(fixture.generated, fixture.enriched, fixture.businesses).issues.some((issue) => issue.code === 'UNCONFIRMED_OPERATIONAL_STATUS'))
 })
 
 test('QA avisa cuando se repite una afirmación larga entre secciones', () => {
@@ -181,12 +432,50 @@ test('enrichment separa cuisine de specialties y registra conflictos de fuentes'
   assert.deepEqual(enriched.businesses[0]!.evidence.practical.map((fact) => fact.value), ['Mo-Su 10:00-22:00'])
 })
 
+test('enrichment no confirma un direct sostenido sólo por una fuente de marca', () => {
+  const item = entity('business-corporate-only', ['sandwich'])
+  const brandKey = 'official:brand'
+  item.sources.push({...source(brandKey, 'official-website'), sourceClass: 'official-brand', claimScope: 'brand'})
+  item.facts.services = sourced(['desayuno'], brandKey)
+  item.factsBySource.officialWebsite.services = sourced(['desayuno'], brandKey)
+  const candidate: ComparisonCandidateArtifact = {
+    schemaVersion: 2, id: 'comparison-desayunos', topic: 'desayunos', searchIntent: 'elegir dónde desayunar en Benidorm', slug: 'desayunos', generatedAt: '2026-10-15T00:00:00.000Z', candidateCount: 1,
+    candidates: [{businessId: item.id, qualityTier: 'basic', matchType: 'direct', evidence: [{field: 'services', value: 'desayuno', strength: 'direct', sourceKeys: [brandKey]}], topicEvidence: ['services=desayuno'], scores: scoreBusiness(item, 'desayunos')}], excluded: [],
+  }
+  const result = enrichComparison(candidate, new Map([[item.id, item]]), {topic: 'desayunos', sources: [], businesses: []}, '2026-10-15T00:00:00.000Z')
+  assert.equal(result.businesses.length, 0)
+  assert.equal(result.investigations?.[0]?.outcome, 'rejected')
+  assert.ok(result.integrityIssues?.some((issue) => issue.code === 'BRAND_SCOPE_NOT_LOCAL'))
+  assert.equal(result.sources.find((item) => item.key === brandKey)?.claimScope, 'brand')
+})
+
 test('QA emite SOURCE_CONFLICT como warning', () => {
   const fixture = comparisonFixture()
   fixture.enriched.sourceConflicts.push({businessId: 'business-uno', dimension: 'practical', preferredSourceKeys: ['source:business-uno'], conflictingSourceKeys: ['osm:uno'], resolution: 'Se prioriza la web oficial.'})
   const result = inspectComparison(fixture.generated, fixture.enriched, fixture.businesses)
   assert.ok(result.issues.some((issue) => issue.code === 'SOURCE_CONFLICT' && issue.severity === 'WARNING'))
   assert.equal(result.indexability, 'index')
+})
+
+test('QA acepta provenance manual válida sin URL como soporte de claims', () => {
+  const fixture = comparisonFixture()
+  const business = fixture.enriched.businesses[0]!
+  const fact = business.evidence.services[0]!
+  const manualSource = manualObservationSource(business.businessId)
+  business.sources.push(manualSource)
+  fixture.enriched.sources.push(manualSource)
+  fact.nature = 'first_party_observation'
+  fact.sourceStage = 'manual-observation'
+  fact.sourceKeys = [manualSource.key]
+  fact.provenance = [{
+    sourceStage: 'manual-observation', nature: 'first_party_observation', sourceType: 'first-party-observation',
+    sourceKey: manualSource.key, observer: 'David', observedAt: '2026-10-08',
+  }]
+
+  const issues = inspectComparison(fixture.generated, fixture.enriched, fixture.businesses).issues
+
+  assert.ok(!issues.some((issue) => issue.code === 'INVALID_EVIDENCE_PROVENANCE' && issue.path === `evidence.${fact.id}`))
+  assert.ok(!issues.some((issue) => issue.code === 'UNSUPPORTED_COMPARISON_CLAIM' && issue.path.includes('business-uno')))
 })
 
 test('featured item conserva nombre, precio, fuente y fecha exactos', () => {
@@ -202,6 +491,9 @@ test('QA rechaza claims sin soporte y experiencia personal inventada', () => {
   const personal = comparisonFixture()
   personal.generated.editorial.intro = `He probado los cuatro restaurantes. ${personal.generated.editorial.intro}`
   assert.ok(inspectComparison(personal.generated, personal.enriched, personal.businesses).issues.some((issue) => issue.code === 'FAKE_FIRST_PERSON_EXPERIENCE'))
+  const namedObserver = comparisonFixture()
+  namedObserver.generated.editorial.intro = `David visitó este restaurante. ${namedObserver.generated.editorial.intro}`
+  assert.ok(inspectComparison(namedObserver.generated, namedObserver.enriched, namedObserver.businesses).issues.some((issue) => issue.code === 'MANUAL_OBSERVATION_EXPOSED'))
 })
 
 test('indexability sólo es index con intención, valor, cobertura, claims y SEO válidos', () => {
@@ -310,4 +602,15 @@ function entity(id: string, cuisine: string[] | null): EnrichedEntity {
 }
 function sourced<T>(value: T, key: string): Fact<T> { return {value, sources: [key]} }
 function source(key: string, provider = 'manual-json') { return {key, provider, identifier: key, url: 'https://example.com', retrievedAt: '2026-10-06T00:00:00.000Z', attribution: 'Test', licenseUrl: null} }
+function manualObservationSource(businessId: string) {
+  const key = `manual-observation:${businessId}:2026-10-08:david`
+  return {key, provider: 'manual-observation', identifier: `${businessId}:2026-10-08:David`, url: null, retrievedAt: '2026-10-08T00:00:00.000Z', attribution: 'Observación local de primera mano · David', licenseUrl: null}
+}
+function manualObservationBusiness(businessId: string, value: string): ManualObservationData['businesses'][number] {
+  const sourceKey = manualObservationSource(businessId).key
+  return {businessId, evidence: {services: [{
+    id: `${businessId}:services:manual`, value, nature: 'first_party_observation', sourceStage: 'manual-observation', sourceKeys: [sourceKey],
+    provenance: [{sourceStage: 'manual-observation', nature: 'first_party_observation', sourceType: 'first-party-observation', sourceKey, observer: 'David', observedAt: '2026-10-08'}],
+  }]}}
+}
 function manifest(item: EnrichedEntity) { const assessment = evaluateBusinessQualityTier(item.facts); return {id: item.id, type: item.type, slug: item.slug, status: 'enriched', priority: 50, sources: item.sources, discoveredAt: '2026-10-06T00:00:00.000Z', enrichedAt: '2026-10-06T00:00:00.000Z', generatedAt: null, validatedAt: null, importedAt: null, reviewedAt: null, publishedAt: null, qualityTier: assessment.tier, qualityAssessedAt: '2026-10-06T00:00:00.000Z', qualityReasons: assessment.reasons, missingUsefulFacts: assessment.missingUsefulFacts, lastError: null} }

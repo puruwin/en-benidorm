@@ -1,0 +1,19 @@
+<!doctype html>
+<html><body>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Tienda Ejemplo",
+    "openingHoursSpecification": {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday"],"opens":"10:00","closes":"19:00"},
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "itemListElement": [
+        {"@type":"Product","name":"Aceite corporal","offers":{"@type":"Offer","price":"15.00","priceCurrency":"EUR","url":"https://shop.example/aceite"}},
+        {"@type":"Service","name":"Asesoría personalizada","offers":{"@type":"Offer","price":"25","priceCurrency":"EUR"}}
+      ]
+    }
+  }
+  </script>
+  <section class="products"><h2>Productos</h2><article class="product-card"><strong>Aceite corporal</strong><span>15 €</span></article></section>
+</body></html>

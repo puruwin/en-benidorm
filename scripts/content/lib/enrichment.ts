@@ -1,5 +1,6 @@
 import type {OfficialWebsiteFacts, OfficialWebsiteResult} from './adapters'
 import type {BusinessFacts, BusinessKind, DiscoveredEntity, EnrichedEntity, Fact, FactualAddress, SourceProvenance} from './types'
+import {withSourceIntegrity} from './source-integrity'
 
 export function enrichEntity(entity: DiscoveredEntity, official?: OfficialWebsiteResult): EnrichedEntity {
   const tags = entity.raw.tags
@@ -12,7 +13,15 @@ export function enrichEntity(entity: DiscoveredEntity, official?: OfficialWebsit
   const location = entity.raw.latitude === null || entity.raw.longitude === null
     ? null
     : {lat: entity.raw.latitude, lng: entity.raw.longitude}
+  const officialIsBrandLevel = Boolean(tags['brand:wikidata'] || tags['brand:wikipedia'])
   const officialFacts = official?.facts ?? emptyOfficialFacts()
+  const localOfficialFacts = officialIsBrandLevel ? emptyOfficialFacts() : officialFacts
+  const sources = [
+    ...entity.sources.map((source) => withSourceIntegrity(source)),
+    ...(official?.sources ?? []).map((source) => withSourceIntegrity(source, officialIsBrandLevel
+      ? {sourceClass: 'official-brand', claimScope: 'brand'}
+      : {sourceClass: 'official-location', claimScope: 'establishment'})),
+  ]
   const osmFacts: BusinessFacts = {
     name: sourced(entity.raw.name || null),
     businessKind: sourced(businessKind(entity)),
@@ -36,17 +45,18 @@ export function enrichEntity(entity: DiscoveredEntity, official?: OfficialWebsit
     slug: entity.slug,
     facts: {
       ...osmFacts,
-      cuisine: mergeFacts(osmFacts.cuisine, officialFacts.cuisine), concept: officialFacts.concept,
-      specialties: officialFacts.specialties, services: mergeFacts(osmFacts.services, officialFacts.services),
-      bookingAvailability: mergeFacts(osmFacts.bookingAvailability, officialFacts.bookingAvailability),
-      takeaway: mergeFacts(osmFacts.takeaway, officialFacts.takeaway), delivery: mergeFacts(osmFacts.delivery, officialFacts.delivery),
-      terrace: mergeFacts(osmFacts.terrace, officialFacts.terrace), accessibility: mergeFacts(osmFacts.accessibility, officialFacts.accessibility),
-      openingInformation: mergeFacts(osmFacts.openingInformation, officialFacts.openingInformation),
-      locationContext: officialFacts.locationContext, distinctiveFeatures: officialFacts.distinctiveFeatures,
+      cuisine: mergeFacts(osmFacts.cuisine, localOfficialFacts.cuisine), concept: localOfficialFacts.concept,
+      specialties: localOfficialFacts.specialties, services: mergeFacts(osmFacts.services, localOfficialFacts.services),
+      bookingAvailability: mergeFacts(osmFacts.bookingAvailability, localOfficialFacts.bookingAvailability),
+      takeaway: mergeFacts(osmFacts.takeaway, localOfficialFacts.takeaway), delivery: mergeFacts(osmFacts.delivery, localOfficialFacts.delivery),
+      terrace: mergeFacts(osmFacts.terrace, localOfficialFacts.terrace), accessibility: mergeFacts(osmFacts.accessibility, localOfficialFacts.accessibility),
+      openingInformation: mergeFacts(osmFacts.openingInformation, localOfficialFacts.openingInformation),
+      locationContext: localOfficialFacts.locationContext, distinctiveFeatures: localOfficialFacts.distinctiveFeatures,
+      ...(localOfficialFacts.commercialItems ? {commercialItems: localOfficialFacts.commercialItems} : {}),
     },
     factsBySource: {openStreetMap: osmFacts, officialWebsite: officialFacts},
     editorial: {},
-    sources: [...entity.sources, ...(official?.sources ?? [])],
+    sources,
   }
 }
 

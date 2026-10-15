@@ -4,6 +4,7 @@ import {compactPracticalLines, hasDuplicateSectionHeadings} from '../../../src/l
 import {comparisonCoverage} from './gate'
 import {topicAliases} from './scoring'
 import {
+  EVIDENCE_CATEGORIES,
   type ComparisonClaim,
   type ComparisonEvidenceFact,
   type ComparisonEvidenceValue,
@@ -14,6 +15,7 @@ import {
 } from './types'
 
 const FIRST_PERSON = /\b(?:he|hemos|prob[eé]|probamos|visit[eé]|visitamos|com[ií]|comimos|recomiendo|recomendamos|mi experiencia|nuestra experiencia)\b/i
+const MANUAL_OBSERVER_ATTRIBUTION = /\b(?:(?:el|la|nuestro|nuestra)\s+(?:autor|autora|observador|observadora|equipo)|[A-ZÁÉÍÓÚ][a-záéíóú]+)\s+(?:visit[oó]|comprob[oó]|observ[oó]|prob[oó])/
 const UNSUPPORTED_VALUATION = /\b(?:mejor(?:es)?|peor(?:es)?|excelente(?:s)?|recomendad[oa]s?|calidad|popular(?:es)?|aut[eé]ntic[oa]s?|barat[oa]s?|car[oa]s?|[uú]nic[oa]s?)\b|\bes la opci[oó]n de la comparativa\b/i
 const SELF_CLAIM_ATTRIBUTION = /(?:seg[uú]n|indica|describe|presenta|publica|web|declara)/i
 const GENERIC_INTRO = /una selecci[oó]n de (?:los )?mejores|hay opciones para todos los gustos|descubre los mejores/i
@@ -63,16 +65,42 @@ export function inspectComparison(
     const evidenceBusiness = enrichedById.get(entry.businessId)
     if (!businessDocuments.has(entry.businessId)) fail('MISSING_BUSINESS_REF', `${base}.businessId`, `No existe el Business ${entry.businessId}.`)
     if (!evidenceBusiness) { fail('MISSING_COMPARISON_EVIDENCE', base, 'El negocio no aparece en el artefacto enriquecido.'); continue }
+    const operationalText = [entry.verdict, ...entry.strengths, ...entry.limitations, ...entry.bestFor, ...entry.practicalNotes].join(' ')
+    if (evidenceBusiness.operationalStatus?.status !== 'open' && /\b(?:abiert[oa]s?|sigue\s+abiert[oa]|est[aá]\s+abiert[oa]|abre)\b/i.test(operationalText)) {
+      fail('UNCONFIRMED_OPERATIONAL_STATUS', base, 'No se puede presentar el establecimiento como abierto sin un estado open confirmado y vigente.')
+    }
     if (!evidenceBusiness.topicEvidence.length || evidenceBusiness.scores.topicRelevance === 0) fail('IRRELEVANT_BUSINESS', base, `El Business no es relevante para topic=${enriched.topic}.`)
     if (entry.limitations.length && evidenceBusiness.evidence.limitations.length === 0) fail('UNSUPPORTED_COMPARISON_CLAIM', `${base}.limitations`, 'No se pueden inventar limitaciones sin evidence explícita.')
     requireEntryClaims(editorial.claims, base, entry, fail)
   }
 
   const evidenceById = new Map<string, {businessId: string; category: string; fact: ComparisonEvidenceFact}>()
+  const evidenceIds = new Set<string>()
   for (const business of enriched.businesses) for (const [category, facts] of Object.entries(business.evidence)) {
     for (const fact of facts) {
+      if (evidenceIds.has(fact.id)) fail('DUPLICATE_EVIDENCE_ID', `evidence.${fact.id}`, 'Cada evidence ID debe ser único en todo el artefacto.')
+      evidenceIds.add(fact.id)
       if (!fact.sourceKeys.length || fact.sourceKeys.some((key) => !business.sources.some((source) => source.key === key))) {
         fail('INVALID_EVIDENCE_PROVENANCE', `evidence.${fact.id}`, 'El fact no conserva una fuente declarada.')
+      }
+      const manualProvenance = fact.provenance?.filter((item) => item.sourceStage === 'manual-observation') ?? []
+      if (fact.sourceStage === 'manual-observation' && manualProvenance.length === 0) {
+        fail('INVALID_EVIDENCE_PROVENANCE', `evidence.${fact.id}`, 'La observación manual no conserva provenance explícita.')
+      }
+      for (const provenance of manualProvenance) {
+        const source = business.sources.find((item) => item.key === provenance.sourceKey)
+        if (!business.businessId?.trim()
+          || !EVIDENCE_CATEGORIES.includes(category as (typeof EVIDENCE_CATEGORIES)[number])
+          || typeof fact.value !== 'string'
+          || !fact.value.trim()
+          || provenance.nature !== 'first_party_observation'
+          || provenance.sourceType !== 'first-party-observation'
+          || !provenance.observer?.trim()
+          || !isCalendarDate(provenance.observedAt)
+          || !source
+          || source.provider !== 'manual-observation') {
+          fail('INVALID_EVIDENCE_PROVENANCE', `evidence.${fact.id}`, 'La observación manual requiere businessId, dimensión, valor, sourceType, observer, observedAt y source manual válidos.')
+        }
       }
       if (category === 'featuredItems' && typeof fact.value === 'object' && 'name' in fact.value) {
         if (!fact.sourceKeys.includes(fact.value.source) || !/^\d{4}-\d{2}-\d{2}/.test(fact.value.retrievedAt)) {
@@ -124,12 +152,19 @@ export function inspectComparison(
   for (const conflict of enriched.sourceConflicts ?? []) {
     warn('SOURCE_CONFLICT', `sourceConflicts.${conflict.businessId}.${conflict.dimension}`, conflict.resolution)
   }
+  for (const business of enriched.businesses) {
+    if (business.operationalStatus?.needsVerification) warn('OPERATIONAL_STATUS_REVIEW', `operationalStatus.${business.businessId}`, business.operationalStatus.reasons.join(' '))
+    if (business.operationalStatus && (business.operationalStatus.status === 'closed' || business.operationalStatus.status === 'temporarily_closed') && !business.operationalStatus.needsVerification) {
+      fail('INELIGIBLE_OPERATIONAL_STATUS', `operationalStatus.${business.businessId}`, 'Un cierre confirmado y vigente impide recomendar públicamente el establecimiento.')
+    }
+  }
 
   inspectPriceContext(enriched, editorial, fail)
   inspectPublicPresentation(generated, warn, fail)
 
   const allText = comparisonText(editorial)
   if (FIRST_PERSON.test(allText)) fail('FAKE_FIRST_PERSON_EXPERIENCE', 'editorial', 'La comparativa no puede inventar experiencia en primera persona.')
+  if (MANUAL_OBSERVER_ATTRIBUTION.test(allText)) fail('MANUAL_OBSERVATION_EXPOSED', 'editorial', 'La provenance manual es soporte interno y no debe atribuir visitas personales en la página pública.')
   if (UNSUPPORTED_VALUATION.test(allText)) fail('UNSUPPORTED_COMPARISON_CLAIM', 'editorial', 'Hay una valoración editorial no permitida por el contrato del MVP.')
   if (GENERIC_INTRO.test(editorial.intro)) fail('GENERIC_INTRO', 'intro', 'La introducción usa una fórmula genérica.')
   if (editorial.quickVerdict.split(/\n\s*\n/).filter(Boolean).length > 2) fail('SEARCH_INTENT_NOT_SATISFIED', 'quickVerdict', 'El quickVerdict debe limitarse a uno o dos párrafos.')
@@ -170,6 +205,12 @@ export function inspectComparison(
     id: generated.id, topic: generated.topic, outcome, searchIntentSatisfied, contentValueSatisfied,
     indexability, coverage, issues, claimsGenerated: editorial.claims.length, claimsRejected,
   }
+}
+
+function isCalendarDate(value: unknown): value is string {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const date = new Date(`${value}T00:00:00.000Z`)
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value
 }
 
 function requireEntryClaims(

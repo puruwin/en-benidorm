@@ -3,6 +3,7 @@ import {resolve} from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {writeJsonAtomic} from '../content/lib/files'
 import {parseComparisonOptions} from './lib/cli'
+import {writeComparisonReport} from './lib/reporting'
 import {selectComparisonCandidates} from './lib/selection'
 import type {ComparisonOptions} from './lib/types'
 
@@ -13,16 +14,29 @@ export async function runComparisonSelection(options: ComparisonOptions, root = 
     return
   }
   const artifact = await selectComparisonCandidates(options, root, now)
+  const direct = artifact.candidates.filter((candidate) => (candidate.matchType ?? 'direct') === 'direct')
+  const potential = artifact.candidates.filter((candidate) => candidate.matchType === 'potential')
   const report = {
     phase: 'comparison-selection', dryRun: options.dryRun, startedAt: now, finishedAt: new Date().toISOString(),
-    topic: artifact.topic, searchIntent: artifact.searchIntent, candidateBusinesses: artifact.candidates, excludedBusinesses: artifact.excluded,
-    totals: {candidates: artifact.candidates.length, excluded: artifact.excluded.length},
+    topic: artifact.topic, searchIntent: artifact.searchIntent,
+    summary: artifact.summary,
+    candidateBusinesses: artifact.candidates,
+    directBusinesses: direct,
+    potentialBusinesses: potential,
+    excludedBusinesses: artifact.excluded,
+    totals: {
+      considered: artifact.summary?.considered ?? artifact.candidates.length + artifact.excluded.length,
+      candidates: artifact.candidates.length,
+      direct: direct.length,
+      potential: potential.length,
+      excluded: artifact.excluded.length,
+    },
   }
   if (!options.dryRun) {
     await writeJsonAtomic(destination, artifact)
-    await writeJsonAtomic(resolve(root, 'content/reports/comparison-selection.json'), report)
+    await writeComparisonReport({topic: artifact.topic, phase: 'comparison-selection', report, root, invalidateDownstream: options.force})
   }
-  console.log(`comparison-selection${options.dryRun ? ' (dry-run)' : ''}: candidates=${artifact.candidates.length}, excluded=${artifact.excluded.length}`)
+  console.log(`comparison-selection${options.dryRun ? ' (dry-run)' : ''}: considered=${artifact.summary?.considered ?? artifact.candidates.length + artifact.excluded.length}, direct=${direct.length}, potential=${potential.length}, excluded=${artifact.excluded.length}`)
 }
 
 async function exists(path: string): Promise<boolean> {

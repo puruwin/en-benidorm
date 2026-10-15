@@ -78,6 +78,16 @@ En producción, configura un webhook de Sanity que lance un nuevo despliegue cua
 
 ## Pipeline de contenido
 
+### Content Lab
+
+La pipeline de Comparisons también puede operarse e inspeccionarse desde la herramienta local **enBenidorm Content Lab**:
+
+```bash
+npm run content-lab
+```
+
+Abre http://127.0.0.1:4173 (API en http://127.0.0.1:4174). Content Lab ejecuta los mismos comandos CLI existentes, transmite sus logs por SSE y lee los artefactos/reports actuales. No publica contenido, no edita Sanity y no mueve lógica de negocio fuera de la pipeline. La arquitectura y las limitaciones del MVP están documentadas en [`tools/content-lab/README.md`](tools/content-lab/README.md).
+
 La pipeline de Business se mantiene independiente:
 
 ```text
@@ -101,7 +111,44 @@ npm run comparison:generate -- --topic=italiano
 npm run comparison:qa -- --topic=italiano
 ```
 
-Los cuatro comandos aceptan `--topic`, `--id`, `--limit`, `--force` y `--dry-run`. Selection excluye tiers `insufficient`, comprueba relevancia con facts respaldados y ordena de forma determinista por relevancia, especificidad, cobertura comparativa, valor distintivo y utilidad práctica. Enrichment combina facts de Business con `ManualJsonAdapter`, conserva `factual`, `self_claim` o `external_observation` y escribe `content/comparisons/enriched/`. La IA recibe exclusivamente ese artefacto y usa `gpt-5.6-luna` por defecto para Comparison.
+### Observaciones manuales en Comparison
+
+Las observaciones locales de primera mano viven como JSON versionado en
+`content/manual/comparison-observations/`, un archivo por observación o negocio. El contrato
+formal está en `scripts/comparison/schemas/manual-observation.schema.json` y la pipeline lo
+valida al ejecutar `comparison:enrich`.
+
+```json
+{
+  "businessId": "business-my-bakery",
+  "observedAt": "2026-10-08",
+  "observer": "David",
+  "sourceType": "first-party-observation",
+  "observations": [
+    {"dimension": "services", "value": "desayunos"}
+  ]
+}
+```
+
+`businessId` debe existir en `content/enriched`; `observedAt`, `observer` y al menos una
+observación son obligatorios. Las dimensiones admitidas son `cuisine`, `specialties`,
+`featuredItems`, `prices`, `services`, `location`, `practical`, `limitations` y
+`distinctiveFeatures`. Un `value` vacío o una fecha que no exista producen error de validación.
+El directorio puede no existir: en ese caso enrichment continúa sin evidencia manual.
+
+Esta fuente no es web research. Se conserva como `sourceStage=manual-observation`,
+`nature=first_party_observation`, sin URL inventada, y con autor y fecha. Puede confirmar un
+candidato `potential` sólo cuando su valor coincide con `directEvidence` mediante el matcher
+seguro común; una señal meramente supporting no confirma. No modifica los facts de Business,
+no suple identidad o ubicación y no relaja quality gates, QA ni indexability.
+
+Añade únicamente hechos observados realmente. No infieras precios, horarios, platos ni otros
+detalles, no uses esta vía para copiar afirmaciones de una web y no redactes en público que el
+autor visitó el local. Si una observación contradice una fuente publicada, la pipeline registra
+el conflicto para revisión editorial; no lo resuelve silenciosamente. Content Lab sólo muestra
+estas observaciones y su provenance: siguen editándose en el JSON del repositorio.
+
+Los cuatro comandos aceptan `--topic`, `--id`, `--limit`, `--force` y `--dry-run`. Selection excluye tiers `insufficient`, comprueba relevancia con facts respaldados y ordena de forma determinista por relevancia, especificidad, cobertura comparativa, valor distintivo y utilidad práctica. Enrichment combina facts de Business, evidence editorial y observaciones locales, conserva `factual`, `self_claim`, `external_observation` o `first_party_observation` y escribe `content/comparisons/enriched/`. La IA recibe exclusivamente ese artefacto y usa `gpt-5.6-luna` por defecto para Comparison.
 
 `comparison:qa` exige 4–8 Businesses existentes, ranks únicos, provenance de precios/platos/strengths/weaknesses, bindings de claims, SEO único, texto específico y ausencia de superlativos o experiencias personales inventadas. Sólo `PASS` o `WARNING` llega a `content/generated/comparisons/`; el importador lo escribe siempre como `drafts.comparison-<slug>`.
 
@@ -113,8 +160,11 @@ content/enriched/                    modelo intermedio facts/editorial
 content/generated/.staging/         candidatos aún no importables
 content/generated/businesses/       documentos aprobados por QA
 content/reports/                     un informe JSON por fase
+content/reports/comparisons/<topic>/ último report real de cada fase de Comparison
 content/manifest.json                estado y fechas por entidad
 ```
+
+Cada Comparison conserva `selection.json`, `enrichment.json`, `generation.json` y `qa.json` bajo su propio topic. Los reports globales `content/reports/comparison-*.json` continúan como puntero compatible a la última ejecución. Al forzar una fase, sus reports posteriores no se borran: quedan con `stale: true`, mientras la fase recién ejecutada vuelve a `stale: false`. Content Lab prioriza estos reports por topic y sólo recurre a artefactos, al report global coincidente o a inferencia para datos anteriores a esta estructura.
 
 Cada entrada del manifest mantiene ID, tipo, slug, prioridad, fuentes y los estados `discovered`, `enriched`, `generated`, `validated`, `imported`, `reviewed`, `published` o `error`. `qualityTier`, `qualityAssessedAt`, `qualityReasons` y `missingUsefulFacts` son metadata y no una etapa nueva. También conserva fechas de cada transición. Una ejecución normal no recalcula fases completadas; `--force` recalcula la fase elegida e invalida sus fases posteriores. La importación real marca `importedAt`, pero una importación `--dry-run` no modifica el manifest.
 

@@ -33,7 +33,7 @@ export async function runEnrichment(options: PipelineOptions, root = process.cwd
       let websiteMessage: string | undefined
       if (base.facts.website.value) {
         try {
-          websiteResult = await officialWebsite.enrich(base.facts.website.value, now)
+          websiteResult = await officialWebsite.enrich(base.facts.website.value, now, {expectedName: base.facts.name.value})
         } catch (error) {
           websiteMessage = `Web oficial no enriquecida: ${error instanceof Error ? error.message : String(error)}`
         }

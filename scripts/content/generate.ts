@@ -108,7 +108,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
 function allowedSections(entity: EnrichedEntity): EditorialSection[] {
   const facts = entity.facts
-  const present = (field: keyof typeof facts) => facts[field].value !== null && facts[field].sources.length > 0
+  const present = (field: keyof typeof facts) => Boolean(facts[field]?.value !== null && facts[field]?.sources.length)
   const sections: EditorialSection[] = ['overview']
   if (present('cuisine') || present('specialties') || present('concept')) sections.push('food')
   if (present('terrace') || present('distinctiveFeatures')) sections.push('experience')

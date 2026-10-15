@@ -6,6 +6,7 @@ import {readJson, writeJsonAtomic} from '../content/lib/files'
 import {parseComparisonOptions} from './lib/cli'
 import {evaluateComparisonDataGate} from './lib/gate'
 import {buildComparisonArtifact, COMPARISON_EDITORIAL_INSTRUCTIONS} from './lib/generation'
+import {writeComparisonReport} from './lib/reporting'
 import type {ComparisonOptions, EnrichedComparisonArtifact} from './lib/types'
 
 export async function runComparisonGeneration(
@@ -35,7 +36,7 @@ export async function runComparisonGeneration(
   }
   if (!options.dryRun) {
     await writeJsonAtomic(destination, artifact)
-    await writeJsonAtomic(resolve(root, 'content/reports/comparison-generation.json'), report)
+    await writeComparisonReport({topic: enriched.topic, phase: 'comparison-generation', report, root, invalidateDownstream: options.force})
   }
   console.log(`comparison-generation${options.dryRun ? ' (dry-run)' : ''}: entries=${editorial.entries.length}, claims=${editorial.claims.length}`)
 }

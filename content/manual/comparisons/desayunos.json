@@ -1,0 +1,79 @@
+{
+  "topic": "desayunos",
+  "sources": [
+    {
+      "key": "restaurantguru:my-bakery-benidorm",
+      "provider": "restaurantguru",
+      "identifier": "My-Bakery-by-3Daniels-Cake-Benidorm",
+      "url": "https://restaurantguru.com/My-Bakery-by-3Daniels-Cake-Benidorm",
+      "retrievedAt": "2026-10-15T00:00:00.000Z",
+      "attribution": "Restaurant Guru",
+      "licenseUrl": null,
+      "sourceClass": "third-party",
+      "claimScope": "establishment"
+    },
+    {
+      "key": "carta-menu:my-bakery-benidorm",
+      "provider": "carta.menu",
+      "identifier": "my-bakery-by-3daniels-cake",
+      "url": "https://carta.menu/restaurants/benidorm/my-bakery-by-3daniels-cake",
+      "retrievedAt": "2026-10-15T00:00:00.000Z",
+      "attribution": "carta.menu",
+      "licenseUrl": null,
+      "sourceClass": "third-party",
+      "claimScope": "establishment"
+    },
+    {
+      "key": "wanderlog:caffe-trieste-3266133",
+      "provider": "wanderlog",
+      "identifier": "3266133/caffe-trieste-espana-srl",
+      "url": "https://wanderlog.com/es/place/details/3266133/caffe-trieste-espa%C3%B1a-srl",
+      "retrievedAt": "2026-10-15T00:00:00.000Z",
+      "attribution": "Wanderlog",
+      "licenseUrl": null,
+      "sourceClass": "third-party",
+      "claimScope": "establishment"
+    }
+  ],
+  "businesses": [
+    {
+      "businessId": "business-my-bakery",
+      "identity": {
+        "businessId": "business-my-bakery",
+        "name": "My Bakery",
+        "address": "Avenida del Doctor Orts Llorca 19, 03503 Benidorm",
+        "phone": "+34966889185",
+        "domain": "mybakerybenidorm.com"
+      },
+      "operationalSignals": [
+        {
+          "status": "temporarily_closed",
+          "observedAt": "2026-10-15",
+          "sourceKeys": ["restaurantguru:my-bakery-benidorm"]
+        },
+        {
+          "status": "closed",
+          "observedAt": "2026-10-15",
+          "sourceKeys": ["carta-menu:my-bakery-benidorm"]
+        }
+      ],
+      "evidence": {}
+    },
+    {
+      "businessId": "business-caffe-trieste",
+      "identity": {
+        "businessId": "business-caffe-trieste",
+        "name": "Caffe Trieste España Srl",
+        "address": "Carrer de la Biga 1, 03501 Benidorm"
+      },
+      "operationalSignals": [
+        {
+          "status": "closed",
+          "observedAt": "2026-10-15",
+          "sourceKeys": ["wanderlog:caffe-trieste-3266133"]
+        }
+      ],
+      "evidence": {}
+    }
+  ]
+}

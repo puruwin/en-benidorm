@@ -21,9 +21,14 @@
     "comparison:enrich": "node --import tsx scripts/comparison/enrich.ts",
     "comparison:generate": "node --import tsx scripts/comparison/generate.ts",
     "comparison:qa": "node --import tsx scripts/comparison/qa.ts",
+    "content-lab": "node tools/content-lab/dev.mjs",
+    "content-lab:web": "vite --config tools/content-lab/web/vite.config.ts",
+    "content-lab:api": "node --import tsx tools/content-lab/api/src/server.ts",
+    "content-lab:build": "vite build --config tools/content-lab/web/vite.config.ts",
+    "content-lab:test": "node --import tsx --test tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "content:import": "node --import tsx scripts/import-content.ts",
     "content:validate": "node --import tsx scripts/validate-content.ts",
-    "test": "node --import tsx --test scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts",
+    "test": "node --import tsx --test scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "sanity:schema:validate": "sanity schema validate",
     "sanity:schema:extract": "sanity schema extract --path schema.json --force",
     "typegen": "npm run sanity:schema:extract && sanity typegen generate"
@@ -34,7 +39,10 @@
     "@sanity/image-url": "latest",
     "@tailwindcss/vite": "latest",
     "astro": "latest",
+    "fastify": "^5.12.5",
     "groq": "latest",
+    "parse5": "^8.0.1",
+    "pdfjs-dist": "^6.4.299",
     "tailwindcss": "latest"
   },
   "devDependencies": {
@@ -43,11 +51,13 @@
     "@sanity/vision": "6.17.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "^6.1.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "sanity": "6.17.0",
     "styled-components": "^6.5.3",
     "tsx": "^4.23.15",
-    "typescript": "latest"
+    "typescript": "latest",
+    "vite": "^8.3.3"
   }
 }

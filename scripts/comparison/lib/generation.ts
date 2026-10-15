@@ -14,6 +14,8 @@ export const COMPARISON_EDITORIAL_INSTRUCTIONS = [
   'Usa lenguaje natural: “la carta incluye”, “figura a” o “no encontramos”; evita documentado, registra, evidencia y según la información publicada.',
   'practicalNotes debe usar formato compacto, por ejemplo “Mi–Sá: 13:30–16:30 / 20:30–23:00”, “Zona: …” o “Reservas: online”.',
   'No afirmes visitas ni experiencias personales. Indica que no todos los locales han sido visitados personalmente.',
+  'No presentes un establecimiento como abierto salvo que operationalStatus sea open y no requiera verificación; un estado unknown o contradictorio debe conservar cautela editorial.',
+  'Las observaciones manuales son soporte interno: no menciones al observador, sourceStage, IDs internos ni que una persona concreta visitó el local.',
   'Conserva source y retrievedAt de cada featuredItem; los precios deben llevar fecha de comprobación.',
   'No inventes inconvenientes; limitations debe quedar vacío sin evidence explícita y usar lenguaje humano como “No encontramos precios publicados”.',
 ]

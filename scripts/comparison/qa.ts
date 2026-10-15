@@ -4,6 +4,7 @@ import type {ContentDocument} from '../content-validation'
 import {loadJsonDirectory, readJson, removeFileIfExists, writeJsonAtomic} from '../content/lib/files'
 import {parseComparisonOptions} from './lib/cli'
 import {inspectComparison} from './lib/qa'
+import {writeComparisonReport} from './lib/reporting'
 import type {ComparisonOptions, EnrichedComparisonArtifact, GeneratedComparisonArtifact} from './lib/types'
 
 export async function runComparisonQA(options: ComparisonOptions, root = process.cwd(), now = new Date().toISOString()): Promise<void> {
@@ -21,7 +22,7 @@ export async function runComparisonQA(options: ComparisonOptions, root = process
     await writeJsonAtomic(stagingPath, generated)
     if (result.outcome === 'FAIL') await removeFileIfExists(destination)
     else await writeJsonAtomic(destination, generated.document)
-    await writeJsonAtomic(resolve(root, 'content/reports/comparison-qa.json'), {
+    await writeComparisonReport({topic: result.topic, phase: 'comparison-qa', root, invalidateDownstream: options.force, report: {
       phase: 'comparison-qa', dryRun: false, startedAt: now, finishedAt: new Date().toISOString(),
       topic: result.topic, qaOutcome: result.outcome, claimsGenerated: result.claimsGenerated, claimsRejected: result.claimsRejected,
       searchIntent: generated.searchIntent, searchIntentSatisfied: result.searchIntentSatisfied,
@@ -33,7 +34,7 @@ export async function runComparisonQA(options: ComparisonOptions, root = process
         INDEXABILITY: result.indexability === 'index' ? 'PASS' : 'FAIL',
       },
       coverage: result.coverage, issues: result.issues,
-    })
+    }})
   }
   console.log(`comparison-qa${options.dryRun ? ' (dry-run)' : ''}: outcome=${result.outcome}, claims=${result.claimsGenerated}, rejected=${result.claimsRejected}, issues=${result.issues.length}`)
   for (const issue of result.issues) console.error(`- ${issue.severity} ${issue.code} ${issue.path}: ${issue.message}`)
