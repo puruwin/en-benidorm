@@ -28,14 +28,18 @@ test('discovery separa primitivas y filtra contra el polígono municipal', async
 
 test('el query evita nwr/area y consulta una primitiva sobre el bbox de control', () => {
   const query = buildOverpassQuery('restaurant', undefined, 'way')
-  assert.match(query, /way\["name"\]\["amenity"="restaurant"\]/)
+  assert.match(query, /way\["name"\]\["amenity"~"\^\(restaurant\|fast_food\|food_court\)\$"\]/)
   assert.doesNotMatch(query, /nwr|area\(/)
 })
 
-test('servicios profesionales usa office y admite un bbox configurable', () => {
+test('servicios amplía office con craft, healthcare, amenity y leisure en un bbox configurable', () => {
   const query = buildOverpassQuery('service', undefined, 'node', [38.5, -0.18, 38.6, -0.06])
   assert.match(query, /node\["name"\]\["office"\]\(38\.5,-0\.18,38\.6,-0\.06\)/)
-  assert.doesNotMatch(query, /amenity|shop/)
+  assert.match(query, /\["craft"\]/)
+  assert.match(query, /\["healthcare"\]/)
+  assert.match(query, /\["amenity"~/)
+  assert.match(query, /\["leisure"~/)
+  assert.doesNotMatch(query, /\["shop"\]/)
 })
 
 test('OfficialWebsiteAdapter extrae sólo facts verificables y conserva provenance por página', async () => {

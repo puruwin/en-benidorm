@@ -7,6 +7,9 @@ import {createManifestEntry, findBySource, loadManifest, markSelectedForResearch
 import {deduplicateBy, deterministicBusinessId, entityFingerprint, slugify, uniqueSlug} from './lib/normalize'
 import {createReport, finishReport} from './lib/reporting'
 import {findProbableDuplicates} from './lib/discovery-identity'
+import {classifyBusiness} from './lib/business-taxonomy'
+import {classifyGeography} from './lib/discovery-geography'
+import {calculateDiscoveryCoverage, writeDiscoveryCoverage} from './lib/discovery-coverage'
 import type {ContentManifest, DiscoveredEntity, DiscoveryCategory, DiscoveryRun, PhaseReportItem} from './lib/types'
 
 export async function runDiscovery(
@@ -83,6 +86,23 @@ export async function runDiscovery(
   }
 
   if (!options.dryRun && runStatus !== 'failed' && runStatus !== 'anomalous-empty') await saveManifest(manifest, root, now)
+  if (!options.dryRun) {
+    const catalog = (await loadJsonDirectory<DiscoveredEntity>(resolve(root, 'content/discovered'))).map(({value}) => value)
+    const normalizedCatalog: DiscoveredEntity[] = []
+    for (const entity of catalog) {
+      const normalized = withDiscoveryMetadata(entity)
+      normalizedCatalog.push(normalized)
+      if (JSON.stringify(entity.businessClassification) !== JSON.stringify(normalized.businessClassification)
+        || JSON.stringify(entity.geography) !== JSON.stringify(normalized.geography)) {
+        await writeJsonAtomic(resolve(root, `content/discovered/${entity.id}.json`), normalized)
+      }
+    }
+    const catalogDuplicates = findCatalogDuplicates(normalizedCatalog)
+    await writeDiscoveryCoverage(calculateDiscoveryCoverage(
+      normalizedCatalog, catalogDuplicates, now, geography.name,
+      [...existingArtifacts.values()].filter((entity) => entity.targetDocumentType === 'business').length,
+    ), root)
+  }
   const report = createReport('discovery', options.dryRun, now, items)
   report.summary = {
     found: rawRecords.length, unique: records.length, new: created, existing: updated,
@@ -175,7 +195,7 @@ export function mergeDiscoveredEntity(
   geographicScope: string,
 ): DiscoveredEntity {
   const firstSeenAt = existing?.discovery?.firstSeenAt ?? now
-  return {
+  return withDiscoveryMetadata({
     ...(existing ?? {}), ...incoming, schemaVersion: 2,
     priority: Math.max(existing?.priority ?? 0, incoming.priority),
     sources: mergeSources(existing?.sources ?? [], incoming.sources),
@@ -190,7 +210,25 @@ export function mergeDiscoveredEntity(
       categories: [...new Set([...(existing?.discovery?.categories ?? []), ...categories])],
       geographicScopes: [...new Set([...(existing?.discovery?.geographicScopes ?? []), geographicScope])],
     },
+  })
+}
+
+export function withDiscoveryMetadata(entity: DiscoveredEntity): DiscoveredEntity {
+  return {
+    ...entity,
+    businessClassification: classifyBusiness(entity.raw.tags),
+    geography: classifyGeography(entity.raw.tags, entity.raw.latitude, entity.raw.longitude),
   }
+}
+
+export function findCatalogDuplicates(entities: readonly DiscoveredEntity[]) {
+  const result: ReturnType<typeof findProbableDuplicates> = []
+  for (let index = 0; index < entities.length; index += 1) {
+    const incoming = entities[index]!
+    const record: SourceRecord = {type: incoming.type, priority: incoming.priority, sources: incoming.sources, raw: incoming.raw}
+    result.push(...findProbableDuplicates([record], entities.slice(index + 1)))
+  }
+  return result
 }
 
 function mergeSources(existing: import('./lib/types').SourceProvenance[], incoming: import('./lib/types').SourceProvenance[]): import('./lib/types').SourceProvenance[] {

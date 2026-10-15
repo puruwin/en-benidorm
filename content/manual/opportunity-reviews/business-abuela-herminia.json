@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-abuela-herminia",
+  "reviewedAt": "2026-10-15T15:20:00.000Z",
+  "reviewedBy": "codex-p3a3-pilot",
+  "workflowStatus": "rejected",
+  "operationalStatus": "confirmed-closed",
+  "identityStatus": "conflict",
+  "officialPresence": {"website": "not-found", "googleProfile": "not-checked", "socialProfiles": "not-checked"},
+  "contactChannels": {},
+  "reviewedSourceKeys": ["openstreetmap:node/9111435217"],
+  "notes": "El snapshot OSM disponible conserva old_name y shop=vacant. Se descarta comercialmente; no se elimina ni reescribe la evidencia automática."
+}

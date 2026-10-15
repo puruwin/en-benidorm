@@ -12,6 +12,18 @@ export interface GeographicScope {
   boundaryRelationId?: number
 }
 
+export interface DiscoveredBusinessClassification {
+  sector: import('./business-taxonomy').BusinessSector
+  subsector: string
+  matches: Array<{sector: import('./business-taxonomy').BusinessSector; subsector: string; osmTag: string}>
+}
+
+export interface DiscoveredGeography {
+  municipality: 'Benidorm' | 'La Nucía' | "l'Alfàs del Pi" | 'unknown'
+  zone: 'Benidorm' | 'La Nucía' | "l'Alfàs del Pi" | 'Albir' | 'unknown'
+  confidence: 'tag' | 'coordinates' | 'unknown'
+}
+
 export const BUSINESS_KINDS = ['restaurant', 'bar', 'pub', 'cafe', 'hotel', 'shop', 'service'] as const
 export type BusinessKind = (typeof BUSINESS_KINDS)[number]
 
@@ -90,8 +102,8 @@ export interface DiscoveryUnitResult {
 export interface ProbableDuplicate {
   incomingSourceKeys: string[]
   existingBusinessId: string
-  confidence: 'strong' | 'probable'
-  signals: Array<'name' | 'proximity' | 'phone' | 'domain'>
+  confidence: 'exact' | 'strong-probable' | 'probable' | 'unresolved'
+  signals: Array<'name' | 'phone' | 'domain' | 'address' | 'coordinates'>
   distanceMeters?: number
 }
 
@@ -201,6 +213,9 @@ export interface DiscoveredEntity {
     latitude: number | null
     longitude: number | null
   }
+  /** Commercial classification is additive and is not consumed by Selection/Comparison. */
+  businessClassification?: DiscoveredBusinessClassification
+  geography?: DiscoveredGeography
   /** Snapshot metadata; the manifest is the canonical lifecycle/identity index. */
   discovery?: Pick<DiscoveryLifecycle, 'firstSeenAt' | 'lastSeenAt' | 'categories' | 'geographicScopes'>
 }

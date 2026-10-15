@@ -3,6 +3,8 @@ import {basename, resolve} from 'node:path'
 import type {ArtifactResponse, ComparisonPhaseState, ComparisonSummary, PipelinePhase} from '../../shared/types'
 import {PIPELINE_PHASES, isCurrentPhase} from '../../shared/workflow'
 import {validateTopic} from './validation'
+import {evaluateOpportunityReview} from '../../../../scripts/opportunities/lib/reviews'
+import type {OpportunityReview} from '../../../../scripts/opportunities/lib/types'
 
 type Json = Record<string, any>
 
@@ -16,6 +18,11 @@ const paths = {
   globalReport: (phase: PipelinePhase) => `content/reports/comparison-${phase}.json`,
   opportunities: 'content/reports/opportunities/latest.json',
   opportunity: (businessId: string) => `content/opportunities/${businessId}.json`,
+  opportunityReview: (businessId: string) => `content/manual/opportunity-reviews/${businessId}.json`,
+  verification: (businessId: string) => `content/verification/${businessId}.json`,
+  manifest: 'content/manifest.json',
+  discovered: (businessId: string) => `content/discovered/${businessId}.json`,
+  enrichedBusiness: (businessId: string) => `content/enriched/${businessId}.json`,
 }
 
 export class ArtifactLoader {
@@ -63,8 +70,29 @@ export class ArtifactLoader {
   }
 
   async evidence(topic: unknown) { return this.enrichment(topic) }
-  async opportunities() { return this.readKnown(paths.opportunities) }
+  async opportunities() {
+    const artifact = await this.readKnown(paths.opportunities)
+    if (artifact.status !== 'available') return artifact
+    const data = artifact.data as Json
+    const analyses = Array.isArray(data.analyses) ? await Promise.all(data.analyses.map(async (analysis: Json) => {
+      const review = await this.readKnown<OpportunityReview>(paths.opportunityReview(analysis.businessId))
+      return {...analysis, reviewState: evaluateOpportunityReview(review.data).workflowStatus}
+    })) : []
+    const reviewStateCounts: Record<string, number> = {}
+    for (const analysis of analyses) reviewStateCounts[analysis.reviewState] = (reviewStateCounts[analysis.reviewState] ?? 0) + 1
+    return {...artifact, data: {...data, analyses, reviewStateCounts}}
+  }
   async opportunity(businessId: string) { return this.readKnown(paths.opportunity(businessId)) }
+  async opportunityReview(businessId: string) { return this.readKnown<OpportunityReview>(paths.opportunityReview(businessId)) }
+  async verification(businessId: string) { return this.readKnown(paths.verification(businessId)) }
+  async opportunityContext(businessId: string) {
+    const [analysis, review, verification, manifest, discovered, enriched] = await Promise.all([
+      this.opportunity(businessId), this.opportunityReview(businessId), this.verification(businessId),
+      this.readKnown(paths.manifest), this.readKnown(paths.discovered(businessId)), this.readKnown(paths.enrichedBusiness(businessId)),
+    ])
+    const entry = manifest.status === 'available' ? (manifest.data as Json).entries?.find((item: Json) => item.id === businessId) : undefined
+    return {analysis, review, verification, reviewEvaluation: evaluateOpportunityReview(review.data), identity: {entry: entry ?? null, discovered: discovered.data ?? null, enriched: enriched.data ?? null}}
+  }
 
   async topics(): Promise<ComparisonSummary[]> {
     const topics = new Set<string>()

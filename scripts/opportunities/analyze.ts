@@ -4,7 +4,9 @@ import {DISCOVERY_CATEGORIES, type ContentManifest, type DiscoveredEntity, type 
 import {loadManifest} from '../content/lib/manifest'
 import {loadJsonDirectory, readJsonIfExists, writeJsonAtomic} from '../content/lib/files'
 import {analyzeOpportunity, categoryFor, opportunityFingerprint, type OpportunityEvidence} from './lib/analysis'
-import type {OpportunityAnalysis, OpportunityArea, OpportunityReport, OpportunitySignalType} from './lib/types'
+import {effectiveReviewState, validateOpportunityReview} from './lib/reviews'
+import type {OpportunityAnalysis, OpportunityArea, OpportunityReport, OpportunityReview, OpportunityReviewWorkflowStatus, OpportunitySignalType} from './lib/types'
+import type {VerificationArtifact} from './lib/verification-types'
 
 export interface OpportunityOptions {
   root?: string
@@ -44,21 +46,26 @@ export async function runOpportunityAnalysis(options: OpportunityOptions = {}): 
     ...(options.area ? {area: options.area} : {}),
     ...(options.limit ? {limit: options.limit} : {}),
   }
-  const report = buildReport(analyses, reusedUnchanged, filters, now)
+  const reviewStates = new Map(selected.map((item) => [item.entry.id, effectiveReviewState(item.review, now)]))
+  const report = buildReport(analyses, reusedUnchanged, filters, reviewStates, now)
   await writeJsonAtomic(resolve(root, 'content/reports/opportunities/latest.json'), report)
   return report
 }
 
 async function loadEvidence(root: string, manifest: ContentManifest): Promise<OpportunityEvidence[]> {
-  const [discoveredFiles, enrichedFiles, comparisonFiles, discoveryReports] = await Promise.all([
+  const [discoveredFiles, enrichedFiles, comparisonFiles, discoveryReports, reviewFiles, verificationFiles] = await Promise.all([
     loadJsonDirectory<DiscoveredEntity>(resolve(root, 'content/discovered')),
     loadJsonDirectory<EnrichedEntity>(resolve(root, 'content/enriched')),
     loadJsonDirectory<any>(resolve(root, 'content/comparisons/enriched')),
     loadJsonDirectory<DiscoveryRun>(resolve(root, 'content/reports/discovery-runs')),
+    loadJsonDirectory<OpportunityReview>(resolve(root, 'content/manual/opportunity-reviews')),
+    loadJsonDirectory<VerificationArtifact>(resolve(root, 'content/verification')),
   ])
   const discovered = new Map(discoveredFiles.map(({value}) => [value.id, value]))
   const enriched = new Map(enrichedFiles.map(({value}) => [value.id, value]))
   const comparisons = new Map<string, NonNullable<OpportunityEvidence['comparison']>>()
+  const reviews = new Map(reviewFiles.map(({value}) => [value.businessId, value]))
+  const verifications = new Map(verificationFiles.map(({value}) => [value.businessId, value]))
   for (const {value} of comparisonFiles) {
     for (const business of value.businesses ?? []) {
       const current = comparisons.get(business.businessId) ?? {integrityIssues: []}
@@ -80,7 +87,16 @@ async function loadEvidence(root: string, manifest: ContentManifest): Promise<Op
     const enrichedEntity = enriched.get(entry.id)
     const comparison = comparisons.get(entry.id)
     const probableDuplicateSourceKeys = duplicateSources.get(entry.id)
-    return {entry, ...(discoveredEntity ? {discovered: discoveredEntity} : {}), ...(enrichedEntity ? {enriched: enrichedEntity} : {}), ...(comparison ? {comparison} : {}), ...(probableDuplicateSourceKeys ? {probableDuplicateSourceKeys} : {})}
+    const rawReview = reviews.get(entry.id)
+    const verification = verifications.get(entry.id)
+    const availableSourceKeys = new Set([
+      ...entry.sources.map((source) => source.key),
+      ...(discoveredEntity?.sources.map((source) => source.key) ?? []),
+      ...(enrichedEntity?.sources.map((source) => source.key) ?? []),
+      ...(verification?.sources.map((source) => source.key) ?? []),
+    ])
+    const review = rawReview ? validateOpportunityReview(rawReview, entry.id, availableSourceKeys) : undefined
+    return {entry, ...(discoveredEntity ? {discovered: discoveredEntity} : {}), ...(enrichedEntity ? {enriched: enrichedEntity} : {}), ...(comparison ? {comparison} : {}), ...(probableDuplicateSourceKeys ? {probableDuplicateSourceKeys} : {}), ...(review ? {review} : {}), ...(verification ? {verification} : {})}
   })
 }
 
@@ -111,7 +127,7 @@ function selectEntries(items: OpportunityEvidence[], options: OpportunityOptions
   return result
 }
 
-function buildReport(analyses: OpportunityAnalysis[], reusedUnchanged: number, filters: OpportunityReport['selection']['filters'], now: string): OpportunityReport {
+function buildReport(analyses: OpportunityAnalysis[], reusedUnchanged: number, filters: OpportunityReport['selection']['filters'], reviewStates: ReadonlyMap<string, OpportunityReviewWorkflowStatus>, now: string): OpportunityReport {
   const signalCounts: Partial<Record<OpportunitySignalType, number>> = {}
   const opportunityAreaCounts: Partial<Record<OpportunityArea, number>> = {}
   for (const analysis of analyses) {
@@ -120,6 +136,11 @@ function buildReport(analyses: OpportunityAnalysis[], reusedUnchanged: number, f
   }
   const signals = analyses.reduce((sum, item) => sum + item.provenance.totalSignals, 0)
   const coveredSignals = analyses.reduce((sum, item) => sum + item.provenance.coveredSignals, 0)
+  const reviewStateCounts: OpportunityReport['reviewStateCounts'] = {}
+  for (const analysis of analyses) {
+    const state = reviewStates.get(analysis.businessId) ?? 'unreviewed'
+    reviewStateCounts[state] = (reviewStateCounts[state] ?? 0) + 1
+  }
   return {
     schemaVersion: 1, generatedAt: now,
     selection: {
@@ -131,11 +152,12 @@ function buildReport(analyses: OpportunityAnalysis[], reusedUnchanged: number, f
     actionableHypotheses: analyses.reduce((sum, item) => sum + item.hypotheses.length, 0),
     needsReview: analyses.filter((item) => item.status === 'needs-review').length,
     notActionable: analyses.filter((item) => item.status === 'not-actionable').length,
+    reviewStateCounts,
     signalCounts, opportunityAreaCounts,
     businessesWithoutOfficialWebsite: analyses.filter((item) => item.signals.some((signal) => signal.type === 'no_official_website_found')).map((item) => item.businessId),
     businessesWithIdentityOrStatusConflicts: analyses.filter((item) => item.signals.some((signal) => ['identity_conflict', 'probable_duplicate', 'operational_status_unknown', 'operational_status_conflict'].includes(signal.type))).map((item) => item.businessId),
     provenanceCoverage: {signals, coveredSignals, ratio: signals ? coveredSignals / signals : 0},
-    analyses: analyses.map(({businessId, businessName, category, status, signals: itemSignals, hypotheses, suggestedActions, summary}) => ({businessId, businessName, category, status, signals: itemSignals, hypotheses, suggestedActions, summary})),
+    analyses: analyses.map(({businessId, businessName, category, status, signals: itemSignals, hypotheses, suggestedActions, summary}) => ({businessId, businessName, category, status, signals: itemSignals, hypotheses, suggestedActions, summary, reviewState: reviewStates.get(businessId) ?? 'unreviewed'})),
   }
 }
 

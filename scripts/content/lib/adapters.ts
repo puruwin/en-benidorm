@@ -4,6 +4,7 @@ import {loadEnvFile} from 'node:process'
 import {ENTITY_TYPES, type BusinessFacts, type CommercialItem, type DiscoveryAttempt, type DiscoveryCategory, type DiscoveryRunStatus, type DiscoveryUnitResult, type EntityType, type Fact, type GeographicScope, type SourceProvenance} from './types'
 import {readJsonIfExists, writeJsonAtomic} from './files'
 import {shortHash, sourceKey} from './normalize'
+import {DISCOVERY_AREAS} from './discovery-geography'
 import {crawlOfficialWebsite, htmlToEvidenceText, type CrawledWebsitePage, type WebsiteCrawlerOptions} from './website-crawler'
 import {extractCommercialInformation, type CommercialExtractionSummary} from './commercial-extractor'
 
@@ -32,6 +33,13 @@ export interface SourceAdapter {
   readonly provider: string
   discover(request: DiscoveryRequest): Promise<SourceRecord[]>
   discoverDetailed?(request: DiscoveryRequest): Promise<DiscoveryAdapterOutput>
+}
+
+/** Reusable provider boundary. SourceAdapter remains as the legacy injection contract. */
+export interface DiscoveryProvider extends SourceAdapter {
+  readonly id: string
+  normalize(input: unknown, request: DiscoveryRequest): SourceRecord[]
+  provenance(identifier: string, request: DiscoveryRequest, datasetSource?: string): SourceProvenance
 }
 
 export interface DiscoveryAdapterOutput {
@@ -136,11 +144,10 @@ const DEFAULT_OVERPASS_URLS = [
   'https://overpass.kumi.systems/api/interpreter',
   'https://overpass-api.de/api/interpreter',
 ] as const
-export const BENIDORM_SCOPE: GeographicScope = {
-  name: 'Benidorm', bbox: [38.5011769, -0.1869109, 38.6101333, -0.0667580], boundaryRelationId: 341148,
-}
+export const BENIDORM_SCOPE: GeographicScope = DISCOVERY_AREAS.benidorm
 
-export class OpenStreetMapAdapter implements SourceAdapter {
+export class OpenStreetMapAdapter implements DiscoveryProvider {
+  readonly id = 'openstreetmap'
   readonly provider = 'openstreetmap'
   private readonly endpoints: readonly string[]
 
@@ -270,7 +277,7 @@ export class OpenStreetMapAdapter implements SourceAdapter {
           continue
         }
         attempts.push({endpoint, startedAt, finishedAt: new Date().toISOString(), outcome: 'success', statusCode: response.status})
-        const records = payload.elements.flatMap((element) => this.toSourceRecord(element, retrievedAt, endpoint))
+        const records = payload.elements.flatMap((element) => this.normalize(element, {retrievedAt, geography: {name: 'query-unit', bbox: unit.bbox}}, endpoint))
         return {records, unit: {...unitResult(unit, 'success', records.length, attempts), query}}
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error)
@@ -282,7 +289,9 @@ export class OpenStreetMapAdapter implements SourceAdapter {
     return {records: [], unit: {...unitResult(unit, 'failed', 0, attempts), query}}
   }
 
-  private toSourceRecord(element: OverpassElement, retrievedAt: string, endpoint: string): SourceRecord[] {
+  normalize(input: unknown, request: DiscoveryRequest, datasetSource?: string): SourceRecord[] {
+    if (!isOverpassElement(input)) return []
+    const element = input
     const tags = element.tags ?? {}
     const type = osmEntityType(tags)
     const name = tags.name?.trim()
@@ -290,18 +299,7 @@ export class OpenStreetMapAdapter implements SourceAdapter {
     const identifier = `${element.type}/${element.id}`
     const lat = element.lat ?? element.center?.lat ?? null
     const lon = element.lon ?? element.center?.lon ?? null
-    const source: SourceProvenance = {
-      key: sourceKey(this.provider, identifier),
-      provider: this.provider,
-      identifier,
-      url: `https://www.openstreetmap.org/${identifier}`,
-      retrievedAt,
-      attribution: '© OpenStreetMap contributors',
-      licenseUrl: 'https://www.openstreetmap.org/copyright',
-      sourceClass: 'open-data',
-      claimScope: 'establishment',
-      dataset: {kind: 'overpass-api', name: 'OpenStreetMap via Overpass API', sourceUrl: endpoint},
-    }
+    const source = this.provenance(identifier, request, datasetSource)
     return [{
       type,
       priority: sourcePriority(tags),
@@ -309,9 +307,20 @@ export class OpenStreetMapAdapter implements SourceAdapter {
       raw: {name, tags, latitude: lat, longitude: lon},
     }]
   }
+
+  provenance(identifier: string, request: DiscoveryRequest, datasetSource?: string): SourceProvenance {
+    return {
+      key: sourceKey(this.provider, identifier), provider: this.provider, identifier,
+      url: `https://www.openstreetmap.org/${identifier}`, retrievedAt: request.retrievedAt,
+      attribution: '© OpenStreetMap contributors', licenseUrl: 'https://www.openstreetmap.org/copyright',
+      sourceClass: 'open-data', claimScope: 'establishment',
+      dataset: {kind: 'overpass-api', name: 'OpenStreetMap via Overpass API', sourceUrl: datasetSource ?? null},
+    }
+  }
 }
 
-export class LocalOsmExtractAdapter implements SourceAdapter {
+export class LocalOsmExtractAdapter implements DiscoveryProvider {
+  readonly id = 'openstreetmap'
   readonly provider = 'openstreetmap'
 
   constructor(
@@ -328,7 +337,7 @@ export class LocalOsmExtractAdapter implements SourceAdapter {
     if (!Array.isArray(parsed.elements)) throw new Error('El extracto OSM local debe ser JSON Overpass con elements[].')
     const geography = request.geography ?? BENIDORM_SCOPE
     const wanted = new Set(request.type ? [request.type] : typesForCategories(request.categories))
-    const records = parsed.elements.flatMap((element) => localExtractRecord(element, request.retrievedAt, this.path, this.metadata))
+    const records = parsed.elements.flatMap((element) => this.normalize(element, request))
       .filter((record) => wanted.has(record.type) && insideBbox(record, geography.bbox))
     const unit: DiscoveryUnitResult = {
       key: `extract:${resolve(this.path)}`, type: request.type ?? 'mixed', primitive: 'extract', bbox: geography.bbox,
@@ -336,9 +345,19 @@ export class LocalOsmExtractAdapter implements SourceAdapter {
     }
     return {records, status: records.length ? 'success' : 'anomalous-empty', units: [unit], checkpointPath: null, resumedUnits: 0}
   }
+
+  normalize(input: unknown, request: DiscoveryRequest): SourceRecord[] {
+    if (!isOverpassElement(input)) return []
+    return localExtractRecord(input, request.retrievedAt, this.path, this.metadata)
+  }
+
+  provenance(identifier: string, request: DiscoveryRequest): SourceProvenance {
+    return osmExtractProvenance(identifier, request.retrievedAt, this.path, this.metadata)
+  }
 }
 
-export class ManualJsonAdapter implements SourceAdapter {
+export class ManualJsonAdapter implements DiscoveryProvider {
+  readonly id = 'manual-json'
   readonly provider = 'manual-json'
 
   constructor(private readonly path: string) {}
@@ -348,6 +367,15 @@ export class ManualJsonAdapter implements SourceAdapter {
     if (!Array.isArray(parsed)) throw new Error('ManualJsonAdapter requiere un array JSON.')
     return parsed.map((item, index) => parseManualRecord(item, index, request.retrievedAt))
       .filter((item) => !request.type || item.type === request.type)
+  }
+
+  normalize(input: unknown, request: DiscoveryRequest): SourceRecord[] {
+    return [parseManualRecord(input, 0, request.retrievedAt)]
+  }
+
+  provenance(identifier: string, request: DiscoveryRequest): SourceProvenance {
+    return {key: sourceKey(this.provider, identifier), provider: this.provider, identifier, url: null,
+      retrievedAt: request.retrievedAt, attribution: 'Fuente manual', licenseUrl: null, sourceClass: 'third-party', claimScope: 'unknown'}
   }
 }
 
@@ -366,23 +394,28 @@ export function buildOverpassQuery(
 }
 
 function selectorsFor(type: EntityType): string[] {
-  if (type === 'restaurant') return ['["amenity"="restaurant"]']
+  if (type === 'restaurant') return ['["amenity"~"^(restaurant|fast_food|food_court)$"]']
   if (type === 'bar') return ['["amenity"~"^(bar|pub)$"]']
   if (type === 'cafe') return ['["amenity"="cafe"]']
-  if (type === 'hotel') return ['["tourism"="hotel"]']
-  if (type === 'attraction') return ['["tourism"="attraction"]']
+  if (type === 'hotel') return ['["tourism"~"^(hotel|hostel|guest_house|motel|apartment|camp_site|caravan_site)$"]']
+  if (type === 'attraction') return ['["tourism"~"^(attraction|museum|theme_park|information)$"]', '["leisure"="water_park"]']
   if (type === 'shop') return ['["shop"]']
-  return ['["office"]']
+  return [
+    '["office"]', '["craft"]', '["healthcare"]',
+    '["amenity"~"^(dentist|clinic|doctors|veterinary|physiotherapist|car_wash|car_rental|driving_school|language_school|music_school|childcare|kindergarten|college)$"]',
+    '["leisure"~"^(fitness_centre|sports_centre|spa)$"]',
+  ]
 }
 
 function osmEntityType(tags: Record<string, string>): EntityType | undefined {
-  if (tags.amenity === 'restaurant') return 'restaurant'
-  if (tags.amenity === 'bar' || tags.amenity === 'pub') return 'bar'
-  if (tags.amenity === 'cafe') return 'cafe'
-  if (tags.tourism === 'hotel') return 'hotel'
-  if (tags.tourism === 'attraction') return 'attraction'
+  if (['restaurant', 'fast_food', 'food_court'].includes(tags.amenity ?? '')) return 'restaurant'
+  if (['bar', 'pub', 'biergarten'].includes(tags.amenity ?? '')) return 'bar'
+  if (tags.amenity === 'cafe' || tags.amenity === 'ice_cream') return 'cafe'
+  if (['hotel', 'hostel', 'guest_house', 'motel', 'apartment', 'camp_site', 'caravan_site'].includes(tags.tourism ?? '')) return 'hotel'
+  if (['attraction', 'museum', 'theme_park', 'information'].includes(tags.tourism ?? '') || tags.leisure === 'water_park') return 'attraction'
   if (tags.shop) return 'shop'
-  if (tags.office) return 'service'
+  if (tags.office || tags.craft || tags.healthcare || tags.leisure || tags.tourism === 'spa'
+    || ['dentist', 'clinic', 'doctors', 'veterinary', 'physiotherapist', 'car_wash', 'car_rental', 'driving_school', 'language_school', 'music_school', 'childcare', 'kindergarten', 'college'].includes(tags.amenity ?? '')) return 'service'
   return undefined
 }
 
@@ -464,8 +497,7 @@ function parseManualRecord(value: unknown, index: number, retrievedAt: string): 
 }
 
 function typesForCategories(categories?: readonly DiscoveryCategory[]): EntityType[] {
-  // Preserve the pre-P3A.1 default; professional services are opt-in.
-  if (!categories?.length) return ENTITY_TYPES.filter((type) => type !== 'service')
+  if (!categories?.length) return [...ENTITY_TYPES]
   const types = new Set<EntityType>()
   for (const category of categories) {
     if (category === 'hospitality') for (const type of ['restaurant', 'bar', 'cafe', 'hotel'] as const) types.add(type)
@@ -546,18 +578,32 @@ function localExtractRecord(
   const longitude = element.lon ?? element.center?.lon ?? null
   return [{
     type, priority: sourcePriority(tags),
-    sources: [{
-      key: sourceKey('openstreetmap', identifier), provider: 'openstreetmap', identifier,
-      url: `https://www.openstreetmap.org/${identifier}`, retrievedAt,
-      attribution: '© OpenStreetMap contributors', licenseUrl: 'https://www.openstreetmap.org/copyright',
-      sourceClass: 'open-data', claimScope: 'establishment',
-      dataset: {
-        kind: 'local-osm-extract', name: basename(path), sourceUrl: metadata.sourceUrl ?? null,
-        ...(metadata.downloadedAt ? {downloadedAt: metadata.downloadedAt} : {}),
-      },
-    }],
+    sources: [osmExtractProvenance(identifier, retrievedAt, path, metadata)],
     raw: {name, tags, latitude, longitude},
   }]
+}
+
+function osmExtractProvenance(
+  identifier: string,
+  retrievedAt: string,
+  path: string,
+  metadata: {sourceUrl?: string; downloadedAt?: string},
+): SourceProvenance {
+  return {
+    key: sourceKey('openstreetmap', identifier), provider: 'openstreetmap', identifier,
+    url: `https://www.openstreetmap.org/${identifier}`, retrievedAt,
+    attribution: '© OpenStreetMap contributors', licenseUrl: 'https://www.openstreetmap.org/copyright',
+    sourceClass: 'open-data', claimScope: 'establishment',
+    dataset: {
+      kind: 'local-osm-extract', name: basename(path), sourceUrl: metadata.sourceUrl ?? null,
+      ...(metadata.downloadedAt ? {downloadedAt: metadata.downloadedAt} : {}),
+    },
+  }
+}
+
+function isOverpassElement(value: unknown): value is OverpassElement {
+  return isRecord(value) && (value.type === 'node' || value.type === 'way' || value.type === 'relation')
+    && typeof value.id === 'number'
 }
 
 function insideBbox(record: SourceRecord, bbox: GeographicScope['bbox']): boolean {

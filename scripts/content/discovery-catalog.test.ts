@@ -35,6 +35,13 @@ test('deduplicación exige identidad comprobable y no fusiona homónimos sin ubi
   assert.equal(deduplicateRecords([record('node/3', 'Bar Sol', 38.54, -0.13), secondProvider]).length, 2)
 })
 
+test('la misma entidad descubierta por tags de sectores distintos no se duplica', () => {
+  const first = record('node/90', 'Centro Mixto', 38.54, -0.13, {shop: 'beauty'})
+  const second = {...record('node/90', 'Centro Mixto', 38.54, -0.13, {healthcare: 'doctor'}), type: 'service' as const}
+  const result = deduplicateRecords([first, second])
+  assert.equal(result.length, 1)
+})
+
 test('businessId usa source aliases existentes y distingue colisiones de nombre', () => {
   const existing = assignIdentities([record('node/1', 'Bar Sol', 38.54, -0.13)], emptyManifest())[0]!
   const manifest: ContentManifest = {version: 1, updatedAt: now, entries: [{

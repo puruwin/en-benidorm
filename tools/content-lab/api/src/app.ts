@@ -4,6 +4,7 @@ import {ArtifactLoader} from './artifact-loader'
 import {buildCodexPrompt, SUPPORTED_ISSUES} from './prompt-builder/index'
 import {RunManager} from './run-manager'
 import {parseRunOptions, validateBusinessId, validatePhase, validateTopic} from './validation'
+import {evaluateOpportunityReview, saveOpportunityReview, validateOpportunityReview} from '../../../../scripts/opportunities/lib/reviews'
 
 export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager} = {}) {
   const app = Fastify({logger: true})
@@ -12,7 +13,7 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
 
   app.setErrorHandler((error, _request, reply) => {
     const errorMessage = error instanceof Error ? error.message : String(error)
-    const status = /inválid|no soportada|no permitida|entero|boolean/i.test(errorMessage) ? 400 : /ejecución activa/i.test(errorMessage) ? 409 : 500
+    const status = /inválid|no soportada|no permitida|entero|boolean|reviewedBy|reviewedSourceKeys|fuente revisada|confirmed-open/i.test(errorMessage) ? 400 : /ejecución activa/i.test(errorMessage) ? 409 : 500
     reply.status(status).send({error: errorMessage})
   })
 
@@ -27,6 +28,17 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
   app.get<{Params: {topic: string}}>('/api/comparisons/:topic/evidence', async (request) => loader.evidence(request.params.topic))
   app.get('/api/opportunities', async () => loader.opportunities())
   app.get<{Params: {businessId: string}}>('/api/opportunities/:businessId', async (request) => loader.opportunity(validateBusinessId(request.params.businessId)))
+  app.get<{Params: {businessId: string}}>('/api/opportunity-reviews/:businessId', async (request) => loader.opportunityContext(validateBusinessId(request.params.businessId)))
+  app.put<{Params: {businessId: string}; Body: unknown}>('/api/opportunity-reviews/:businessId', async (request, reply) => {
+    const businessId = validateBusinessId(request.params.businessId)
+    const analysisArtifact = await loader.opportunity(businessId)
+    if (analysisArtifact.status !== 'available') return reply.status(404).send({error: 'Opportunity Analysis no encontrado para el negocio.'})
+    const sourceKeyValues: string[] = ((analysisArtifact.data as any).provenance?.sources ?? []).map((source: any) => source.key).filter((key: unknown): key is string => typeof key === 'string')
+    const sourceKeys = new Set<string>(sourceKeyValues)
+    const review = validateOpportunityReview(request.body, businessId, sourceKeys)
+    await saveOpportunityReview(root, review)
+    return {review, evaluation: evaluateOpportunityReview(review)}
+  })
 
   app.post<{Params: {topic: string; phase: string}; Body: unknown}>('/api/comparisons/:topic/run/:phase', async (request, reply) => {
     const topic = validateTopic(request.params.topic)

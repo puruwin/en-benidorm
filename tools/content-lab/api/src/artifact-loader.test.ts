@@ -91,6 +91,24 @@ test('Content Lab carga Opportunity Analysis desde artefactos independientes', a
   } finally { await rm(root, {recursive: true, force: true}) }
 })
 
+test('Content Lab incorpora Verification como soporte sin mezclarlo con la review', async () => {
+  const root = await mkdtemp(resolve(tmpdir(), 'content-lab-verification-'))
+  try {
+    await mkdir(resolve(root, 'content/opportunities'), {recursive: true})
+    await mkdir(resolve(root, 'content/verification'), {recursive: true})
+    await mkdir(resolve(root, 'content/manual/opportunity-reviews'), {recursive: true})
+    await mkdir(resolve(root, 'content/discovered'), {recursive: true})
+    await mkdir(resolve(root, 'content/enriched'), {recursive: true})
+    await writeFile(resolve(root, 'content/manifest.json'), JSON.stringify({entries: [{id: 'business-uno'}]}))
+    await writeFile(resolve(root, 'content/opportunities/business-uno.json'), JSON.stringify({businessId: 'business-uno'}))
+    await writeFile(resolve(root, 'content/verification/business-uno.json'), JSON.stringify({businessId: 'business-uno', identityEvidence: {status: 'probable-match'}}))
+    const context = await new ArtifactLoader(root).opportunityContext('business-uno')
+    assert.equal(context.verification.status, 'available')
+    assert.equal((context.verification.data as any).identityEvidence.status, 'probable-match')
+    assert.equal(context.review.status, 'missing')
+  } finally { await rm(root, {recursive: true, force: true}) }
+})
+
 test('report agregado sólo se asocia al topic al que pertenece', async () => {
   const root = await mkdtemp(resolve(tmpdir(), 'content-lab-report-'))
   try {

@@ -94,9 +94,10 @@ export interface OpportunityAnalysisView {
   category: string
   status: string
   signals: Array<{id: string; type: string; observation: string; sourceKeys: string[]; observedAt: string; confidence: string}>
-  hypotheses: Array<{id: string; area: string; hypothesis: string; basedOnSignalIds: string[]; confidence: string; limitations: string[]}>
+  hypotheses: Array<{id: string; area: string; hypothesis: string; basedOnSignalIds: string[]; basedOnReview?: {reviewedAt: string; reviewedBy: string; fields: string[]; reviewedSourceKeys: string[]}; confidence: string; limitations: string[]}>
   suggestedActions: Array<{type: string; reason: string}>
   summary: {evidenceStrength: string; opportunityAreas: string[]; manualReviewRequired: boolean}
+  reviewState: 'unreviewed' | 'reviewing' | 'verified' | 'rejected' | 'stale'
 }
 
 export interface OpportunityReportView {
@@ -105,7 +106,32 @@ export interface OpportunityReportView {
   actionableHypotheses: number
   needsReview: number
   notActionable: number
+  reviewStateCounts: Record<string, number>
   provenanceCoverage: {signals: number; coveredSignals: number; ratio: number}
   selection: {description: string; businessIds: string[]}
   analyses: OpportunityAnalysisView[]
+}
+
+export interface OpportunityReviewView {
+  schemaVersion?: 1
+  businessId?: string
+  reviewedAt: string
+  reviewedBy: string
+  workflowStatus: 'reviewing' | 'verified' | 'rejected'
+  operationalStatus: 'confirmed-open' | 'confirmed-closed' | 'unknown'
+  identityStatus: 'confirmed' | 'ambiguous' | 'conflict'
+  officialPresence: {website: 'confirmed' | 'not-found' | 'ambiguous'; googleProfile: 'confirmed' | 'not-found' | 'not-checked'; socialProfiles: 'confirmed' | 'not-found' | 'not-checked'}
+  contactChannels: {phone?: 'confirmed' | 'unverified'; email?: 'confirmed' | 'unverified'; contactForm?: 'confirmed' | 'not-found'; booking?: 'confirmed' | 'not-found'}
+  reviewedSourceKeys: string[]
+  resolvedSignalIds?: string[]
+  notes?: string
+  expiresAt?: string
+}
+
+export interface OpportunityReviewContext {
+  analysis: ArtifactResponse<any>
+  review: ArtifactResponse<OpportunityReviewView>
+  verification: ArtifactResponse<any>
+  reviewEvaluation: {workflowStatus: string; staleFields: string[]; expires: {operationalStatus: string; website: string; contactChannels?: string}}
+  identity: {entry: any; discovered: any; enriched: any}
 }

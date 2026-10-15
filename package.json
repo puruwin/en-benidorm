@@ -23,6 +23,7 @@
     "comparison:qa": "node --import tsx scripts/comparison/qa.ts",
     "comparison:regression": "node --import tsx scripts/comparison/regression.ts",
     "opportunities:analyze": "node --import tsx scripts/opportunities/analyze.ts",
+    "opportunities:verify": "node --import tsx scripts/opportunities/verify.ts",
     "content-lab": "node tools/content-lab/dev.mjs",
     "content-lab:web": "vite --config tools/content-lab/web/vite.config.ts",
     "content-lab:api": "node --import tsx tools/content-lab/api/src/server.ts",

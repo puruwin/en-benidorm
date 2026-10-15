@@ -12,11 +12,15 @@ schema.json
 /content/discovered/*.json
 /content/enriched/*.json
 /content/opportunities/*.json
+/content/verification/*.json
 /content/comparisons/candidates/*.json
 /content/comparisons/enriched/*.json
 /content/generated/.staging/**/*.json
 /content/reports/*
 !/content/reports/.gitkeep
+!/content/reports/discovery-coverage/
+!/content/reports/discovery-coverage/latest.json
+!/content/reports/discovery-coverage/latest.md
 !/content/reports/comparisons/
 /content/reports/comparisons/*
 !/content/reports/comparisons/.gitkeep

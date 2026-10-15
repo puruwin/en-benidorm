@@ -1,0 +1,6439 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-15T16:17:47.495Z",
+  "scope": "Benidorm · La Nucía · l’Alfàs del Pi / Albir",
+  "warning": "La cobertura OSM mide representación en la fuente; la falta de resultados no implica ausencia real de empresas.",
+  "catalogBefore": 3007,
+  "totalBusinesses": 3103,
+  "businessesByMunicipality": {
+    "Benidorm": 2626,
+    "l'Alfàs del Pi": 298,
+    "La Nucía": 117,
+    "unknown": 62
+  },
+  "businessesByZone": {
+    "Benidorm": 2626,
+    "Albir": 109,
+    "l'Alfàs del Pi": 189,
+    "La Nucía": 117,
+    "unknown": 62
+  },
+  "businessesBySector": {
+    "hospitality": 1252,
+    "beauty-wellness": 217,
+    "healthcare": 109,
+    "professional-services": 51,
+    "real-estate": 83,
+    "home-services": 37,
+    "automotive": 46,
+    "education": 22,
+    "retail": 1024,
+    "tourism": 197,
+    "b2b-services": 19,
+    "other": 46
+  },
+  "businessesBySubsector": {
+    "hairdresser": 128,
+    "restaurant": 600,
+    "bar": 436,
+    "appliances": 16,
+    "beauty-salon": 34,
+    "fashion": 293,
+    "apartment": 31,
+    "rental": 6,
+    "specialty-shop": 622,
+    "hotel": 146,
+    "lawyer": 4,
+    "languages": 4,
+    "fitness": 35,
+    "company": 13,
+    "dentist": 16,
+    "travel-agency": 20,
+    "cafe": 151,
+    "unknown": 46,
+    "physiotherapy": 9,
+    "pharmacy": 20,
+    "accountant": 11,
+    "gardener": 2,
+    "furniture": 19,
+    "workshop": 19,
+    "architecture": 2,
+    "phones": 23,
+    "estate-agent": 72,
+    "cleaning": 22,
+    "decoration": 8,
+    "jewellery": 38,
+    "ice-cream": 27,
+    "bakery": 38,
+    "camping": 20,
+    "insurance": 14,
+    "driving-school": 8,
+    "car-wash": 2,
+    "massage": 20,
+    "property-management": 11,
+    "optician": 25,
+    "vehicle-sales": 16,
+    "carpenter": 1,
+    "music": 2,
+    "medical-clinic": 28,
+    "academy": 2,
+    "it-services": 4,
+    "veterinary": 9,
+    "electrician": 5,
+    "childcare-activities": 6,
+    "motorcycle": 2,
+    "advertising": 2,
+    "computers": 4,
+    "hvac": 2,
+    "lighting": 1,
+    "plumber": 3,
+    "locksmith": 2,
+    "podiatry": 2,
+    "parts": 1
+  },
+  "bothBySector": {
+    "hospitality": 91,
+    "beauty-wellness": 9,
+    "healthcare": 17,
+    "professional-services": 7,
+    "real-estate": 21,
+    "home-services": 2,
+    "automotive": 2,
+    "education": 2,
+    "retail": 77,
+    "tourism": 58,
+    "b2b-services": 4,
+    "other": 10
+  },
+  "sectorMunicipality": {
+    "Benidorm": {
+      "beauty-wellness": 197,
+      "hospitality": 1030,
+      "retail": 899,
+      "tourism": 160,
+      "automotive": 36,
+      "professional-services": 45,
+      "education": 14,
+      "healthcare": 82,
+      "other": 36,
+      "real-estate": 78,
+      "home-services": 31,
+      "b2b-services": 18
+    },
+    "l'Alfàs del Pi": {
+      "hospitality": 142,
+      "retail": 75,
+      "tourism": 27,
+      "b2b-services": 1,
+      "home-services": 5,
+      "automotive": 9,
+      "professional-services": 5,
+      "beauty-wellness": 8,
+      "real-estate": 3,
+      "education": 3,
+      "healthcare": 14,
+      "other": 6
+    },
+    "La Nucía": {
+      "beauty-wellness": 10,
+      "retail": 21,
+      "tourism": 7,
+      "education": 4,
+      "hospitality": 65,
+      "professional-services": 1,
+      "healthcare": 7,
+      "automotive": 1,
+      "other": 1
+    },
+    "unknown": {
+      "retail": 29,
+      "hospitality": 15,
+      "other": 3,
+      "beauty-wellness": 2,
+      "tourism": 3,
+      "healthcare": 6,
+      "education": 1,
+      "real-estate": 2,
+      "home-services": 1
+    }
+  },
+  "websiteCoverage": {
+    "count": 437,
+    "percentage": 14.1
+  },
+  "phoneCoverage": {
+    "count": 600,
+    "percentage": 19.3
+  },
+  "emailCoverage": {
+    "count": 58,
+    "percentage": 1.9
+  },
+  "operationalMetadataCoverage": {
+    "address": {
+      "count": 1964,
+      "percentage": 63.3
+    },
+    "coordinates": {
+      "count": 3102,
+      "percentage": 100
+    },
+    "openingHours": {
+      "count": 123,
+      "percentage": 4
+    },
+    "recentCheckDate": {
+      "count": 3103,
+      "percentage": 100
+    }
+  },
+  "providerDistribution": {
+    "openstreetmap": 3101,
+    "manual-json": 2
+  },
+  "sourceDatasets": [
+    {
+      "kind": "local-osm-extract",
+      "name": "p3a5a-target-osm.json",
+      "sourceUrl": "https://download.geofabrik.de/europe/spain/valencia-latest.osm.pbf",
+      "downloadedAt": "2026-10-14T20:21:12Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "businessesByProvider": {
+    "openstreetmap": 3101,
+    "manual-json": 2
+  },
+  "duplicates": {
+    "total": 524,
+    "byConfidence": {
+      "strong-probable": 102,
+      "unresolved": 369,
+      "probable": 33,
+      "exact": 20
+    },
+    "candidates": [
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9111335842"
+        ],
+        "existingBusinessId": "business-estudios-benidorm",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "domain"
+        ],
+        "distanceMeters": 25
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8758563648"
+        ],
+        "existingBusinessId": "business-abdullah",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 192
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827483"
+        ],
+        "existingBusinessId": "business-acero-puro",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 714
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13914190549"
+        ],
+        "existingBusinessId": "business-ahmed",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 4
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/547036446"
+        ],
+        "existingBusinessId": "business-aldi",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9443
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/547036446"
+        ],
+        "existingBusinessId": "business-aldi-dd9036",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5153
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/368754224"
+        ],
+        "existingBusinessId": "business-aldi",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4878
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786348099"
+        ],
+        "existingBusinessId": "business-ale-hop",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 379
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786348099"
+        ],
+        "existingBusinessId": "business-ale-hop-53d1e9",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 961
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786348099"
+        ],
+        "existingBusinessId": "business-ale-hop-5cc94a",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1615
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786348099"
+        ],
+        "existingBusinessId": "business-ale-hop-790133",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 6685
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786348099"
+        ],
+        "existingBusinessId": "business-ale-hop-86a39a",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1448
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786348099"
+        ],
+        "existingBusinessId": "business-ale-hop-c0b085",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9530
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786348099"
+        ],
+        "existingBusinessId": "business-ale-hop-ffa069",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1293
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827457"
+        ],
+        "existingBusinessId": "business-ale-hop",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 617
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827457"
+        ],
+        "existingBusinessId": "business-ale-hop-5cc94a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2576
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827457"
+        ],
+        "existingBusinessId": "business-ale-hop-790133",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 7358
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827457"
+        ],
+        "existingBusinessId": "business-ale-hop-86a39a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2409
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827457"
+        ],
+        "existingBusinessId": "business-ale-hop-c0b085",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10097
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827457"
+        ],
+        "existingBusinessId": "business-ale-hop-ffa069",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 379
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126238"
+        ],
+        "existingBusinessId": "business-ale-hop",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1981
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126238"
+        ],
+        "existingBusinessId": "business-ale-hop-790133",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 5688
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126238"
+        ],
+        "existingBusinessId": "business-ale-hop-86a39a",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 203
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126238"
+        ],
+        "existingBusinessId": "business-ale-hop-c0b085",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8676
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126238"
+        ],
+        "existingBusinessId": "business-ale-hop-ffa069",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2903
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11154541824"
+        ],
+        "existingBusinessId": "business-ale-hop",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 7019
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11154541824"
+        ],
+        "existingBusinessId": "business-ale-hop-86a39a",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 5872
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11154541824"
+        ],
+        "existingBusinessId": "business-ale-hop-c0b085",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3040
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11154541824"
+        ],
+        "existingBusinessId": "business-ale-hop-ffa069",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 7732
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4406717521"
+        ],
+        "existingBusinessId": "business-ale-hop",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1806
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4406717521"
+        ],
+        "existingBusinessId": "business-ale-hop-c0b085",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8853
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4406717521"
+        ],
+        "existingBusinessId": "business-ale-hop-ffa069",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2728
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5967061737"
+        ],
+        "existingBusinessId": "business-ale-hop",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9837
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5967061737"
+        ],
+        "existingBusinessId": "business-ale-hop-ffa069",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10458
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1475197905"
+        ],
+        "existingBusinessId": "business-ale-hop",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 922
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710704"
+        ],
+        "existingBusinessId": "business-alhambra",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2760
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12483966337"
+        ],
+        "existingBusinessId": "business-all-in-one",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 480
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/14159165645"
+        ],
+        "existingBusinessId": "business-all4mobile",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 117
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13881409014"
+        ],
+        "existingBusinessId": "business-almendros",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 119
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316535171"
+        ],
+        "existingBusinessId": "business-amigos",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 587
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316535171"
+        ],
+        "existingBusinessId": "business-amigos-fb1e84",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 658
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1754875482"
+        ],
+        "existingBusinessId": "business-amigos",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 85
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13909133611"
+        ],
+        "existingBusinessId": "business-amor",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 502
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6695244811"
+        ],
+        "existingBusinessId": "business-avenida",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1741
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6695244811"
+        ],
+        "existingBusinessId": "business-avenida-62cdcf",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1896
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6695244811"
+        ],
+        "existingBusinessId": "business-avenida-bba809",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 256
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6695244811"
+        ],
+        "existingBusinessId": "business-avenida-c67add",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 2056
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6695244811"
+        ],
+        "existingBusinessId": "business-avenida-d6f0eb",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1150
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6695244811"
+        ],
+        "existingBusinessId": "business-avenida-eeaa93",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 300
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10847025260"
+        ],
+        "existingBusinessId": "business-avenida",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 163
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10847025260"
+        ],
+        "existingBusinessId": "business-avenida-bba809",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1735
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10847025260"
+        ],
+        "existingBusinessId": "business-avenida-c67add",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 203
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10847025260"
+        ],
+        "existingBusinessId": "business-avenida-d6f0eb",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 756
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10847025260"
+        ],
+        "existingBusinessId": "business-avenida-eeaa93",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1601
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865149287"
+        ],
+        "existingBusinessId": "business-avenida",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1575
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865149287"
+        ],
+        "existingBusinessId": "business-avenida-c67add",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1881
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865149287"
+        ],
+        "existingBusinessId": "business-avenida-d6f0eb",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 978
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865149287"
+        ],
+        "existingBusinessId": "business-avenida-eeaa93",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 188
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7973040658"
+        ],
+        "existingBusinessId": "business-avenida",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 322
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7973040658"
+        ],
+        "existingBusinessId": "business-avenida-d6f0eb",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 907
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7973040658"
+        ],
+        "existingBusinessId": "business-avenida-eeaa93",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1758
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710715"
+        ],
+        "existingBusinessId": "business-avenida",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 597
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710715"
+        ],
+        "existingBusinessId": "business-avenida-eeaa93",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 851
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545629183"
+        ],
+        "existingBusinessId": "business-avenida",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1444
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13914190557"
+        ],
+        "existingBusinessId": "business-bella-ciao",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 8
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8869515940"
+        ],
+        "existingBusinessId": "business-benidorm",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1079
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8869515940"
+        ],
+        "existingBusinessId": "business-benidorm-60c5f5",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 840
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316647263"
+        ],
+        "existingBusinessId": "business-benidorm",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 443
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8944538150"
+        ],
+        "existingBusinessId": "business-benidorm-booking",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 96
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12250074334"
+        ],
+        "existingBusinessId": "business-benifruta",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 472
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13180495374"
+        ],
+        "existingBusinessId": "business-benigas",
+        "confidence": "exact",
+        "signals": [
+          "name",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 4332
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13180495374"
+        ],
+        "existingBusinessId": "business-benigas-e8e9c2",
+        "confidence": "exact",
+        "signals": [
+          "name",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 701
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13180495373"
+        ],
+        "existingBusinessId": "business-benigas",
+        "confidence": "exact",
+        "signals": [
+          "name",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 3636
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/14255964358"
+        ],
+        "existingBusinessId": "business-bertomeu",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4802
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13752054780"
+        ],
+        "existingBusinessId": "business-bigmat",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 30
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12281443220"
+        ],
+        "existingBusinessId": "business-bloomest",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1277
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12281399299"
+        ],
+        "existingBusinessId": "business-bodalo-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2438
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865149285"
+        ],
+        "existingBusinessId": "business-bodega-el-barril",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 115
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/738337703"
+        ],
+        "existingBusinessId": "business-burger-king",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9510
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/738337703"
+        ],
+        "existingBusinessId": "business-burger-king-7d8443",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6251
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/738337703"
+        ],
+        "existingBusinessId": "business-burger-king-bfc3a1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6567
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/738337703"
+        ],
+        "existingBusinessId": "business-burger-king-d3fc1a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5197
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/738337703"
+        ],
+        "existingBusinessId": "business-burger-king-e9b9d1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5454
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1685881184"
+        ],
+        "existingBusinessId": "business-burger-king",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3986
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1685881184"
+        ],
+        "existingBusinessId": "business-burger-king-bfc3a1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 910
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1685881184"
+        ],
+        "existingBusinessId": "business-burger-king-d3fc1a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2771
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1685881184"
+        ],
+        "existingBusinessId": "business-burger-king-e9b9d1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1723
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4736483726"
+        ],
+        "existingBusinessId": "business-burger-king",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3220
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4736483726"
+        ],
+        "existingBusinessId": "business-burger-king-d3fc1a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2312
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4736483726"
+        ],
+        "existingBusinessId": "business-burger-king-e9b9d1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2602
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1485976241"
+        ],
+        "existingBusinessId": "business-burger-king",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4448
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1485976241"
+        ],
+        "existingBusinessId": "business-burger-king-e9b9d1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3739
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2295010738"
+        ],
+        "existingBusinessId": "business-burger-king",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5688
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8733869027"
+        ],
+        "existingBusinessId": "business-butterfields",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 19
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1410368616"
+        ],
+        "existingBusinessId": "business-camping-el-raco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 231
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1420015534"
+        ],
+        "existingBusinessId": "business-camping-la-torreta",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 83
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4413650266"
+        ],
+        "existingBusinessId": "business-camping-villasol",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 44
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874107869"
+        ],
+        "existingBusinessId": "business-carmona-rent",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 25
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199522098"
+        ],
+        "existingBusinessId": "business-carrefour",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 25
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/653363351"
+        ],
+        "existingBusinessId": "business-carrefour-express",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4999
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/653363351"
+        ],
+        "existingBusinessId": "business-carrefour-express-da04a2",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4304
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13391192599"
+        ],
+        "existingBusinessId": "business-carrefour-express",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 983
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5967056643"
+        ],
+        "existingBusinessId": "business-casa-del-mar",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 11
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2986321175"
+        ],
+        "existingBusinessId": "business-casa-mika-el-molinet",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 7
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199518940"
+        ],
+        "existingBusinessId": "business-mavisel-875d84",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "domain"
+        ],
+        "distanceMeters": 83
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1080571176"
+        ],
+        "existingBusinessId": "business-centro-medico-lago",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 71
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12272986424"
+        ],
+        "existingBusinessId": "business-charter",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8723
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12483966339"
+        ],
+        "existingBusinessId": "business-chinese-massage",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 593
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12483966339"
+        ],
+        "existingBusinessId": "business-chinese-massage-940f4d",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 240
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12483966339"
+        ],
+        "existingBusinessId": "business-chinese-massage-af063c",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 195
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13906410030"
+        ],
+        "existingBusinessId": "business-chinese-massage",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 421
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13906410030"
+        ],
+        "existingBusinessId": "business-chinese-massage-af063c",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 208
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8807273046"
+        ],
+        "existingBusinessId": "business-chinese-massage",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 416
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786442367"
+        ],
+        "existingBusinessId": "business-city-market-express",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 551
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13430150418"
+        ],
+        "existingBusinessId": "business-coaliment",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2369
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13881409022"
+        ],
+        "existingBusinessId": "business-comercial-marrakech",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 190
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12250074336"
+        ],
+        "existingBusinessId": "business-comfort-thais",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 798
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/426830063"
+        ],
+        "existingBusinessId": "business-consum",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6385
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/426830063"
+        ],
+        "existingBusinessId": "business-consum-840896",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5888
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/426830063"
+        ],
+        "existingBusinessId": "business-consum-a3c9a6",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2341
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/426830063"
+        ],
+        "existingBusinessId": "business-consum-a98952",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3801
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/426830063"
+        ],
+        "existingBusinessId": "business-consum-e3b5c3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5361
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/426830063"
+        ],
+        "existingBusinessId": "business-consum-f66246",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6391
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/426830063"
+        ],
+        "existingBusinessId": "business-consum-fb154f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6101
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4751912269"
+        ],
+        "existingBusinessId": "business-consum",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 841
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4751912269"
+        ],
+        "existingBusinessId": "business-consum-a3c9a6",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 7891
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4751912269"
+        ],
+        "existingBusinessId": "business-consum-a98952",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9357
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4751912269"
+        ],
+        "existingBusinessId": "business-consum-e3b5c3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1226
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4751912269"
+        ],
+        "existingBusinessId": "business-consum-f66246",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 519
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4751912269"
+        ],
+        "existingBusinessId": "business-consum-fb154f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 976
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/302342530"
+        ],
+        "existingBusinessId": "business-consum",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 8489
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/302342530"
+        ],
+        "existingBusinessId": "business-consum-a98952",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1491
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/302342530"
+        ],
+        "existingBusinessId": "business-consum-e3b5c3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 7543
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/302342530"
+        ],
+        "existingBusinessId": "business-consum-f66246",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8409
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/302342530"
+        ],
+        "existingBusinessId": "business-consum-fb154f",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 8248
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976684"
+        ],
+        "existingBusinessId": "business-consum",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9969
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976684"
+        ],
+        "existingBusinessId": "business-consum-e3b5c3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9033
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976684"
+        ],
+        "existingBusinessId": "business-consum-f66246",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9876
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976684"
+        ],
+        "existingBusinessId": "business-consum-fb154f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9734
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4384985390"
+        ],
+        "existingBusinessId": "business-consum",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1143
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4384985390"
+        ],
+        "existingBusinessId": "business-consum-f66246",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1456
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4384985390"
+        ],
+        "existingBusinessId": "business-consum-fb154f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 772
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4736314424"
+        ],
+        "existingBusinessId": "business-consum",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 571
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4736314424"
+        ],
+        "existingBusinessId": "business-consum-fb154f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 906
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710826"
+        ],
+        "existingBusinessId": "business-consum",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 414
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539767793"
+        ],
+        "existingBusinessId": "business-cuple",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10182
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992364379"
+        ],
+        "existingBusinessId": "business-daniello-di-luca",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 687
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8777081279"
+        ],
+        "existingBusinessId": "business-di-marco",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 126
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2012832575"
+        ],
+        "existingBusinessId": "business-dialprix",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2459
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2012832575"
+        ],
+        "existingBusinessId": "business-dialprix-632873",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8007
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/220313240"
+        ],
+        "existingBusinessId": "business-dialprix",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8757
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9668893118"
+        ],
+        "existingBusinessId": "business-domino-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4200
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2061291065"
+        ],
+        "existingBusinessId": "business-doner-kebab",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9923
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10989193305"
+        ],
+        "existingBusinessId": "business-doria",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 187
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539761641"
+        ],
+        "existingBusinessId": "business-druni",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10094
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539761641"
+        ],
+        "existingBusinessId": "business-druni-a3a685",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10088
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539761641"
+        ],
+        "existingBusinessId": "business-druni-bfcb21",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9883
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13433322035"
+        ],
+        "existingBusinessId": "business-druni",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 7
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13433322035"
+        ],
+        "existingBusinessId": "business-druni-bfcb21",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 637
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316563252"
+        ],
+        "existingBusinessId": "business-druni",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 642
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13094051303"
+        ],
+        "existingBusinessId": "business-easyhire",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 110
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12740992596"
+        ],
+        "existingBusinessId": "business-ecomart",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 359
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4736344134"
+        ],
+        "existingBusinessId": "business-economy-cash",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6459
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7935108203"
+        ],
+        "existingBusinessId": "business-el-bodegon",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 656
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737913"
+        ],
+        "existingBusinessId": "business-la-barra",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 22
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737913"
+        ],
+        "existingBusinessId": "business-la-braseria",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 28
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737913"
+        ],
+        "existingBusinessId": "business-la-taperia",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 48
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737913"
+        ],
+        "existingBusinessId": "business-pintxos-aurerra",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 11
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737913"
+        ],
+        "existingBusinessId": "business-pizzeria-avanti",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 46
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737913"
+        ],
+        "existingBusinessId": "business-tabernita-del-sur",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 30
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199693613"
+        ],
+        "existingBusinessId": "business-el-chiringuito",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9226
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9310795251"
+        ],
+        "existingBusinessId": "business-el-petenero",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 794
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9310795251"
+        ],
+        "existingBusinessId": "business-el-petenero-902be9",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 608
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9310795252"
+        ],
+        "existingBusinessId": "business-el-petenero",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1400
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5514784821"
+        ],
+        "existingBusinessId": "business-el-rincon-del-ribera",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 30
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1418427659"
+        ],
+        "existingBusinessId": "business-el-riu",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 37
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7862454275"
+        ],
+        "existingBusinessId": "business-hotel-rh-sol",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 89
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/14162128729"
+        ],
+        "existingBusinessId": "business-europa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1341
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12672601791"
+        ],
+        "existingBusinessId": "business-fashion-addict",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 145
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7925297419"
+        ],
+        "existingBusinessId": "business-ferreteria-avenida",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9260
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12252456822"
+        ],
+        "existingBusinessId": "business-florida",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1858
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9111335833"
+        ],
+        "existingBusinessId": "business-frika",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 260
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4736199922"
+        ],
+        "existingBusinessId": "business-galera",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 387
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539708770"
+        ],
+        "existingBusinessId": "business-seguros-generali",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9477
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199522115"
+        ],
+        "existingBusinessId": "business-gmcash",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10394
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9111335835"
+        ],
+        "existingBusinessId": "business-gofres-manneken-pis",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 165
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5668936150"
+        ],
+        "existingBusinessId": "business-granier",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1623
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3130812280"
+        ],
+        "existingBusinessId": "business-la-marina",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 43
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6681830366"
+        ],
+        "existingBusinessId": "business-helados-sirvent",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 381
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/269600701"
+        ],
+        "existingBusinessId": "business-hiperber",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 11661
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277090"
+        ],
+        "existingBusinessId": "business-holidays",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1324
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277090"
+        ],
+        "existingBusinessId": "business-holidays-1a905c",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2272
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827479"
+        ],
+        "existingBusinessId": "business-holidays",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 948
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6635611406"
+        ],
+        "existingBusinessId": "business-mc-alojamientos",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "domain"
+        ],
+        "distanceMeters": 23
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6635611406"
+        ],
+        "existingBusinessId": "business-mc-apartamentos",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "domain"
+        ],
+        "distanceMeters": 45
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1447512009"
+        ],
+        "existingBusinessId": "business-hotel-servigroup-venus",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 65
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12153452414"
+        ],
+        "existingBusinessId": "business-oficinas-senior-resort-ciudad-patricia",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 37
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12153452414"
+        ],
+        "existingBusinessId": "business-restaurante-isla-bali",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 25
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7925523501"
+        ],
+        "existingBusinessId": "business-inked",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 168
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8781410367"
+        ],
+        "existingBusinessId": "business-j-olmos",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1089
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8868045118"
+        ],
+        "existingBusinessId": "business-jr-garcia",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 291
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12675940611"
+        ],
+        "existingBusinessId": "business-kebabish",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1117
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12675940611"
+        ],
+        "existingBusinessId": "business-kebabish-bc0a73",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1465
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12675940611"
+        ],
+        "existingBusinessId": "business-kebabish-cc463b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 444
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4405795076"
+        ],
+        "existingBusinessId": "business-kebabish",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 508
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4405795076"
+        ],
+        "existingBusinessId": "business-kebabish-cc463b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1034
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7925193919"
+        ],
+        "existingBusinessId": "business-kebabish",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 675
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10840561960"
+        ],
+        "existingBusinessId": "business-kfc",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 316
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10840561960"
+        ],
+        "existingBusinessId": "business-kfc-2f8d00",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1252
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10840561960"
+        ],
+        "existingBusinessId": "business-kfc-8fb3f1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2016
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10840561960"
+        ],
+        "existingBusinessId": "business-kfc-a67d8a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2885
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10840561960"
+        ],
+        "existingBusinessId": "business-kfc-ad1f33",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3772
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/757520163"
+        ],
+        "existingBusinessId": "business-kfc",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 946
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/757520163"
+        ],
+        "existingBusinessId": "business-kfc-8fb3f1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 770
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/757520163"
+        ],
+        "existingBusinessId": "business-kfc-a67d8a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3169
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/757520163"
+        ],
+        "existingBusinessId": "business-kfc-ad1f33",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5009
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/757520166"
+        ],
+        "existingBusinessId": "business-kfc",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1714
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/757520166"
+        ],
+        "existingBusinessId": "business-kfc-a67d8a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3646
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/757520166"
+        ],
+        "existingBusinessId": "business-kfc-ad1f33",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5779
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1486429279"
+        ],
+        "existingBusinessId": "business-kfc",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2839
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1486429279"
+        ],
+        "existingBusinessId": "business-kfc-ad1f33",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4271
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199522114"
+        ],
+        "existingBusinessId": "business-kfc",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4065
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8032962973"
+        ],
+        "existingBusinessId": "business-king-kebab",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4355
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6139703474"
+        ],
+        "existingBusinessId": "business-koala-bay",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 7147
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710828"
+        ],
+        "existingBusinessId": "business-koker",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 410
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710828"
+        ],
+        "existingBusinessId": "business-koker-997276",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 570
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8867974516"
+        ],
+        "existingBusinessId": "business-koker",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 238
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3771745513"
+        ],
+        "existingBusinessId": "business-moon-beach",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone",
+          "address"
+        ],
+        "distanceMeters": 31
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737916"
+        ],
+        "existingBusinessId": "business-la-braseria",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 6
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737916"
+        ],
+        "existingBusinessId": "business-la-taperia",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 27
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737916"
+        ],
+        "existingBusinessId": "business-pintxos-aurerra",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 31
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737916"
+        ],
+        "existingBusinessId": "business-pizzeria-avanti",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 54
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737916"
+        ],
+        "existingBusinessId": "business-tabernita-del-sur",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 51
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737918"
+        ],
+        "existingBusinessId": "business-la-taperia",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 21
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737918"
+        ],
+        "existingBusinessId": "business-pintxos-aurerra",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 38
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737918"
+        ],
+        "existingBusinessId": "business-pizzeria-avanti",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 58
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737918"
+        ],
+        "existingBusinessId": "business-tabernita-del-sur",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 57
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341281"
+        ],
+        "existingBusinessId": "business-la-casa-de-las-carcasas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4076
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341281"
+        ],
+        "existingBusinessId": "business-la-casa-de-las-carcasas-cfe0f5",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4023
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824158"
+        ],
+        "existingBusinessId": "business-la-casa-de-las-carcasas",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "coordinates",
+          "domain"
+        ],
+        "distanceMeters": 53
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7862454269"
+        ],
+        "existingBusinessId": "business-la-casa-del-cinturon",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 809
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12923518652"
+        ],
+        "existingBusinessId": "business-la-cueva",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2608
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13243769253"
+        ],
+        "existingBusinessId": "business-la-mina",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 20
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4860098521"
+        ],
+        "existingBusinessId": "business-la-plaza",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8644
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4343358696"
+        ],
+        "existingBusinessId": "business-pintxos-aurerra",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 58
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4343358696"
+        ],
+        "existingBusinessId": "business-pizzeria-avanti",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 76
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4343358696"
+        ],
+        "existingBusinessId": "business-tabernita-del-sur",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 78
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8883044816"
+        ],
+        "existingBusinessId": "business-lacena",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3723
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5121180321"
+        ],
+        "existingBusinessId": "business-lacolada-altea",
+        "confidence": "exact",
+        "signals": [
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 4229
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1096784572"
+        ],
+        "existingBusinessId": "business-lacolada",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1679
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874128102"
+        ],
+        "existingBusinessId": "business-las-damas",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 8
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5522417401"
+        ],
+        "existingBusinessId": "business-las-delicias",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3113
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/291868985"
+        ],
+        "existingBusinessId": "business-lidl",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5796
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/291868985"
+        ],
+        "existingBusinessId": "business-lidl-c7adfb",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8307
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/291868985"
+        ],
+        "existingBusinessId": "business-lidl-fead84",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 7413
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/636256803"
+        ],
+        "existingBusinessId": "business-lidl",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9536
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/636256803"
+        ],
+        "existingBusinessId": "business-lidl-fead84",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6204
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1464009819"
+        ],
+        "existingBusinessId": "business-lidl",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4462
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10847025256"
+        ],
+        "existingBusinessId": "business-llaollao",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 167
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824157"
+        ],
+        "existingBusinessId": "business-lo-bordamos",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 63
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865290626"
+        ],
+        "existingBusinessId": "business-lookisimo",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 322
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8736528290"
+        ],
+        "existingBusinessId": "business-los-gemelos",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 19
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277087"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1805
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277087"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-88951e",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2404
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277087"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-8a42e3",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain",
+          "address"
+        ],
+        "distanceMeters": 611
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277087"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-a555cd",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5923
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277087"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-bfacdf",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1199
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992277087"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-ec7afa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1652
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765666198"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 959
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765666198"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-8a42e3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1808
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765666198"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-a555cd",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3868
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765666198"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-bfacdf",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1280
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765666198"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-ec7afa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 810
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992364380"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1206
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992364380"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-a555cd",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5330
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992364380"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-bfacdf",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 590
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992364380"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-ec7afa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1041
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341277"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4124
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341277"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-bfacdf",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4747
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341277"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-ec7afa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4358
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8869539322"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 626
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8869539322"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado-ec7afa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 475
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13391197579"
+        ],
+        "existingBusinessId": "business-loterias-y-apuestas-del-estado",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 393
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13903938081"
+        ],
+        "existingBusinessId": "business-louie-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 976
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5024844599"
+        ],
+        "existingBusinessId": "business-low-cost",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2015
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13658340342"
+        ],
+        "existingBusinessId": "business-maria",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8499
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7947705186"
+        ],
+        "existingBusinessId": "business-marisol",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 398
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7947705186"
+        ],
+        "existingBusinessId": "business-marisol-c6a3e7",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 405
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7947705186"
+        ],
+        "existingBusinessId": "business-marisol-f40076",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 263
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8866382262"
+        ],
+        "existingBusinessId": "business-marisol",
+        "confidence": "exact",
+        "signals": [
+          "name",
+          "coordinates",
+          "address"
+        ],
+        "distanceMeters": 13
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8866382262"
+        ],
+        "existingBusinessId": "business-marisol-f40076",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 643
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4405795086"
+        ],
+        "existingBusinessId": "business-marisol",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 638
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976681"
+        ],
+        "existingBusinessId": "business-masymas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10481
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976681"
+        ],
+        "existingBusinessId": "business-masymas-4c3535",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1301
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976681"
+        ],
+        "existingBusinessId": "business-masymas-81d999",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8343
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976681"
+        ],
+        "existingBusinessId": "business-masymas-a950c8",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10082
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/2404976681"
+        ],
+        "existingBusinessId": "business-masymas-bf49a3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6184
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3112472273"
+        ],
+        "existingBusinessId": "business-masymas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9218
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3112472273"
+        ],
+        "existingBusinessId": "business-masymas-81d999",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8562
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3112472273"
+        ],
+        "existingBusinessId": "business-masymas-a950c8",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8819
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3112472273"
+        ],
+        "existingBusinessId": "business-masymas-bf49a3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5278
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6783386665"
+        ],
+        "existingBusinessId": "business-masymas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 12491
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6783386665"
+        ],
+        "existingBusinessId": "business-masymas-a950c8",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 12193
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6783386665"
+        ],
+        "existingBusinessId": "business-masymas-bf49a3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6870
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316563263"
+        ],
+        "existingBusinessId": "business-masymas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 399
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316563263"
+        ],
+        "existingBusinessId": "business-masymas-bf49a3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5484
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/781490472"
+        ],
+        "existingBusinessId": "business-masymas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5827
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822510552"
+        ],
+        "existingBusinessId": "business-mavisel",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 570
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822510552"
+        ],
+        "existingBusinessId": "business-mavisel-875d84",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4688
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822510552"
+        ],
+        "existingBusinessId": "business-mavisel-d01a11",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2469
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822510552"
+        ],
+        "existingBusinessId": "business-mavisel-f21578",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1297
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822376576"
+        ],
+        "existingBusinessId": "business-mavisel",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4126
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822376576"
+        ],
+        "existingBusinessId": "business-mavisel-d01a11",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2241
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822376576"
+        ],
+        "existingBusinessId": "business-mavisel-f21578",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3391
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822524242"
+        ],
+        "existingBusinessId": "business-mavisel",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1901
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822524242"
+        ],
+        "existingBusinessId": "business-mavisel-f21578",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1191
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4822454521"
+        ],
+        "existingBusinessId": "business-mavisel",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 745
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7973019718"
+        ],
+        "existingBusinessId": "business-mc-apartamentos",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "domain"
+        ],
+        "distanceMeters": 56
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1421093313"
+        ],
+        "existingBusinessId": "business-mcdonald-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1236
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1421093313"
+        ],
+        "existingBusinessId": "business-mcdonald-s-788f3b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 6232
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1421093313"
+        ],
+        "existingBusinessId": "business-mcdonald-s-8cd982",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4094
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1421093313"
+        ],
+        "existingBusinessId": "business-mcdonald-s-a419d1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2197
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1421093313"
+        ],
+        "existingBusinessId": "business-mcdonald-s-d0c803",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2106
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/621481357"
+        ],
+        "existingBusinessId": "business-mcdonald-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5688
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/621481357"
+        ],
+        "existingBusinessId": "business-mcdonald-s-8cd982",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9398
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/621481357"
+        ],
+        "existingBusinessId": "business-mcdonald-s-a419d1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4064
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/621481357"
+        ],
+        "existingBusinessId": "business-mcdonald-s-d0c803",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4156
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199683490"
+        ],
+        "existingBusinessId": "business-mcdonald-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5320
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199683490"
+        ],
+        "existingBusinessId": "business-mcdonald-s-a419d1",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5901
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/199683490"
+        ],
+        "existingBusinessId": "business-mcdonald-s-d0c803",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5507
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/488652759"
+        ],
+        "existingBusinessId": "business-mcdonald-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1717
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/488652759"
+        ],
+        "existingBusinessId": "business-mcdonald-s-d0c803",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 584
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1455462759"
+        ],
+        "existingBusinessId": "business-mcdonald-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1973
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4756620122"
+        ],
+        "existingBusinessId": "business-mendoza",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2636
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992397652"
+        ],
+        "existingBusinessId": "business-mercado-de-la-plata",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 139
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1534
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona-412157",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 946
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona-704685",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 3147
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona-74d161",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4077
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona-77ddc0",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4881
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona-b685be",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 9032
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona-ccd0ee",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 6544
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/970160230"
+        ],
+        "existingBusinessId": "business-mercadona-fcb624",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4967
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1459376343"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 600
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1459376343"
+        ],
+        "existingBusinessId": "business-mercadona-704685",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4035
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1459376343"
+        ],
+        "existingBusinessId": "business-mercadona-74d161",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 3491
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1459376343"
+        ],
+        "existingBusinessId": "business-mercadona-77ddc0",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4457
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1459376343"
+        ],
+        "existingBusinessId": "business-mercadona-b685be",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 9832
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1459376343"
+        ],
+        "existingBusinessId": "business-mercadona-ccd0ee",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 7455
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1459376343"
+        ],
+        "existingBusinessId": "business-mercadona-fcb624",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 5676
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1312338268"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4552
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1312338268"
+        ],
+        "existingBusinessId": "business-mercadona-74d161",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 5969
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1312338268"
+        ],
+        "existingBusinessId": "business-mercadona-77ddc0",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 6198
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1312338268"
+        ],
+        "existingBusinessId": "business-mercadona-b685be",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 7768
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1312338268"
+        ],
+        "existingBusinessId": "business-mercadona-ccd0ee",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 3433
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/1312338268"
+        ],
+        "existingBusinessId": "business-mercadona-fcb624",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4772
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1482438852"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 3077
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1482438852"
+        ],
+        "existingBusinessId": "business-mercadona-77ddc0",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1231
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1482438852"
+        ],
+        "existingBusinessId": "business-mercadona-b685be",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 13043
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1482438852"
+        ],
+        "existingBusinessId": "business-mercadona-ccd0ee",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 9148
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1482438852"
+        ],
+        "existingBusinessId": "business-mercadona-fcb624",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 9044
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/479170380"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4130
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/479170380"
+        ],
+        "existingBusinessId": "business-mercadona-b685be",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 13626
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/479170380"
+        ],
+        "existingBusinessId": "business-mercadona-ccd0ee",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 9121
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/479170380"
+        ],
+        "existingBusinessId": "business-mercadona-fcb624",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 9781
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/265582079"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 10410
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/265582079"
+        ],
+        "existingBusinessId": "business-mercadona-ccd0ee",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 7021
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/265582079"
+        ],
+        "existingBusinessId": "business-mercadona-fcb624",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 4265
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/446056118"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 7982
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/446056118"
+        ],
+        "existingBusinessId": "business-mercadona-fcb624",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 6047
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/440042617"
+        ],
+        "existingBusinessId": "business-mercadona",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 6232
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13909133604"
+        ],
+        "existingBusinessId": "business-milar",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 31
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11944448015"
+        ],
+        "existingBusinessId": "business-milords",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 20
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12278298986"
+        ],
+        "existingBusinessId": "business-mini-market",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2431
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13039896548"
+        ],
+        "existingBusinessId": "business-mobility-factory-sales-and-rental",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 10
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8869453153"
+        ],
+        "existingBusinessId": "business-moda-dalia",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 156
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8786436020"
+        ],
+        "existingBusinessId": "business-monkey-rent",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 1289
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539761624"
+        ],
+        "existingBusinessId": "business-montiel",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9365
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407298374"
+        ],
+        "existingBusinessId": "business-movistar",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3861
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407298374"
+        ],
+        "existingBusinessId": "business-movistar-ef90a0",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 13367
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9204437300"
+        ],
+        "existingBusinessId": "business-movistar",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10291
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8869453156"
+        ],
+        "existingBusinessId": "business-my-chips",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1567
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7864817223"
+        ],
+        "existingBusinessId": "business-natura",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1271
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7864817223"
+        ],
+        "existingBusinessId": "business-natura-c9486b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1589
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11944448022"
+        ],
+        "existingBusinessId": "business-natura",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 319
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9382441325"
+        ],
+        "existingBusinessId": "business-nirvana",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 11652
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/14188798835"
+        ],
+        "existingBusinessId": "business-occident",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 116
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/14188798835"
+        ],
+        "existingBusinessId": "business-occident-aa632b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 326
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710945"
+        ],
+        "existingBusinessId": "business-occident",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 218
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6109063236"
+        ],
+        "existingBusinessId": "business-restaurante-isla-bali",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 20
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13900862285"
+        ],
+        "existingBusinessId": "business-olivia",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 255
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13391205584"
+        ],
+        "existingBusinessId": "business-once",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2314
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13391205584"
+        ],
+        "existingBusinessId": "business-once-bdc5ef",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3833
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13391205584"
+        ],
+        "existingBusinessId": "business-once-e6be4a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1692
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1472460445"
+        ],
+        "existingBusinessId": "business-once",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5887
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/1472460445"
+        ],
+        "existingBusinessId": "business-once-e6be4a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5283
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12289862392"
+        ],
+        "existingBusinessId": "business-once",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 627
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13094051334"
+        ],
+        "existingBusinessId": "business-one-stop",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 423
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9419270277"
+        ],
+        "existingBusinessId": "business-open-wash",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8594
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992518376"
+        ],
+        "existingBusinessId": "business-opticalia-espinosa",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 129
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539769896"
+        ],
+        "existingBusinessId": "business-orange",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10355
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539769896"
+        ],
+        "existingBusinessId": "business-orange-fe1000",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 13538
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341285"
+        ],
+        "existingBusinessId": "business-orange",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3749
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5522417397"
+        ],
+        "existingBusinessId": "business-paquillo",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 40
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8781410381"
+        ],
+        "existingBusinessId": "business-parry-s",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 565
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316703639"
+        ],
+        "existingBusinessId": "business-perlas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 225
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710716"
+        ],
+        "existingBusinessId": "business-pilar-prieto",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 960
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710716"
+        ],
+        "existingBusinessId": "business-pilar-prieto-eec0b3",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 791
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6750540496"
+        ],
+        "existingBusinessId": "business-pilar-prieto",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1747
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824159"
+        ],
+        "existingBusinessId": "business-pinocchio",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 143
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824159"
+        ],
+        "existingBusinessId": "business-pinocchio-35ac3b",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 144
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824159"
+        ],
+        "existingBusinessId": "business-pinocchio-5e1e2b",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 497
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824159"
+        ],
+        "existingBusinessId": "business-pinocchio-ae5f0d",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 182
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6710800721"
+        ],
+        "existingBusinessId": "business-pinocchio",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 275
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6710800721"
+        ],
+        "existingBusinessId": "business-pinocchio-5e1e2b",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 385
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6710800721"
+        ],
+        "existingBusinessId": "business-pinocchio-ae5f0d",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 163
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4343326470"
+        ],
+        "existingBusinessId": "business-pinocchio",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 640
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4343326470"
+        ],
+        "existingBusinessId": "business-pinocchio-ae5f0d",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 340
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6772814098"
+        ],
+        "existingBusinessId": "business-pinocchio",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 318
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737912"
+        ],
+        "existingBusinessId": "business-pizzeria-avanti",
+        "confidence": "exact",
+        "signals": [
+          "coordinates",
+          "phone",
+          "domain"
+        ],
+        "distanceMeters": 38
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5020737912"
+        ],
+        "existingBusinessId": "business-tabernita-del-sur",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 20
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4343358697"
+        ],
+        "existingBusinessId": "business-tabernita-del-sur",
+        "confidence": "strong-probable",
+        "signals": [
+          "coordinates",
+          "phone"
+        ],
+        "distanceMeters": 40
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11304198021"
+        ],
+        "existingBusinessId": "business-poniente",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 556
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407348347"
+        ],
+        "existingBusinessId": "business-popeyes",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3988
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407348347"
+        ],
+        "existingBusinessId": "business-popeyes-7b85ce",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3219
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12247827465"
+        ],
+        "existingBusinessId": "business-popeyes",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 868
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11304198026"
+        ],
+        "existingBusinessId": "business-quick-save",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1898
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11304198026"
+        ],
+        "existingBusinessId": "business-quick-save-f94515",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2054
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/14162128705"
+        ],
+        "existingBusinessId": "business-quick-save",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 455
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9307384496"
+        ],
+        "existingBusinessId": "business-quinoa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5493
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13245723843"
+        ],
+        "existingBusinessId": "business-rincon-de-pepe",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 15
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12281443211"
+        ],
+        "existingBusinessId": "business-rio-mundo",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 332
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12254712238"
+        ],
+        "existingBusinessId": "business-round-town-travel",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 712
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13096853377"
+        ],
+        "existingBusinessId": "business-sanigrif",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5388
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13096853377"
+        ],
+        "existingBusinessId": "business-sanigrif-3a30ce",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 24
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13096853377"
+        ],
+        "existingBusinessId": "business-sanigrif-d49efa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8579
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13096853376"
+        ],
+        "existingBusinessId": "business-sanigrif",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 5375
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13096853376"
+        ],
+        "existingBusinessId": "business-sanigrif-d49efa",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8571
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/14063469280"
+        ],
+        "existingBusinessId": "business-sanigrif",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "domain"
+        ],
+        "distanceMeters": 12682
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8758535536"
+        ],
+        "existingBusinessId": "business-sara",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2217
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13754646981"
+        ],
+        "existingBusinessId": "business-spa-nature",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 66
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4747555324"
+        ],
+        "existingBusinessId": "business-spar",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8395
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4747555324"
+        ],
+        "existingBusinessId": "business-spar-b7de3a",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3837
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5817779550"
+        ],
+        "existingBusinessId": "business-spar",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 12231
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9215988289"
+        ],
+        "existingBusinessId": "business-sportium",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 7461
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10788636565"
+        ],
+        "existingBusinessId": "business-stromboli",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9436
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8042028480"
+        ],
+        "existingBusinessId": "business-sunrise",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 4682
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13092026678"
+        ],
+        "existingBusinessId": "business-super-euro",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 484
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13092026678"
+        ],
+        "existingBusinessId": "business-super-euro-dfaa5d",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10021
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13092026678"
+        ],
+        "existingBusinessId": "business-super-euro-eebb24",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2344
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539761643"
+        ],
+        "existingBusinessId": "business-super-euro",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9964
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5539761643"
+        ],
+        "existingBusinessId": "business-super-euro-eebb24",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8594
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12278312710"
+        ],
+        "existingBusinessId": "business-super-euro",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1966
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8827369854"
+        ],
+        "existingBusinessId": "business-super-maxi",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1063
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865116779"
+        ],
+        "existingBusinessId": "business-supermarket",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 384
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865116779"
+        ],
+        "existingBusinessId": "business-supermarket-4873c9",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 78
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865116779"
+        ],
+        "existingBusinessId": "business-supermarket-778f04",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 235
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7865116779"
+        ],
+        "existingBusinessId": "business-supermarket-c4558b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 175
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126237"
+        ],
+        "existingBusinessId": "business-supermarket",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 442
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126237"
+        ],
+        "existingBusinessId": "business-supermarket-778f04",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 240
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5874126237"
+        ],
+        "existingBusinessId": "business-supermarket-c4558b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 103
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8018644382"
+        ],
+        "existingBusinessId": "business-supermarket",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 292
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8018644382"
+        ],
+        "existingBusinessId": "business-supermarket-c4558b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 234
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3714825278"
+        ],
+        "existingBusinessId": "business-supermarket",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 489
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13058522393"
+        ],
+        "existingBusinessId": "business-supermarket-quick-save",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 460
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:way/187783341"
+        ],
+        "existingBusinessId": "business-supermercado-masymas",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 694
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3714825259"
+        ],
+        "existingBusinessId": "business-supermercado-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 222
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710714"
+        ],
+        "existingBusinessId": "business-the-bulldog",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 721
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824160"
+        ],
+        "existingBusinessId": "business-todo-plata",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 122
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824160"
+        ],
+        "existingBusinessId": "business-todo-plata-79bd41",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 315
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9114824160"
+        ],
+        "existingBusinessId": "business-todo-plata-ee4a07",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 186
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7862454274"
+        ],
+        "existingBusinessId": "business-todo-plata",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 436
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7862454274"
+        ],
+        "existingBusinessId": "business-todo-plata-ee4a07",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 129
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/7992397656"
+        ],
+        "existingBusinessId": "business-todo-plata",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 307
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710713"
+        ],
+        "existingBusinessId": "business-toy-planet",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1107
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5545710713"
+        ],
+        "existingBusinessId": "business-toy-planet-5b03e5",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 471
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13437481493"
+        ],
+        "existingBusinessId": "business-toy-planet",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1542
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710948"
+        ],
+        "existingBusinessId": "business-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 839
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710948"
+        ],
+        "existingBusinessId": "business-udaco-59c6fc",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1068
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710948"
+        ],
+        "existingBusinessId": "business-udaco-5ca9ac",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 186
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710948"
+        ],
+        "existingBusinessId": "business-udaco-6d6b6e",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2384
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710948"
+        ],
+        "existingBusinessId": "business-udaco-81e344",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1385
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710948"
+        ],
+        "existingBusinessId": "business-udaco-ad456f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1503
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12458710948"
+        ],
+        "existingBusinessId": "business-udaco-defc47",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9793
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765595469"
+        ],
+        "existingBusinessId": "business-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1483
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765595469"
+        ],
+        "existingBusinessId": "business-udaco-5ca9ac",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1128
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765595469"
+        ],
+        "existingBusinessId": "business-udaco-6d6b6e",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2754
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765595469"
+        ],
+        "existingBusinessId": "business-udaco-81e344",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1794
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765595469"
+        ],
+        "existingBusinessId": "business-udaco-ad456f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1826
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8765595469"
+        ],
+        "existingBusinessId": "business-udaco-defc47",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9066
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13754646985"
+        ],
+        "existingBusinessId": "business-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 652
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13754646985"
+        ],
+        "existingBusinessId": "business-udaco-6d6b6e",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 2199
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13754646985"
+        ],
+        "existingBusinessId": "business-udaco-81e344",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1203
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13754646985"
+        ],
+        "existingBusinessId": "business-udaco-ad456f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1324
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13754646985"
+        ],
+        "existingBusinessId": "business-udaco-defc47",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9698
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10296674687"
+        ],
+        "existingBusinessId": "business-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1548
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10296674687"
+        ],
+        "existingBusinessId": "business-udaco-81e344",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1014
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10296674687"
+        ],
+        "existingBusinessId": "business-udaco-ad456f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 938
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10296674687"
+        ],
+        "existingBusinessId": "business-udaco-defc47",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8599
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8781410360"
+        ],
+        "existingBusinessId": "business-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 569
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8781410360"
+        ],
+        "existingBusinessId": "business-udaco-ad456f",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 160
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8781410360"
+        ],
+        "existingBusinessId": "business-udaco-defc47",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8930
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8807273032"
+        ],
+        "existingBusinessId": "business-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 709
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/8807273032"
+        ],
+        "existingBusinessId": "business-udaco-defc47",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 8773
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6512232791"
+        ],
+        "existingBusinessId": "business-udaco",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 9358
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9105545299"
+        ],
+        "existingBusinessId": "business-valor",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 464
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341290"
+        ],
+        "existingBusinessId": "business-vapers-lowcost",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3785
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12407341290"
+        ],
+        "existingBusinessId": "business-vapers-lowcost-7ec3ed",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 3398
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/12250067890"
+        ],
+        "existingBusinessId": "business-vapers-lowcost",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 428
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/10316563257"
+        ],
+        "existingBusinessId": "business-velvet",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 190
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/3710213222"
+        ],
+        "existingBusinessId": "business-veracruz",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 20
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/6160862489"
+        ],
+        "existingBusinessId": "business-vetaltea",
+        "confidence": "strong-probable",
+        "signals": [
+          "name",
+          "coordinates",
+          "domain"
+        ],
+        "distanceMeters": 2
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5024844610"
+        ],
+        "existingBusinessId": "business-viking-ink",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 739
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/9310795253"
+        ],
+        "existingBusinessId": "business-vodafone",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 10282
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4342475658"
+        ],
+        "existingBusinessId": "business-wild-duck",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 614
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/5527814496"
+        ],
+        "existingBusinessId": "business-zatus",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 117
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/11930235532"
+        ],
+        "existingBusinessId": "business-zodiac",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1088
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13612328448"
+        ],
+        "existingBusinessId": "place-castell-de-benidorm",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 20
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13612328448"
+        ],
+        "existingBusinessId": "place-castell-de-benidorm-8602e2",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 10
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13612328449"
+        ],
+        "existingBusinessId": "place-castell-de-benidorm",
+        "confidence": "probable",
+        "signals": [
+          "name",
+          "coordinates"
+        ],
+        "distanceMeters": 18
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/13626610070"
+        ],
+        "existingBusinessId": "place-parc-de-l-aiguera",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 186
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4432465342"
+        ],
+        "existingBusinessId": "place-red-de-senderos",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 950
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4432465342"
+        ],
+        "existingBusinessId": "place-red-de-senderos-d2049b",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 1144
+      },
+      {
+        "incomingSourceKeys": [
+          "openstreetmap:node/4432505831"
+        ],
+        "existingBusinessId": "place-red-de-senderos",
+        "confidence": "unresolved",
+        "signals": [
+          "name"
+        ],
+        "distanceMeters": 956
+      }
+    ]
+  },
+  "unknownSector": 46,
+  "qualityMetrics": {
+    "bySector": {
+      "hospitality": {
+        "discovered": 1253,
+        "unique": 1252,
+        "withWebsite": 118,
+        "withPhone": 300,
+        "withEmail": 7,
+        "withAddress": 812,
+        "withCoordinates": 1251,
+        "withOpeningHours": 44,
+        "withRecentCheckDate": 1252,
+        "probableDuplicates": 129
+      },
+      "beauty-wellness": {
+        "discovered": 217,
+        "unique": 217,
+        "withWebsite": 17,
+        "withPhone": 29,
+        "withEmail": 2,
+        "withAddress": 148,
+        "withCoordinates": 217,
+        "withOpeningHours": 4,
+        "withRecentCheckDate": 217,
+        "probableDuplicates": 10
+      },
+      "healthcare": {
+        "discovered": 109,
+        "unique": 109,
+        "withWebsite": 24,
+        "withPhone": 28,
+        "withEmail": 3,
+        "withAddress": 66,
+        "withCoordinates": 109,
+        "withOpeningHours": 11,
+        "withRecentCheckDate": 109,
+        "probableDuplicates": 3
+      },
+      "professional-services": {
+        "discovered": 51,
+        "unique": 51,
+        "withWebsite": 10,
+        "withPhone": 8,
+        "withEmail": 1,
+        "withAddress": 37,
+        "withCoordinates": 51,
+        "withOpeningHours": 2,
+        "withRecentCheckDate": 51,
+        "probableDuplicates": 5
+      },
+      "real-estate": {
+        "discovered": 83,
+        "unique": 83,
+        "withWebsite": 24,
+        "withPhone": 23,
+        "withEmail": 1,
+        "withAddress": 58,
+        "withCoordinates": 83,
+        "withOpeningHours": 6,
+        "withRecentCheckDate": 83,
+        "probableDuplicates": 3
+      },
+      "home-services": {
+        "discovered": 37,
+        "unique": 37,
+        "withWebsite": 3,
+        "withPhone": 3,
+        "withEmail": 2,
+        "withAddress": 23,
+        "withCoordinates": 37,
+        "withOpeningHours": 4,
+        "withRecentCheckDate": 37,
+        "probableDuplicates": 5
+      },
+      "automotive": {
+        "discovered": 46,
+        "unique": 46,
+        "withWebsite": 4,
+        "withPhone": 4,
+        "withEmail": 2,
+        "withAddress": 12,
+        "withCoordinates": 46,
+        "withOpeningHours": 2,
+        "withRecentCheckDate": 46,
+        "probableDuplicates": 0
+      },
+      "education": {
+        "discovered": 22,
+        "unique": 22,
+        "withWebsite": 2,
+        "withPhone": 6,
+        "withEmail": 3,
+        "withAddress": 8,
+        "withCoordinates": 22,
+        "withOpeningHours": 0,
+        "withRecentCheckDate": 22,
+        "probableDuplicates": 0
+      },
+      "retail": {
+        "discovered": 1024,
+        "unique": 1024,
+        "withWebsite": 135,
+        "withPhone": 122,
+        "withEmail": 9,
+        "withAddress": 679,
+        "withCoordinates": 1024,
+        "withOpeningHours": 41,
+        "withRecentCheckDate": 1024,
+        "probableDuplicates": 348
+      },
+      "tourism": {
+        "discovered": 197,
+        "unique": 197,
+        "withWebsite": 79,
+        "withPhone": 63,
+        "withEmail": 24,
+        "withAddress": 85,
+        "withCoordinates": 197,
+        "withOpeningHours": 2,
+        "withRecentCheckDate": 197,
+        "probableDuplicates": 13
+      },
+      "b2b-services": {
+        "discovered": 19,
+        "unique": 19,
+        "withWebsite": 8,
+        "withPhone": 4,
+        "withEmail": 0,
+        "withAddress": 13,
+        "withCoordinates": 19,
+        "withOpeningHours": 1,
+        "withRecentCheckDate": 19,
+        "probableDuplicates": 0
+      },
+      "other": {
+        "discovered": 46,
+        "unique": 46,
+        "withWebsite": 13,
+        "withPhone": 10,
+        "withEmail": 4,
+        "withAddress": 23,
+        "withCoordinates": 46,
+        "withOpeningHours": 6,
+        "withRecentCheckDate": 46,
+        "probableDuplicates": 1
+      }
+    },
+    "byMunicipality": {
+      "Benidorm": {
+        "discovered": 2627,
+        "unique": 2626,
+        "withWebsite": 365,
+        "withPhone": 522,
+        "withEmail": 36,
+        "withAddress": 1869,
+        "withCoordinates": 2625,
+        "withOpeningHours": 60,
+        "withRecentCheckDate": 2626,
+        "probableDuplicates": 437
+      },
+      "l'Alfàs del Pi": {
+        "discovered": 298,
+        "unique": 298,
+        "withWebsite": 45,
+        "withPhone": 50,
+        "withEmail": 10,
+        "withAddress": 63,
+        "withCoordinates": 298,
+        "withOpeningHours": 41,
+        "withRecentCheckDate": 298,
+        "probableDuplicates": 55
+      },
+      "La Nucía": {
+        "discovered": 117,
+        "unique": 117,
+        "withWebsite": 16,
+        "withPhone": 17,
+        "withEmail": 8,
+        "withAddress": 23,
+        "withCoordinates": 117,
+        "withOpeningHours": 12,
+        "withRecentCheckDate": 117,
+        "probableDuplicates": 12
+      },
+      "unknown": {
+        "discovered": 62,
+        "unique": 62,
+        "withWebsite": 11,
+        "withPhone": 11,
+        "withEmail": 4,
+        "withAddress": 9,
+        "withCoordinates": 62,
+        "withOpeningHours": 10,
+        "withRecentCheckDate": 62,
+        "probableDuplicates": 13
+      }
+    },
+    "byZone": {
+      "Benidorm": {
+        "discovered": 2627,
+        "unique": 2626,
+        "withWebsite": 365,
+        "withPhone": 522,
+        "withEmail": 36,
+        "withAddress": 1869,
+        "withCoordinates": 2625,
+        "withOpeningHours": 60,
+        "withRecentCheckDate": 2626,
+        "probableDuplicates": 437
+      },
+      "Albir": {
+        "discovered": 109,
+        "unique": 109,
+        "withWebsite": 21,
+        "withPhone": 22,
+        "withEmail": 4,
+        "withAddress": 25,
+        "withCoordinates": 109,
+        "withOpeningHours": 19,
+        "withRecentCheckDate": 109,
+        "probableDuplicates": 24
+      },
+      "l'Alfàs del Pi": {
+        "discovered": 189,
+        "unique": 189,
+        "withWebsite": 24,
+        "withPhone": 28,
+        "withEmail": 6,
+        "withAddress": 38,
+        "withCoordinates": 189,
+        "withOpeningHours": 22,
+        "withRecentCheckDate": 189,
+        "probableDuplicates": 31
+      },
+      "La Nucía": {
+        "discovered": 117,
+        "unique": 117,
+        "withWebsite": 16,
+        "withPhone": 17,
+        "withEmail": 8,
+        "withAddress": 23,
+        "withCoordinates": 117,
+        "withOpeningHours": 12,
+        "withRecentCheckDate": 117,
+        "probableDuplicates": 12
+      },
+      "unknown": {
+        "discovered": 62,
+        "unique": 62,
+        "withWebsite": 11,
+        "withPhone": 11,
+        "withEmail": 4,
+        "withAddress": 9,
+        "withCoordinates": 62,
+        "withOpeningHours": 10,
+        "withRecentCheckDate": 62,
+        "probableDuplicates": 13
+      }
+    }
+  },
+  "coverageAssessment": {
+    "reasonable": [
+      "hospitality",
+      "beauty-wellness",
+      "healthcare",
+      "real-estate",
+      "retail",
+      "tourism"
+    ],
+    "insufficient": [
+      "professional-services",
+      "home-services",
+      "automotive",
+      "education",
+      "b2b-services"
+    ]
+  }
+}

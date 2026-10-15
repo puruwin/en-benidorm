@@ -45,3 +45,32 @@ Una señal sólo cuenta como cubierta si tiene al menos un `sourceKey` y todos s
 - Un estado operativo no evaluado bloquea la interpretación comercial hasta revisión.
 - El reporte `latest.json` representa la última muestra ejecutada, no necesariamente todo el catálogo.
 
+## P3A.3: revisión humana
+
+Las decisiones manuales viven exclusivamente en `content/manual/opportunity-reviews/<businessId>.json`. El análisis automático no modifica esos archivos ni copia sus campos dentro de `content/opportunities`; sólo incorpora una referencia a la review en cada hipótesis derivada.
+
+Estados efectivos:
+
+- `unreviewed`: no existe artefacto manual.
+- `reviewing`: revisión guardada como pendiente.
+- `verified`: operación e identidad confirmadas, web resuelta y provenance revisada.
+- `rejected`: cierre, conflicto o decisión explícita de no contactar.
+- `stale`: alguna verificación ha superado su vigencia; el artefacto se conserva.
+
+Política inicial, calculada desde `reviewedAt` salvo un `expiresAt` anterior:
+
+- estado operativo: 90 días;
+- web/dominio: 180 días;
+- canales de contacto revisados: 180 días.
+
+Una hipótesis posterior a review incluye tanto `basedOnSignalIds` como `basedOnReview` (`reviewedAt`, autor, campos y fuentes revisadas). Sólo se habilita con `confirmed-open`, identidad `confirmed`, review vigente, provenance existente y conflictos explícitamente resueltos. Cierre o conflicto produce `do-not-contact` sin hipótesis.
+
+## P3A.4: Verification Enrichment
+
+`npm run opportunities:verify -- [opciones]` añade evidencia pública antes de la revisión y la persiste en `content/verification/<businessId>.json`. Acepta `--business`, `--area`, `--category`, `--limit` y `--force`. Usa la misma selección determinista y no escribe en manifest, Selection, Comparison, reviews ni gates.
+
+Cada artefacto separa `identityEvidence`, `operationalEvidence`, `digitalPresence`, `websiteSignals` e información comercial extraída con el extractor común. Las fuentes conservan URL, fecha, atribución, licencia y alcance. Una URL accesible es sólo una señal técnica; una página de marca o URL candidata no acredita una ubicación concreta; OSM y terceros son soporte, nunca confirmación humana. No se consultan ratings ni reviews y los emails sólo se incorporan cuando aparecen explícitamente en la fuente.
+
+La caché usa un fingerprint de inputs/versiones y guarda caducidades independientes: reachability y operación 30 días, contactos 90 días e identidad 180 días. Si vence cualquier dimensión el artefacto se vuelve a recopilar de forma conservadora; `--force` invalida la reutilización. El reporte agregado se guarda en `content/reports/verification/latest.json`.
+
+Opportunity Analysis consume únicamente el fingerprint, un resumen de estados y las fuentes verificadas; no copia el artefacto. Content Lab presenta el detalle como `AUTOMATIC SUPPORTING EVIDENCE`, separado de los campos `MANUAL` y de las hipótesis `INFERRED`. Ningún resultado cambia una review existente ni convierte `supported-open` en `confirmed-open`.

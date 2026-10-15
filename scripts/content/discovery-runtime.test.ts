@@ -80,11 +80,15 @@ test('distingue failed de anomalous-empty sin convertirlos en catálogo vacío',
 test('extracto OSM local reutiliza normalización, filtros y provenance', async () => {
   const path = resolve(process.cwd(), 'scripts/content/fixtures/discovery/benidorm-osm-sample.json')
   const adapter = new LocalOsmExtractAdapter(path, {sourceUrl: 'https://example.test/benidorm.osm.json', downloadedAt: retrievedAt})
+  assert.equal(adapter.id, 'openstreetmap')
+  assert.equal(adapter.provider, 'openstreetmap')
   const output = await adapter.discoverDetailed({categories: ['hospitality'], geography, retrievedAt})
   assert.equal(output.status, 'success')
   assert.equal(output.records.length, 3)
   assert.ok(output.records.every((record) => record.sources[0]?.dataset?.kind === 'local-osm-extract'))
   assert.ok(output.records.every((record) => record.sources[0]?.attribution === '© OpenStreetMap contributors'))
+  assert.equal(output.records[0]?.sources[0]?.dataset?.sourceUrl, 'https://example.test/benidorm.osm.json')
+  assert.equal(output.records[0]?.sources[0]?.dataset?.downloadedAt, retrievedAt)
 })
 
 test('coincidencias entre proveedores se registran por señales y no cambian businessId', () => {
@@ -101,6 +105,6 @@ test('coincidencias entre proveedores se registran por señales y no cambian bus
   const matches = findProbableDuplicates(incoming, [entity])
   assert.equal(matches.length, 1)
   assert.equal(matches[0]?.existingBusinessId, entity.id)
-  assert.equal(matches[0]?.confidence, 'strong')
-  assert.deepEqual(new Set(matches[0]?.signals), new Set(['name', 'proximity', 'phone', 'domain']))
+  assert.equal(matches[0]?.confidence, 'exact')
+  assert.deepEqual(new Set(matches[0]?.signals), new Set(['name', 'coordinates', 'phone', 'domain']))
 })

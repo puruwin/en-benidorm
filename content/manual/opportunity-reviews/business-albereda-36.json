@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-albereda-36",
+  "reviewedAt": "2026-10-15T15:20:00.000Z",
+  "reviewedBy": "codex-p3a3-pilot",
+  "workflowStatus": "reviewing",
+  "operationalStatus": "unknown",
+  "identityStatus": "confirmed",
+  "officialPresence": {"website": "not-found", "googleProfile": "not-checked", "socialProfiles": "not-checked"},
+  "contactChannels": {},
+  "reviewedSourceKeys": ["openstreetmap:node/13900862270"],
+  "notes": "La identidad OSM es concreta, pero check_date=2026-06-01 queda fuera de la ventana operativa inicial de 90 días."
+}

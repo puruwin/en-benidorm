@@ -1,4 +1,5 @@
 import type {DiscoveryCategory, SourceProvenance} from '../../content/lib/types'
+import type {VerificationArtifact} from './verification-types'
 
 export const OPPORTUNITY_SIGNAL_TYPES = [
   'no_official_website_found', 'official_website_found', 'website_source_ambiguous', 'brand_website_only',
@@ -12,6 +13,46 @@ export type OpportunitySignalType = (typeof OPPORTUNITY_SIGNAL_TYPES)[number]
 export type EvidenceStrength = 'weak' | 'moderate' | 'strong'
 export type OpportunityArea = 'web-presence' | 'local-seo' | 'content' | 'conversion' | 'booking' | 'automation' | 'unknown'
 export type OpportunityStatus = 'not-analyzed' | 'analyzed' | 'needs-review' | 'not-actionable'
+export type OpportunityReviewWorkflowStatus = 'unreviewed' | 'reviewing' | 'verified' | 'rejected' | 'stale'
+export type ReviewedOperationalStatus = 'confirmed-open' | 'confirmed-closed' | 'unknown'
+export type ReviewedIdentityStatus = 'confirmed' | 'ambiguous' | 'conflict'
+export interface ReviewedOfficialPresence {
+  website: 'confirmed' | 'not-found' | 'ambiguous'
+  googleProfile: 'confirmed' | 'not-found' | 'not-checked'
+  socialProfiles: 'confirmed' | 'not-found' | 'not-checked'
+}
+export interface ReviewedContactChannels {
+  phone?: 'confirmed' | 'unverified'
+  email?: 'confirmed' | 'unverified'
+  contactForm?: 'confirmed' | 'not-found'
+  booking?: 'confirmed' | 'not-found'
+}
+
+export interface OpportunityReviewRevision {
+  reviewedAt: string
+  reviewedBy: string
+  workflowStatus: Exclude<OpportunityReviewWorkflowStatus, 'unreviewed' | 'stale'>
+  operationalStatus: ReviewedOperationalStatus
+  identityStatus: ReviewedIdentityStatus
+  officialPresence: ReviewedOfficialPresence
+  contactChannels: ReviewedContactChannels
+  reviewedSourceKeys: string[]
+  resolvedSignalIds?: string[]
+  notes?: string
+  expiresAt?: string
+}
+
+export interface OpportunityReview extends OpportunityReviewRevision {
+  schemaVersion: 1
+  businessId: string
+  history?: OpportunityReviewRevision[]
+}
+
+export interface OpportunityReviewEvaluation {
+  workflowStatus: OpportunityReviewWorkflowStatus
+  staleFields: Array<'operationalStatus' | 'website' | 'contactChannels'>
+  expires: {operationalStatus: string; website: string; contactChannels?: string}
+}
 
 export interface OpportunitySignal {
   id: string
@@ -27,6 +68,12 @@ export interface CommercialHypothesis {
   area: OpportunityArea
   hypothesis: string
   basedOnSignalIds: string[]
+  basedOnReview?: {
+    reviewedAt: string
+    reviewedBy: string
+    fields: string[]
+    reviewedSourceKeys: string[]
+  }
   confidence: EvidenceStrength
   limitations: string[]
 }
@@ -57,6 +104,13 @@ export interface OpportunityAnalysis {
     totalSignals: number
     coverage: number
   }
+  verification?: {
+    artifact: string
+    generatedAt: string
+    fingerprint: string
+    identityEvidence: VerificationArtifact['identityEvidence']['status']
+    operationalEvidence: VerificationArtifact['operationalEvidence']['status']
+  }
   inputFingerprint: string
 }
 
@@ -74,11 +128,11 @@ export interface OpportunityReport {
   actionableHypotheses: number
   needsReview: number
   notActionable: number
+  reviewStateCounts: Partial<Record<OpportunityReviewWorkflowStatus, number>>
   signalCounts: Partial<Record<OpportunitySignalType, number>>
   opportunityAreaCounts: Partial<Record<OpportunityArea, number>>
   businessesWithoutOfficialWebsite: string[]
   businessesWithIdentityOrStatusConflicts: string[]
   provenanceCoverage: {signals: number; coveredSignals: number; ratio: number}
-  analyses: Array<Pick<OpportunityAnalysis, 'businessId' | 'businessName' | 'category' | 'status' | 'signals' | 'hypotheses' | 'suggestedActions' | 'summary'>>
+  analyses: Array<Pick<OpportunityAnalysis, 'businessId' | 'businessName' | 'category' | 'status' | 'signals' | 'hypotheses' | 'suggestedActions' | 'summary'> & {reviewState: OpportunityReviewWorkflowStatus}>
 }
-

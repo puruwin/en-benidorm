@@ -1,8 +1,10 @@
 import {createHash} from 'node:crypto'
 import type {DiscoveredEntity, DiscoveryCategory, EnrichedEntity, ManifestEntry, SourceProvenance} from '../../content/lib/types'
-import type {CommercialHypothesis, EvidenceStrength, OpportunityAnalysis, OpportunitySignal, OpportunitySignalType, SuggestedAction} from './types'
+import {evaluateOpportunityReview, reviewAllowsHypotheses} from './reviews'
+import type {CommercialHypothesis, EvidenceStrength, OpportunityAnalysis, OpportunityReview, OpportunitySignal, OpportunitySignalType, SuggestedAction} from './types'
+import type {VerificationArtifact} from './verification-types'
 
-export const OPPORTUNITY_ANALYZER_VERSION = 'p3a2-v1'
+export const OPPORTUNITY_ANALYZER_VERSION = 'p3a4-v1'
 
 export interface OpportunityEvidence {
   entry: ManifestEntry
@@ -13,10 +15,12 @@ export interface OpportunityEvidence {
     operationalStatus?: {status?: string; assessedAt?: string; sourceKeys?: string[]; needsVerification?: boolean; reasons?: string[]}
   }
   probableDuplicateSourceKeys?: string[]
+  review?: OpportunityReview
+  verification?: VerificationArtifact
 }
 
 export function analyzeOpportunity(input: OpportunityEvidence, now = new Date().toISOString()): OpportunityAnalysis {
-  const sources = uniqueSources([...(input.entry.sources ?? []), ...(input.discovered?.sources ?? []), ...(input.enriched?.sources ?? [])])
+  const sources = uniqueSources([...(input.entry.sources ?? []), ...(input.discovered?.sources ?? []), ...(input.enriched?.sources ?? []), ...(input.verification?.sources ?? [])])
   const sourceMap = new Map(sources.map((source) => [source.key, source]))
   const signals: OpportunitySignal[] = []
   const add = (type: OpportunitySignalType, observation: string, sourceKeys: string[], confidence: EvidenceStrength = 'moderate', observedAt?: string) => {
@@ -25,10 +29,10 @@ export function analyzeOpportunity(input: OpportunityEvidence, now = new Date().
   }
   const facts = input.enriched?.facts
   const tags = input.discovered?.raw.tags ?? {}
-  const website = facts?.website.value ?? tags.website ?? tags['contact:website'] ?? null
-  const websiteKeys = facts?.website.sources ?? sourceKeysForTag(input, website)
+  const website = input.verification?.digitalPresence.website?.value ?? facts?.website.value ?? tags.website ?? tags['contact:website'] ?? null
+  const websiteKeys = input.verification?.digitalPresence.website?.sourceKeys ?? facts?.website.sources ?? sourceKeysForTag(input, website)
   const websiteSources = websiteKeys.map((key) => sourceMap.get(key)).filter((source): source is SourceProvenance => Boolean(source))
-  const isBrand = websiteSources.some((source) => source.sourceClass === 'official-brand' || source.claimScope === 'brand') || Boolean(tags.brand && tags.brand !== tags.name)
+  const isBrand = input.verification?.digitalPresence.website?.scope === 'brand' || websiteSources.some((source) => source.sourceClass === 'official-brand' || source.claimScope === 'brand') || Boolean(tags.brand && tags.brand !== tags.name)
   const isOfficial = websiteSources.some(isOfficialSource)
   if (!website) {
     add('no_official_website_found', 'Content Lab no encontró una web oficial en las fuentes consultadas; esto no demuestra que el negocio necesite una web.', sources.map((source) => source.key), sources.length > 0 ? 'moderate' : 'weak')
@@ -65,16 +69,19 @@ export function analyzeOpportunity(input: OpportunityEvidence, now = new Date().
   const phoneKeys = facts?.phone.sources ?? sourceKeysForTag(input, tags.phone ?? tags['contact:phone'])
   if (facts?.phone.value || tags.phone || tags['contact:phone']) add('phone_available', 'Hay un teléfono publicado en las fuentes disponibles.', phoneKeys, 'moderate')
   const email = tags.email ?? tags['contact:email']
-  if (email) add('email_available', 'Hay una dirección de email publicada explícitamente en los datos de origen.', sourceKeysForTag(input, email), 'moderate')
-  const contactForm = tags['contact:form']
-  if (contactForm) add('contact_form_available', 'La fuente declara explícitamente un formulario de contacto.', sourceKeysForTag(input, contactForm), 'moderate')
-  const booking = facts?.bookingAvailability.value === true || ['yes', 'required', 'recommended'].includes(tags.reservation ?? '') || Boolean(tags.booking)
-  const bookingKeys = facts?.bookingAvailability.value === true ? facts.bookingAvailability.sources : sourceKeysForTag(input, tags.reservation ?? tags.booking)
+  const verifiedEmail = input.verification?.digitalPresence.emails[0]
+  if (email || verifiedEmail) add('email_available', 'Hay una dirección de email publicada explícitamente en los datos de origen.', verifiedEmail?.sourceKeys ?? sourceKeysForTag(input, email), 'moderate')
+  const contactForm = input.verification?.digitalPresence.forms[0] ?? (tags['contact:form'] ? {sourceKeys: sourceKeysForTag(input, tags['contact:form'])} : undefined)
+  if (contactForm) add('contact_form_available', 'La fuente publica explícitamente un formulario de contacto.', contactForm.sourceKeys, 'moderate')
+  const verifiedBooking = input.verification?.digitalPresence.bookingUrls[0]
+  const booking = Boolean(verifiedBooking) || facts?.bookingAvailability.value === true || ['yes', 'required', 'recommended'].includes(tags.reservation ?? '') || Boolean(tags.booking)
+  const bookingKeys = verifiedBooking?.sourceKeys ?? (facts?.bookingAvailability.value === true ? facts.bookingAvailability.sources : sourceKeysForTag(input, tags.reservation ?? tags.booking))
   if (booking) {
     add('booking_channel_available', 'Se verificó públicamente un canal o disponibilidad de reserva.', bookingKeys, 'strong')
     add('booking_process_visible', 'El proceso de reserva es visible en las fuentes públicas verificadas.', bookingKeys, 'strong')
   }
-  if (tags['contact:quote'] || tags['request:quote']) add('quote_request_process_visible', 'La fuente declara explícitamente un proceso público de solicitud de presupuesto.', sourceKeysForTag(input, tags['contact:quote'] ?? tags['request:quote']), 'moderate')
+  const verifiedQuote = input.verification?.digitalPresence.quoteRequestUrls[0]
+  if (verifiedQuote || tags['contact:quote'] || tags['request:quote']) add('quote_request_process_visible', 'La fuente declara explícitamente un proceso público de solicitud de presupuesto.', verifiedQuote?.sourceKeys ?? sourceKeysForTag(input, tags['contact:quote'] ?? tags['request:quote']), 'moderate')
   const hasManualContact = signals.some((signal) => signal.type === 'phone_available' || signal.type === 'email_available')
   const hasProcess = signals.some((signal) => ['contact_form_available', 'booking_process_visible', 'quote_request_process_visible'].includes(signal.type))
   if (hasManualContact && !hasProcess) add('manual_contact_only_visible', 'Entre los canales que Content Lab pudo verificar sólo aparecen teléfono o email; no se afirma que sean los únicos canales reales.', signals.filter((signal) => signal.type === 'phone_available' || signal.type === 'email_available').flatMap((signal) => signal.sourceKeys), 'weak')
@@ -82,15 +89,47 @@ export function analyzeOpportunity(input: OpportunityEvidence, now = new Date().
   const evidenceStrength = calculateEvidenceStrength(signals, sourceMap)
   const reviewTypes = new Set<OpportunitySignalType>(['identity_conflict', 'probable_duplicate', 'operational_status_unknown', 'operational_status_conflict', 'website_source_ambiguous'])
   const reviewSignals = signals.filter((signal) => reviewTypes.has(signal.type))
-  const hypotheses: CommercialHypothesis[] = []
-  if (!reviewSignals.length) {
-    if (signals.some((signal) => signal.type === 'no_official_website_found')) hypotheses.push(hypothesis('web-presence', 'Puede existir una oportunidad de mejorar la presencia web propia.', ['signal:no_official_website_found'], evidenceStrength, ['No se ha confirmado que el negocio quiera o necesite una web.', 'No encontrar una web en las fuentes consultadas no prueba que no exista.']))
-    if (signals.some((signal) => signal.type === 'brand_website_only')) hypotheses.push(hypothesis('web-presence', 'Puede ser útil revisar si el establecimiento necesita una presencia propia diferenciada de la marca.', ['signal:brand_website_only'], evidenceStrength, ['Una web de marca puede ser suficiente para el negocio.', 'No se ha verificado ninguna necesidad interna.']))
-    if (signals.some((signal) => signal.type === 'limited_structured_information')) hypotheses.push(hypothesis('content', 'Puede existir margen para hacer más verificable y accesible la información comercial pública.', ['signal:limited_structured_information'], evidenceStrength, ['La observación se limita a las fuentes y dimensiones que Content Lab pudo consultar.', 'No implica una mala presencia digital ni una prioridad para el negocio.']))
+  const reviewEvaluation = evaluateOpportunityReview(input.review, now)
+  const conflictSignalIds = signals.filter((signal) => ['identity_conflict', 'probable_duplicate', 'operational_status_conflict'].includes(signal.type)).map((signal) => signal.id)
+  const reviewEligible = reviewAllowsHypotheses(input.review, reviewEvaluation, new Set(sourceMap.keys()), conflictSignalIds)
+  const rejected = Boolean(input.review && (
+    reviewEvaluation.workflowStatus === 'rejected' || input.review.operationalStatus === 'confirmed-closed' || input.review.identityStatus === 'conflict'
+  ))
+  const signalSupported = (id: string) => {
+    const signal = signals.find((candidate) => candidate.id === id)
+    return Boolean(signal?.sourceKeys.length && signal.sourceKeys.every((key) => sourceMap.has(key)))
   }
-  const manualReviewRequired = reviewSignals.length > 0 || evidenceStrength === 'weak'
-  const suggestedActions = actionsFor(signals, hypotheses, evidenceStrength, reviewSignals.length > 0)
-  const status = reviewSignals.length ? 'needs-review' : hypotheses.length ? 'analyzed' : 'not-actionable'
+  const reviewBasis = input.review ? {
+    reviewedAt: input.review.reviewedAt, reviewedBy: input.review.reviewedBy,
+    reviewedSourceKeys: input.review.reviewedSourceKeys,
+  } : undefined
+  const hypotheses: CommercialHypothesis[] = []
+  if (reviewEligible && input.review && reviewBasis) {
+    const websiteSignal = signals.find((signal) => ['no_official_website_found', 'website_source_ambiguous', 'brand_website_only'].includes(signal.type))
+    if (input.review.officialPresence.website === 'not-found' && websiteSignal && signalSupported(websiteSignal.id)) hypotheses.push(hypothesis(
+      'web-presence', 'No se ha identificado una web oficial propia para un negocio confirmado como operativo.', [websiteSignal.id], evidenceStrength,
+      ['No implica que el negocio quiera o necesite desarrollar una web.', 'La verificación caduca y se limita a las fuentes revisadas.'],
+      {...reviewBasis, fields: ['operationalStatus', 'identityStatus', 'officialPresence.website']},
+    ))
+    const limitedId = 'signal:limited_structured_information'
+    if (signalSupported(limitedId)) hypotheses.push(hypothesis(
+      'content', 'Puede existir margen para hacer más verificable y accesible la información comercial pública.', [limitedId], evidenceStrength,
+      ['La observación se limita a las fuentes y dimensiones que Content Lab pudo consultar.', 'No implica una mala presencia digital ni una prioridad para el negocio.'],
+      {...reviewBasis, fields: ['operationalStatus', 'identityStatus']},
+    ))
+    const phoneId = 'signal:phone_available'
+    const manualId = 'signal:manual_contact_only_visible'
+    if (input.review.officialPresence.website === 'confirmed' && input.review.contactChannels.phone === 'confirmed' && input.review.contactChannels.booking === 'not-found' && signalSupported(phoneId) && signalSupported(manualId)) hypotheses.push(hypothesis(
+      'booking', 'No se ha identificado un canal de reserva online; el contacto visible se realiza mediante teléfono.', [phoneId, manualId], evidenceStrength,
+      ['No se afirma que el proceso interno sea manual.', 'No encontrar booking en las fuentes revisadas no demuestra que no exista otro canal.'],
+      {...reviewBasis, fields: ['operationalStatus', 'identityStatus', 'officialPresence.website', 'contactChannels.phone', 'contactChannels.booking']},
+    ))
+  }
+  const manualReviewRequired = !rejected && !reviewEligible && (reviewSignals.length > 0 || evidenceStrength === 'weak' || reviewEvaluation.workflowStatus !== 'verified')
+  const suggestedActions = rejected
+    ? [{type: 'do-not-contact' as const, reason: 'La revisión humana registra cierre, rechazo o conflicto de identidad.'}]
+    : actionsFor(signals, hypotheses, evidenceStrength, !reviewEligible && reviewSignals.length > 0)
+  const status = rejected ? 'not-actionable' : reviewEligible ? (hypotheses.length ? 'analyzed' : 'not-actionable') : 'needs-review'
   const coveredSignals = signals.filter((signal) => signal.sourceKeys.length > 0 && signal.sourceKeys.every((key) => sourceMap.has(key))).length
   const name = input.enriched?.facts.name.value ?? input.discovered?.raw.name ?? input.entry.slug
   const fingerprint = opportunityFingerprint(input)
@@ -99,12 +138,13 @@ export function analyzeOpportunity(input: OpportunityEvidence, now = new Date().
     status, signals, hypotheses, suggestedActions,
     summary: {evidenceStrength, opportunityAreas: [...new Set(hypotheses.map((item) => item.area))], manualReviewRequired},
     provenance: {sources, coveredSignals, totalSignals: signals.length, coverage: signals.length ? coveredSignals / signals.length : 0},
+    ...(input.verification ? {verification: {artifact: `content/verification/${input.entry.id}.json`, generatedAt: input.verification.generatedAt, fingerprint: input.verification.fingerprint, identityEvidence: input.verification.identityEvidence.status, operationalEvidence: input.verification.operationalEvidence.status}} : {}),
     inputFingerprint: fingerprint,
   }
 }
 
 export function opportunityFingerprint(input: OpportunityEvidence): string {
-  return createHash('sha256').update(JSON.stringify({analyzerVersion: OPPORTUNITY_ANALYZER_VERSION, entry: input.entry, discovered: input.discovered, enriched: input.enriched, comparison: input.comparison, probableDuplicateSourceKeys: input.probableDuplicateSourceKeys})).digest('hex')
+  return createHash('sha256').update(JSON.stringify({analyzerVersion: OPPORTUNITY_ANALYZER_VERSION, entry: input.entry, discovered: input.discovered, enriched: input.enriched, comparison: input.comparison, probableDuplicateSourceKeys: input.probableDuplicateSourceKeys, review: input.review, verificationFingerprint: input.verification?.fingerprint})).digest('hex')
 }
 
 export function categoryFor(entry: ManifestEntry): DiscoveryCategory {
@@ -116,8 +156,8 @@ export function categoryFor(entry: ManifestEntry): DiscoveryCategory {
   return 'attractions'
 }
 
-function hypothesis(area: CommercialHypothesis['area'], text: string, basedOnSignalIds: string[], confidence: EvidenceStrength, limitations: string[]): CommercialHypothesis {
-  return {id: `hypothesis:${area}:${basedOnSignalIds[0]?.replace('signal:', '')}`, area, hypothesis: text, basedOnSignalIds, confidence, limitations}
+function hypothesis(area: CommercialHypothesis['area'], text: string, basedOnSignalIds: string[], confidence: EvidenceStrength, limitations: string[], basedOnReview?: NonNullable<CommercialHypothesis['basedOnReview']>): CommercialHypothesis {
+  return {id: `hypothesis:${area}:${basedOnSignalIds[0]?.replace('signal:', '')}`, area, hypothesis: text, basedOnSignalIds, ...(basedOnReview ? {basedOnReview} : {}), confidence, limitations}
 }
 
 function actionsFor(signals: OpportunitySignal[], hypotheses: CommercialHypothesis[], strength: EvidenceStrength, blocked: boolean): SuggestedAction[] {

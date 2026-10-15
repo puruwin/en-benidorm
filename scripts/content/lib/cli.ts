@@ -1,4 +1,5 @@
 import {DISCOVERY_CATEGORIES, ENTITY_TYPES, type DiscoveryCategory, type EntityType, type GeographicScope} from './types'
+import {resolveDiscoveryArea} from './discovery-geography'
 
 export interface PipelineOptions {
   dryRun: boolean
@@ -64,10 +65,9 @@ export function parsePipelineOptions(args = process.argv.slice(2)): PipelineOpti
     } else if (argument.startsWith('--area')) {
       const name = optionValue(args, index, '--area').trim()
       if (!argument.includes('=')) index += 1
-      result.geography = {
-        name, bbox: result.geography?.bbox ?? [38.5011769, -0.1869109, 38.6101333, -0.0667580],
-        ...(name.toLocaleLowerCase('es') === 'benidorm' ? {boundaryRelationId: 341148} : {}),
-      }
+      const known = resolveDiscoveryArea(name)
+      if (!known && !result.geography?.bbox) throw new Error('--area admite Benidorm, La Nucía, l’Alfàs del Pi, Albir o target; use --bbox para otra zona.')
+      result.geography = result.geography?.bbox ? {name: known?.name ?? name, bbox: result.geography.bbox, ...(known?.boundaryRelationId ? {boundaryRelationId: known.boundaryRelationId} : {})} : known!
     } else if (argument.startsWith('--research-limit')) {
       const value = Number(optionValue(args, index, '--research-limit'))
       if (!argument.includes('=')) index += 1
