@@ -14,10 +14,10 @@ La tabla resume los tags que alimentan cada sector. El detalle normativo, los va
 |---|---|
 | hospitality | `amenity=restaurant/fast_food/food_court` → restaurant; `cafe` → cafe; `bar/pub/biergarten` → bar; `amenity/shop=ice_cream`; `shop=bakery/pastry/confectionery` |
 | beauty-wellness | `shop=hairdresser/barber/beauty/cosmetics/nail_salon/massage`; `beauty=nails/salon`; `leisure=spa/fitness_centre/sports_centre`; `sport=fitness` |
-| healthcare | `amenity=dentist/clinic/doctors/veterinary/physiotherapist`; `healthcare=dentist/physiotherapist/podiatrist/veterinary/clinic/doctor`; `shop=optician` |
+| healthcare | `amenity=dentist/clinic/doctors/veterinary/physiotherapist/pharmacy`; `healthcare=dentist/physiotherapist/podiatrist/veterinary/clinic/doctor/pharmacy`; `shop=optician` |
 | professional-services | `office=lawyer/accountant/tax_advisor/insurance/consulting/architect/engineer/translator/travel_agent`; `shop=insurance/travel_agency` |
-| real-estate | `office=estate_agent/property_management/holiday_rental`; `shop=estate_agent`; `tourism=apartment` + `rental=holiday_apartment` |
-| home-services | `craft=builder/renovation/electrician/plumber/hvac/carpenter/painter/gardener/swimming_pool/locksmith/handyman/car_repair`; `office=construction_company/cleaning/maintenance`; varios `shop` específicos |
+| real-estate | `office=estate_agent/property_management/holiday_rental`; `shop=estate_agent`; `rental=holiday_apartment` |
+| home-services | `craft=builder/renovation/electrician/plumber/hvac/carpenter/painter/gardener/swimming_pool/locksmith/handyman`; `office=construction_company/cleaning/maintenance`; varios `shop` específicos |
 | automotive | `shop=car_repair/tyres/car_detailing/car/car_rental/motorcycle/motorcycle_repair/car_parts`; `amenity=car_wash/car_rental` |
 | education | `amenity=college/language_school/driving_school/music_school/childcare/kindergarten`; `office=educational_institution/tutoring` |
 | retail | `shop=furniture/bed/kitchen/interior_decoration/houseware/curtain/lighting/computer/mobile_phone/mobile_phone_accessories/appliance/electronics/clothes/shoes/fashion/bag/accessories/leather/jewelry/jewellery/watches`; cualquier otro `shop=*` → specialty-shop |

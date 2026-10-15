@@ -134,7 +134,8 @@ function has(entity: DiscoveredEntity, keys: string[]): boolean { return keys.so
 
 function recent(entity: DiscoveredEntity, now: string): boolean {
   const cutoff = Date.parse(now) - 366 * 24 * 60 * 60 * 1_000
-  const dates = [entity.raw.tags.check_date, entity.raw.tags['check_date:opening_hours'], ...entity.sources.map((source) => source.retrievedAt)]
+  // Dataset retrieval is not evidence that the establishment was recently checked.
+  const dates = [entity.raw.tags.check_date, entity.raw.tags['check_date:opening_hours'], entity.raw.tags['survey:date']]
   return dates.some((value) => value && !Number.isNaN(Date.parse(value)) && Date.parse(value) >= cutoff)
 }
 

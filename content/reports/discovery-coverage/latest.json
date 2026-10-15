@@ -3,7 +3,7 @@
   "generatedAt": "2026-10-15T16:17:47.495Z",
   "scope": "Benidorm · La Nucía · l’Alfàs del Pi / Albir",
   "warning": "La cobertura OSM mide representación en la fuente; la falta de resultados no implica ausencia real de empresas.",
-  "catalogBefore": 3007,
+  "catalogBefore": 930,
   "totalBusinesses": 3103,
   "businessesByMunicipality": {
     "Benidorm": 2626,
@@ -183,8 +183,8 @@
       "percentage": 4
     },
     "recentCheckDate": {
-      "count": 3103,
-      "percentage": 100
+      "count": 600,
+      "percentage": 19.3
     }
   },
   "providerDistribution": {
@@ -6170,7 +6170,7 @@
         "withAddress": 812,
         "withCoordinates": 1251,
         "withOpeningHours": 44,
-        "withRecentCheckDate": 1252,
+        "withRecentCheckDate": 188,
         "probableDuplicates": 129
       },
       "beauty-wellness": {
@@ -6182,7 +6182,7 @@
         "withAddress": 148,
         "withCoordinates": 217,
         "withOpeningHours": 4,
-        "withRecentCheckDate": 217,
+        "withRecentCheckDate": 71,
         "probableDuplicates": 10
       },
       "healthcare": {
@@ -6194,7 +6194,7 @@
         "withAddress": 66,
         "withCoordinates": 109,
         "withOpeningHours": 11,
-        "withRecentCheckDate": 109,
+        "withRecentCheckDate": 28,
         "probableDuplicates": 3
       },
       "professional-services": {
@@ -6206,7 +6206,7 @@
         "withAddress": 37,
         "withCoordinates": 51,
         "withOpeningHours": 2,
-        "withRecentCheckDate": 51,
+        "withRecentCheckDate": 17,
         "probableDuplicates": 5
       },
       "real-estate": {
@@ -6218,7 +6218,7 @@
         "withAddress": 58,
         "withCoordinates": 83,
         "withOpeningHours": 6,
-        "withRecentCheckDate": 83,
+        "withRecentCheckDate": 20,
         "probableDuplicates": 3
       },
       "home-services": {
@@ -6230,7 +6230,7 @@
         "withAddress": 23,
         "withCoordinates": 37,
         "withOpeningHours": 4,
-        "withRecentCheckDate": 37,
+        "withRecentCheckDate": 5,
         "probableDuplicates": 5
       },
       "automotive": {
@@ -6242,7 +6242,7 @@
         "withAddress": 12,
         "withCoordinates": 46,
         "withOpeningHours": 2,
-        "withRecentCheckDate": 46,
+        "withRecentCheckDate": 5,
         "probableDuplicates": 0
       },
       "education": {
@@ -6254,7 +6254,7 @@
         "withAddress": 8,
         "withCoordinates": 22,
         "withOpeningHours": 0,
-        "withRecentCheckDate": 22,
+        "withRecentCheckDate": 2,
         "probableDuplicates": 0
       },
       "retail": {
@@ -6266,7 +6266,7 @@
         "withAddress": 679,
         "withCoordinates": 1024,
         "withOpeningHours": 41,
-        "withRecentCheckDate": 1024,
+        "withRecentCheckDate": 239,
         "probableDuplicates": 348
       },
       "tourism": {
@@ -6278,7 +6278,7 @@
         "withAddress": 85,
         "withCoordinates": 197,
         "withOpeningHours": 2,
-        "withRecentCheckDate": 197,
+        "withRecentCheckDate": 12,
         "probableDuplicates": 13
       },
       "b2b-services": {
@@ -6290,7 +6290,7 @@
         "withAddress": 13,
         "withCoordinates": 19,
         "withOpeningHours": 1,
-        "withRecentCheckDate": 19,
+        "withRecentCheckDate": 1,
         "probableDuplicates": 0
       },
       "other": {
@@ -6302,7 +6302,7 @@
         "withAddress": 23,
         "withCoordinates": 46,
         "withOpeningHours": 6,
-        "withRecentCheckDate": 46,
+        "withRecentCheckDate": 12,
         "probableDuplicates": 1
       }
     },
@@ -6316,7 +6316,7 @@
         "withAddress": 1869,
         "withCoordinates": 2625,
         "withOpeningHours": 60,
-        "withRecentCheckDate": 2626,
+        "withRecentCheckDate": 589,
         "probableDuplicates": 437
       },
       "l'Alfàs del Pi": {
@@ -6328,7 +6328,7 @@
         "withAddress": 63,
         "withCoordinates": 298,
         "withOpeningHours": 41,
-        "withRecentCheckDate": 298,
+        "withRecentCheckDate": 11,
         "probableDuplicates": 55
       },
       "La Nucía": {
@@ -6340,7 +6340,7 @@
         "withAddress": 23,
         "withCoordinates": 117,
         "withOpeningHours": 12,
-        "withRecentCheckDate": 117,
+        "withRecentCheckDate": 0,
         "probableDuplicates": 12
       },
       "unknown": {
@@ -6352,7 +6352,7 @@
         "withAddress": 9,
         "withCoordinates": 62,
         "withOpeningHours": 10,
-        "withRecentCheckDate": 62,
+        "withRecentCheckDate": 0,
         "probableDuplicates": 13
       }
     },
@@ -6366,7 +6366,7 @@
         "withAddress": 1869,
         "withCoordinates": 2625,
         "withOpeningHours": 60,
-        "withRecentCheckDate": 2626,
+        "withRecentCheckDate": 589,
         "probableDuplicates": 437
       },
       "Albir": {
@@ -6378,7 +6378,7 @@
         "withAddress": 25,
         "withCoordinates": 109,
         "withOpeningHours": 19,
-        "withRecentCheckDate": 109,
+        "withRecentCheckDate": 10,
         "probableDuplicates": 24
       },
       "l'Alfàs del Pi": {
@@ -6390,7 +6390,7 @@
         "withAddress": 38,
         "withCoordinates": 189,
         "withOpeningHours": 22,
-        "withRecentCheckDate": 189,
+        "withRecentCheckDate": 1,
         "probableDuplicates": 31
       },
       "La Nucía": {
@@ -6402,7 +6402,7 @@
         "withAddress": 23,
         "withCoordinates": 117,
         "withOpeningHours": 12,
-        "withRecentCheckDate": 117,
+        "withRecentCheckDate": 0,
         "probableDuplicates": 12
       },
       "unknown": {
@@ -6414,7 +6414,7 @@
         "withAddress": 9,
         "withCoordinates": 62,
         "withOpeningHours": 10,
-        "withRecentCheckDate": 62,
+        "withRecentCheckDate": 0,
         "probableDuplicates": 13
       }
     }

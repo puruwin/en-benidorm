@@ -4,7 +4,7 @@ Generado: 2026-10-15T16:17:47.495Z
 
 > La cobertura OSM mide representación en la fuente; la falta de resultados no implica ausencia real de empresas.
 
-Catálogo antes/después: **3007 / 3103** negocios.
+Catálogo antes/después: **930 / 3103** negocios.
 
 ## Cobertura por sector
 
