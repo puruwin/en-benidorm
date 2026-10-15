@@ -14,10 +14,10 @@ These goals share data and infrastructure, but their decisions must remain separ
 
 Before changing Content Lab, read:
 
-- `docs/content-lab-context.md`
-- `docs/content-lab-roadmap.md`
-- `docs/enbenidorm-editorial-principles.md`
-- `docs/frappe-opportunity-strategy.md`
+- `content-lab-context.md`
+- `content-lab-roadmap.md`
+- `enbenidorm-editorial-principles.md`
+- `frappe-opportunity-strategy.md`
 
 ## Core architectural rules
 
