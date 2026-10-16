@@ -1,3 +1,4 @@
+import type {DeploymentStatus} from '../../shared/system-types'
 import type {BusinessDetail, BusinessList, ProspectingStatus, ProspectingView} from '../../shared/business-types'
 import type {ArtifactResponse, CodexPromptRequest, ComparisonSummary, OpportunityReportView, OpportunityReviewContext, OpportunityReviewView, PipelineRun} from '../../shared/types'
 
@@ -10,6 +11,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  system: () => request<DeploymentStatus>('/api/system'),
   session: () => request<{authenticationRequired: boolean; authenticated: boolean}>('/api/session'),
   login: (username: string, password: string) => request<{authenticationRequired: boolean; authenticated: boolean}>('/api/session/login', {method: 'POST', body: JSON.stringify({username, password})}),
   logout: () => request<{authenticated: boolean}>('/api/session/logout', {method: 'POST', body: '{}'}),

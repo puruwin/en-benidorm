@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import type {RuntimeConfig} from './runtime-config'
 import {installPrivateAccess} from './private-access'
+import {deploymentStatus} from './deployment-status'
 import type {BusinessQuery} from '../../shared/business-types'
 import {BusinessCatalog} from './business-catalog'
 import {BusinessError} from './prospecting-store'
@@ -37,6 +38,7 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
     return businesses.tracking.save(id, request.body)
   })
 
+  app.get('/api/system', async () => deploymentStatus(root, config, {businesses}))
   app.get('/api/health', async () => ({ok: true, service: 'enBenidorm Content Lab', ...(config.private ? {} : {projectRoot: root}), activeRun: runs.active()?.id ?? null}))
   app.get('/api/topics', async () => loader.topics())
   app.get('/api/comparisons', async () => loader.topics())

@@ -41,7 +41,7 @@ export function installPrivateAccess(app: FastifyInstance, config: RuntimeConfig
     }
     const path = request.url.split('?')[0]!
     const publicSession = (path === sessionPath && ['GET', 'HEAD'].includes(request.method)) || ([`${sessionPath}/login`, `${sessionPath}/logout`].includes(path) && request.method === 'POST')
-    const shell = path === '/' || path === '/index.html' || path === '/businesses' || path === '/runs' || path === '/opportunities'
+    const shell = path === '/' || path === '/index.html' || path === '/businesses' || path === '/runs' || path === '/opportunities' || path === '/system'
       || /^\/businesses\/business-[a-z0-9][a-z0-9-]*$/.test(path) || /^\/comparisons\/[a-z0-9][a-z0-9-]*$/.test(path) || path.startsWith('/assets/')
     const publicFrontend = ['GET', 'HEAD'].includes(request.method) && shell
     if (!publicSession && !publicFrontend && !authenticated(request.headers.cookie)) return reply.code(401).send({error: 'Inicia sesión para continuar.'})

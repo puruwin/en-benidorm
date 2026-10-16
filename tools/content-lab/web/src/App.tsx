@@ -5,6 +5,7 @@ import {api} from './api'
 import {Badge, List, message} from './ui'
 import {OpportunityCard, OpportunityReviewModal} from './OpportunityViews'
 import {BusinessListPage, BusinessDetailPage} from './BusinessPages'
+import {SystemPage} from './SystemPage'
 
 const previewOrigin = import.meta.env.VITE_CONTENT_PREVIEW_ORIGIN || (import.meta.env.DEV ? 'http://localhost:4321' : undefined)
 
@@ -38,6 +39,7 @@ export function App() {
         <button className={path === '/' ? 'active' : ''} onClick={() => navigate('/')}>Comparisons <small>{topics.length}</small></button>
         <button className={path === '/runs' ? 'active' : ''} onClick={() => navigate('/runs')}>Runs <small>{runs.length}</small></button>
         <button className={pagePath.startsWith('/businesses') ? 'active' : ''} onClick={() => navigate('/businesses')}>Negocios</button>
+        <button className={path === '/system' ? 'active' : ''} onClick={() => navigate('/system')}>Estado de instalación</button>
         <button className={path === '/opportunities' ? 'active' : ''} onClick={() => navigate('/opportunities')}>Opportunity Analysis</button>
       </nav>
       <div className="sidebar-topics">
@@ -51,6 +53,7 @@ export function App() {
         <ComparisonPage topic={topicMatch[1]!} activeRun={activeRun} navigate={navigate} onRefresh={refreshGlobal}/> :
         businessMatch ? <BusinessDetailPage key={businessMatch[1]} businessId={businessMatch[1]!} navigate={navigate}/> :
         pagePath === '/businesses' ? <BusinessListPage search={path.includes('?') ? path.slice(path.indexOf('?')) : ''} navigate={navigate}/> :
+        pagePath === '/system' ? <SystemPage/> :
         path === '/runs' ? <RunsPage runs={runs} onRefresh={refreshGlobal}/> :
         path === '/opportunities' ? <OpportunitiesPage/> :
         <Dashboard topics={topics} navigate={navigate} onNew={() => setNewOpen(true)} onRefresh={refreshGlobal}/>

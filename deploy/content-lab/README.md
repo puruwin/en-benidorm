@@ -1,5 +1,9 @@
 # Content Lab privado en un VPS
 
+El destino elegido actualmente es hosting Node.js gestionado en `lab.enbenidorm.es`.
+Su guía específica está en [HOSTINGER-NODE.md](HOSTINGER-NODE.md). Esta guía conserva
+la alternativa de VPS con Docker.
+
 Esta configuración mantiene Content Lab en el repositorio de enBenidorm, con un
 proceso de producción que sirve frontend compilado y API. No usa Vite en el servidor.
 Está pensada para un operador y una instancia; no es una aplicación multiusuario ni

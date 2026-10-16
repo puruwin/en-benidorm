@@ -24,7 +24,13 @@ compilado junto con la API. Exige origen HTTPS, usuario, hash de contraseña y u
 `content/` persistente con manifest válido. El modo local de desarrollo conserva su
 arranque habitual con `npm run content-lab`.
 
-La imagen Docker, el proxy HTTPS, la configuración y la migración de datos están en
+Para hosting Node.js gestionado, usa la entrada `content-lab.server.mjs` y la
+[guía de Hostinger](../../deploy/content-lab/HOSTINGER-NODE.md). El contenido debe
+residir en una ruta persistente externa al release. La sección **Estado de instalación**
+y `npm run content-lab:doctor` comprueban el snapshot y la presencia de variables, sin
+mostrar secretos ni llamar a APIs.
+
+La alternativa Docker, el proxy HTTPS, la configuración y la migración de datos están en
 [`deploy/content-lab/README.md`](../../deploy/content-lab/README.md).
 
 ## Catálogo y ficha de prospección

@@ -26,6 +26,8 @@
     "opportunities:analyze": "node --import tsx scripts/opportunities/analyze.ts",
     "opportunities:verify": "node --import tsx scripts/opportunities/verify.ts",
     "content-lab": "node tools/content-lab/dev.mjs",
+    "content-lab:hostinger": "node content-lab.server.mjs",
+    "content-lab:doctor": "node --import tsx tools/content-lab/ops/doctor.ts",
     "content-lab:start": "node --import tsx tools/content-lab/api/src/production.ts",
     "content-lab:storage": "node tools/content-lab/ops/init-storage.mjs",
     "content-lab:password": "node tools/content-lab/ops/password.mjs",
