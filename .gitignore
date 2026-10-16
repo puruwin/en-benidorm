@@ -31,3 +31,6 @@ schema.json
 !/content/reports/opportunity-experiment/
 !/content/reports/opportunity-experiment/sample-20.json
 !/content/reports/opportunity-experiment/sample-20.md
+
+# Private Content Lab deployment configuration.
+/deploy/content-lab/*.env

@@ -1,4 +1,6 @@
 import Fastify from 'fastify'
+import type {RuntimeConfig} from './runtime-config'
+import {installPrivateAccess} from './private-access'
 import type {BusinessQuery} from '../../shared/business-types'
 import {BusinessCatalog} from './business-catalog'
 import {BusinessError} from './prospecting-store'
@@ -9,16 +11,21 @@ import {RunManager} from './run-manager'
 import {parseRunOptions, validateBusinessId, validatePhase, validateTopic} from './validation'
 import {evaluateOpportunityReview, saveOpportunityReview, validateOpportunityReview} from '../../../../scripts/opportunities/lib/reviews'
 
-export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager} = {}) {
-  const app = Fastify({logger: true})
+export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager; config?: RuntimeConfig} = {}) {
+  const app = Fastify({logger: {redact: ['req.headers.authorization', 'req.headers.cookie', 'res.headers.set-cookie']}})
+  const config = dependencies.config ?? {private: false, host: '127.0.0.1', port: 4174, origin: null, username: null, passwordHash: null, staticDir: null, sessionSeconds: 43200}
+  const access = installPrivateAccess(app, config)
   const loader = dependencies.loader ?? new ArtifactLoader(root)
   const businesses = new BusinessCatalog(root, loader)
   const runs = dependencies.runs ?? new RunManager(root)
+  const streams = new Set<() => void>()
+  app.addHook('preClose', async () => {for (const close of streams) close(); await runs.shutdown()})
 
   app.setErrorHandler((error, _request, reply) => {
     if (error instanceof BusinessError) return reply.status(error.statusCode).send({error: error.message})
     const errorMessage = error instanceof Error ? error.message : String(error)
-    const status = /inválid|no soportada|no permitida|entero|boolean|reviewedBy|reviewedSourceKeys|fuente revisada|confirmed-open/i.test(errorMessage) ? 400 : /ejecución activa/i.test(errorMessage) ? 409 : 500
+    const httpStatus = Number((error as {statusCode?: number}).statusCode)
+    const status = httpStatus >= 400 && httpStatus < 500 ? httpStatus : /inválid|no soportada|no permitida|entero|boolean|reviewedBy|reviewedSourceKeys|fuente revisada|confirmed-open/i.test(errorMessage) ? 400 : /ejecución activa/i.test(errorMessage) ? 409 : 500
     reply.status(status).send({error: errorMessage})
   })
 
@@ -30,7 +37,7 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
     return businesses.tracking.save(id, request.body)
   })
 
-  app.get('/api/health', async () => ({ok: true, service: 'enBenidorm Content Lab', projectRoot: root, activeRun: runs.active()?.id ?? null}))
+  app.get('/api/health', async () => ({ok: true, service: 'enBenidorm Content Lab', ...(config.private ? {} : {projectRoot: root}), activeRun: runs.active()?.id ?? null}))
   app.get('/api/topics', async () => loader.topics())
   app.get('/api/comparisons', async () => loader.topics())
   app.get<{Params: {topic: string}}>('/api/comparisons/:topic', async (request) => loader.detail(validateTopic(request.params.topic)))
@@ -82,6 +89,7 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
       closed = true
       if (heartbeat) clearInterval(heartbeat)
       unsubscribe()
+      streams.delete(close)
     }
     const write = (event: string) => {
       if (closed || reply.raw.writableEnded || reply.raw.destroyed) {
@@ -96,6 +104,7 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
       if (!reply.raw.writableEnded && !reply.raw.destroyed) reply.raw.end()
     }
 
+    streams.add(close)
     reply.raw.once('close', cleanup)
     reply.raw.once('error', cleanup)
     write(`event: snapshot\ndata: ${JSON.stringify(run)}\n\n`)
@@ -109,7 +118,7 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
       if (!write(`event: status\ndata: ${JSON.stringify({status: updated.status, exitCode: updated.exitCode, finishedAt: updated.finishedAt, durationMs: updated.durationMs})}\n\n`)) return
       if (updated.finishedAt) close()
     })
-    heartbeat = setInterval(() => write(': heartbeat\n\n'), 15000)
+    heartbeat = setInterval(() => {if (config.private && !access.authenticated(request.headers.cookie)) close(); else write(': heartbeat\n\n')}, 15000)
   })
 
   app.post<{Params: {topic: string}; Body: CodexPromptRequest}>('/api/comparisons/:topic/codex-prompt', async (request) => {

@@ -53,3 +53,38 @@ test('run manager emite una sola notificación terminal', () => {
   assert.equal(terminal.length, 1)
   assert.match(terminal[0]?.message ?? '', /^COMPLETED/)
 })
+
+test('run manager oculta valores sensibles y acota los logs retenidos', () => {
+  const child = fakeProcess()
+  const manager = new RunManager('/project', (() => child) as any)
+  const previous = process.env.CONTENT_LAB_TEST_API_KEY
+  process.env.CONTENT_LAB_TEST_API_KEY = 'fixture-secret-for-log-test'
+  try {
+    const run = manager.start('desayunos', 'generation')
+    child.stderr.write('failure fixture-secret-for-log-test\n')
+    assert.ok(run.logs.some(log => log.message.includes('[REDACTED]')))
+    assert.ok(!run.logs.some(log => log.message.includes('fixture-secret-for-log-test')))
+    for (let i = 0; i < 5100; i++) child.stdout.write(`line ${i}\n`)
+    assert.equal(run.logs.length, 5000)
+    child.emit('close', 0, null)
+  } finally {
+    if (previous === undefined) delete process.env.CONTENT_LAB_TEST_API_KEY
+    else process.env.CONTENT_LAB_TEST_API_KEY = previous
+  }
+})
+
+test('shutdown cancela su proceso activo y rechaza nuevos trabajos', async () => {
+  const child = fakeProcess()
+  const manager = new RunManager('/project', (() => child) as any)
+  const run = manager.start('desayunos', 'selection')
+  const originalKill = process.kill
+  process.kill = (() => true) as typeof process.kill
+  try {
+    const closing = manager.shutdown()
+    assert.throws(() => manager.start('arroces', 'selection'), /cerrándose/)
+    child.emit('close', null, 'SIGTERM')
+    await closing
+    assert.equal(run.status, 'cancelled')
+    assert.ok(run.finishedAt)
+  } finally {process.kill = originalKill}
+})

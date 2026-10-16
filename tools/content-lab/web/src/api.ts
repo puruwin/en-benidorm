@@ -4,11 +4,15 @@ import type {ArtifactResponse, CodexPromptRequest, ComparisonSummary, Opportunit
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {...init, headers: {'Content-Type': 'application/json', ...init?.headers}})
   const body = await response.json().catch(() => ({}))
+  if (response.status === 401 && !path.startsWith('/api/session')) dispatchEvent(new Event('content-lab-session-expired'))
   if (!response.ok) throw new Error(body.error ?? `${response.status} ${response.statusText}`)
   return body as T
 }
 
 export const api = {
+  session: () => request<{authenticationRequired: boolean; authenticated: boolean}>('/api/session'),
+  login: (username: string, password: string) => request<{authenticationRequired: boolean; authenticated: boolean}>('/api/session/login', {method: 'POST', body: JSON.stringify({username, password})}),
+  logout: () => request<{authenticated: boolean}>('/api/session/logout', {method: 'POST', body: '{}'}),
   businesses: (query: string) => request<BusinessList>(`/api/businesses${query ? `?${query}` : ''}`),
   business: (id: string) => request<BusinessDetail>(`/api/businesses/${encodeURIComponent(id)}`),
   saveProspecting: (id: string, body: {status: ProspectingStatus; notes: string; expectedRevision: string | null}) => request<ProspectingView>(`/api/businesses/${encodeURIComponent(id)}/prospecting`, {method: 'PUT', body: JSON.stringify(body)}),

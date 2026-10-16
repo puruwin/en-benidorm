@@ -17,6 +17,16 @@ Ambos procesos escuchan únicamente en `127.0.0.1`. Las variables de servidor co
 
 También pueden arrancarse por separado con `npm run content-lab:web` y `npm run content-lab:api`.
 
+## Despliegue privado
+
+`npm run content-lab:start` arranca el servidor de producción y sirve el frontend
+compilado junto con la API. Exige origen HTTPS, usuario, hash de contraseña y un
+`content/` persistente con manifest válido. El modo local de desarrollo conserva su
+arranque habitual con `npm run content-lab`.
+
+La imagen Docker, el proxy HTTPS, la configuración y la migración de datos están en
+[`deploy/content-lab/README.md`](../../deploy/content-lab/README.md).
+
 ## Catálogo y ficha de prospección
 
 La sección **Negocios** permite navegar el catálogo local por nombre, municipio,

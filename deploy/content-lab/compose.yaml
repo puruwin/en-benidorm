@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: deploy/content-lab/Dockerfile
+    init: true
+    restart: unless-stopped
+    env_file: app.env
+    volumes:
+      - type: bind
+        source: ${CONTENT_LAB_CONTENT_PATH:?Set absolute CONTENT_LAB_CONTENT_PATH}
+        target: /app/content
+        bind:
+          create_host_path: false
+    expose:
+      - "3000"
+    stop_grace_period: 20s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      CONTENT_LAB_DOMAIN: ${CONTENT_LAB_DOMAIN:?Set the public domain}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  caddy_data:
+  caddy_config:

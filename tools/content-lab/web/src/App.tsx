@@ -1,10 +1,12 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import type {ComparisonPhaseState, ComparisonSummary, OpportunityAnalysisView, OpportunityReportView, OpportunityReviewContext, PipelineLog, PipelinePhase, PipelineRun, QaIssue} from '../../shared/types'
 import {PIPELINE_PHASES, canRunComparisonPhase, isCurrentPhase, nextComparisonPhase} from '../../shared/workflow'
 import {api} from './api'
 import {Badge, List, message} from './ui'
 import {OpportunityCard, OpportunityReviewModal} from './OpportunityViews'
 import {BusinessListPage, BusinessDetailPage} from './BusinessPages'
+
+const previewOrigin = import.meta.env.VITE_CONTENT_PREVIEW_ORIGIN || (import.meta.env.DEV ? 'http://localhost:4321' : undefined)
 
 const tabs = ['Overview', 'Selection', 'Evidence', 'Generated', 'QA', 'Sources', 'Logs', 'Codex'] as const
 type Tab = typeof tabs[number]
@@ -41,7 +43,7 @@ export function App() {
       <div className="sidebar-topics">
         {topics.map((topic) => <button key={topic.topic} onClick={() => navigate(`/comparisons/${topic.topic}`)}>{topic.displayName}<Badge value={topic.qaOutcome ?? topic.status} /></button>)}
       </div>
-      <div className="connection"><span className="dot" /> Local only<br/><code>127.0.0.1</code></div>
+      <div className="connection"><span className="dot" /> Content Lab<br/><span>Catálogo · editorial · prospección</span></div>
     </aside>
     <main>
       {error && <div className="error-banner">{error}</div>}
@@ -75,6 +77,8 @@ function Dashboard({topics, navigate, onNew, onRefresh}: {topics: ComparisonSumm
 }
 
 function ComparisonPage({topic, activeRun, navigate, onRefresh}: {topic: string; activeRun: PipelineRun | undefined; navigate: (path: string) => void; onRefresh: () => void}) {
+  const eventSources = useRef<EventSource[]>([])
+  useEffect(() => () => {for (const source of eventSources.current) source.close()}, [])
   const [detail, setDetail] = useState<any>()
   const [tab, setTab] = useState<Tab>('Overview')
   const [error, setError] = useState('')
@@ -93,6 +97,7 @@ function ComparisonPage({topic, activeRun, navigate, onRefresh}: {topic: string;
   }
   const streamRun = (run: PipelineRun) => {
     const source = new EventSource(`/api/runs/${run.id}/events`)
+    eventSources.current.push(source)
     source.addEventListener('snapshot', (event) => setLocalRun(JSON.parse((event as MessageEvent).data)))
     source.addEventListener('log', (event) => setLocalRun((current) => current ? {...current, logs: appendLog(current.logs, JSON.parse((event as MessageEvent).data))} : current))
     source.addEventListener('status', (event) => {
@@ -225,7 +230,7 @@ function Generated({artifact, published, topic}: {artifact: any; published: any;
   const [json, setJson] = useState(false)
   const data = artifact.data; const editorial = data?.editorial ?? published.data
   if (!editorial) return <ArtifactEmpty artifact={artifact} label="Not generated yet"/>
-  return <article className="panel document"><div className="section-head"><div><h2>{editorial.title}</h2><p>{editorial.seo?.metaDescription}</p></div><div className="actions"><a className="button secondary" href={`http://localhost:4321/donde-comer/${topic}/`} target="_blank" rel="noreferrer">Abrir preview ↗</a><button className="secondary" onClick={() => setJson(!json)}>Ver JSON</button></div></div>
+  return <article className="panel document"><div className="section-head"><div><h2>{editorial.title}</h2><p>{editorial.seo?.metaDescription}</p></div><div className="actions">{previewOrigin && <a className="button secondary" href={`${previewOrigin}/donde-comer/${topic}/`} target="_blank" rel="noreferrer">Abrir preview ↗</a>}<button className="secondary" onClick={() => setJson(!json)}>Ver JSON</button></div></div>
     {json ? <Json value={data ?? published.data}/> : <><h3>Intro</h3><p>{editorial.intro}</p><h3>Quick verdict</h3><p>{editorial.quickVerdict}</p><h3>Choice guide</h3><div className="cards">{editorial.choiceGuide?.map((item: any, index: number) => <div className="card" key={item.businessId ?? item.business?._ref ?? index}><strong>{item.label}</strong><p>{item.reason}</p></div>)}</div><h3>Entries</h3>{editorial.entries?.map((entry: any, index: number) => <div className="entry" key={entry.businessId ?? entry.business?._ref ?? index}><h4>{entry.businessId ?? entry.business?._ref}</h4><p>{entry.verdict}</p><Columns left={['Strengths', entry.strengths]} right={['Limitations', entry.limitations]}/></div>)}<h3>Criteria</h3><List items={editorial.criteria}/><h3>Methodology</h3><p>{editorial.methodology}</p><h3>SEO</h3><dl className="details"><dt>Title</dt><dd>{editorial.seo?.metaTitle}</dd><dt>Description</dt><dd>{editorial.seo?.metaDescription}</dd></dl></>}
   </article>
 }
