@@ -26,3 +26,8 @@ schema.json
 !/content/reports/comparisons/.gitkeep
 /content/manifest.json
 /content/discovery/checkpoints/*.json
+
+# Reproducible Opportunity Experiment sample reports.
+!/content/reports/opportunity-experiment/
+!/content/reports/opportunity-experiment/sample-20.json
+!/content/reports/opportunity-experiment/sample-20.md
