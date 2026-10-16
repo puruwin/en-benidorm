@@ -149,3 +149,17 @@ input, textarea, select { border: 1px solid #c8d0cb; border-radius: 5px; backgro
 .footnote { color: #77837d; font-size: 11px; }
 .modal-backdrop { position: fixed; inset: 0; background: #111b1788; display: grid; place-items: center; z-index: 20; }
 .modal { width: 600px; max-height: 90vh; overflow: auto; background: white; border-radius: 9px; padding: 22px; box-shadow: 0 18px 55px #0004; }
+
+/* Business catalog and independent prospecting workspace. */
+.business-search { display: flex; align-items: flex-end; gap: 12px; }
+.business-search .field { flex: 1; margin-bottom: 0; }
+.business-filter-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 18px 0; }
+.table-scroll { overflow-x: auto; }
+.pagination { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 18px; }
+.business-table td { min-width: 120px; }
+.business-table td:first-child { min-width: 240px; }
+.contact-group .fact, .business-analysis { overflow-wrap: anywhere; }
+.tracking-conflict { display: block; }
+.tracking-notes { white-space: pre-wrap; }
+.business-analysis > h2 { font-size: 18px; margin-top: 4px; }
+@media (max-width: 1100px) { .business-filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

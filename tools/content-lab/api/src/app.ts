@@ -1,4 +1,7 @@
 import Fastify from 'fastify'
+import type {BusinessQuery} from '../../shared/business-types'
+import {BusinessCatalog} from './business-catalog'
+import {BusinessError} from './prospecting-store'
 import type {CodexPromptRequest, QaIssue} from '../../shared/types'
 import {ArtifactLoader} from './artifact-loader'
 import {buildCodexPrompt, SUPPORTED_ISSUES} from './prompt-builder/index'
@@ -9,12 +12,22 @@ import {evaluateOpportunityReview, saveOpportunityReview, validateOpportunityRev
 export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager} = {}) {
   const app = Fastify({logger: true})
   const loader = dependencies.loader ?? new ArtifactLoader(root)
+  const businesses = new BusinessCatalog(root, loader)
   const runs = dependencies.runs ?? new RunManager(root)
 
   app.setErrorHandler((error, _request, reply) => {
+    if (error instanceof BusinessError) return reply.status(error.statusCode).send({error: error.message})
     const errorMessage = error instanceof Error ? error.message : String(error)
     const status = /inválid|no soportada|no permitida|entero|boolean|reviewedBy|reviewedSourceKeys|fuente revisada|confirmed-open/i.test(errorMessage) ? 400 : /ejecución activa/i.test(errorMessage) ? 409 : 500
     reply.status(status).send({error: errorMessage})
+  })
+
+  app.get<{Querystring: BusinessQuery}>('/api/businesses', async request => businesses.list(request.query))
+  app.get<{Params: {businessId: string}}>('/api/businesses/:businessId', async request => businesses.detail(validateBusinessId(request.params.businessId)))
+  app.put<{Params: {businessId: string}; Body: unknown}>('/api/businesses/:businessId/prospecting', async request => {
+    const id = validateBusinessId(request.params.businessId)
+    await businesses.requireBusiness(id)
+    return businesses.tracking.save(id, request.body)
   })
 
   app.get('/api/health', async () => ({ok: true, service: 'enBenidorm Content Lab', projectRoot: root, activeRun: runs.active()?.id ?? null}))

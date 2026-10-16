@@ -17,6 +17,18 @@ Ambos procesos escuchan únicamente en `127.0.0.1`. Las variables de servidor co
 
 También pueden arrancarse por separado con `npm run content-lab:web` y `npm run content-lab:api`.
 
+## Catálogo y ficha de prospección
+
+La sección **Negocios** permite navegar el catálogo local por nombre, municipio,
+sector/subsector, disponibilidad de análisis y muestra experimental. Las fichas
+funcionan sin análisis previo y reúnen los artefactos existentes y sus fuentes.
+El seguimiento manual (estado y notas) se guarda de forma independiente en
+`content/manual/prospecting/`, con protección frente a ediciones concurrentes.
+Consultar el catálogo no ejecuta análisis, verificación ni búsquedas.
+
+Consulta el alcance, API y validaciones en
+[`docs/content-lab-p3a6.md`](../../docs/content-lab-p3a6.md).
+
 ## Arquitectura
 
 ```text

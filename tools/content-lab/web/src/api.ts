@@ -1,3 +1,4 @@
+import type {BusinessDetail, BusinessList, ProspectingStatus, ProspectingView} from '../../shared/business-types'
 import type {ArtifactResponse, CodexPromptRequest, ComparisonSummary, OpportunityReportView, OpportunityReviewContext, OpportunityReviewView, PipelineRun} from '../../shared/types'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -8,6 +9,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  businesses: (query: string) => request<BusinessList>(`/api/businesses${query ? `?${query}` : ''}`),
+  business: (id: string) => request<BusinessDetail>(`/api/businesses/${encodeURIComponent(id)}`),
+  saveProspecting: (id: string, body: {status: ProspectingStatus; notes: string; expectedRevision: string | null}) => request<ProspectingView>(`/api/businesses/${encodeURIComponent(id)}/prospecting`, {method: 'PUT', body: JSON.stringify(body)}),
   topics: () => request<ComparisonSummary[]>('/api/topics'),
   comparison: (topic: string) => request<any>(`/api/comparisons/${encodeURIComponent(topic)}`),
   runs: () => request<PipelineRun[]>('/api/runs'),
