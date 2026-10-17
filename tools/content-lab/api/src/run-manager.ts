@@ -12,6 +12,7 @@ export class RunManager {
   private children = new Map<string, ChildProcess>()
   private listeners = new Map<string, Set<Listener>>()
   private sequence = 0
+  private stopping = false
 
   constructor(private root: string, private spawnFn: SpawnFn = nodeSpawn) {}
 
@@ -20,7 +21,10 @@ export class RunManager {
   active(): PipelineRun | undefined { return this.activeId ? this.runs.get(this.activeId) : undefined }
 
   start(topic: string, phase: PipelinePhase, options: CommandOptions = {}): PipelineRun {
+    if (this.stopping) throw new Error('Content Lab está cerrándose.')
     if (this.active()) throw new Error('Ya existe una ejecución activa.')
+    const completed = this.list().filter(run => Boolean(run.finishedAt))
+    for (const old of completed.slice(99)) this.runs.delete(old.id)
     const built = buildCommand(topic, phase, options)
     const run: PipelineRun = {id: randomUUID(), topic, phase, status: 'running', command: built.command, args: built.args, startedAt: new Date().toISOString(), logs: []}
     this.runs.set(run.id, run)
@@ -61,6 +65,17 @@ export class RunManager {
     return run
   }
 
+  async shutdown(): Promise<void> {
+    this.stopping = true
+    const children = [...this.children.entries()]
+    if (!children.length) return
+    await Promise.all(children.map(([id, child]) => new Promise<void>(resolve => {
+      const timer = setTimeout(resolve, 6000)
+      child.once('close', () => {clearTimeout(timer); resolve()})
+      this.cancel(id)
+    })))
+  }
+
   subscribe(id: string, listener: Listener): () => void {
     const listeners = this.listeners.get(id) ?? new Set<Listener>()
     listeners.add(listener); this.listeners.set(id, listeners)
@@ -73,13 +88,16 @@ export class RunManager {
       pending += String(chunk)
       const lines = pending.split(/\r?\n/); pending = lines.pop() ?? ''
       for (const line of lines) if (line) this.log(run, stream, line)
+      if (pending.length > 10000) pending = '[line truncated]'
     })
     readable.on('end', () => { if (pending) this.log(run, stream, pending) })
   }
 
   private log(run: PipelineRun, stream: PipelineLog['stream'], message: string) {
-    const log = {id: ++this.sequence, timestamp: new Date().toISOString(), stream, message}
+    for (const [key, value] of Object.entries(process.env)) if (/(TOKEN|PASSWORD|SECRET|API_KEY)$/i.test(key) && value && value.length >= 6) message = message.replaceAll(value, '[REDACTED]')
+    const log = {id: ++this.sequence, timestamp: new Date().toISOString(), stream, message: message.slice(0, 10000)}
     run.logs.push(log)
+    if (run.logs.length > 5000) run.logs.splice(0, run.logs.length - 5000)
     for (const listener of this.listeners.get(run.id) ?? []) listener(run, log)
   }
 

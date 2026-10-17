@@ -17,6 +17,34 @@ Ambos procesos escuchan únicamente en `127.0.0.1`. Las variables de servidor co
 
 También pueden arrancarse por separado con `npm run content-lab:web` y `npm run content-lab:api`.
 
+## Despliegue privado
+
+`npm run content-lab:start` arranca el servidor de producción y sirve el frontend
+compilado junto con la API. Exige origen HTTPS, usuario, hash de contraseña y un
+`content/` persistente con manifest válido. El modo local de desarrollo conserva su
+arranque habitual con `npm run content-lab`.
+
+Para hosting Node.js gestionado, usa la entrada `content-lab.server.mjs` y la
+[guía de Hostinger](../../deploy/content-lab/HOSTINGER-NODE.md). El contenido debe
+residir en una ruta persistente externa al release. La sección **Estado de instalación**
+y `npm run content-lab:doctor` comprueban el snapshot y la presencia de variables, sin
+mostrar secretos ni llamar a APIs.
+
+La alternativa Docker, el proxy HTTPS, la configuración y la migración de datos están en
+[`deploy/content-lab/README.md`](../../deploy/content-lab/README.md).
+
+## Catálogo y ficha de prospección
+
+La sección **Negocios** permite navegar el catálogo local por nombre, municipio,
+sector/subsector, disponibilidad de análisis y muestra experimental. Las fichas
+funcionan sin análisis previo y reúnen los artefactos existentes y sus fuentes.
+El seguimiento manual (estado y notas) se guarda de forma independiente en
+`content/manual/prospecting/`, con protección frente a ediciones concurrentes.
+Consultar el catálogo no ejecuta análisis, verificación ni búsquedas.
+
+Consulta el alcance, API y validaciones en
+[`docs/content-lab-p3a6.md`](../../docs/content-lab-p3a6.md).
+
 ## Arquitectura
 
 ```text

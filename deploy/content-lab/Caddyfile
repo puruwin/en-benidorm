@@ -1,0 +1,7 @@
+{$CONTENT_LAB_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy app:3000 {
+		# SSE logs must be delivered without proxy buffering.
+		flush_interval -1
+	}
+}
