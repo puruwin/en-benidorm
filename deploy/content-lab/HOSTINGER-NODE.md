@@ -36,7 +36,7 @@ entrada o comando de arranque propio, confirmar esa limitación antes de despleg
 | Directorio del proyecto | Raíz del repositorio |
 | Rama | `work`, o la rama que integre estos cambios |
 | Node | 24.x |
-| Build | `npm ci --include=dev && npm run content-lab:build` |
+| Script npm de build | `content-lab:build` (equivale a `npm run content-lab:build`) |
 | Entrada Node | `content-lab.server.mjs` |
 | Si admite comando de arranque | `npm run content-lab:hostinger` |
 | Dominio | `lab.enbenidorm.es` con HTTPS |
@@ -45,8 +45,15 @@ entrada o comando de arranque propio, confirmar esa limitación antes de despleg
 La aplicación necesita conservar el código backend (`scripts/`, `tools/`, package.json)
 y las dependencias durante la ejecución. No publicar únicamente
 `tools/content-lab/web/dist`: esa carpeta es el frontend que sirve el proceso Node.
-No configurar el build público `npm run build` como build de Content Lab. `tsx` se usa
-en runtime y requiere instalar devDependencies con `--include=dev`.
+No configurar el build público `npm run build` como build de Content Lab.
+
+Si el panel sólo permite seleccionar scripts npm, elige `content-lab:build`; no hace
+falta concatenar comandos ni crear otro script. La instalación de dependencias es
+una fase previa del proveedor. Configura `NPM_CONFIG_INCLUDE=dev` en las variables
+disponibles durante la instalación para incluir las devDependencies: Vite se necesita
+en el build y `tsx` también durante la ejecución. No deben eliminarse después del
+build. Si existe un campo de instalación independiente, su comando puede ser
+`npm ci --include=dev`; no se introduce en el selector del script de build.
 
 ## Variables privadas
 
