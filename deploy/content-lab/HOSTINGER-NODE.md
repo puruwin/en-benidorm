@@ -97,14 +97,14 @@ npm run content-lab:storage -- --source=/ruta/snapshot/content --target=/ruta/pe
 
 Sustituye las rutas ilustrativas por las rutas reales. El usuario del proceso Node
 necesita permisos de lectura/escritura sobre los directorios y registros existentes.
-No se realiza migración automática ni se mezclan snapshots al arrancar.
+La restauración inicial sigue siendo explícita. Los siguientes arranques sincronizan únicamente los artefactos gestionados descritos abajo.
 
 ## Qué hace la entrada gestionada
 
 `node content-lab.server.mjs` prepara un directorio temporal de ejecución con enlaces
 al código/dependencias del release y al `content/` externo. Ejecuta el servidor privado
 y las pipelines con ese directorio como working directory. No reescribe el checkout,
-no copia claves y no sustituye el contenido externo. Al salir, elimina sólo ese
+no copia claves y sincroniza los artefactos versionados antes de iniciar la API. Al salir, elimina sólo ese
 workspace temporal. Después de un cierre abrupto podría quedar un workspace temporal
 con enlaces; no contiene la copia canónica de los datos.
 
@@ -157,3 +157,67 @@ simulan sustituir un release sin eliminar los datos externos.
 Estas comprobaciones son locales. No acreditan el filesystem, proxy ni las
 restricciones del plan de Hostinger; el primer despliegue debe validarlos allí.
 No se ha ejecutado análisis comercial, generación de contenido ni publicación.
+
+## Sincronización de artefactos en cada despliegue
+
+La entrada `content-lab.server.mjs` sincroniza antes de crear el runtime y servir
+peticiones. No depende de que `/tmp/content-lab-runtime-*` contenga el checkout:
+lee del release original y publica en `CONTENT_LAB_CONTENT_PATH`.
+`content-lab:doctor` continúa siendo de sólo lectura y no sincroniza.
+`content-lab:start` es una entrada directa, sin esta preparación; en Hostinger usar
+siempre `content-lab:hostinger` o el archivo de entrada indicado arriba.
+
+El inventario versionado `tools/content-lab/ops/artifacts.json` enumera rutas y
+SHA-256. Para actualizarlo después de añadir/modificar artefactos en Git:
+
+```bash
+node tools/content-lab/ops/index-artifacts.mjs
+```
+
+Añadir primero los nuevos archivos al índice Git y versionar también el inventario.
+No ejecutar este generador sobre un checkout con cambios de investigación pendientes:
+los bytes incluidos deben coincidir con los del commit que se despliega. No requiere
+Git en Hostinger. Un archivo ausente, JSON inválido o checksum distinto bloquea el
+arranque antes de copiar. La lista admite verification, opportunities, discovered,
+enriched, reports, Comparison candidates/enriched y generated JSON; excluye siempre
+manual, manifest, seed, checkpoints y archivos de reviews. No copia todo content.
+Un archivo no incluido no se sincroniza, aunque exista en el release.
+
+Antes de desplegar: detener los procesos anteriores y trabajos activos, hacer backup
+del contenido persistente y su directorio `.release-artifacts`, y desplegar el commit
+con inventario actualizado. No debe haber otros escritores durante la sincronización.
+El lock evita dos sincronizaciones simultáneas; no coordina escritores de pipelines
+ni un servidor anterior. La publicación es atómica **por archivo**, no una transacción
+sobre todo el conjunto; por eso se realiza con la API anterior detenida.
+
+Primera sincronización: copia archivos ausentes y adopta como gestionados sólo los
+existentes idénticos. Las diferencias sin historial producen `Conflicto persistente`
+y no se sobrescriben. En posteriores releases sólo actualiza si el destino coincide
+con el último hash gestionado (o una publicación pendiente registrada). Verifica el
+hash final de cada archivo. Una modificación producida por pipelines en persistente
+también causa conflicto: no se supone que el release tenga prioridad sobre ella.
+Las notas de prospecting, reviews y todo manual quedan fuera del inventario.
+No elimina archivos persistentes cuando desaparecen del release.
+
+Ante un conflicto: con todos los escritores detenidos, comparar ambas versiones y
+conservar una copia del archivo persistente fuera del árbol servido. Si se decide
+expresamente que debe prevalecer el release, retirar únicamente ese archivo del
+destino y volver a arrancar. No borrar el estado completo para forzar actualizaciones.
+Si debe prevalecer la investigación persistente, incorporarla al repositorio y
+regenerar el inventario antes del siguiente despliegue.
+
+Una interrupción normal libera `sync.lock`; un cierre abrupto puede dejarlo. Tras
+confirmar que no queda ningún proceso sincronizando, retirar sólo
+`CONTENT_LAB_CONTENT_PATH/.release-artifacts/sync.lock` y reintentar. Conservar
+`state.json`: registra hashes anteriores/pendientes para recuperar publicaciones
+interrumpidas. Temporales `.tmp` no se consumen como artefactos. Tras un fallo puede
+haber una parte del nuevo release publicada; mantener la API detenida y reintentar
+hasta obtener verificación completa. El log `Content Lab artefactos` muestra
+`verified` y `updated`; en un reinicio sin cambios `updated` debe ser 0.
+
+Para el diagnóstico Asisa: comprobar que los JSON de verification y opportunities
+figuran en el inventario, desplegar y verificar que existen en la ruta persistente
+con los mismos hashes que el release. Después iniciar sesión, abrir la ficha y
+confirmar que la API devuelve los artefactos disponibles. Comprobar también que una
+nota manual anterior sigue intacta, repetir el reinicio y verificar `updated: 0`.
+No copiar manualmente el árbol content del release sobre el almacenamiento.

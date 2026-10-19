@@ -8,7 +8,7 @@ let runtime: Awaited<ReturnType<typeof prepareManagedRuntime>> | undefined
 let configurationError: string | null = null
 try {
   if (process.env.CONTENT_LAB_CONTENT_PATH) {
-    try {runtime = await prepareManagedRuntime({projectRoot: root, contentPath: process.env.CONTENT_LAB_CONTENT_PATH}); root = runtime.root}
+    try {runtime = await prepareManagedRuntime({projectRoot: root, contentPath: process.env.CONTENT_LAB_CONTENT_PATH, synchronize: false}); root = runtime.root}
     catch {configurationError = 'CONTENT_LAB_CONTENT_PATH no es un snapshot externo válido y escribible; revisa su ruta, permisos y manifiesto.'}
   }
   let config = null

@@ -19,6 +19,8 @@ async function fixture() {
     for (const dir of ['scripts', 'tools', 'node_modules']) await mkdir(resolve(projectRoot, dir), {recursive: true})
     await writeFile(resolve(projectRoot, 'package.json'), JSON.stringify({type: 'module', scripts: {fixture: 'node scripts/fixture.mjs'}}))
     await writeFile(resolve(projectRoot, 'package-lock.json'), '{}')
+    await mkdir(resolve(projectRoot, 'tools/content-lab/ops'), {recursive: true})
+    await writeFile(resolve(projectRoot, 'tools/content-lab/ops/artifacts.json'), JSON.stringify({version: 1, files: {}}))
     await writeFile(resolve(projectRoot, 'scripts/fixture.mjs'), `import {writeFile} from 'node:fs/promises'; await writeFile('content/worker.json', JSON.stringify({release:${JSON.stringify(name)}}));`)
     return projectRoot
   }
