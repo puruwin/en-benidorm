@@ -11,8 +11,8 @@ schema.json
 # Runtime state and regenerable content-pipeline artifacts.
 /content/discovered/*.json
 /content/enriched/*.json
-/content/opportunities/*.json
-/content/verification/*.json
+# /content/opportunities/*.json
+# /content/verification/*.json
 /content/comparisons/candidates/*.json
 /content/comparisons/enriched/*.json
 /content/generated/.staging/**/*.json
@@ -22,6 +22,8 @@ schema.json
 !/content/reports/discovery-coverage/latest.json
 !/content/reports/discovery-coverage/latest.md
 !/content/reports/comparisons/
+!/content/reports/opportunities/
+!content/reports/verification/
 /content/reports/comparisons/*
 !/content/reports/comparisons/.gitkeep
 /content/manifest.json
