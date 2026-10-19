@@ -1,10 +1,11 @@
+import {syncArtifacts} from './sync-artifacts.mjs'
 import {access, mkdtemp, readFile, realpath, rm, symlink} from 'node:fs/promises'
 import {constants} from 'node:fs'
 import {isAbsolute, join, resolve, sep} from 'node:path'
 import {tmpdir} from 'node:os'
 
 /** Create a disposable execution root without moving or rewriting the checkout. */
-export async function prepareManagedRuntime({projectRoot, contentPath, runtimeParent = tmpdir()}) {
+export async function prepareManagedRuntime({projectRoot, contentPath, runtimeParent = tmpdir(), synchronize = true}) {
   if (!contentPath || !isAbsolute(contentPath)) throw Error('CONTENT_LAB_CONTENT_PATH debe indicar una ruta absoluta persistente, fuera del directorio del release.')
   const source = await realpath(projectRoot)
   let content
@@ -19,6 +20,7 @@ export async function prepareManagedRuntime({projectRoot, contentPath, runtimePa
   for (const entry of entries) {
     try {await access(join(source, entry))} catch {throw Error('Faltan código o dependencias: ejecuta npm ci --include=dev y construye Content Lab antes de arrancar.')}
   }
+  if (synchronize) console.log('Content Lab artefactos:', JSON.stringify(await syncArtifacts({projectRoot: source, contentPath: content})))
   const root = await mkdtemp(join(resolve(runtimeParent), 'content-lab-runtime-'))
   try {
     for (const entry of entries) await symlink(join(source, entry), join(root, entry), ['scripts', 'tools', 'node_modules'].includes(entry) ? 'junction' : 'file')
