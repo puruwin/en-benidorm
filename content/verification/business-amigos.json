@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-amigos",
+  "generatedAt": "2026-10-15T15:44:07.470Z",
+  "fingerprint": "8b8ce95989d92aa4587f6fa1ae2f4eea5d09db357d4554585cee8bfbe9cd2827",
+  "expiresAt": {
+    "websiteReachability": "2026-11-14T15:44:07.470Z",
+    "operationalEvidence": "2026-11-14T15:44:07.470Z",
+    "identity": "2027-04-13T15:44:07.470Z",
+    "contactChannels": "2027-01-13T15:44:07.470Z"
+  },
+  "identityEvidence": {
+    "status": "strong-match",
+    "signals": [
+      {
+        "id": "verification:name_match:6b38a23029",
+        "type": "name_match",
+        "observation": "El nombre está vinculado a la identidad canónica mediante una fuente identificada.",
+        "sourceKeys": [
+          "openstreetmap:node/4405795085"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:address_match:83f553054f",
+        "type": "address_match",
+        "observation": "La fuente publica una dirección para esta identidad.",
+        "sourceKeys": [
+          "openstreetmap:node/4405795085"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:coordinates_match:75374ae5b1",
+        "type": "coordinates_match",
+        "observation": "La fuente abierta sitúa esta identidad en las coordenadas catalogadas.",
+        "sourceKeys": [
+          "openstreetmap:node/4405795085"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:phone_match:4e70d6f8fe",
+        "type": "phone_match",
+        "observation": "Teléfono y dirección aparecen asociados a la misma identidad de origen.",
+        "sourceKeys": [
+          "openstreetmap:node/4405795085"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:domain_match:169c51cefc",
+        "type": "domain_match",
+        "observation": "La web enlazada contiene el nombre del negocio.",
+        "sourceKeys": [
+          "official-website:https://amigosbarbenidorm.weebly.com/"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "primary",
+        "url": "http://amigosbarbenidorm.weebly.com/"
+      }
+    ]
+  },
+  "operationalEvidence": {
+    "status": "insufficient",
+    "signals": []
+  },
+  "digitalPresence": {
+    "website": {
+      "value": "http://amigosbarbenidorm.weebly.com/",
+      "sourceKeys": [
+        "openstreetmap:node/4405795085",
+        "official-website:https://amigosbarbenidorm.weebly.com/"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "scope": "location"
+    },
+    "officialLocationPage": {
+      "value": "http://amigosbarbenidorm.weebly.com/",
+      "sourceKeys": [
+        "openstreetmap:node/4405795085",
+        "official-website:https://amigosbarbenidorm.weebly.com/"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "scope": "location"
+    },
+    "phones": [
+      {
+        "value": "+34 966 804 208",
+        "sourceKeys": [
+          "openstreetmap:node/4405795085"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ],
+    "emails": [],
+    "forms": [],
+    "bookingUrls": [],
+    "quoteRequestUrls": [],
+    "ecommerceUrls": [],
+    "socialProfiles": []
+  },
+  "websiteSignals": [
+    {
+      "id": "verification:website_reachable:032920480d",
+      "type": "website_reachable",
+      "observation": "La URL respondió con HTML público utilizable; esto no prueba que el negocio esté abierto.",
+      "sourceKeys": [
+        "official-website:https://amigosbarbenidorm.weebly.com/"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "primary",
+      "url": "http://amigosbarbenidorm.weebly.com/"
+    },
+    {
+      "id": "verification:official_location_page_active:3529a4fab1",
+      "type": "official_location_page_active",
+      "observation": "La web atribuida al establecimiento está activa.",
+      "sourceKeys": [
+        "official-website:https://amigosbarbenidorm.weebly.com/"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "primary",
+      "url": "http://amigosbarbenidorm.weebly.com/"
+    },
+    {
+      "id": "verification:valid_tls:2a8d12ee6d",
+      "type": "valid_tls",
+      "observation": "Al menos una página se obtuvo correctamente mediante HTTPS.",
+      "sourceKeys": [
+        "official-website:https://amigosbarbenidorm.weebly.com/"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "primary",
+      "url": "http://amigosbarbenidorm.weebly.com/"
+    },
+    {
+      "id": "verification:mobile_viewport_present:21d9c5426e",
+      "type": "mobile_viewport_present",
+      "observation": "La web declara un viewport para dispositivos móviles.",
+      "sourceKeys": [
+        "official-website:https://amigosbarbenidorm.weebly.com/"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "primary",
+      "url": "http://amigosbarbenidorm.weebly.com/"
+    }
+  ],
+  "commercialInformation": {
+    "items": [
+      {
+        "name": "Blog",
+        "kind": "product",
+        "url": "https://amigosbarbenidorm.weebly.com/",
+        "sourceKey": "official-website:https://amigosbarbenidorm.weebly.com/",
+        "observedAt": "2026-10-15",
+        "format": "html"
+      },
+      {
+        "name": "Fence Builders",
+        "kind": "product",
+        "url": "https://www.fence-contractors.com/",
+        "sourceKey": "official-website:https://amigosbarbenidorm.weebly.com/",
+        "observedAt": "2026-10-15",
+        "format": "html"
+      },
+      {
+        "name": "Aluminum Awning",
+        "kind": "product",
+        "url": "https://www.awning-experts.com/",
+        "sourceKey": "official-website:https://amigosbarbenidorm.weebly.com/",
+        "observedAt": "2026-10-15",
+        "format": "html"
+      }
+    ],
+    "openingHours": [],
+    "counts": {
+      "services": 0,
+      "products": 3,
+      "prices": 0,
+      "openingHours": 0
+    }
+  },
+  "sources": [
+    {
+      "key": "openstreetmap:node/4405795085",
+      "provider": "openstreetmap",
+      "identifier": "node/4405795085",
+      "url": "https://www.openstreetmap.org/node/4405795085",
+      "retrievedAt": "2026-10-08T07:50:05.427Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://amigosbarbenidorm.weebly.com/",
+      "provider": "official-website",
+      "identifier": "https://amigosbarbenidorm.weebly.com/",
+      "url": "https://amigosbarbenidorm.weebly.com/",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Web oficial del establecimiento",
+      "licenseUrl": null,
+      "sourceClass": "official-location",
+      "claimScope": "establishment"
+    }
+  ],
+  "sourceKeys": [
+    "openstreetmap:node/4405795085",
+    "official-website:https://amigosbarbenidorm.weebly.com/"
+  ],
+  "errors": []
+}

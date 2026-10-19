@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-112-technology",
+  "generatedAt": "2026-10-15T15:44:07.470Z",
+  "fingerprint": "8d07c920a64a0130c4a85cca6ddf889d1f2447ac92a7431580b2af45acc6e673",
+  "expiresAt": {
+    "websiteReachability": "2026-11-14T15:44:07.470Z",
+    "operationalEvidence": "2026-11-14T15:44:07.470Z",
+    "identity": "2027-04-13T15:44:07.470Z",
+    "contactChannels": "2027-01-13T15:44:07.470Z"
+  },
+  "identityEvidence": {
+    "status": "strong-match",
+    "signals": [
+      {
+        "id": "verification:name_match:c316cfd0cb",
+        "type": "name_match",
+        "observation": "El nombre está vinculado a la identidad canónica mediante una fuente identificada.",
+        "sourceKeys": [
+          "openstreetmap:node/9105593399"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:address_match:c028e010e9",
+        "type": "address_match",
+        "observation": "La fuente publica una dirección para esta identidad.",
+        "sourceKeys": [
+          "openstreetmap:node/9105593399"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:coordinates_match:48362eb601",
+        "type": "coordinates_match",
+        "observation": "La fuente abierta sitúa esta identidad en las coordenadas catalogadas.",
+        "sourceKeys": [
+          "openstreetmap:node/9105593399"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:phone_match:262e741e80",
+        "type": "phone_match",
+        "observation": "Teléfono y dirección aparecen asociados a la misma identidad de origen.",
+        "sourceKeys": [
+          "openstreetmap:node/9105593399"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      }
+    ]
+  },
+  "operationalEvidence": {
+    "status": "insufficient",
+    "signals": []
+  },
+  "digitalPresence": {
+    "phones": [
+      {
+        "value": "+34 652 75 74 83",
+        "sourceKeys": [
+          "openstreetmap:node/9105593399"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ],
+    "emails": [],
+    "forms": [],
+    "bookingUrls": [],
+    "quoteRequestUrls": [],
+    "ecommerceUrls": [],
+    "socialProfiles": [
+      {
+        "value": "https://www.facebook.com/pages/category/Mobile-Phone-Shop/112-Technology-103887674678473/",
+        "sourceKeys": [
+          "openstreetmap:node/9105593399"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ]
+  },
+  "websiteSignals": [],
+  "commercialInformation": {
+    "items": [],
+    "openingHours": [],
+    "counts": {
+      "services": 0,
+      "products": 0,
+      "prices": 0,
+      "openingHours": 0
+    }
+  },
+  "sources": [
+    {
+      "key": "openstreetmap:node/9105593399",
+      "provider": "openstreetmap",
+      "identifier": "node/9105593399",
+      "url": "https://www.openstreetmap.org/node/9105593399",
+      "retrievedAt": "2026-10-15T15:07:03.772Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright",
+      "sourceClass": "open-data",
+      "claimScope": "establishment",
+      "dataset": {
+        "kind": "local-osm-extract",
+        "name": "benidorm-osm-map.json",
+        "sourceUrl": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-0.135,38.53,-0.125,38.54",
+        "downloadedAt": "2026-10-15T15:08:00.000Z"
+      }
+    }
+  ],
+  "sourceKeys": [
+    "openstreetmap:node/9105593399"
+  ],
+  "errors": []
+}

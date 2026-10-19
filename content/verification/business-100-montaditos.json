@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-100-montaditos",
+  "generatedAt": "2026-10-15T15:44:07.470Z",
+  "fingerprint": "2683ca422e6c25dea5e7b983113f5fe2a3240c6b4f1bb79391d54eb7ade8e4fa",
+  "expiresAt": {
+    "websiteReachability": "2026-11-14T15:44:07.470Z",
+    "operationalEvidence": "2026-11-14T15:44:07.470Z",
+    "identity": "2027-04-13T15:44:07.470Z",
+    "contactChannels": "2027-01-13T15:44:07.470Z"
+  },
+  "identityEvidence": {
+    "status": "probable-match",
+    "signals": [
+      {
+        "id": "verification:name_match:ff8f99760f",
+        "type": "name_match",
+        "observation": "El nombre está vinculado a la identidad canónica mediante una fuente identificada.",
+        "sourceKeys": [
+          "openstreetmap:node/6703870295"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:address_match:00b12205c9",
+        "type": "address_match",
+        "observation": "La fuente publica una dirección para esta identidad.",
+        "sourceKeys": [
+          "openstreetmap:node/6703870295"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:coordinates_match:08b3162b6a",
+        "type": "coordinates_match",
+        "observation": "La fuente abierta sitúa esta identidad en las coordenadas catalogadas.",
+        "sourceKeys": [
+          "openstreetmap:node/6703870295"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:domain_match:92d06be689",
+        "type": "domain_match",
+        "observation": "La web enlazada contiene el nombre del negocio.",
+        "sourceKeys": [
+          "official-website:https://spain.100montaditos.com/es",
+          "official-website:https://spain.100montaditos.com/es/la-carta"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting",
+        "url": "https://spain.100montaditos.com"
+      }
+    ]
+  },
+  "operationalEvidence": {
+    "status": "insufficient",
+    "signals": []
+  },
+  "digitalPresence": {
+    "website": {
+      "value": "https://spain.100montaditos.com",
+      "sourceKeys": [
+        "openstreetmap:node/6703870295",
+        "official-website:https://spain.100montaditos.com/es",
+        "official-website:https://spain.100montaditos.com/es/la-carta"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "scope": "brand"
+    },
+    "phones": [],
+    "emails": [
+      {
+        "value": "protecciondedatos@gruporestalia.com",
+        "sourceKeys": [
+          "official-website:https://spain.100montaditos.com/es",
+          "official-website:https://spain.100montaditos.com/es/la-carta"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ],
+    "forms": [],
+    "bookingUrls": [],
+    "quoteRequestUrls": [],
+    "ecommerceUrls": [
+      {
+        "value": "https://spain.100montaditos.com/es/la-carta",
+        "sourceKeys": [
+          "official-website:https://spain.100montaditos.com/es"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "brand"
+      }
+    ],
+    "socialProfiles": [
+      {
+        "value": "https://www.facebook.com/100MontaditosSpain",
+        "sourceKeys": [
+          "official-website:https://spain.100montaditos.com/es"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "brand"
+      },
+      {
+        "value": "https://www.instagram.com/100montaditos/",
+        "sourceKeys": [
+          "official-website:https://spain.100montaditos.com/es"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "brand"
+      },
+      {
+        "value": "https://www.youtube.com/user/Canal100Montaditos",
+        "sourceKeys": [
+          "official-website:https://spain.100montaditos.com/es"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "brand"
+      },
+      {
+        "value": "https://www.tiktok.com/@100montaditosoficial",
+        "sourceKeys": [
+          "official-website:https://spain.100montaditos.com/es"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "brand"
+      }
+    ]
+  },
+  "websiteSignals": [
+    {
+      "id": "verification:website_reachable:bc947385fa",
+      "type": "website_reachable",
+      "observation": "La URL respondió con HTML público utilizable; esto no prueba que el negocio esté abierto.",
+      "sourceKeys": [
+        "official-website:https://spain.100montaditos.com/es",
+        "official-website:https://spain.100montaditos.com/es/la-carta"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "supporting",
+      "url": "https://spain.100montaditos.com"
+    },
+    {
+      "id": "verification:official_site_active:57e0193e5e",
+      "type": "official_site_active",
+      "observation": "La web de marca está activa, sin acreditar por sí sola esta ubicación.",
+      "sourceKeys": [
+        "official-website:https://spain.100montaditos.com/es",
+        "official-website:https://spain.100montaditos.com/es/la-carta"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "supporting",
+      "url": "https://spain.100montaditos.com"
+    },
+    {
+      "id": "verification:valid_tls:37c0d36dfe",
+      "type": "valid_tls",
+      "observation": "Al menos una página se obtuvo correctamente mediante HTTPS.",
+      "sourceKeys": [
+        "official-website:https://spain.100montaditos.com/es",
+        "official-website:https://spain.100montaditos.com/es/la-carta"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "primary",
+      "url": "https://spain.100montaditos.com"
+    },
+    {
+      "id": "verification:mobile_viewport_present:c7685b0db2",
+      "type": "mobile_viewport_present",
+      "observation": "La web declara un viewport para dispositivos móviles.",
+      "sourceKeys": [
+        "official-website:https://spain.100montaditos.com/es",
+        "official-website:https://spain.100montaditos.com/es/la-carta"
+      ],
+      "observedAt": "2026-10-15T15:44:07.470Z",
+      "evidenceRole": "primary",
+      "url": "https://spain.100montaditos.com"
+    }
+  ],
+  "commercialInformation": {
+    "items": [],
+    "openingHours": [],
+    "counts": {
+      "services": 0,
+      "products": 0,
+      "prices": 0,
+      "openingHours": 0
+    }
+  },
+  "sources": [
+    {
+      "key": "openstreetmap:node/6703870295",
+      "provider": "openstreetmap",
+      "identifier": "node/6703870295",
+      "url": "https://www.openstreetmap.org/node/6703870295",
+      "retrievedAt": "2026-10-08T07:50:05.427Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright",
+      "sourceClass": "open-data",
+      "claimScope": "establishment"
+    },
+    {
+      "key": "official-website:https://spain.100montaditos.com/es",
+      "provider": "official-website",
+      "identifier": "https://spain.100montaditos.com/es",
+      "url": "https://spain.100montaditos.com/es",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Página oficial de marca (soporte, no prueba de ubicación)",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-website:https://spain.100montaditos.com/es/la-carta",
+      "provider": "official-website",
+      "identifier": "https://spain.100montaditos.com/es/la-carta",
+      "url": "https://spain.100montaditos.com/es/la-carta",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Página oficial de marca (soporte, no prueba de ubicación)",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=1",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=1",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=1",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 1",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=2",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=2",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=2",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 2",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=3",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=3",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=3",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 3",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=4",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=4",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=4",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 4",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=5",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=5",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=5",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 5",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=6",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=6",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=6",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 6",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=7",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=7",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=7",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 7",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=8",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=8",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=8",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 8",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=9",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=9",
+      "url": "https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=9",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 9",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=1",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=1",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=1",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 1",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=2",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=2",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=2",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 2",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=3",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=3",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=3",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 3",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=4",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=4",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=4",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 4",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=5",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=5",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=5",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 5",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=6",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=6",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=6",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 6",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=7",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=7",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=7",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 7",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=8",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=8",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=8",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 8",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=9",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=9",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=9",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 9",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    },
+    {
+      "key": "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=10",
+      "provider": "official-document",
+      "identifier": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=10",
+      "url": "https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=10",
+      "retrievedAt": "2026-10-15T15:44:07.470Z",
+      "attribution": "Documento PDF oficial (spain.100montaditos.com), página 10",
+      "licenseUrl": null,
+      "sourceClass": "official-brand",
+      "claimScope": "brand"
+    }
+  ],
+  "sourceKeys": [
+    "openstreetmap:node/6703870295",
+    "official-website:https://spain.100montaditos.com/es",
+    "official-website:https://spain.100montaditos.com/es/la-carta",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=1",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=2",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=3",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=4",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=5",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=6",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=7",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=8",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/2023%2003%2031%20Aviso%20Legal%20Es%20100M.pdf#page=9",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=1",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=2",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=3",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=4",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=5",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=6",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=7",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=8",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=9",
+    "official-document:https://spain.100montaditos.com/assets/web/docs/MLS.Al%C3%A9rgenos.JULIO-2025.pdf#page=10"
+  ],
+  "errors": []
+}

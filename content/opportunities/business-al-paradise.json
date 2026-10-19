@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-al-paradise",
+  "businessName": "Al Paradise",
+  "category": "retail",
+  "generatedAt": "2026-10-15T15:44:11.647Z",
+  "status": "needs-review",
+  "signals": [
+    {
+      "id": "signal:no_official_website_found",
+      "type": "no_official_website_found",
+      "observation": "Content Lab no encontró una web oficial en las fuentes consultadas; esto no demuestra que el negocio necesite una web.",
+      "sourceKeys": [
+        "openstreetmap:node/10283675273"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:limited_structured_information",
+      "type": "limited_structured_information",
+      "observation": "Content Lab sólo pudo verificar ninguna de estas dimensiones estructuradas: servicios, oferta comercial, precios y horarios.",
+      "sourceKeys": [
+        "openstreetmap:node/10283675273"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:operational_status_unknown",
+      "type": "operational_status_unknown",
+      "observation": "Content Lab no dispone de un estado operativo actual confirmado para este negocio.",
+      "sourceKeys": [
+        "openstreetmap:node/10283675273"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "weak"
+    }
+  ],
+  "hypotheses": [],
+  "suggestedActions": [
+    {
+      "type": "manual-review",
+      "reason": "Resolver primero las dudas de identidad, web o estado operativo."
+    },
+    {
+      "type": "do-not-contact",
+      "reason": "No iniciar contacto comercial mientras la identidad o el estado no estén verificados."
+    }
+  ],
+  "summary": {
+    "evidenceStrength": "moderate",
+    "opportunityAreas": [],
+    "manualReviewRequired": true
+  },
+  "provenance": {
+    "sources": [
+      {
+        "key": "openstreetmap:node/10283675273",
+        "provider": "openstreetmap",
+        "identifier": "node/10283675273",
+        "url": "https://www.openstreetmap.org/node/10283675273",
+        "retrievedAt": "2026-10-15T15:07:03.772Z",
+        "attribution": "© OpenStreetMap contributors",
+        "licenseUrl": "https://www.openstreetmap.org/copyright",
+        "sourceClass": "open-data",
+        "claimScope": "establishment",
+        "dataset": {
+          "kind": "local-osm-extract",
+          "name": "benidorm-osm-map.json",
+          "sourceUrl": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-0.135,38.53,-0.125,38.54",
+          "downloadedAt": "2026-10-15T15:08:00.000Z"
+        }
+      }
+    ],
+    "coveredSignals": 3,
+    "totalSignals": 3,
+    "coverage": 1
+  },
+  "verification": {
+    "artifact": "content/verification/business-al-paradise.json",
+    "generatedAt": "2026-10-15T15:44:07.470Z",
+    "fingerprint": "000bf11adaf1a1597a2bd4fdf7c99de370373a32839536a255ad8fda3c3fbc97",
+    "identityEvidence": "probable-match",
+    "operationalEvidence": "insufficient"
+  },
+  "inputFingerprint": "951f33ea5a8996ac0ab5d572acc7093735cc242f6e85621e9229b5dc5e7d2128"
+}

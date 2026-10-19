@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-asisa",
+  "businessName": "Asisa+",
+  "category": "professional-services",
+  "generatedAt": "2026-10-15T15:44:11.647Z",
+  "status": "analyzed",
+  "signals": [
+    {
+      "id": "signal:no_official_website_found",
+      "type": "no_official_website_found",
+      "observation": "Content Lab no encontró una web oficial en las fuentes consultadas; esto no demuestra que el negocio necesite una web.",
+      "sourceKeys": [
+        "openstreetmap:node/14159165667"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:limited_structured_information",
+      "type": "limited_structured_information",
+      "observation": "Content Lab sólo pudo verificar ninguna de estas dimensiones estructuradas: servicios, oferta comercial, precios y horarios.",
+      "sourceKeys": [
+        "openstreetmap:node/14159165667"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:operational_status_unknown",
+      "type": "operational_status_unknown",
+      "observation": "Content Lab no dispone de un estado operativo actual confirmado para este negocio.",
+      "sourceKeys": [
+        "openstreetmap:node/14159165667"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "weak"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "hypothesis:web-presence:no_official_website_found",
+      "area": "web-presence",
+      "hypothesis": "No se ha identificado una web oficial propia para un negocio confirmado como operativo.",
+      "basedOnSignalIds": [
+        "signal:no_official_website_found"
+      ],
+      "basedOnReview": {
+        "reviewedAt": "2026-10-15T15:20:00.000Z",
+        "reviewedBy": "codex-p3a3-pilot",
+        "reviewedSourceKeys": [
+          "openstreetmap:node/14159165667"
+        ],
+        "fields": [
+          "operationalStatus",
+          "identityStatus",
+          "officialPresence.website"
+        ]
+      },
+      "confidence": "moderate",
+      "limitations": [
+        "No implica que el negocio quiera o necesite desarrollar una web.",
+        "La verificación caduca y se limita a las fuentes revisadas."
+      ]
+    },
+    {
+      "id": "hypothesis:content:limited_structured_information",
+      "area": "content",
+      "hypothesis": "Puede existir margen para hacer más verificable y accesible la información comercial pública.",
+      "basedOnSignalIds": [
+        "signal:limited_structured_information"
+      ],
+      "basedOnReview": {
+        "reviewedAt": "2026-10-15T15:20:00.000Z",
+        "reviewedBy": "codex-p3a3-pilot",
+        "reviewedSourceKeys": [
+          "openstreetmap:node/14159165667"
+        ],
+        "fields": [
+          "operationalStatus",
+          "identityStatus"
+        ]
+      },
+      "confidence": "moderate",
+      "limitations": [
+        "La observación se limita a las fuentes y dimensiones que Content Lab pudo consultar.",
+        "No implica una mala presencia digital ni una prioridad para el negocio."
+      ]
+    }
+  ],
+  "suggestedActions": [
+    {
+      "type": "verify-google-profile",
+      "reason": "Contrastar manualmente si existe una presencia oficial no recogida por las fuentes actuales."
+    },
+    {
+      "type": "prepare-audit",
+      "reason": "Preparar una auditoría interna basada sólo en las señales trazables; no es una propuesta económica."
+    }
+  ],
+  "summary": {
+    "evidenceStrength": "moderate",
+    "opportunityAreas": [
+      "web-presence",
+      "content"
+    ],
+    "manualReviewRequired": false
+  },
+  "provenance": {
+    "sources": [
+      {
+        "key": "openstreetmap:node/14159165667",
+        "provider": "openstreetmap",
+        "identifier": "node/14159165667",
+        "url": "https://www.openstreetmap.org/node/14159165667",
+        "retrievedAt": "2026-10-15T15:07:03.772Z",
+        "attribution": "© OpenStreetMap contributors",
+        "licenseUrl": "https://www.openstreetmap.org/copyright",
+        "sourceClass": "open-data",
+        "claimScope": "establishment",
+        "dataset": {
+          "kind": "local-osm-extract",
+          "name": "benidorm-osm-map.json",
+          "sourceUrl": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-0.135,38.53,-0.125,38.54",
+          "downloadedAt": "2026-10-15T15:08:00.000Z"
+        }
+      }
+    ],
+    "coveredSignals": 3,
+    "totalSignals": 3,
+    "coverage": 1
+  },
+  "verification": {
+    "artifact": "content/verification/business-asisa.json",
+    "generatedAt": "2026-10-15T15:44:07.470Z",
+    "fingerprint": "fa3b680a3c2c553bc5355552eace241888a4a5f186b8d1650ac6ae5edb998fa6",
+    "identityEvidence": "probable-match",
+    "operationalEvidence": "supported-open"
+  },
+  "inputFingerprint": "1fa4d48ba810722554652b0ee059997458521f5d1e5dcb17296af55c15abba52"
+}

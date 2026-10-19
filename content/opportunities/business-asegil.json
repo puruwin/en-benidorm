@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-asegil",
+  "businessName": "Asegil",
+  "category": "professional-services",
+  "generatedAt": "2026-10-15T15:44:11.647Z",
+  "status": "needs-review",
+  "signals": [
+    {
+      "id": "signal:no_official_website_found",
+      "type": "no_official_website_found",
+      "observation": "Content Lab no encontró una web oficial en las fuentes consultadas; esto no demuestra que el negocio necesite una web.",
+      "sourceKeys": [
+        "openstreetmap:node/13881409012"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:limited_structured_information",
+      "type": "limited_structured_information",
+      "observation": "Content Lab sólo pudo verificar ninguna de estas dimensiones estructuradas: servicios, oferta comercial, precios y horarios.",
+      "sourceKeys": [
+        "openstreetmap:node/13881409012"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:operational_status_unknown",
+      "type": "operational_status_unknown",
+      "observation": "Content Lab no dispone de un estado operativo actual confirmado para este negocio.",
+      "sourceKeys": [
+        "openstreetmap:node/13881409012"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "weak"
+    }
+  ],
+  "hypotheses": [],
+  "suggestedActions": [
+    {
+      "type": "manual-review",
+      "reason": "Resolver primero las dudas de identidad, web o estado operativo."
+    },
+    {
+      "type": "do-not-contact",
+      "reason": "No iniciar contacto comercial mientras la identidad o el estado no estén verificados."
+    }
+  ],
+  "summary": {
+    "evidenceStrength": "moderate",
+    "opportunityAreas": [],
+    "manualReviewRequired": true
+  },
+  "provenance": {
+    "sources": [
+      {
+        "key": "openstreetmap:node/13881409012",
+        "provider": "openstreetmap",
+        "identifier": "node/13881409012",
+        "url": "https://www.openstreetmap.org/node/13881409012",
+        "retrievedAt": "2026-10-15T15:07:03.772Z",
+        "attribution": "© OpenStreetMap contributors",
+        "licenseUrl": "https://www.openstreetmap.org/copyright",
+        "sourceClass": "open-data",
+        "claimScope": "establishment",
+        "dataset": {
+          "kind": "local-osm-extract",
+          "name": "benidorm-osm-map.json",
+          "sourceUrl": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-0.135,38.53,-0.125,38.54",
+          "downloadedAt": "2026-10-15T15:08:00.000Z"
+        }
+      }
+    ],
+    "coveredSignals": 3,
+    "totalSignals": 3,
+    "coverage": 1
+  },
+  "verification": {
+    "artifact": "content/verification/business-asegil.json",
+    "generatedAt": "2026-10-15T15:44:07.470Z",
+    "fingerprint": "35e854a00484bf7ca966e01962d121c1651fc8261babda15d5acfc2983cc7550",
+    "identityEvidence": "probable-match",
+    "operationalEvidence": "insufficient"
+  },
+  "inputFingerprint": "8dabedbd3691a1c13daf9d8034e753d5e6718439bbf2362ffeaadd5b7f0d69fa"
+}

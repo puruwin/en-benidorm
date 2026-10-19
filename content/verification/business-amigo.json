@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-amigo",
+  "generatedAt": "2026-10-15T15:44:07.470Z",
+  "fingerprint": "6ace92b6d1887289df820287346e2fe36dc39dfce9a9b60158ef03c3dfdcdd26",
+  "expiresAt": {
+    "websiteReachability": "2026-11-14T15:44:07.470Z",
+    "operationalEvidence": "2026-11-14T15:44:07.470Z",
+    "identity": "2027-04-13T15:44:07.470Z",
+    "contactChannels": "2027-01-13T15:44:07.470Z"
+  },
+  "identityEvidence": {
+    "status": "probable-match",
+    "signals": [
+      {
+        "id": "verification:name_match:6b3de40061",
+        "type": "name_match",
+        "observation": "El nombre está vinculado a la identidad canónica mediante una fuente identificada.",
+        "sourceKeys": [
+          "openstreetmap:node/5874127914"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:address_match:46d7f2924d",
+        "type": "address_match",
+        "observation": "La fuente publica una dirección para esta identidad.",
+        "sourceKeys": [
+          "openstreetmap:node/5874127914"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:coordinates_match:1ac1881d60",
+        "type": "coordinates_match",
+        "observation": "La fuente abierta sitúa esta identidad en las coordenadas catalogadas.",
+        "sourceKeys": [
+          "openstreetmap:node/5874127914"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      }
+    ]
+  },
+  "operationalEvidence": {
+    "status": "insufficient",
+    "signals": []
+  },
+  "digitalPresence": {
+    "phones": [],
+    "emails": [],
+    "forms": [],
+    "bookingUrls": [],
+    "quoteRequestUrls": [],
+    "ecommerceUrls": [],
+    "socialProfiles": []
+  },
+  "websiteSignals": [],
+  "commercialInformation": {
+    "items": [],
+    "openingHours": [],
+    "counts": {
+      "services": 0,
+      "products": 0,
+      "prices": 0,
+      "openingHours": 0
+    }
+  },
+  "sources": [
+    {
+      "key": "openstreetmap:node/5874127914",
+      "provider": "openstreetmap",
+      "identifier": "node/5874127914",
+      "url": "https://www.openstreetmap.org/node/5874127914",
+      "retrievedAt": "2026-10-08T07:50:05.427Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "sourceKeys": [
+    "openstreetmap:node/5874127914"
+  ],
+  "errors": []
+}

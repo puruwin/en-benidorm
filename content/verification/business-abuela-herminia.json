@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-abuela-herminia",
+  "generatedAt": "2026-10-15T15:44:07.470Z",
+  "fingerprint": "d3d6ed5871ee8788440a443dbba6fa0a64185ff75a552d8f86c42845b04a3340",
+  "expiresAt": {
+    "websiteReachability": "2026-11-14T15:44:07.470Z",
+    "operationalEvidence": "2026-11-14T15:44:07.470Z",
+    "identity": "2027-04-13T15:44:07.470Z",
+    "contactChannels": "2027-01-13T15:44:07.470Z"
+  },
+  "identityEvidence": {
+    "status": "probable-match",
+    "signals": [
+      {
+        "id": "verification:name_match:beab2613db",
+        "type": "name_match",
+        "observation": "El nombre está vinculado a la identidad canónica mediante una fuente identificada.",
+        "sourceKeys": [
+          "openstreetmap:node/9111435217"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:address_match:ae694be63d",
+        "type": "address_match",
+        "observation": "La fuente publica una dirección para esta identidad.",
+        "sourceKeys": [
+          "openstreetmap:node/9111435217"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:coordinates_match:3907c6553f",
+        "type": "coordinates_match",
+        "observation": "La fuente abierta sitúa esta identidad en las coordenadas catalogadas.",
+        "sourceKeys": [
+          "openstreetmap:node/9111435217"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      }
+    ]
+  },
+  "operationalEvidence": {
+    "status": "supported-closed",
+    "signals": [
+      {
+        "id": "verification:third_party_closed_signal:990f7774a8",
+        "type": "third_party_closed_signal",
+        "observation": "La fuente abierta contiene una etiqueta explícita de cierre, desuso o vacante; requiere confirmación humana.",
+        "sourceKeys": [
+          "openstreetmap:node/9111435217"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      }
+    ]
+  },
+  "digitalPresence": {
+    "phones": [],
+    "emails": [],
+    "forms": [],
+    "bookingUrls": [],
+    "quoteRequestUrls": [],
+    "ecommerceUrls": [],
+    "socialProfiles": []
+  },
+  "websiteSignals": [],
+  "commercialInformation": {
+    "items": [],
+    "openingHours": [],
+    "counts": {
+      "services": 0,
+      "products": 0,
+      "prices": 0,
+      "openingHours": 0
+    }
+  },
+  "sources": [
+    {
+      "key": "openstreetmap:node/9111435217",
+      "provider": "openstreetmap",
+      "identifier": "node/9111435217",
+      "url": "https://www.openstreetmap.org/node/9111435217",
+      "retrievedAt": "2026-10-08T07:50:05.427Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "sourceKeys": [
+    "openstreetmap:node/9111435217"
+  ],
+  "errors": []
+}

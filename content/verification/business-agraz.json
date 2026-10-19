@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-agraz",
+  "generatedAt": "2026-10-15T15:44:07.470Z",
+  "fingerprint": "10c63bc9244a3c604077e0823402829c9259f21921514e406d3c2f75dca68765",
+  "expiresAt": {
+    "websiteReachability": "2026-11-14T15:44:07.470Z",
+    "operationalEvidence": "2026-11-14T15:44:07.470Z",
+    "identity": "2027-04-13T15:44:07.470Z",
+    "contactChannels": "2027-01-13T15:44:07.470Z"
+  },
+  "identityEvidence": {
+    "status": "strong-match",
+    "signals": [
+      {
+        "id": "verification:name_match:9e1d00b129",
+        "type": "name_match",
+        "observation": "El nombre está vinculado a la identidad canónica mediante una fuente identificada.",
+        "sourceKeys": [
+          "openstreetmap:node/8866295708"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:address_match:7149c2e218",
+        "type": "address_match",
+        "observation": "La fuente publica una dirección para esta identidad.",
+        "sourceKeys": [
+          "openstreetmap:node/8866295708"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:coordinates_match:fbf55a85de",
+        "type": "coordinates_match",
+        "observation": "La fuente abierta sitúa esta identidad en las coordenadas catalogadas.",
+        "sourceKeys": [
+          "openstreetmap:node/8866295708"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:phone_match:879ce9b459",
+        "type": "phone_match",
+        "observation": "Teléfono y dirección aparecen asociados a la misma identidad de origen.",
+        "sourceKeys": [
+          "openstreetmap:node/8866295708"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      }
+    ]
+  },
+  "operationalEvidence": {
+    "status": "insufficient",
+    "signals": []
+  },
+  "digitalPresence": {
+    "phones": [
+      {
+        "value": "+34 965 85 33 28",
+        "sourceKeys": [
+          "openstreetmap:node/8866295708"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ],
+    "emails": [],
+    "forms": [],
+    "bookingUrls": [],
+    "quoteRequestUrls": [],
+    "ecommerceUrls": [],
+    "socialProfiles": [
+      {
+        "value": "https://es-la.facebook.com/agrazestilistas/",
+        "sourceKeys": [
+          "openstreetmap:node/8866295708"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ]
+  },
+  "websiteSignals": [],
+  "commercialInformation": {
+    "items": [],
+    "openingHours": [],
+    "counts": {
+      "services": 0,
+      "products": 0,
+      "prices": 0,
+      "openingHours": 0
+    }
+  },
+  "sources": [
+    {
+      "key": "openstreetmap:node/8866295708",
+      "provider": "openstreetmap",
+      "identifier": "node/8866295708",
+      "url": "https://www.openstreetmap.org/node/8866295708",
+      "retrievedAt": "2026-10-15T15:07:03.772Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright",
+      "sourceClass": "open-data",
+      "claimScope": "establishment",
+      "dataset": {
+        "kind": "local-osm-extract",
+        "name": "benidorm-osm-map.json",
+        "sourceUrl": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-0.135,38.53,-0.125,38.54",
+        "downloadedAt": "2026-10-15T15:08:00.000Z"
+      }
+    }
+  ],
+  "sourceKeys": [
+    "openstreetmap:node/8866295708"
+  ],
+  "errors": []
+}

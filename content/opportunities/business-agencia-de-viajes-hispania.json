@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-agencia-de-viajes-hispania",
+  "businessName": "Agencia de viajes Hispania",
+  "category": "retail",
+  "generatedAt": "2026-10-15T15:44:11.647Z",
+  "status": "needs-review",
+  "signals": [
+    {
+      "id": "signal:no_official_website_found",
+      "type": "no_official_website_found",
+      "observation": "Content Lab no encontró una web oficial en las fuentes consultadas; esto no demuestra que el negocio necesite una web.",
+      "sourceKeys": [
+        "openstreetmap:node/941465754"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:limited_structured_information",
+      "type": "limited_structured_information",
+      "observation": "Content Lab sólo pudo verificar ninguna de estas dimensiones estructuradas: servicios, oferta comercial, precios y horarios.",
+      "sourceKeys": [
+        "openstreetmap:node/941465754"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "moderate"
+    },
+    {
+      "id": "signal:operational_status_unknown",
+      "type": "operational_status_unknown",
+      "observation": "Content Lab no dispone de un estado operativo actual confirmado para este negocio.",
+      "sourceKeys": [
+        "openstreetmap:node/941465754"
+      ],
+      "observedAt": "2026-10-15T15:07:03.772Z",
+      "confidence": "weak"
+    }
+  ],
+  "hypotheses": [],
+  "suggestedActions": [
+    {
+      "type": "manual-review",
+      "reason": "Resolver primero las dudas de identidad, web o estado operativo."
+    },
+    {
+      "type": "do-not-contact",
+      "reason": "No iniciar contacto comercial mientras la identidad o el estado no estén verificados."
+    }
+  ],
+  "summary": {
+    "evidenceStrength": "moderate",
+    "opportunityAreas": [],
+    "manualReviewRequired": true
+  },
+  "provenance": {
+    "sources": [
+      {
+        "key": "openstreetmap:node/941465754",
+        "provider": "openstreetmap",
+        "identifier": "node/941465754",
+        "url": "https://www.openstreetmap.org/node/941465754",
+        "retrievedAt": "2026-10-15T15:07:03.772Z",
+        "attribution": "© OpenStreetMap contributors",
+        "licenseUrl": "https://www.openstreetmap.org/copyright",
+        "sourceClass": "open-data",
+        "claimScope": "establishment",
+        "dataset": {
+          "kind": "local-osm-extract",
+          "name": "benidorm-osm-map.json",
+          "sourceUrl": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-0.135,38.53,-0.125,38.54",
+          "downloadedAt": "2026-10-15T15:08:00.000Z"
+        }
+      }
+    ],
+    "coveredSignals": 3,
+    "totalSignals": 3,
+    "coverage": 1
+  },
+  "verification": {
+    "artifact": "content/verification/business-agencia-de-viajes-hispania.json",
+    "generatedAt": "2026-10-15T15:44:07.470Z",
+    "fingerprint": "27d0ec0037615f2afd870feefd4b059d7af948529753c454389955e6212b55d4",
+    "identityEvidence": "probable-match",
+    "operationalEvidence": "insufficient"
+  },
+  "inputFingerprint": "7b58b7d10727339ff0abcb6ef926b28d5ad1784c458388909b5d97d8e7a0ae63"
+}

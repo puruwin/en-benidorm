@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "businessId": "business-al-terrazzo",
+  "generatedAt": "2026-10-15T15:44:07.470Z",
+  "fingerprint": "b89aaee867c6be1f472e5d0b6eee2f7c71d2e561c70caa34c018973a7e781cfa",
+  "expiresAt": {
+    "websiteReachability": "2026-11-14T15:44:07.470Z",
+    "operationalEvidence": "2026-11-14T15:44:07.470Z",
+    "identity": "2027-04-13T15:44:07.470Z",
+    "contactChannels": "2027-01-13T15:44:07.470Z"
+  },
+  "identityEvidence": {
+    "status": "strong-match",
+    "signals": [
+      {
+        "id": "verification:name_match:623ac23e1d",
+        "type": "name_match",
+        "observation": "El nombre está vinculado a la identidad canónica mediante una fuente identificada.",
+        "sourceKeys": [
+          "openstreetmap:node/4343358698"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:address_match:abf26766b9",
+        "type": "address_match",
+        "observation": "La fuente publica una dirección para esta identidad.",
+        "sourceKeys": [
+          "openstreetmap:node/4343358698"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:coordinates_match:6696988fdc",
+        "type": "coordinates_match",
+        "observation": "La fuente abierta sitúa esta identidad en las coordenadas catalogadas.",
+        "sourceKeys": [
+          "openstreetmap:node/4343358698"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      },
+      {
+        "id": "verification:phone_match:57f48e723a",
+        "type": "phone_match",
+        "observation": "Teléfono y dirección aparecen asociados a la misma identidad de origen.",
+        "sourceKeys": [
+          "openstreetmap:node/4343358698"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "evidenceRole": "supporting"
+      }
+    ]
+  },
+  "operationalEvidence": {
+    "status": "insufficient",
+    "signals": []
+  },
+  "digitalPresence": {
+    "phones": [
+      {
+        "value": "+34 688 29 93 39",
+        "sourceKeys": [
+          "openstreetmap:node/4343358698"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ],
+    "emails": [],
+    "forms": [],
+    "bookingUrls": [],
+    "quoteRequestUrls": [],
+    "ecommerceUrls": [],
+    "socialProfiles": [
+      {
+        "value": "https://www.facebook.com/Ristorante-Al-Terrazzo-Benidorm-282647038608279/",
+        "sourceKeys": [
+          "openstreetmap:node/4343358698"
+        ],
+        "observedAt": "2026-10-15T15:44:07.470Z",
+        "scope": "unknown"
+      }
+    ]
+  },
+  "websiteSignals": [],
+  "commercialInformation": {
+    "items": [],
+    "openingHours": [],
+    "counts": {
+      "services": 0,
+      "products": 0,
+      "prices": 0,
+      "openingHours": 0
+    }
+  },
+  "sources": [
+    {
+      "key": "openstreetmap:node/4343358698",
+      "provider": "openstreetmap",
+      "identifier": "node/4343358698",
+      "url": "https://www.openstreetmap.org/node/4343358698",
+      "retrievedAt": "2026-10-08T07:50:05.427Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    }
+  ],
+  "sourceKeys": [
+    "openstreetmap:node/4343358698"
+  ],
+  "errors": []
+}
