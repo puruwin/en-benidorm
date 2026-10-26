@@ -2,7 +2,7 @@ import {createHash, randomUUID} from 'node:crypto'
 import {lstat, mkdir, readFile, rename, rm, open} from 'node:fs/promises'
 import {dirname, join} from 'node:path'
 export const digest = data => createHash('sha256').update(data).digest('hex')
-export const managedPath = path => /^(verification|opportunities|discovered|enriched)\/[a-zA-Z0-9_-]+\.json$/.test(path) || /^(reports|comparisons\/(candidates|enriched)|generated)\/(?:[a-zA-Z0-9_.-]+\/)*[a-zA-Z0-9_-]+\.json$/.test(path) && !path.split('/').some(part => part === '..' || /manual|review/i.test(part))
+export const managedPath = path => /^(discovered|enriched)\/[a-zA-Z0-9_-]+\.json$/.test(path) || /^(reports|comparisons\/(candidates|enriched)|generated)\/(?:[a-zA-Z0-9_.-]+\/)*[a-zA-Z0-9_-]+\.json$/.test(path) && !path.split('/').some(part => part === '..' || /manual|review/i.test(part))
 async function bytes(path) {try {return await readFile(path)} catch (e) {if (e.code === 'ENOENT') return null; throw e}}
 async function safePath(root, relative) {
   let current = root

@@ -1,6 +1,6 @@
 # P3A.5a — Discovery comercial y cobertura sectorial
 
-Discovery conserva `EntityType` y `DiscoveryCategory` como contratos editoriales legacy. La clasificación comercial vive en `businessClassification`, no interviene en Selection, Comparison, Opportunity Analysis, Human Review ni Verification.
+Discovery conserva `EntityType` y `DiscoveryCategory` como contratos editoriales legacy. La clasificación sectorial vive en `businessClassification` y no interviene en Selection ni Comparison.
 
 ## Geografía
 

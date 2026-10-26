@@ -9,13 +9,9 @@ Content Lab started as infrastructure for **enBenidorm.es**, a local SEO project
 - create useful local editorial content,
 - investigate how much of local-content research can be systematized.
 
-A second use case later emerged:
+Content Lab serves enBenidorm.es only. A commercial prospecting use case was explored and discontinued on 2026-10-26; its code and artifacts were removed.
 
-> Reuse the same business-discovery and research infrastructure to identify local businesses with weak or incomplete digital visibility and evaluate whether they may be relevant prospects for **Frappé Tech**.
-
-This second use case must remain independent from editorial decisions.
-
-Content Lab may eventually inspire a SaaS product, but SaaS is **not currently a validated objective**. The current priority is proving real usefulness.
+The current priority is the editorial SEO plan tracked in GitHub issue #26.
 
 ---
 
@@ -67,7 +63,7 @@ This made research explainable even when it finds nothing.
 
 ---
 
-### P2 — Structured commercial extraction
+### P2 — Structured offer extraction (menus, prices, hours)
 
 The shared crawler/extractor was extended to process:
 
@@ -91,7 +87,7 @@ It does **not**:
 - perform OCR,
 - render scanned PDFs.
 
-Commercial findings are normalized as structured items such as:
+Offer findings are normalized as structured items such as:
 
 - product,
 - service,
@@ -130,7 +126,7 @@ The resulting principle is:
 
 Selection, topic confirmation, editorial eligibility, cohort gating and generation should be separate concepts.
 
-A future editorial-eligibility layer is still relevant, but commercial discovery work temporarily took priority.
+A future editorial-eligibility layer is still relevant and pending (see GitHub issues #15 and #19).
 
 ---
 
@@ -205,9 +201,9 @@ Overpass is better suited to incremental refreshes.
 
 ---
 
-## 7. Commercial taxonomy
+## 7. Sector taxonomy
 
-P3A.5a introduced a commercial taxonomy independent of raw OSM tags.
+P3A.5a introduced a sector taxonomy independent of raw OSM tags.
 
 Main sectors:
 
@@ -226,7 +222,7 @@ Main sectors:
 
 Original OSM tags remain preserved.
 
-The taxonomy must not alter editorial Comparison behavior unless explicitly designed to do so.
+It organizes the catalog. It must not alter editorial Comparison behavior unless explicitly designed to do so.
 
 ---
 
@@ -307,7 +303,7 @@ After the P3A.5a pilot, approximate coverage was:
 - opening hours: 4.0%
 - recent explicit check date: 19.3%
 
-This explains why Opportunity Analysis frequently requires human review.
+This explains why editorial facts often need an official source or a human check before publication.
 
 ---
 
@@ -334,103 +330,10 @@ Ambiguous candidates must not be automatically merged.
 
 ---
 
-## 11. Opportunity Analysis
-
-Opportunity Analysis is a separate commercial layer.
-
-Its purpose is not to say:
-
-> “This business needs a website.”
-
-Its purpose is to say:
-
-> “No official website has been identified for a business that appears active; there may be an opportunity to improve owned web presence, but need and willingness are unconfirmed.”
-
-Core separation:
-
-1. observed evidence,
-2. interpretation,
-3. commercial hypothesis,
-4. suggested next action.
-
-Initial opportunity areas include:
-
-- web-presence,
-- local-seo,
-- content,
-- conversion,
-- booking,
-- automation,
-- unknown.
-
-No global opaque commercial score should be introduced without evidence that it improves decisions.
-
----
-
-## 12. Human Review
-
-Human Review exists because many commercial decisions cannot be safely resolved from weak public signals.
-
-Reviews preserve:
-
-- reviewer,
-- date,
-- operational status,
-- identity status,
-- official presence,
-- contact channels,
-- reviewed sources,
-- notes,
-- expiration,
-- revision history.
-
-Automatic evidence never silently overwrites a manual review.
-
-Review states include concepts such as:
-
-- unreviewed,
-- reviewing,
-- verified,
-- rejected,
-- stale.
-
----
-
-## 13. Verification Enrichment
-
-Verification Enrichment was added to reduce manual effort.
-
-It collects supporting evidence for:
-
-- identity,
-- operation,
-- digital presence,
-- website signals,
-- commercial information.
-
-It must not infer:
-
-- reachable website = business open,
-- brand page = local page,
-- third-party directory = official source,
-- missing booking = internal process is manual.
-
-The most recent pilot still found operational evidence insufficient for most businesses.
-
-This is an important signal:
-
-> The system is technically mature enough to test usefulness; further architecture should be justified by measured reduction in manual research.
-
----
-
-## 14. Current product-level conclusion
+## 11. Current product-level conclusion
 
 Content Lab has demonstrated strong potential for **enBenidorm.es**.
 
-Its commercial value for **Frappé Tech** remains plausible but not yet validated.
+The next proof point is not another architectural layer. It is whether the editorial plan (GitHub issue #26) turns the pipeline into pages that are useful, verifiable and indexable.
 
-The next major proof point is not another architectural layer.
-
-It is a controlled experiment asking:
-
-> Does Content Lab allow David to identify and understand worthwhile prospects faster than starting from zero?
+Further architecture should be justified by an issue of that plan.

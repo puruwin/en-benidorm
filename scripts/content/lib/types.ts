@@ -157,7 +157,7 @@ export interface ManifestEntry {
   discovery?: DiscoveryLifecycle
 }
 
-export type DiscoveryPurpose = 'editorial-comparison' | 'editorial-business' | 'opportunity-analysis'
+export type DiscoveryPurpose = 'editorial-comparison' | 'editorial-business'
 
 export interface DiscoveryResearchSelection {
   purpose: DiscoveryPurpose
@@ -180,7 +180,7 @@ export interface DiscoveryHistoryEvent {
   contextId?: string
 }
 
-/** Reusable discovery contract. Opportunity Analysis may consume it but does not own or mutate identity. */
+/** Reusable discovery contract. Consumers may read it but do not own or mutate identity. */
 export interface DiscoveryLifecycle {
   state: 'discovered'
   firstSeenAt: string

@@ -225,20 +225,3 @@ The project should prefer:
 over bulk generation.
 
 Manual indexing should focus on pages that meet the quality bar.
-
----
-
-## 13. Editorial independence from Frappé prospecting
-
-Commercial attractiveness must never affect editorial recommendation.
-
-Do not recommend a business because:
-
-- it looks like a good prospect,
-- it lacks a website,
-- it might buy services,
-- Frappé has contacted it.
-
-Likewise, editorial exclusion does not mean the business is a poor commercial prospect.
-
-The two evaluations are independent.

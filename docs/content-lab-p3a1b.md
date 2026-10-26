@@ -143,5 +143,4 @@ Se puede iniciar P3A.2 sobre el contrato estable, pero el análisis debe consumi
 `success` o las unidades completas de `partial`. Antes de automatizar cobertura amplia conviene
 operar con extractos OSM regionales descargados explícitamente y versionados fuera del repositorio,
 mantener Overpass como refresco incremental, y añadir una cola de revisión humana para
-`ProbableDuplicate`. Opportunity Analysis debe seguir siendo un consumidor separado y de solo
-lectura; no debe introducir criterios comerciales en Selection.
+`ProbableDuplicate`.

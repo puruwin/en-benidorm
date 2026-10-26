@@ -8,7 +8,7 @@ import {syncArtifacts, digest} from '../../ops/sync-artifacts.mjs'
 test('sync: primera copia, actualización, reinicio, conflictos y datos humanos', async () => {
   const root = await mkdtemp(join(tmpdir(), 'sync-artifacts-'))
   const projectRoot = join(root, 'release'), contentPath = join(root, 'persistent')
-  const path = 'verification/business-asisa.json'
+  const path = 'enriched/business-asisa.json'
   const options = {projectRoot, contentPath}
   async function put(base: string, path: string, data: string) {await mkdir(join(base, path, '..'), {recursive: true}); await writeFile(join(base, path), data)}
   async function release(data: string) {
@@ -17,15 +17,15 @@ test('sync: primera copia, actualización, reinicio, conflictos y datos humanos'
   }
   try {
     await put(contentPath, 'manifest.json', '{"entries":[]}')
-    for (const file of ['manual/prospecting/asisa.json', 'manual/opportunity-reviews/asisa.json', 'manual/comparisons/test.json', 'opportunities/local-only.json']) await put(contentPath, file, '{"human":true}')
-    await put(projectRoot, 'content/manual/prospecting/asisa.json', '{"human":false}')
+    for (const file of ['manual/comparison-observations/asisa.json', 'manual/comparisons/test.json', 'manual/businesses-italiano.json']) await put(contentPath, file, '{"human":true}')
+    await put(projectRoot, 'content/manual/comparison-observations/asisa.json', '{"human":false}')
     await release('{"v":1}')
     assert.deepEqual(await syncArtifacts(options), {verified: 1, updated: 1})
     assert.deepEqual(await syncArtifacts(options), {verified: 1, updated: 0})
     await release('{"v":2}')
     assert.equal((await syncArtifacts(options)).updated, 1)
     assert.equal(await readFile(join(contentPath, path), 'utf8'), '{"v":2}')
-    for (const file of ['manual/prospecting/asisa.json', 'manual/opportunity-reviews/asisa.json', 'manual/comparisons/test.json', 'opportunities/local-only.json']) assert.equal(await readFile(join(contentPath, file), 'utf8'), '{"human":true}')
+    for (const file of ['manual/comparison-observations/asisa.json', 'manual/comparisons/test.json', 'manual/businesses-italiano.json']) assert.equal(await readFile(join(contentPath, file), 'utf8'), '{"human":true}')
     await put(contentPath, path, '{"local":true}')
     await release('{"v":3}')
     await assert.rejects(syncArtifacts(options), /Conflicto/)
@@ -49,20 +49,20 @@ test('sync: primera copia, actualización, reinicio, conflictos y datos humanos'
     await put(projectRoot, `content/${path}`, '{}')
     await assert.rejects(syncArtifacts(options), /Integridad/)
     await release('{"v":5}')
-    await rm(join(contentPath, 'verification'), {recursive: true})
-    await symlink(join(projectRoot, 'content/verification'), join(contentPath, 'verification'))
+    await rm(join(contentPath, 'enriched'), {recursive: true})
+    await symlink(join(projectRoot, 'content/enriched'), join(contentPath, 'enriched'))
     await assert.rejects(syncArtifacts(options), /insegura/)
-    await put(projectRoot, 'tools/content-lab/ops/artifacts.json', JSON.stringify({version: 1, files: {'manual/prospecting/asisa.json': digest('{}')}}))
+    await put(projectRoot, 'tools/content-lab/ops/artifacts.json', JSON.stringify({version: 1, files: {'manual/comparisons/test.json': digest('{}')}}))
     await assert.rejects(syncArtifacts(options), /no permitido/)
   } finally {await rm(root, {recursive: true, force: true})}
 })
 
-test('release versionado: runtime sirve los dos artefactos Asisa y reinicia sin recopiarlos', async () => {
+test('release versionado: el runtime sirve las comparativas publicadas y reinicia sin recopiarlas', async () => {
   const {fileURLToPath} = await import('node:url')
   const {prepareManagedRuntime} = await import('../../ops/managed-runtime.mjs')
   const {ArtifactLoader} = await import('./artifact-loader')
   const projectRoot = fileURLToPath(new URL('../../../../', import.meta.url))
-  const root = await mkdtemp(join(tmpdir(), 'asisa-runtime-'))
+  const root = await mkdtemp(join(tmpdir(), 'release-runtime-'))
   const contentPath = join(root, 'content')
   await mkdir(contentPath)
   await writeFile(join(contentPath, 'manifest.json'), '{"entries":[]}')
@@ -70,10 +70,9 @@ test('release versionado: runtime sirve los dos artefactos Asisa y reinicia sin 
     const runtime = await prepareManagedRuntime({projectRoot, contentPath, runtimeParent: root})
     try {
       const loader = new ArtifactLoader(runtime.root)
-      const context = await loader.opportunityContext('business-asisa')
-      assert.equal(context.analysis.status, 'available')
-      assert.equal(context.verification.status, 'available')
-      for (const path of ['verification/business-asisa.json', 'opportunities/business-asisa.json']) assert.deepEqual(await readFile(join(contentPath, path)), await readFile(join(projectRoot, 'content', path)))
+      assert.equal((await loader.published('arroces')).status, 'available')
+      assert.equal((await loader.published('italiano')).status, 'available')
+      for (const path of ['generated/comparisons/comparison-arroces.json', 'generated/comparisons/comparison-italiano.json']) assert.deepEqual(await readFile(join(contentPath, path)), await readFile(join(projectRoot, 'content', path)))
     } finally {await runtime.cleanup()}
     assert.equal((await syncArtifacts({projectRoot, contentPath})).updated, 0)
     const second = await prepareManagedRuntime({projectRoot, contentPath, runtimeParent: root})

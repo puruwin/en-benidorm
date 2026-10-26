@@ -85,7 +85,7 @@ configuración del proxy/dominio, sin desactivar las comprobaciones.
 
 Antes de arrancar, restaura un snapshot completo de `content/` en la ruta persistente.
 Incluye los registros ignorados por Git, manifest, seed, generated, manual, reports,
-verification, enriched y artefactos de Comparison. Clonar el repositorio no restaura
+enriched y artefactos de Comparison. Clonar el repositorio no restaura
 el catálogo de 3.103 negocios.
 
 Si se tiene terminal con Node y ambas rutas accesibles, la utilidad conservadora
@@ -110,7 +110,7 @@ con enlaces; no contiene la copia canónica de los datos.
 
 Esto permite cambiar el código del release sin mover los datos. El propietario del
 hosting debe garantizar que la ruta externa persiste y que sólo hay un escritor.
-La lógica de Selection, Comparison, Verification y Opportunity Analysis no cambia.
+La lógica de Selection y Comparison no cambia.
 
 ## Comprobar instalación y redeploy
 
@@ -178,7 +178,7 @@ Añadir primero los nuevos archivos al índice Git y versionar también el inven
 No ejecutar este generador sobre un checkout con cambios de investigación pendientes:
 los bytes incluidos deben coincidir con los del commit que se despliega. No requiere
 Git en Hostinger. Un archivo ausente, JSON inválido o checksum distinto bloquea el
-arranque antes de copiar. La lista admite verification, opportunities, discovered,
+arranque antes de copiar. La lista admite discovered,
 enriched, reports, Comparison candidates/enriched y generated JSON; excluye siempre
 manual, manifest, seed, checkpoints y archivos de reviews. No copia todo content.
 Un archivo no incluido no se sincroniza, aunque exista en el release.
@@ -196,7 +196,7 @@ y no se sobrescriben. En posteriores releases sólo actualiza si el destino coin
 con el último hash gestionado (o una publicación pendiente registrada). Verifica el
 hash final de cada archivo. Una modificación producida por pipelines en persistente
 también causa conflicto: no se supone que el release tenga prioridad sobre ella.
-Las notas de prospecting, reviews y todo manual quedan fuera del inventario.
+Las reviews y todo manual quedan fuera del inventario.
 No elimina archivos persistentes cuando desaparecen del release.
 
 Ante un conflicto: con todos los escritores detenidos, comparar ambas versiones y
@@ -215,9 +215,9 @@ haber una parte del nuevo release publicada; mantener la API detenida y reintent
 hasta obtener verificación completa. El log `Content Lab artefactos` muestra
 `verified` y `updated`; en un reinicio sin cambios `updated` debe ser 0.
 
-Para el diagnóstico Asisa: comprobar que los JSON de verification y opportunities
-figuran en el inventario, desplegar y verificar que existen en la ruta persistente
-con los mismos hashes que el release. Después iniciar sesión, abrir la ficha y
-confirmar que la API devuelve los artefactos disponibles. Comprobar también que una
-nota manual anterior sigue intacta, repetir el reinicio y verificar `updated: 0`.
+Para comprobar un despliegue: verificar que las comparativas publicadas figuran en
+el inventario, desplegar y comprobar que existen en la ruta persistente con los mismos
+hashes que el release. Después iniciar sesión, abrir la comparativa y confirmar que la
+API devuelve los artefactos disponibles. Comprobar también que una observación manual
+anterior sigue intacta, repetir el reinicio y verificar `updated: 0`.
 No copiar manualmente el árbol content del release sobre el almacenamiento.
