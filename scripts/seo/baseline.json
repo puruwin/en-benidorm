@@ -1,0 +1,515 @@
+{
+  "description": "Errores conocidos de seo:audit aceptados temporalmente. El hook Stop solo bloquea los que no están aquí. Cada entrada debe desaparecer cuando se corrija.",
+  "accepted": [
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/donde-dormir/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/guias/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/guias/benidorm-con-ninos-demo/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/guias/benidorm-en-48-horas-demo/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/guias/miradores-de-benidorm-demo/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "body",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/404.html",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/404.html",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/404.html",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/404.html",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/404.html",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/404.html",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/arroces/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/arroces/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/arroces/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/arroces/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/arroces/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/arroces/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "orphan",
+      "route": "/donde-comer/arroces/",
+      "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/"
+    },
+    {
+      "rule": "unreviewed-verified",
+      "route": "/donde-comer/arroces/",
+      "detail": "«Información verificada el» sin [data-human-review]"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/italiano/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/italiano/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/italiano/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/italiano/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/italiano/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/donde-comer/italiano/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "unreviewed-verified",
+      "route": "/donde-comer/italiano/",
+      "detail": "«Información verificada el» sin [data-human-review]"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/arroz-y-brisa-demo/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/arroz-y-brisa-demo/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/arroz-y-brisa-demo/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/arroz-y-brisa-demo/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/arroz-y-brisa-demo/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/arroz-y-brisa-demo/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "unreviewed-verified",
+      "route": "/restaurantes/arroz-y-brisa-demo/",
+      "detail": "«Información verificada el» sin [data-human-review]"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/cucina-italiana/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/cucina-italiana/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/cucina-italiana/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/cucina-italiana/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/cucina-italiana/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/cucina-italiana/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "orphan",
+      "route": "/restaurantes/cucina-italiana/",
+      "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/italiano/"
+    },
+    {
+      "rule": "unreviewed-verified",
+      "route": "/restaurantes/cucina-italiana/",
+      "detail": "«Información verificada el» sin [data-human-review]"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/essenza-italiana/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/essenza-italiana/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/essenza-italiana/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/essenza-italiana/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/essenza-italiana/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/essenza-italiana/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "orphan",
+      "route": "/restaurantes/essenza-italiana/",
+      "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/italiano/"
+    },
+    {
+      "rule": "unreviewed-verified",
+      "route": "/restaurantes/essenza-italiana/",
+      "detail": "«Información verificada el» sin [data-human-review]"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "facts-without-sources",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "detail": "horarios sin el componente Sources"
+    },
+    {
+      "rule": "unreviewed-verified",
+      "route": "/restaurantes/la-esquina-azul-demo/",
+      "detail": "«Información verificada el» sin [data-human-review]"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "facts-without-sources",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "detail": "horarios sin el componente Sources"
+    },
+    {
+      "rule": "unreviewed-verified",
+      "route": "/restaurantes/mercat-de-ponent-demo/",
+      "detail": "«Información verificada el» sin [data-human-review]"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/sobre-david/",
+      "zone": "footer",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/sobre-david/",
+      "zone": "footer",
+      "detail": "/que-ver/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/sobre-david/",
+      "zone": "menu",
+      "detail": "/informacion/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/sobre-david/",
+      "zone": "menu",
+      "detail": "/playas/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/sobre-david/",
+      "zone": "menu",
+      "detail": "/que-hacer/"
+    },
+    {
+      "rule": "broken-link",
+      "route": "/sobre-david/",
+      "zone": "menu",
+      "detail": "/que-ver/"
+    }
+  ]
+}

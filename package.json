@@ -17,6 +17,7 @@
     "content:generate": "node --import tsx scripts/content/generate.ts",
     "content:qa": "node --import tsx scripts/content/qa.ts",
     "content:compare-quality": "node --import tsx scripts/content/quality-tier-comparison.ts",
+    "seo:audit": "node --import tsx scripts/seo/audit-site.ts",
     "comparison:select": "node --import tsx scripts/comparison/select.ts",
     "comparison:enrich": "node --import tsx scripts/comparison/enrich.ts",
     "comparison:generate": "node --import tsx scripts/comparison/generate.ts",
@@ -34,7 +35,7 @@
     "content-lab:test": "node --import tsx --test tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "content:import": "node --import tsx scripts/import-content.ts",
     "content:validate": "node --import tsx scripts/validate-content.ts",
-    "test": "node --import tsx --test scripts/content/*.test.ts scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
+    "test": "node --import tsx --test scripts/seo/*.test.ts scripts/content/*.test.ts scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "sanity:schema:validate": "sanity schema validate",
     "sanity:schema:extract": "sanity schema extract --path schema.json --force",
     "typegen": "npm run sanity:schema:extract && sanity typegen generate"
