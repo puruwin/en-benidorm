@@ -27,8 +27,7 @@ Contiene:
 - `editorialEligibility[]`, siempre contextual y separada de Discovery y research;
 - historial append-only de avistamientos, fuentes nuevas, selección, investigación y evaluación.
 
-Los propósitos admiten `editorial-business`, `editorial-comparison` y el contrato reservado
-`opportunity-analysis`. P3A.1 no implementa Opportunity Analysis ni atribuye señales comerciales.
+Los propósitos admiten `editorial-business` y `editorial-comparison`.
 
 Una actualización combina tags y fuentes con el snapshot previo, conserva propiedades no
 gestionadas por la pipeline y no borra artefactos downstream ni observaciones manuales. La fecha
@@ -96,7 +95,4 @@ generaron artículos ni se alteraron artefactos Comparison.
 - El historial guarda eventos de catálogo, no snapshots completos de cada campo.
 
 Para P3A.2 se recomienda añadir checkpoints/reintentos por tipo y primitiva, un estado explícito
-de run incompleto y un fallback cacheado a extractos OSM abiertos. Después puede construirse
-Opportunity Analysis como consumidor de solo lectura de `businessId`, aliases y lifecycle, en un
-artefacto separado: nunca añadiendo criterios comerciales a Selection ni modificando elegibilidad
-editorial.
+de run incompleto y un fallback cacheado a extractos OSM abiertos.

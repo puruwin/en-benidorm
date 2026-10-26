@@ -42,7 +42,7 @@ rechaza un directorio no escribible o sin `manifest.json` válido.
 
 Detén cualquier escritor antes de tomar la copia. Copia **todo `content/`**, no sólo
 los archivos versionados: incluye seed, generated, manual, discovered, enriched,
-verification, manifest, reports y los artefactos de Comparison que existan.
+manifest, reports y los artefactos de Comparison que existan.
 
 Desde la máquina que conserva esos datos, se puede preparar un snapshot:
 

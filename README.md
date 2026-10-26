@@ -28,7 +28,6 @@ npm run studio                 # Sanity Studio local
 npm run studio:build           # build del Studio en sanity-dist/
 npm run content:seed           # crea la configuración y taxonomía inicial
 npm run content:discover       # descubre entidades mediante adapters
-npm run opportunities:analyze # analiza señales comerciales públicas, sin tocar Selection
 npm run content:enrich         # produce facts trazables, sin texto editorial
 npm run content:generate       # genera sólo campos editoriales en staging
 npm run content:qa             # valida y promociona candidatos aprobados

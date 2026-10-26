@@ -1,9 +1,8 @@
 import {useEffect, useRef, useState} from 'react'
-import type {ComparisonPhaseState, ComparisonSummary, OpportunityAnalysisView, OpportunityReportView, OpportunityReviewContext, PipelineLog, PipelinePhase, PipelineRun, QaIssue} from '../../shared/types'
+import type {ComparisonPhaseState, ComparisonSummary, PipelineLog, PipelinePhase, PipelineRun, QaIssue} from '../../shared/types'
 import {PIPELINE_PHASES, canRunComparisonPhase, isCurrentPhase, nextComparisonPhase} from '../../shared/workflow'
 import {api} from './api'
 import {Badge, List, message} from './ui'
-import {OpportunityCard, OpportunityReviewModal} from './OpportunityViews'
 import {BusinessListPage, BusinessDetailPage} from './BusinessPages'
 import {SystemPage} from './SystemPage'
 
@@ -40,7 +39,6 @@ export function App() {
         <button className={path === '/runs' ? 'active' : ''} onClick={() => navigate('/runs')}>Runs <small>{runs.length}</small></button>
         <button className={pagePath.startsWith('/businesses') ? 'active' : ''} onClick={() => navigate('/businesses')}>Negocios</button>
         <button className={path === '/system' ? 'active' : ''} onClick={() => navigate('/system')}>Estado de instalación</button>
-        <button className={path === '/opportunities' ? 'active' : ''} onClick={() => navigate('/opportunities')}>Opportunity Analysis</button>
       </nav>
       <div className="sidebar-topics">
         {topics.map((topic) => <button key={topic.topic} onClick={() => navigate(`/comparisons/${topic.topic}`)}>{topic.displayName}<Badge value={topic.qaOutcome ?? topic.status} /></button>)}
@@ -55,7 +53,6 @@ export function App() {
         pagePath === '/businesses' ? <BusinessListPage search={path.includes('?') ? path.slice(path.indexOf('?')) : ''} navigate={navigate}/> :
         pagePath === '/system' ? <SystemPage/> :
         path === '/runs' ? <RunsPage runs={runs} onRefresh={refreshGlobal}/> :
-        path === '/opportunities' ? <OpportunitiesPage/> :
         <Dashboard topics={topics} navigate={navigate} onNew={() => setNewOpen(true)} onRefresh={refreshGlobal}/>
       }
     </main>
@@ -267,33 +264,6 @@ function Codex({topic, qa, configured}: {topic: string; qa: any; configured: boo
 }
 
 function RunsPage({runs, onRefresh}: {runs: PipelineRun[]; onRefresh: () => void}) { return <><Header eyebrow="SESSION" title="Runs" subtitle="Ejecuciones conservadas en memoria durante esta sesión." actions={<button className="secondary" onClick={onRefresh}>Refresh</button>}/><section className="panel"><table><thead><tr><th>Started</th><th>Topic</th><th>Phase</th><th>Status</th><th>Exit</th><th>Duration</th></tr></thead><tbody>{runs.map((run) => <tr key={run.id}><td>{date(run.startedAt)}</td><td>{run.topic}</td><td>{run.phase}</td><td><Badge value={run.status}/></td><td>{run.exitCode ?? '—'}</td><td>{run.durationMs != null ? `${(run.durationMs / 1000).toFixed(1)}s` : '—'}</td></tr>)}</tbody></table>{!runs.length && <Empty title="No hay runs en esta sesión"/>}</section></> }
-
-function OpportunitiesPage() {
-  const [artifact, setArtifact] = useState<{status: string; data?: OpportunityReportView; error?: string; path?: string}>()
-  const [error, setError] = useState('')
-  const [filter, setFilter] = useState('all')
-  const [reviewing, setReviewing] = useState<{analysis: OpportunityAnalysisView; context: OpportunityReviewContext} | null>(null)
-  const refresh = async () => { try { setArtifact(await api.opportunities()); setError('') } catch (cause) { setError(message(cause)) } }
-  const openReview = async (analysis: OpportunityAnalysisView) => { try { setReviewing({analysis, context: await api.opportunityReview(analysis.businessId)}); setError('') } catch (cause) { setError(message(cause)) } }
-  useEffect(() => { void refresh() }, [])
-  const report = artifact?.data
-  return <>
-    <Header eyebrow="COMMERCIAL · READ ONLY" title="Opportunity Analysis" subtitle="Evidencias públicas, interpretaciones limitadas y acciones sugeridas. Las hipótesis no son hechos ni modifican Selection o Comparison." actions={<button className="secondary" onClick={() => void refresh()}>Refresh</button>}/>
-    {error && <div className="error-banner">{error}</div>}
-    {!artifact ? <Empty title="Cargando análisis…"/> : artifact.status !== 'available' || !report ? <section className="panel"><Empty title="Sin reporte de Opportunity Analysis" detail={artifact.error ?? artifact.path ?? 'Ejecuta npm run opportunities:analyze.'}/></section> : <div className="stack">
-      <div className="grid opportunity-metrics">
-        <section className="metric"><span>Businesses</span><strong>{report.businessesAnalyzed}</strong><small>{date(report.generatedAt)}</small></section>
-        <section className="metric"><span>Hypotheses</span><strong>{report.actionableHypotheses}</strong><small>No es un score comercial</small></section>
-        <section className="metric"><span>Needs review</span><strong>{report.needsReview}</strong><small>Revisión antes de actuar</small></section>
-        <section className="metric"><span>Provenance</span><strong>{Math.round(report.provenanceCoverage.ratio * 100)}%</strong><small>{report.provenanceCoverage.coveredSignals}/{report.provenanceCoverage.signals} signals</small></section>
-      </div>
-      <div className="notice"><strong>Muestra</strong><span>{report.selection.description}</span></div>
-      <div className="toolbar review-filters"><strong>Review state</strong>{['all', 'unreviewed', 'reviewing', 'verified', 'rejected', 'stale'].map((state) => <button key={state} className={filter === state ? '' : 'secondary'} onClick={() => setFilter(state)}>{state} {state === 'all' ? report.businessesAnalyzed : report.reviewStateCounts?.[state] ?? 0}</button>)}</div>
-      {report.analyses.filter((analysis) => filter === 'all' || analysis.reviewState === filter).map((analysis) => <OpportunityCard key={analysis.businessId} analysis={analysis} onReview={() => void openReview(analysis)}/>)}
-    </div>}
-    {reviewing && <OpportunityReviewModal analysis={reviewing.analysis} context={reviewing.context} close={() => setReviewing(null)} onSaved={() => { setReviewing(null); void refresh() }}/>}
-  </>
-}
 
 function NewComparison({topics, close, navigate}: {topics: ComparisonSummary[]; close: () => void; navigate: (path: string) => void}) {
   const [topic, setTopic] = useState(''); const [searchIntent, setSearchIntent] = useState(''); const [aliases, setAliases] = useState(''); const [displayName, setDisplayName] = useState(''); const [prompt, setPrompt] = useState(''); const valid = /^[a-z0-9][a-z0-9-]*$/.test(topic); const existing = topics.some((item) => item.topic === topic)

@@ -33,17 +33,12 @@ mostrar secretos ni llamar a APIs.
 La alternativa Docker, el proxy HTTPS, la configuración y la migración de datos están en
 [`deploy/content-lab/README.md`](../../deploy/content-lab/README.md).
 
-## Catálogo y ficha de prospección
+## Catálogo de negocios
 
-La sección **Negocios** permite navegar el catálogo local por nombre, municipio,
-sector/subsector, disponibilidad de análisis y muestra experimental. Las fichas
-funcionan sin análisis previo y reúnen los artefactos existentes y sus fuentes.
-El seguimiento manual (estado y notas) se guarda de forma independiente en
-`content/manual/prospecting/`, con protección frente a ediciones concurrentes.
-Consultar el catálogo no ejecuta análisis, verificación ni búsquedas.
-
-Consulta el alcance, API y validaciones en
-[`docs/content-lab-p3a6.md`](../../docs/content-lab-p3a6.md).
+La sección **Negocios** permite navegar el catálogo local de Discovery por nombre,
+municipio y sector/subsector. Cada ficha reúne la identidad, los contactos y las
+fuentes de Discovery y Enrichment, con su procedencia. Consultar el catálogo no
+ejecuta enriquecimiento ni búsquedas, y no escribe ningún archivo.
 
 ## Arquitectura
 

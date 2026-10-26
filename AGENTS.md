@@ -4,20 +4,16 @@
 
 This repository contains **enBenidorm.es** and **Content Lab**.
 
-The project has three related but distinct goals:
+The project has two related goals:
 
 1. **enBenidorm.es**: build a useful local SEO/content project focused on Benidorm and surrounding areas.
-2. **Content Lab**: build a reusable, auditable system for discovering businesses, enriching their data, generating evidence-backed editorial content, and evaluating data quality.
-3. **Frappé Tech opportunity discovery**: reuse the same local-business research infrastructure to identify potential commercial opportunities for Frappé Tech without confusing commercial hypotheses with facts.
-
-These goals share data and infrastructure, but their decisions must remain separated.
+2. **Content Lab**: the auditable pipeline that discovers businesses, enriches their data, generates evidence-backed editorial content and evaluates data quality for enBenidorm.es.
 
 Before changing Content Lab, read:
 
 - `content-lab-context.md`
 - `content-lab-roadmap.md`
 - `enbenidorm-editorial-principles.md`
-- `frappe-opportunity-strategy.md`
 
 ## Core architectural rules
 
@@ -32,13 +28,9 @@ Keep these layers independent:
 - Editorial eligibility / cohort gating
 - Generation
 - QA
-- Opportunity Analysis
-- Verification Enrichment
 - Human Review
 
-A change intended for Frappé commercial prospecting must not silently change editorial Selection, Comparison gates, ranking, or Generation.
-
-A change intended for editorial quality must not turn commercial hypotheses into facts.
+A change in one layer must not silently change Selection, Comparison gates, ranking or Generation in another.
 
 ### Provenance first
 
@@ -47,7 +39,6 @@ Any fact that can influence:
 - editorial inclusion,
 - business identity,
 - operational status,
-- commercial opportunity,
 - or generated content
 
 must preserve provenance.
@@ -109,11 +100,11 @@ Do not run Generation or publication unless the task explicitly requires it.
 
 The current priority is the **enBenidorm.es editorial SEO plan**, tracked in GitHub issue #26 and its milestones 0–6.
 
-Previous Content Lab experiments and iterations, including P3A.5b and the commercial usefulness experiment, are discontinued. Do not resume them unless an issue explicitly asks for it.
+The commercial prospecting experiments (Opportunity Analysis, Verification Enrichment, prospecting notes and the P3A.5b sample) were removed on 2026-10-26. Do not reintroduce them unless an issue explicitly asks for it.
 
 Work on the issue you were given and respect its dependencies. Do not add Content Lab architecture unless an issue of the plan requires it.
 
-See `content-lab-roadmap.md` for the historical record of earlier phases.
+See `content-lab-roadmap.md` for what the pipeline already does and what is pending.
 
 ## Coding approach
 
@@ -129,7 +120,7 @@ Prefer:
 
 Avoid:
 
-- opaque commercial scores,
+- opaque scores,
 - hidden ranking heuristics,
 - hard-coded logic for one comparison topic,
 - silently treating missing data as negative evidence,
