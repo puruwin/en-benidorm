@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run check)",
+      "Bash(npm run build)",
+      "Bash(npm run content:validate)",
+      "Bash(npm run comparison:regression)",
+      "Bash(npm run sanity:schema:validate)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git diff *)",
+      "Bash(git checkout -b *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ],
+    "ask": [
+      "Bash(npm run content:generate*)",
+      "Bash(npm run comparison:generate*)",
+      "Bash(npm run content:discover*)",
+      "Bash(npm run content:enrich*)",
+      "Bash(git push *)"
+    ],
+    "deny": [
+      "Bash(npm run content:import*)",
+      "Bash(npm run studio:deploy*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push origin main*)",
+      "Bash(git push * main)",
+      "Read(./.env)",
+      "Edit(./.env)",
+      "Read(./deploy/content-lab/.env)",
+      "Edit(./deploy/content-lab/.env)",
+      "Read(./deploy/content-lab/app.env)",
+      "Edit(./deploy/content-lab/app.env)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-on-stop.sh",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
+}
