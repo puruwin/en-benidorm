@@ -107,18 +107,13 @@ Do not run Generation or publication unless the task explicitly requires it.
 
 ## Current project direction
 
-The current priority is **not** to keep adding architecture indefinitely.
+The current priority is the **enBenidorm.es editorial SEO plan**, tracked in GitHub issue #26 and its milestones 0–6.
 
-Content Lab has already demonstrated technical viability.
+Previous Content Lab experiments and iterations, including P3A.5b and the commercial usefulness experiment, are discontinued. Do not resume them unless an issue explicitly asks for it.
 
-The next major milestone is to validate whether it produces practical value in two ways:
+Work on the issue you were given and respect its dependencies. Do not add Content Lab architecture unless an issue of the plan requires it.
 
-1. Better editorial inputs for enBenidorm.es.
-2. Faster and more specific commercial prospecting for Frappé Tech.
-
-The current workstream is preparing a representative local-business sample for a real commercial usefulness experiment.
-
-See `docs/content-lab-roadmap.md` for the exact current state.
+See `content-lab-roadmap.md` for the historical record of earlier phases.
 
 ## Coding approach
 

@@ -1,6 +1,14 @@
 # Content Lab — Current Roadmap
 
-## Current status
+## Status update — 2026-10-26
+
+Earlier experiments and iterations, including P3A.5b and the commercial usefulness experiment, are discontinued.
+
+The current priority is the enBenidorm.es editorial SEO plan, tracked in GitHub issue #26.
+
+The sections below are kept as a historical record. They are not instructions for current work.
+
+## Status before 2026-10-26
 
 The project has completed:
 
@@ -232,8 +240,6 @@ Do not force a comparison to pass by lowering gates or re-including weak candida
 
 ## Near-term priority order
 
-1. P3A.5b — prepare representative 20-business sample.
-2. Run the commercial usefulness experiment.
-3. Review results manually.
-4. Decide whether commercial Opportunity Analysis merits further investment.
-5. Return to enBenidorm editorial pipeline with the expanded catalog.
+Superseded on 2026-10-26: follow the milestones of GitHub issue #26.
+
+The breakfast warning above still applies: rerun Selection and Enrichment with the expanded catalog before regenerating any comparison (issue #19).
