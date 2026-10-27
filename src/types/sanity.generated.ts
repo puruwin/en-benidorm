@@ -235,6 +235,25 @@ export type Place = {
     } & ImageWithAlt
   >;
   language?: string;
+  municipality?:
+    | "Benidorm"
+    | "Finestrat"
+    | "l'Alf\xE0s del Pi"
+    | "Altea"
+    | "La Nuc\xEDa"
+    | "La Vila Joiosa"
+    | "Polop"
+    | "Callosa d'en Sarri\xE0";
+  practicalFacts?: Array<
+    {
+      _key: string;
+    } & PracticalFact
+  >;
+  travelNotes?: Array<
+    {
+      _key: string;
+    } & TravelNote
+  >;
   lastVerified?: string;
   sources?: Array<
     {
@@ -446,6 +465,25 @@ export type Beach = {
     } & ImageWithAlt
   >;
   language?: string;
+  municipality?:
+    | "Benidorm"
+    | "Finestrat"
+    | "l'Alf\xE0s del Pi"
+    | "Altea"
+    | "La Nuc\xEDa"
+    | "La Vila Joiosa"
+    | "Polop"
+    | "Callosa d'en Sarri\xE0";
+  practicalFacts?: Array<
+    {
+      _key: string;
+    } & PracticalFact
+  >;
+  travelNotes?: Array<
+    {
+      _key: string;
+    } & TravelNote
+  >;
   lastVerified?: string;
   sources?: Array<
     {
@@ -513,6 +551,16 @@ export type Article = {
     | ArticleReference
   >;
   language?: string;
+  practicalFacts?: Array<
+    {
+      _key: string;
+    } & PracticalFact
+  >;
+  travelNotes?: Array<
+    {
+      _key: string;
+    } & TravelNote
+  >;
   lastVerified?: string;
   sources?: Array<
     {
@@ -541,6 +589,19 @@ export type Author = {
   seo?: Seo;
 };
 
+export type TravelNote = {
+  _type: "travelNote";
+  municipality?:
+    | "Finestrat"
+    | "l'Alf\xE0s del Pi"
+    | "Altea"
+    | "La Nuc\xEDa"
+    | "La Vila Joiosa"
+    | "Polop"
+    | "Callosa d'en Sarri\xE0";
+  text?: string;
+};
+
 export type Source = {
   _type: "source";
   title?: string;
@@ -553,6 +614,42 @@ export type ProsCons = {
   _type: "prosCons";
   pros?: Array<string>;
   cons?: Array<string>;
+};
+
+export type PracticalFact = {
+  _type: "practicalFact";
+  factId?: string;
+  value?: string;
+  unit?:
+    | "EUR"
+    | "EUR/h"
+    | "EUR/d\xEDa"
+    | "min"
+    | "m"
+    | "km"
+    | "hh:mm"
+    | "d\xEDa-semana"
+    | "texto"
+    | "booleano";
+  municipality?:
+    | "Benidorm"
+    | "Finestrat"
+    | "l'Alf\xE0s del Pi"
+    | "Altea"
+    | "La Nuc\xEDa"
+    | "La Vila Joiosa"
+    | "Polop"
+    | "Callosa d'en Sarri\xE0";
+  status?: "confirmed" | "unknown" | "needs verification" | "conflict";
+  sourceTitle?: string;
+  sourceUrl?: string;
+  sourceClass?:
+    | "official-location"
+    | "official-brand"
+    | "open-data"
+    | "manual-first-party"
+    | "third-party";
+  retrievedAt?: string;
 };
 
 export type OpeningHours = {
@@ -721,8 +818,10 @@ export type AllSanitySchemaTypes =
   | EventReference
   | Article
   | Author
+  | TravelNote
   | Source
   | ProsCons
+  | PracticalFact
   | OpeningHours
   | SanityImageCrop
   | SanityImageHotspot
