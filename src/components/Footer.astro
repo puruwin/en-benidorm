@@ -3,7 +3,7 @@ import {getNavigation} from '../lib/routes'
 import type {SiteSettingsData} from '../types/content'
 interface Props { settings: SiteSettingsData }
 const {settings} = Astro.props
-const explore = (await getNavigation()).footer
+const {footer: explore, project} = await getNavigation()
 const year = new Date().getFullYear()
 ---
 
@@ -19,7 +19,8 @@ const year = new Date().getFullYear()
     </div>}
     <div>
       <h2 class="text-sm font-black uppercase tracking-[.16em] text-[#65d4cf]">Proyecto</h2>
-      <p class="mt-3 text-sm text-white/70">Contenido verificado, fuentes visibles y recomendaciones claramente identificadas.</p>
+      <p class="mt-3 text-sm text-white/70">Fuentes visibles con su fecha de consulta y una relación comercial declarada.</p>
+      {project.length > 0 && <ul class="mt-3 space-y-2 text-sm">{project.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>}
     </div>
   </div>
   <div class="border-t border-white/10"><div class="container-site flex flex-wrap justify-between gap-2 py-5 text-xs text-white/55"><p>© {year} enBenidorm</p><p>Hecho para consultar caminando.</p></div></div>

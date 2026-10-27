@@ -1,0 +1,125 @@
+---
+// Describe las reglas tal como están en el código. Si cambian la selección o la investigación
+// (scripts/comparison/lib/selection.ts, scoring.ts, enrichment.ts, gate.ts, topic-config.ts),
+// src/lib/indexability.ts, scripts/seo/lib/freshness.ts o el tratamiento de los vídeos de
+// creadores (src/lib/creator-observations.ts) —por ejemplo, con #52—, actualiza esta página en el mismo PR.
+import Breadcrumbs from '../components/Breadcrumbs.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import {structuralIndexability} from '../lib/indexability'
+import {PROJECT_LINKS, breadcrumbTrail, getRouteRegistry} from '../lib/routes'
+
+const h1 = 'Cómo trabajamos'
+const seo = {
+  title: 'Cómo trabajamos en enBenidorm: fuentes, selección e IA',
+  description: 'Cómo trabajamos en enBenidorm: de dónde salen los datos, cómo se eligen los sitios, cada cuánto se revisan, qué hace la IA y qué relación comercial hay.',
+}
+const breadcrumbs = breadcrumbTrail(null, h1, await getRouteRegistry())
+const sections = [
+  {id: 'evidencia', title: 'De dónde salen los datos'},
+  {id: 'seleccion', title: 'Cómo se eligen los sitios'},
+  {id: 'revision', title: 'Cada cuánto se revisa'},
+  {id: 'ia', title: 'Qué hace la IA y qué revisa una persona'},
+  {id: 'creadores', title: 'Vídeos de creadores'},
+  {id: 'relacion-comercial', title: 'Relación comercial'},
+  {id: 'correcciones', title: 'Cómo pedir una corrección'},
+]
+const item = 'border-l-2 border-coral pl-5 leading-relaxed'
+const link = 'font-bold text-sea-dark underline'
+---
+
+<BaseLayout seo={seo} indexability={structuralIndexability({subject: h1, h1, title: seo.title})} breadcrumbs={breadcrumbs}>
+  <article class="container-site py-10 md:py-16">
+    <Breadcrumbs items={breadcrumbs} />
+    <header class="mt-12 max-w-3xl">
+      <p class="text-xs font-black uppercase tracking-[.18em] text-coral">Método</p>
+      <h1 class="font-editorial mt-2 text-5xl md:text-7xl">{h1}</h1>
+      <p class="mt-6 text-xl leading-relaxed text-ink/75">enBenidorm lo hace <a class={link} href={PROJECT_LINKS.author.href}>David P.</a> con una herramienta propia que recopila datos públicos, los ordena y deja constancia de dónde sale cada uno. Esta página explica qué parte sale de visitas, qué parte de fuentes públicas y qué parte de generación automática.</p>
+    </header>
+
+    <nav class="mt-10 max-w-3xl" aria-label="En esta página">
+      <ol class="flex flex-wrap gap-2 text-sm">{sections.map((section) => <li><a class="inline-flex rounded-full border border-ink/15 bg-white px-3 py-1.5 font-bold text-sea-dark" href={`#${section.id}`}>{section.title}</a></li>)}</ol>
+    </nav>
+
+    <div class="mt-14 max-w-3xl space-y-14">
+      <section id="evidencia" aria-labelledby="evidencia-title">
+        <h2 id="evidencia-title" class="font-editorial text-3xl">De dónde salen los datos</h2>
+        <p class="mt-4 leading-relaxed">Cada dato guarda su fuente y la fecha en que se consultó. Cuando hay varias fuentes, se prefieren por este orden:</p>
+        <ol class="mt-5 list-decimal space-y-2 pl-6 leading-relaxed">
+          <li>La fuente oficial del propio local (su web).</li>
+          <li>La fuente oficial de la marca, solo si se refiere expresamente a ese local.</li>
+          <li>Datos abiertos, sobre todo OpenStreetMap.</li>
+          <li>Observaciones propias, hechas en una visita y fechadas.</li>
+          <li>Fuentes de terceros, como apoyo.</li>
+        </ol>
+        <ul class="mt-6 space-y-3">
+          <li class={item}>Un dato de menos confianza nunca se presenta como si fuera de más confianza.</li>
+          <li class={item}>Lo que publica una cadena para todos sus locales no se atribuye a un local concreto: no prueba que tenga la misma carta, horario o precios. Si OpenStreetMap identifica el local como parte de una marca, lo que dice la web de la marca no se toma como dato del local.</li>
+          <li class={item}>Para el horario manda la web oficial del local sobre OpenStreetMap.</li>
+          <li class={item}>Que una web cargue no prueba que el local esté abierto. No decimos que un sitio está abierto sin evidencia reciente, ni que ha cerrado solo porque lo diga una fuente débil.</li>
+          <li class={item}>Un dato que falta se queda en blanco. No se rellena para que la ficha parezca más completa.</li>
+        </ul>
+      </section>
+
+      <section id="seleccion" aria-labelledby="seleccion-title">
+        <h2 id="seleccion-title" class="font-editorial text-3xl">Cómo se eligen los sitios</h2>
+        <p class="mt-4 leading-relaxed">Las comparativas («dónde comer arroz», «restaurantes italianos»…) siguen estas reglas, en este orden:</p>
+        <ol class="mt-5 list-decimal space-y-3 pl-6 leading-relaxed">
+          <li><strong>Descubrimiento.</strong> Los locales salen de OpenStreetMap y, en algún caso, de listas preparadas a mano. No se usan valoraciones, reseñas ni popularidad.</li>
+          <li><strong>Identidad.</strong> El nombre y la dirección o las coordenadas tienen que venir de una fuente. Si no, el local se descarta.</li>
+          <li><strong>Encaje con el tema.</strong> Hace falta una prueba directa en la cocina, las especialidades, el concepto o los servicios publicados (por ejemplo, «arroz a banda» en la carta para una comparativa de arroces). El nombre del local o su tipo pueden proponerlo como candidato, pero no lo confirman.</li>
+          <li><strong>Orden de los candidatos.</strong> Se ordenan con cinco criterios a la vista: relevancia para el tema, especificidad de lo que ofrecen, cobertura de datos comparables, valor distintivo y utilidad práctica. Ser cliente de alguien, patrocinar o pagar no entra en ningún criterio.</li>
+          <li><strong>Investigación.</strong> Se consulta la web oficial de cada candidato. Se descartan los que no tienen datos suficientes, los que solo tienen evidencia de su marca y los propuestos que no aportan una prueba directa del tema.</li>
+          <li><strong>Umbral de la comparativa.</strong> Hacen falta al menos 4 locales; cada uno con al menos 3 tipos de evidencia; al menos 3 aspectos (platos, precios, servicios, ubicación, horarios, limitaciones…) en los que los locales se diferencian de verdad; y ningún local con cierre confirmado.</li>
+        </ol>
+        <p class="mt-6 leading-relaxed">Si una comparativa no llega a ese umbral, no se publica. No se bajan los requisitos ni se añaden sitios flojos para completarla. Los locales descartados conservan el motivo.</p>
+        <p class="mt-4 leading-relaxed">Además, una página publicada solo se ofrece a los buscadores si tiene evidencia oficial o propia fechada, aporta algo que no está en la web del local y recibe enlaces desde otras páginas de la guía. Las que no cumplen se publican con <code>noindex</code>.</p>
+      </section>
+
+      <section id="revision" aria-labelledby="revision-title">
+        <h2 id="revision-title" class="font-editorial text-3xl">Cada cuánto se revisa</h2>
+        <ul class="mt-5 space-y-3">
+          <li class={item}>Cada dato práctico (precio, horario, acceso, servicio) muestra la fecha en que se consultó su fuente.</li>
+          <li class={item}>A los 90 días de esa fecha el dato se considera caducado y hay que volver a consultar la fuente. La fecha solo se renueva si la fuente se comprueba de nuevo.</li>
+          <li class={item}>La fecha de consulta automática no es una revisión humana ni prueba que el local siga abierto. Los precios son los observados ese día y pueden haber cambiado.</li>
+        </ul>
+      </section>
+
+      <section id="ia" aria-labelledby="ia-title">
+        <h2 id="ia-title" class="font-editorial text-3xl">Qué hace la IA y qué revisa una persona</h2>
+        <ul class="mt-5 space-y-3">
+          <li class={item}>Los textos de las fichas y las comparativas los redacta un modelo de lenguaje de OpenAI. Solo recibe la evidencia aprobada de cada local: no busca por su cuenta ni añade datos.</li>
+          <li class={item}>Después, un control automático comprueba que cada afirmación se apoya en un dato con fuente y descarta el relleno genérico, los superlativos sin base y los datos que no coinciden con las fuentes.</li>
+          <li class={item}>Lo que pasa ese control entra como borrador. David lo revisa y decide si se publica.</li>
+          <li class={item}>Las visitas propias se indican cuando existen. Nunca se da por hecho que un sitio se ha visitado.</li>
+        </ul>
+      </section>
+
+      <section id="creadores" aria-labelledby="creadores-title">
+        <h2 id="creadores-title" class="font-editorial text-3xl">Vídeos de creadores</h2>
+        <p class="mt-4 leading-relaxed">Algunas fichas y comparativas resumen lo que se ve en vídeos de creadores de contenido sobre un local.</p>
+        <ul class="mt-5 space-y-3">
+          <li class={item}>Se cita al creador por su @, con la fecha de publicación y un enlace al vídeo original. El vídeo no se incrusta.</li>
+          <li class={item}>Si el vídeo se presenta como colaboración pagada o invitación del local, se avisa. Si no consta, también se dice.</li>
+          <li class={item}>Es lo que se ve en el vídeo, no una comprobación de enBenidorm. Los precios son los que aparecen en el vídeo en su fecha.</li>
+          <li class={item}>Los vídeos no cuentan para elegir sitios ni para el umbral de las comparativas.</li>
+          <li class={item}>Si el creador pide que no se use su vídeo, se retira.</li>
+        </ul>
+      </section>
+
+      <section id="relacion-comercial" aria-labelledby="relacion-comercial-title">
+        <h2 id="relacion-comercial-title" class="font-editorial text-3xl">Relación comercial</h2>
+        <ul class="mt-5 space-y-3">
+          <li class={item}>David dirige <a class={link} href="https://creativefrappe.com" rel="noopener noreferrer">Frappé Tech</a> y puede ofrecer sus servicios a negocios de la zona, incluidos negocios que aparecen en esta guía.</li>
+          <li class={item}>enBenidorm no tiene afiliación, no publica publicidad y no acepta pagos de establecimientos.</li>
+          <li class={item}>Aparecer en la guía no depende de ser cliente de Frappé Tech ni de contratar nada. Ser cliente no cambia los criterios de selección ni de indexación: ese dato no entra en ninguna de las reglas de arriba.</li>
+          <li class={item}>Si un negocio de la guía es cliente de Frappé Tech, su ficha lo indica con un aviso junto a las fuentes. Ese aviso se marca a mano; nunca se deduce.</li>
+        </ul>
+      </section>
+
+      <section id="correcciones" aria-labelledby="correcciones-title" class="rounded-2xl bg-sand p-6">
+        <h2 id="correcciones-title" class="font-editorial text-3xl">Cómo pedir una corrección</h2>
+        <p class="mt-4 leading-relaxed">Escribe a <a class={link} href="mailto:hola@creativefrappe.com">hola@creativefrappe.com</a> indicando la página, el dato y, si puedes, dónde está publicado el dato correcto. Se corrige cuando se ha comprobado la fuente, y la fecha de consulta se actualiza con esa comprobación.</p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
