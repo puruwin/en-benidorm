@@ -844,8 +844,23 @@
             "sourceClass": "official-location",
             "claimScope": "establishment"
           }
+        },
+        {
+          "value": "Con los títulos multiviaje, transbordo gratis si cambias a otra línea y vuelves a validar en menos de 90 minutos",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
         }
-      ]
+      ],
+      "conditions": "Turismo de Benidorm (45 minutos, a una línea del mismo precio o inferior) y la concesionaria (gratis en menos de 90 minutos) no coinciden; pendiente de decisión humana."
     },
     {
       "id": "benidorm.autobus-urbano.tarifa",
@@ -853,8 +868,95 @@
       "attribute": "tarifa",
       "municipality": "Benidorm",
       "unit": "EUR",
-      "conditions": "Turismo de Benidorm no publica el importe y no hemos encontrado una fuente oficial que lo dé.",
-      "claims": []
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": 2,
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.autobus-urbano.tarjeta-bus",
+      "subject": "autobus-urbano",
+      "attribute": "tarjeta-bus",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": "1,50 € por viaje con la tarjeta BUS, un monedero que se recarga a bordo con 10 a 20 €; la tarjeta cuesta 2,00 € (4,00 € la personalizada)",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.autobus-urbano.titulos-turisticos",
+      "subject": "autobus-urbano",
+      "attribute": "titulos-turisticos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": "Títulos turísticos de viajes ilimitados: 24 horas, 12,00 €; 72 horas, 24,00 €; 7 días, 48,00 €",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.autobus-urbano.tarjeta-eco",
+      "subject": "autobus-urbano",
+      "attribute": "tarjeta-eco",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": "Tarjeta ECO, 30 días de viajes: 88,00 €",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
     },
     {
       "id": "benidorm.tram.tarifa-sencillo",

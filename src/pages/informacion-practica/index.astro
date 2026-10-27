@@ -29,7 +29,7 @@ const overview = content.guides.map((guide) => ({
 }))
 
 // Sin coche: autobús y TRAM, tal como los cita la guía de aparcamientos gratuitos.
-const transitIds = ['autobus-urbano.billetes', 'autobus-urbano.transbordo', 'autobus-urbano.tarifa', 'tram.tarifa-sencillo']
+const transitIds = ['autobus-urbano.tarifa', 'autobus-urbano.tarjeta-bus', 'autobus-urbano.titulos-turisticos', 'tram.tarifa-sencillo']
 const transitGuide = content.guides.find((guide) => transitIds.some((id) => findGuideFact(guide.facts, id)))
 const transit = transitGuide ? transitIds.flatMap((id) => findGuideFact(transitGuide.facts, id) ?? []) : []
 

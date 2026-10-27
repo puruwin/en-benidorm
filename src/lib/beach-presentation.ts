@@ -44,12 +44,14 @@ export function factLabel(fact: PracticalFactView): string {
 }
 
 const number = new Intl.NumberFormat('es-ES')
+const euros = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'})
 
 /** Valor legible según la unidad; `null` si el hecho no está confirmado (no se publica cifra). */
 export function factValue(fact: PracticalFactView): string | null {
   if (fact.status !== 'confirmed' || fact.value === null) return null
   if (fact.unit === 'm' || fact.unit === 'km' || fact.unit === 'min') return `${number.format(Number(fact.value))} ${fact.unit}`
   if (fact.unit === 'booleano') return fact.value === 'true' ? 'Sí' : 'No'
+  if (fact.unit === 'EUR' || fact.unit === 'EUR/h' || fact.unit === 'EUR/día') return `${euros.format(Number(fact.value))}${fact.unit === 'EUR' ? '' : fact.unit.slice(3)}`
   return fact.value
 }
 
