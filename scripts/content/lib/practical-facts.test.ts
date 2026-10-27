@@ -111,10 +111,10 @@ test('un hecho observado necesita una observación manual registrada con la mism
     value: 0.85, source: source('manual-first-party', null, '2026-08-01T00:00:00.000Z'), ...(observationRef ? {observationRef} : {}),
   }])
   assert.match(messages(validatePracticalFacts([], context([observed()]))), /necesita la observación manual registrada/)
-  assert.match(messages(validatePracticalFacts([], context([observed('visits/zona-azul.json')]))), /No existe la observación/)
-  assert.match(messages(validatePracticalFacts([], context([observed('visits/zona-azul.json')], {'visits/zona-azul.json': '2026-08-02'}))), /No coincide con el observedAt/)
-  assert.deepEqual(validatePracticalFacts([], context([observed('visits/zona-azul.json')], {'visits/zona-azul.json': '2026-08-01'})), [])
-  assert.equal(deriveFactStatus(observed('visits/zona-azul.json')), 'confirmed')
+  assert.match(messages(validatePracticalFacts([], context([observed('observaciones/zona-azul.json')]))), /No existe la observación/)
+  assert.match(messages(validatePracticalFacts([], context([observed('observaciones/zona-azul.json')], {'observaciones/zona-azul.json': '2026-08-02'}))), /No coincide con el observedAt/)
+  assert.deepEqual(validatePracticalFacts([], context([observed('observaciones/zona-azul.json')], {'observaciones/zona-azul.json': '2026-08-01'})), [])
+  assert.equal(deriveFactStatus(observed('observaciones/zona-azul.json')), 'confirmed')
 })
 
 test('un lugar fuera de Benidorm exige que la página mencione el traslado', () => {

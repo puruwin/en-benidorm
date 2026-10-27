@@ -1,0 +1,28 @@
+{
+  "kind": "site-visit",
+  "observedAt": "AAAA-MM-DD",
+  "observer": "David",
+  "sourceType": "first-party-observation",
+  "place": {
+    "type": "beach",
+    "name": "Nombre del lugar",
+    "municipality": "Benidorm",
+    "documentId": null
+  },
+  "text": "Pega aquí la nota tal como la escribiste en el sitio. Ejemplo: El parking de la calle X cobra 1,20 € la hora. Hay rampa de acceso a la arena junto al puesto de socorro.",
+  "checks": [
+    {
+      "category": "parking",
+      "quote": "El parking de la calle X cobra 1,20 € la hora.",
+      "factId": "benidorm.<sujeto>.<atributo>",
+      "value": 1.2
+    },
+    {
+      "category": "accessibility",
+      "quote": "Hay rampa de acceso a la arena junto al puesto de socorro."
+    }
+  ],
+  "photos": [
+    "visits/fotos/AAAA-MM-DD-lugar-1.jpg"
+  ]
+}

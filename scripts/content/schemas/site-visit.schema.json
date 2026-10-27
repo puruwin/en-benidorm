@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enbenidorm.local/schemas/site-visit.json",
+  "title": "Site Visit (beach / place)",
+  "description": "Observación de campo en content/manual/visits/. La valida scripts/content/lib/site-visits.ts; este schema la documenta. Contrato hermano de scripts/comparison/schemas/manual-observation.schema.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "observedAt", "observer", "sourceType", "place", "text", "checks", "photos"],
+  "properties": {
+    "kind": {"const": "site-visit"},
+    "observedAt": {"type": "string", "format": "date"},
+    "observer": {"type": "string", "minLength": 1},
+    "sourceType": {"const": "first-party-observation"},
+    "place": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "name", "municipality", "documentId"],
+      "properties": {
+        "type": {"enum": ["beach", "place"]},
+        "name": {"type": "string", "minLength": 1},
+        "municipality": {"enum": ["Benidorm", "Finestrat", "l'Alfàs del Pi", "Altea", "La Nucía", "La Vila Joiosa", "Polop", "Callosa d'en Sarrià"]},
+        "documentId": {"type": ["string", "null"], "minLength": 1}
+      }
+    },
+    "text": {"type": "string", "minLength": 1, "description": "Nota de la visita, literal."},
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["category", "quote"],
+        "dependentRequired": {"factId": ["value"], "value": ["factId"]},
+        "properties": {
+          "category": {"enum": ["price", "access", "parking", "accessibility", "services"]},
+          "quote": {"type": "string", "minLength": 1, "description": "Fragmento copiado tal cual de text."},
+          "factId": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "string", "boolean"]}
+        }
+      }
+    },
+    "photos": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$)).+\\.(jpe?g|png|webp|heic)$"}
+    }
+  }
+}
