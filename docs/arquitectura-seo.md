@@ -78,8 +78,8 @@ Estado: **E** existe y está publicada, **P** está prevista.
 | `/playas/{guía}/` | P | Playas | Comparar playas o calas para un uso (familias, calas cercanas…) | Sí, si pasa auditar-pagina | Hub, fichas de playas | Hub y otra página distinta |
 | `/que-hacer/` | P | — | Elegir actividad | Sí, cuando se genere | Guías | Inicio, menú, migas |
 | `/que-hacer/{guía}/` | P | Qué hacer | Planificar una actividad o un evento recurrente (fechas, precio, reserva) | Sí, si pasa auditar-pagina | Hub, fichas de Qué ver o Playas implicadas, Información práctica si toca transporte | Hub y otra página distinta |
-| `/informacion-practica/` | P | — | Organizar la visita | Sí, cuando se genere | Guías | Inicio, menú, migas, guías de otros hubs |
-| `/informacion-practica/{guía}/` | P | Información práctica | Resolver una duda logística (aeropuerto, TRAM, aparcar…) | Sí, si pasa auditar-pagina | Hub, guías de otros hubs que dependen del dato | Hub y guías que la necesitan |
+| `/informacion-practica/` | E | — | Organizar la visita | Sí, cuando se genere | Guías | Inicio, menú, migas, guías de otros hubs |
+| `/informacion-practica/{guía}/` | E | Información práctica | Resolver una duda logística (aeropuerto, TRAM, aparcar…) | Sí, si pasa auditar-pagina | Hub, guías de otros hubs que dependen del dato | Hub y guías que la necesitan |
 | `/donde-dormir/` | P | — | Elegir dónde alojarse | Sí, cuando se genere | Guías por zona o uso | Inicio, menú, migas |
 | `/donde-dormir/{guía}/` | P | Dónde dormir | Elegir zona o tipo de alojamiento según el viaje | Sí, si pasa auditar-pagina | Hub, guías de Qué ver o Playas de esa zona | Hub y otra página distinta |
 | `/sobre-david/` | E | — | Quién escribe y con qué método (confianza) | Sí | Inicio, hubs | Pie de página, firma de guías y comparativas |
@@ -150,7 +150,7 @@ dé Maps (comparativa con gate, datos verificados). Ese cambio se hace primero e
 - `src/lib/routes.ts`: quitar `guides`, `guide`, `events` e `information`; añadir
   `informationPractical`, `beach`, `place` y las rutas de guía por hub; resolver la colisión
   `diningCategory`/comparativa.
-- `article.section`: valores por hub (hoy solo `guides`, `thingsToDo` e `information`).
+- `article.section`: valores por hub (hoy `guides`, `thingsToDo`, `information` e `informationPractical`; solo la última tiene ruta, `/informacion-practica/{guía}/`).
 - `siteSettings`: intro y SEO de cada hub, como hoy `diningPage`.
 - `/donde-comer/` «Elige por estilo»: enlazar solo categorías con comparativa publicada.
 - Validar que un `slug` es único dentro de cada hub.

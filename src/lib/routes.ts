@@ -11,6 +11,7 @@ export const routes = {
   thingsToDo: () => '/que-hacer/',
   accommodation: () => '/donde-dormir/',
   informationPractical: () => '/informacion-practica/',
+  informationGuide: (slug: string) => `/informacion-practica/${slug}/`,
   author: () => '/sobre-david/',
   events: () => '/eventos/',
   information: () => '/informacion/',
@@ -66,8 +67,8 @@ export function getRouteRegistry(): Promise<ReadonlySet<string>> {
 
 async function buildRegistry(): Promise<ReadonlySet<string>> {
   // Import dinámico: content-source → data/demo/content → routes.
-  const {getBeachSlugs, getComparisonSlugs, getRestaurantSlugs} = await import('./content-source')
-  const [restaurants, comparisons, beaches] = await Promise.all([getRestaurantSlugs(), getComparisonSlugs(), getBeachSlugs()])
+  const {getBeachSlugs, getComparisonSlugs, getInformationGuideSlugs, getRestaurantSlugs} = await import('./content-source')
+  const [restaurants, comparisons, beaches, informationGuides] = await Promise.all([getRestaurantSlugs(), getComparisonSlugs(), getBeachSlugs(), getInformationGuideSlugs()])
   return new Set<string>([
     ...STATIC_ROUTES,
     ...restaurants.map(routes.restaurant),
@@ -75,6 +76,8 @@ async function buildRegistry(): Promise<ReadonlySet<string>> {
     // El hub de Playas solo existe si hay alguna ficha que enlazar (docs/arquitectura-seo.md §2).
     ...(beaches.length > 0 ? [routes.beaches()] : []),
     ...beaches.map(routes.beach),
+    ...(informationGuides.length > 0 ? [routes.informationPractical()] : []),
+    ...informationGuides.map(routes.informationGuide),
   ])
 }
 

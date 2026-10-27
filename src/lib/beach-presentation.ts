@@ -56,8 +56,17 @@ export function factValue(fact: PracticalFactView): string | null {
 /** Texto para lo que no está confirmado. Nunca afirma una verificación que no hay. */
 export function pendingText(fact: PracticalFactView): string {
   if (fact.status === 'conflict') return 'Las fuentes no coinciden: pendiente de revisión'
-  if (fact.status === 'needs verification') return 'Solo hay fuentes no oficiales: pendiente de confirmar'
+  if (fact.status === 'needs verification') return 'Sin fuente oficial aprobada: pendiente de confirmar'
   return 'Pendiente: sin fuente oficial ni visita registrada'
+}
+
+/**
+ * Procedencia de un hecho sin confirmar: se nombra quién lo publica, sin enlace. Enlazarla llevaría al
+ * lector a la cifra que la página no publica (#17: sin fuente municipal, sin cifra).
+ */
+export function unconfirmedSourceText(fact: PracticalFactView): string | null {
+  if (fact.status === 'confirmed' || !fact.sourceTitle) return null
+  return `Lo publica ${fact.sourceTitle.split(':')[0]}, una fuente que no tenemos aprobada como oficial; no la enlazamos mientras no se confirme.`
 }
 
 export interface FactRow {

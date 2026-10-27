@@ -1,4 +1,4 @@
-import type {BeachDetail, BreadcrumbItem, BusinessDetail, ComparisonDetail} from '../types/content'
+import type {BeachDetail, BreadcrumbItem, BusinessDetail, ComparisonDetail, GuideDetail} from '../types/content'
 
 const absoluteUrl = (path: string, site: URL): string => new URL(path, site).toString()
 
@@ -78,6 +78,20 @@ export function beachJsonLd(beach: BeachDetail, site: URL) {
     ...(present(beach.shortDescription) ? {description: beach.shortDescription} : {}),
     url: absoluteUrl(beach.href, site),
     ...(present(beach.municipality) ? {address: {'@type': 'PostalAddress', addressLocality: beach.municipality}} : {}),
+  }
+}
+
+/** Guía: titular, autor y fechas visibles en la página. */
+export function guideJsonLd(guide: GuideDetail, site: URL) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: guide.title,
+    ...(present(guide.excerpt) ? {description: guide.excerpt} : {}),
+    url: absoluteUrl(guide.href, site),
+    author: {'@type': 'Person', name: guide.author.name, url: absoluteUrl(`/sobre-${guide.author.slug}/`, site)},
+    datePublished: guide.publishedAt.slice(0, 10),
+    ...(guide.updatedAt ? {dateModified: guide.updatedAt.slice(0, 10)} : {}),
   }
 }
 

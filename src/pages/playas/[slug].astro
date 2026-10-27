@@ -18,7 +18,8 @@ const {slug} = Astro.params
 const beach = slug ? await getBeachBySlug(slug) : null
 if (!beach) throw new Error(`No se encontró la playa estática: ${slug ?? 'sin slug'}`)
 const item = beach
-const breadcrumbs = breadcrumbTrail('beaches', item.name, await getRouteRegistry())
+const registry = await getRouteRegistry()
+const breadcrumbs = breadcrumbTrail('beaches', item.name, registry)
 const site = Astro.site ?? new URL('https://enbenidorm.es')
 const location = findFact(item, 'ubicacion')
 const groups = FACT_GROUPS.map((group) => ({...group, rows: factRows(item.facts, group.attributes)})).filter((group) => group.rows.length > 0)
@@ -66,6 +67,11 @@ const pending = pendingFacts(item.facts)
             ? <ul class="mt-4 space-y-4 text-sm">{item.nearbyDining.map((dining) => <li><p class="text-ink/70">{dining.note}</p><a class="mt-1 inline-block font-bold text-sea-dark underline" href={dining.href}>{dining.title}</a></li>)}</ul>
             : <p class="mt-4 text-sm text-ink/70"><span class="font-bold text-coral">Pendiente:</span> ninguna de nuestras comparativas registra todavía un local en la zona de esta playa. Mientras tanto, puedes ver todas las opciones en <a class="font-bold text-sea-dark underline" href={routes.dining()}>Dónde comer en Benidorm</a>.</p>}
         </section>
+        {registry.has(routes.informationPractical()) && <section class="border-t border-ink/10 pt-6" aria-labelledby="parking-title">
+          <h2 id="parking-title" class="font-editorial text-2xl">Aparcar y moverse</h2>
+          <p class="mt-2 text-sm text-ink/70">Horario de la zona azul para visitantes, aparcamientos gratuitos y zona de bajas emisiones, que incluye Levante y el Paseo de Poniente.</p>
+          <a class="mt-3 inline-block font-bold text-sea-dark underline" href={routes.informationPractical()}>Ver cómo aparcar y moverse por Benidorm</a>
+        </section>}
         <section class="border-t border-ink/10 pt-6" aria-labelledby="hub-title">
           <h2 id="hub-title" class="font-editorial text-2xl">Comparar las playas</h2>
           <p class="mt-2 text-sm text-ink/70">Servicios, accesibilidad, perros y aparcamiento de las tres playas, lado a lado.</p>

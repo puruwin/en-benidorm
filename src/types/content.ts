@@ -226,3 +226,34 @@ export interface BeachesPageContent {
   seo: SeoData
   beaches: BeachDetail[]
 }
+
+/** Otra guía o ficha enlazada desde una guía, con la razón que justifica el enlace. */
+export interface GuideLink {
+  title: string
+  href: string
+  note: string
+}
+
+/** Guía de un hub (article), hoy solo las de Información práctica. */
+export interface GuideDetail {
+  id: string
+  title: string
+  slug: string
+  href: string
+  excerpt: string
+  description: DescriptionBlock[]
+  facts: PracticalFactView[]
+  links: GuideLink[]
+  author: {name: string; slug: string}
+  publishedAt: string
+  updatedAt?: string
+  sources: SourceItem[]
+  seo: SeoData
+}
+
+export interface InformationPageContent {
+  title: string
+  intro: string
+  seo: SeoData
+  guides: GuideDetail[]
+}
