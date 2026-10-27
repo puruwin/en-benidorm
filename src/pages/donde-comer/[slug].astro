@@ -4,9 +4,9 @@ import DataProvenance from '../../components/DataProvenance.astro'
 import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import {getComparisonBySlug, getComparisonSlugs} from '../../lib/content-source'
-import {breadcrumbJsonLd, comparisonItemListJsonLd} from '../../lib/jsonld'
+import {comparisonItemListJsonLd} from '../../lib/jsonld'
+import {breadcrumbTrail, getRouteRegistry} from '../../lib/routes'
 import {compactPracticalLines, priceContext} from '../../lib/comparison-presentation'
-import type {BreadcrumbItem} from '../../types/content'
 
 export async function getStaticPaths() {
   const slugs = await getComparisonSlugs()
@@ -16,14 +16,14 @@ export async function getStaticPaths() {
 const {slug} = Astro.params
 const comparison = slug ? await getComparisonBySlug(slug) : null
 if (!comparison) throw new Error(`No se encontró la comparativa estática: ${slug ?? 'sin slug'}`)
-const breadcrumbs: BreadcrumbItem[] = [{label: 'Inicio', href: '/'}, {label: 'Dónde comer', href: '/donde-comer/'}, {label: comparison.title}]
+const breadcrumbs = breadcrumbTrail('dining', comparison.title, await getRouteRegistry())
 const site = Astro.site ?? new URL('https://enbenidorm.es')
 const showPrice = comparison.entries.some((entry) => typeof entry.featuredItem?.price === 'number')
 const showPractical = comparison.entries.some((entry) => entry.practicalNotes.length > 0)
 const euro = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'})
 ---
 
-<BaseLayout seo={comparison.seo} jsonLd={[breadcrumbJsonLd(breadcrumbs, site), comparisonItemListJsonLd(comparison, site)]} demo={false}>
+<BaseLayout seo={comparison.seo} seoFallback={{title: comparison.title, description: comparison.intro}} breadcrumbs={breadcrumbs} jsonLd={[comparisonItemListJsonLd(comparison, site)]} demo={false}>
   <article>
     <header class="bg-sand pb-14 pt-8 md:pb-20">
       <div class="container-site">
