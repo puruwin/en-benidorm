@@ -1,1 +1,13 @@
-[]
+[
+  {"host": "benidorm.org", "municipality": "Benidorm", "publisher": "Ajuntament de Benidorm", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "visitbenidorm.es", "municipality": "Benidorm", "publisher": "Fundació Visit Benidorm (solo servicios turísticos municipales, no fichas de negocios)", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "ayto-finestrat.es", "municipality": "Finestrat", "publisher": "Ajuntament de Finestrat", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "lalfas.es", "municipality": "l'Alfàs del Pi", "publisher": "Ajuntament de l'Alfàs del Pi", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "villajoyosa.com", "municipality": "La Vila Joiosa", "publisher": "Ajuntament de la Vila Joiosa", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "aemet.es", "municipality": "*", "publisher": "Agencia Estatal de Meteorología", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "aena.es", "municipality": "*", "publisher": "Aena (aeropuerto Alicante-Elche)", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "sanidad.gob.es", "municipality": "*", "publisher": "Ministerio de Sanidad (Náyade, aguas de baño)", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "fgv.es", "municipality": "*", "publisher": "Ferrocarrils de la Generalitat Valenciana", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "dogv.gva.es", "municipality": "*", "publisher": "Diari Oficial de la Generalitat Valenciana", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "comunitatvalenciana.com", "municipality": "*", "publisher": "Turisme Comunitat Valenciana (solo espacios naturales y oficinas de turismo, no fichas de negocios)", "approvedBy": "David", "approvedAt": "2026-10-27"}
+]
