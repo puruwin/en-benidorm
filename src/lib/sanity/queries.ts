@@ -101,7 +101,7 @@ export const RESTAURANT_QUERY = defineQuery(`*[_type == "business" && language =
   "categories": categories[]->title,
   recommended,
   sponsored,
-  "description": body[_type == "block"].children[].text,
+  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},
   address,
   phone,
   website,

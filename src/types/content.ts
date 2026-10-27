@@ -71,8 +71,15 @@ export interface BusinessSummary {
   image?: EditorialImage
 }
 
+/** Bloque del cuerpo de una ficha: párrafo, encabezado (`style: 'h2'`) o elemento de lista. */
+export interface DescriptionBlock {
+  text: string
+  style?: string
+  listItem?: string
+}
+
 export interface BusinessDetail extends BusinessSummary {
-  description: string[]
+  description: DescriptionBlock[]
   address: {
     street: string
     postalCode: string
