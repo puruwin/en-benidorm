@@ -9,6 +9,7 @@ import {
   type ContentInput,
   formatIssues,
   loadGeneratedContent,
+  loadPracticalFactsContext,
   normalizeDocument,
   validateContent,
 } from './content-validation'
@@ -20,9 +21,10 @@ export function seedInputs(): ContentInput[] {
 
 export async function validateAllContent(): Promise<{inputs: ContentInput[]; errorCount: number}> {
   const loaded = await loadGeneratedContent()
+  const facts = await loadPracticalFactsContext()
   const inputs = [...seedInputs(), ...loaded.inputs]
-  const result = validateContent(inputs)
-  const issues = [...loaded.issues, ...result.issues]
+  const result = validateContent(inputs, {practicalFacts: facts.context})
+  const issues = [...loaded.issues, ...facts.issues, ...result.issues]
 
   if (issues.length) {
     console.error(`Validación fallida (${issues.length} errores):\n${formatIssues(issues)}`)

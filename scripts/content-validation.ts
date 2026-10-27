@@ -1,7 +1,8 @@
 import {createHash} from 'node:crypto'
 import {readdir, readFile} from 'node:fs/promises'
-import {resolve} from 'node:path'
+import {relative, resolve, sep} from 'node:path'
 import {PRICE_UNITS} from './comparison/lib/public-facts'
+import {EMPTY_PRACTICAL_FACTS_CONTEXT, type PracticalFactsContext, validatePracticalFacts} from './content/lib/practical-facts'
 
 export type ContentDocument = Record<string, unknown> & {_id: string; _type: string}
 
@@ -138,7 +139,7 @@ export async function loadGeneratedContent(root = process.cwd()): Promise<{input
 
 export function validateContent(
   inputs: readonly ContentInput[],
-  options: {allowUnresolvedReferences?: boolean} = {},
+  options: {allowUnresolvedReferences?: boolean; practicalFacts?: PracticalFactsContext} = {},
 ): ValidationResult {
   const issues: ValidationIssue[] = []
   const references: ContentReference[] = []
@@ -179,6 +180,9 @@ export function validateContent(
     }
   }
 
+  // Sin registro cargado, cualquier hecho citado falla como inexistente: nunca se publica sin comprobar.
+  issues.push(...validatePracticalFacts(inputs, options.practicalFacts ?? EMPTY_PRACTICAL_FACTS_CONTEXT))
+
   for (const reference of references) {
     if (reference.ref.startsWith('image-') || reference.ref.startsWith('file-')) continue
     const target = byId.get(reference.ref)
@@ -198,6 +202,59 @@ export function validateContent(
   }
 
   return {issues, references}
+}
+
+/**
+ * Lee el registro de hechos prácticos (`content/facts/<municipio>/*.json`), los hosts oficiales
+ * aprobados (`content/facts/official-sources.json`) y el `observedAt` de cada observación de
+ * `content/manual/`. Solo lee; toda la validación está en `validatePracticalFacts`.
+ */
+export async function loadPracticalFactsContext(root = process.cwd()): Promise<{context: PracticalFactsContext; issues: ValidationIssue[]}> {
+  const issues: ValidationIssue[] = []
+  const factsRoot = resolve(root, 'content/facts')
+  const factFiles: Array<{source: string; value: unknown}> = []
+  let officialSources: unknown = []
+
+  for (const path of await listJsonFiles(factsRoot)) {
+    const source = `content/facts/${path}`
+    try {
+      const value: unknown = JSON.parse(await readFile(resolve(factsRoot, path), 'utf8'))
+      if (path === 'official-sources.json') officialSources = value
+      else if (!path.includes('/')) issues.push({source, path: '', message: 'Los hechos van en content/facts/<municipio>/<tema>.json.'})
+      else factFiles.push({source, value})
+    } catch (error) {
+      issues.push({source, path: '', message: `JSON no válido: ${errorMessage(error)}`})
+    }
+  }
+
+  const manualRoot = resolve(root, 'content/manual')
+  const observations = new Map<string, string | null>()
+  for (const path of await listJsonFiles(manualRoot)) {
+    try {
+      const value: unknown = JSON.parse(await readFile(resolve(manualRoot, path), 'utf8'))
+      observations.set(path, isRecord(value) && typeof value.observedAt === 'string' ? value.observedAt : null)
+    } catch {
+      // Un JSON manual roto se reporta donde se consume; aquí solo se registra que existe sin fecha.
+      observations.set(path, null)
+    }
+  }
+
+  return {context: {factFiles, officialSources, observations}, issues}
+}
+
+/** Rutas relativas (con `/`) de los .json bajo `directory`; vacío si no existe. */
+async function listJsonFiles(directory: string): Promise<string[]> {
+  let entries
+  try {
+    entries = await readdir(directory, {recursive: true, withFileTypes: true})
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return []
+    throw error
+  }
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
+    .map((entry) => relative(directory, resolve(entry.parentPath, entry.name)).split(sep).join('/'))
+    .sort()
 }
 
 function validateDocument(input: ContentInput, issue: (input: ContentInput, path: string, message: string) => void): void {
