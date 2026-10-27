@@ -22,6 +22,8 @@ export const article = defineType({
       {type: 'business'}, {type: 'place'}, {type: 'beach'}, {type: 'event'}, {type: 'article'},
     ]}]}),
     defineField({name: 'language', title: 'Idioma', type: 'string', initialValue: 'es', readOnly: true}),
+    defineField({name: 'practicalFacts', title: 'Hechos prácticos', type: 'array', of: [{type: 'practicalFact'}], readOnly: true, description: 'Precios, horarios, accesos y tarifas con procedencia; vienen de content/facts/.'}),
+    defineField({name: 'travelNotes', title: 'Traslado desde Benidorm', type: 'array', of: [{type: 'travelNote'}]}),
     defineField({name: 'lastVerified', title: 'Última verificación', type: 'date'}),
     defineField({name: 'sources', title: 'Fuentes', type: 'array', of: [{type: 'source'}]}),
     defineField({name: 'seo', title: 'SEO', type: 'seo', validation: indexableSeoValidation}),
