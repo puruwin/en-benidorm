@@ -1,0 +1,373 @@
+{
+  "_id": "beach-playa-levante",
+  "_type": "beach",
+  "language": "es",
+  "name": "Playa de Levante",
+  "slug": {
+    "_type": "slug",
+    "current": "playa-levante"
+  },
+  "shortDescription": "Playa urbana con paseo marítimo; de las tres playas del centro, la única cuya carta de servicios enumera parasailing o alquiler de embarcaciones.",
+  "choiceNote": "Si buscas actividades náuticas: es la única de las tres cuya carta de servicios enumera parasailing, alquiler de embarcaciones o snorkel. También tiene un punto de playa accesible, en la calle Murcia.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "p1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p1-s",
+          "text": "Levante tiene en paralelo un paseo marítimo de restaurantes y locales que Turismo de Benidorm describe como bullicioso; no lo hemos comprobado en persona. Frente a Poniente es más corta, y frente a Mal Pas mucho más grande y equipada.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p2-s",
+          "text": "Lo que la distingue en la carta de servicios municipal es el alquiler náutico: además de hamacas, sombrillas y plataformas flotantes, enumera actividades que las cartas de Poniente y Mal Pas no detallan, como parasailing, snorkel o alquiler de embarcaciones.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p3-s",
+          "text": "Tiene un punto de playa accesible, con el equipamiento que detallamos abajo y plazas de aparcamiento reservadas. Si necesitas elegir entre varios puntos accesibles o un aparcamiento municipal de referencia, Poniente está mejor documentada.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "area": {
+    "_type": "reference",
+    "_ref": "area-levante"
+  },
+  "municipality": "Benidorm",
+  "practicalFacts": [
+    {
+      "_key": "benidorm-playa-levante-ubicacion",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.ubicacion",
+      "value": "Entre Punta Pinet y Punta Canfali",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm (turismo municipal): Playa Levante",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/148/playa-levante-benidorm.html/",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-longitud",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.longitud",
+      "value": "2084",
+      "unit": "m",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-anchura-maxima",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.anchura-maxima",
+      "value": "75",
+      "unit": "m",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-arena",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.arena",
+      "value": "Arena de grano fino",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-bandera-azul",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.bandera-azul",
+      "value": "Bandera Azul desde 1987",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-socorrismo",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.socorrismo",
+      "value": "Verano: 5 sillas y 4 socorristas a pie. Otros periodos: 2 sillas y 1 socorrista a pie",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-atencion-sanitaria",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.atencion-sanitaria",
+      "value": "2 puestos, de Semana Santa a octubre",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-aseos",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.aseos",
+      "value": "2 módulos de aseos públicos (7 WC, 1 adaptado)",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-accesos-pasarela",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.accesos-pasarela",
+      "value": "21 accesos con pasarela",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-alquiler-y-ocio",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.alquiler-y-ocio",
+      "value": "Hamacas y sombrillas, plataformas flotantes, Cable Ski, hidropedales y paddle surf, motos acuáticas, embarcaciones, snorkel, banana, parasailing y fly fish",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-areas-de-juego",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.areas-de-juego",
+      "value": "2 áreas de juegos infantiles y 1 área biosaludable",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-punto-accesible",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.punto-accesible",
+      "value": "1 punto de playa accesible, en la calle Murcia",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-puntos-playa-accesible-horario-verano",
+      "_type": "practicalFact",
+      "factId": "benidorm.puntos-playa-accesible.horario.verano",
+      "value": "De 09:30 a 18:30, del 1 de junio al 30 de septiembre",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-puntos-playa-accesible-horario-invierno",
+      "_type": "practicalFact",
+      "factId": "benidorm.puntos-playa-accesible.horario.invierno",
+      "value": "De 10:30 a 14:30 el resto del año, salvo del 15 de enero al 14 de febrero",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-punto-accesible-equipamiento",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.punto-accesible-equipamiento",
+      "value": "Vestuario y WC adaptados, sombra con lonas paravientos, 2 sillas anfibias de adulto, 3 juegos de muletas anfibias y socorristas de apoyo al baño según temporada",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-aparcamiento-adaptado",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.aparcamiento-adaptado",
+      "value": "3 plazas de aparcamiento en el punto accesible de la calle Murcia",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-aparcamiento-cercano",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.aparcamiento-cercano",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-playa-levante-perros",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.perros",
+      "value": "Prohibida la presencia de animales domésticos en las playas",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-levante-afluencia",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-levante.afluencia",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    }
+  ],
+  "profileContrasts": [
+    {
+      "_key": "contrast-0",
+      "_type": "object",
+      "beach": {
+        "_type": "reference",
+        "_ref": "beach-playa-poniente"
+      },
+      "reason": "Más larga y con más aseos públicos, dos puntos accesibles y un aparcamiento municipal documentado."
+    },
+    {
+      "_key": "contrast-1",
+      "_type": "object",
+      "beach": {
+        "_type": "reference",
+        "_ref": "beach-playa-mal-pas"
+      },
+      "reason": "Mucho más pequeña, bajo el casco antiguo y frente a la Isla de Benidorm; con menos socorrismo y sin punto de playa accesible."
+    }
+  ],
+  "nearbyDining": [
+    {
+      "_key": "dining-0",
+      "_type": "object",
+      "comparison": {
+        "_type": "reference",
+        "_ref": "comparison-arroces"
+      },
+      "note": "En la comparativa de arroces, Cafetería La Bahía (en primera línea) y Jardín Mediterráneo figuran en la zona de la playa de Levante."
+    }
+  ],
+  "sources": [
+    {
+      "_key": "source-0",
+      "_type": "source",
+      "title": "Carta de servicios Playa de Levante 2026",
+      "publisher": "Ayuntamiento de Benidorm, Concejalía de Playas",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-1",
+      "_type": "source",
+      "title": "Manual de los puntos accesibles 2026",
+      "publisher": "Ayuntamiento de Benidorm, Concejalía de Playas",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-2",
+      "_type": "source",
+      "title": "Playa Levante",
+      "publisher": "Visit Benidorm (turismo municipal)",
+      "url": "https://www.visitbenidorm.es/ver/148/playa-levante-benidorm.html/",
+      "accessedAt": "2026-10-27"
+    }
+  ],
+  "seo": {
+    "_type": "seo",
+    "metaTitle": "Playa de Levante (Benidorm): servicios y accesibilidad",
+    "metaDescription": "Socorrismo, aseos, punto accesible y su equipamiento, y alquiler náutico de la Playa de Levante, con la carta de servicios municipal 2026.",
+    "noIndex": false
+  }
+}

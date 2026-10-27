@@ -1,0 +1,376 @@
+{
+  "_id": "beach-playa-poniente",
+  "_type": "beach",
+  "language": "es",
+  "name": "Playa de Poniente",
+  "slug": {
+    "_type": "slug",
+    "current": "playa-poniente"
+  },
+  "shortDescription": "La más larga de las tres playas del centro de Benidorm, con dos puntos accesibles y un aparcamiento municipal documentado en su zona.",
+  "choiceNote": "Si necesitas accesibilidad o vas con niños: concentra dos de los tres puntos de playa accesible del municipio, y su carta de servicios le asigna más WC adaptados y más áreas de juegos infantiles que la de Levante.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "p1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p1-s",
+          "text": "Poniente es la más larga y la más ancha de las tres playas del centro de Benidorm. Turismo de Benidorm la describe como de ambiente más tranquilo que Levante; no lo hemos comprobado en persona.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p2-s",
+          "text": "Es la que concentra más recursos de accesibilidad: dos de los tres puntos de playa accesible del municipio, y la carta de servicios le asigna más módulos de aseos públicos y más WC adaptados que a Levante.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p3-s",
+          "text": "Es también la única de las tres con un aparcamiento municipal documentado en su zona, aunque la nota del Ayuntamiento no dice a qué distancia queda de la arena. El número de accesos con pasarela no lo publicamos: la carta de servicios y Turismo de Benidorm dan cifras distintas.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "area": {
+    "_type": "reference",
+    "_ref": "area-poniente"
+  },
+  "municipality": "Benidorm",
+  "practicalFacts": [
+    {
+      "_key": "benidorm-playa-poniente-ubicacion",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.ubicacion",
+      "value": "Al sur del puerto",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm (turismo municipal): Playas y calas",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-longitud",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.longitud",
+      "value": "3100",
+      "unit": "m",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-anchura-maxima",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.anchura-maxima",
+      "value": "105",
+      "unit": "m",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-arena",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.arena",
+      "value": "Arena de grano fino",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-bandera-azul",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.bandera-azul",
+      "value": "Bandera Azul desde 1987",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-socorrismo",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.socorrismo",
+      "value": "Verano: 5 sillas y 4 socorristas a pie. Otros periodos: 2 sillas y 1 socorrista a pie",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-atencion-sanitaria",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.atencion-sanitaria",
+      "value": "2 puestos, de Semana Santa a octubre",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-aseos",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.aseos",
+      "value": "6 módulos de aseos públicos (20 WC, 4 adaptados)",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-alquiler-y-ocio",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.alquiler-y-ocio",
+      "value": "Hamacas y sombrillas, plataformas flotantes y actividades de ocio",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-areas-de-juego",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.areas-de-juego",
+      "value": "8 áreas de juegos infantiles y 12 de juegos lúdico-deportivos",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-punto-accesible",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.punto-accesible",
+      "value": "2 puntos de playa accesible: Parque de Elche y Vicente Llorca",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-puntos-playa-accesible-horario-verano",
+      "_type": "practicalFact",
+      "factId": "benidorm.puntos-playa-accesible.horario.verano",
+      "value": "De 09:30 a 18:30, del 1 de junio al 30 de septiembre",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-puntos-playa-accesible-horario-invierno",
+      "_type": "practicalFact",
+      "factId": "benidorm.puntos-playa-accesible.horario.invierno",
+      "value": "De 10:30 a 14:30 el resto del año, salvo del 15 de enero al 14 de febrero",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-punto-accesible-equipamiento",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.punto-accesible-equipamiento",
+      "value": "En los dos puntos: vestuario y WC adaptados, sombra con lonas paravientos, sillas anfibias de adulto (4 en Parque de Elche y 2 en Vicente Llorca), 3 juegos de muletas anfibias en cada punto y socorristas de apoyo al baño según temporada. Sillas dentro del agua solo en Parque de Elche",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-aparcamiento-adaptado",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.aparcamiento-adaptado",
+      "value": "3 plazas de aparcamiento en el punto accesible del Parque de Elche",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-aparcamiento-cercano",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.aparcamiento-cercano",
+      "value": "Aparcamiento de Poniente, en la avenida Puerto Rico. Según la nota municipal de abril de 2026: 151 plazas en cubierta, gratuitas todo el año; las 246 interiores abrieron gratis en la Semana Santa de 2026 y la nota anunciaba su reapertura gratuita de principios de julio a después del puente de octubre",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: nota del 2 de abril de 2026 sobre el aparcamiento de Poniente",
+      "sourceUrl": "https://benidorm.org/es/noticias/benidorm-pone-en-servicio-el-aparcamiento-de-poniente-durante-toda-la-semana-santa",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-perros",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.perros",
+      "value": "Prohibida la presencia de animales domésticos en las playas",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-poniente-afluencia",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.afluencia",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    }
+  ],
+  "profileContrasts": [
+    {
+      "_key": "contrast-0",
+      "_type": "object",
+      "beach": {
+        "_type": "reference",
+        "_ref": "beach-playa-levante"
+      },
+      "reason": "Más corta, con un único punto accesible; su carta de servicios enumera más actividades náuticas de alquiler."
+    },
+    {
+      "_key": "contrast-1",
+      "_type": "object",
+      "beach": {
+        "_type": "reference",
+        "_ref": "beach-playa-mal-pas"
+      },
+      "reason": "Una playa pequeña bajo el casco antiguo, frente a la Isla de Benidorm, sin punto de playa accesible ni aparcamiento documentado."
+    }
+  ],
+  "nearbyDining": [
+    {
+      "_key": "dining-0",
+      "_type": "object",
+      "comparison": {
+        "_type": "reference",
+        "_ref": "comparison-arroces"
+      },
+      "note": "En la comparativa de arroces, Ongi Etorri figura en la zona de la playa de Poniente."
+    }
+  ],
+  "sources": [
+    {
+      "_key": "source-0",
+      "_type": "source",
+      "title": "Carta de servicios Playa de Poniente 2026",
+      "publisher": "Ayuntamiento de Benidorm, Concejalía de Playas",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-1",
+      "_type": "source",
+      "title": "Manual de los puntos accesibles 2026",
+      "publisher": "Ayuntamiento de Benidorm, Concejalía de Playas",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-2",
+      "_type": "source",
+      "title": "Playas y calas",
+      "publisher": "Visit Benidorm (turismo municipal)",
+      "url": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-3",
+      "_type": "source",
+      "title": "Playa de Poniente",
+      "publisher": "Visit Benidorm (turismo municipal)",
+      "url": "https://www.visitbenidorm.es/ver/147/playa-de-poniente-benidorm--playas-y-calas-.html",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-4",
+      "_type": "source",
+      "title": "Benidorm pone en servicio el aparcamiento de Poniente durante toda la Semana Santa (2 de abril de 2026)",
+      "publisher": "Ayuntamiento de Benidorm",
+      "url": "https://benidorm.org/es/noticias/benidorm-pone-en-servicio-el-aparcamiento-de-poniente-durante-toda-la-semana-santa",
+      "accessedAt": "2026-10-27"
+    }
+  ],
+  "seo": {
+    "_type": "seo",
+    "metaTitle": "Playa de Poniente (Benidorm): accesibilidad y aparcamiento",
+    "metaDescription": "Puntos accesibles, aseos adaptados, socorrismo, perros y aparcamiento municipal de la Playa de Poniente, según el Ayuntamiento de Benidorm.",
+    "noIndex": false
+  }
+}
