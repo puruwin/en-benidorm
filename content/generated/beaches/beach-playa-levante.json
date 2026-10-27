@@ -313,7 +313,8 @@
       "_type": "object",
       "beach": {
         "_type": "reference",
-        "_ref": "beach-playa-poniente"
+        "_ref": "beach-playa-poniente",
+        "_weak": true
       },
       "reason": "Más larga y con más aseos públicos, dos puntos accesibles y un aparcamiento municipal documentado."
     },
@@ -322,7 +323,8 @@
       "_type": "object",
       "beach": {
         "_type": "reference",
-        "_ref": "beach-playa-mal-pas"
+        "_ref": "beach-playa-mal-pas",
+        "_weak": true
       },
       "reason": "Mucho más pequeña, bajo el casco antiguo y frente a la Isla de Benidorm; con menos socorrismo y sin punto de playa accesible."
     }

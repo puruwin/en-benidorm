@@ -25,7 +25,9 @@ export const beach = defineType({
     defineField({name: 'practicalFacts', title: 'Hechos prácticos', type: 'array', of: [{type: 'practicalFact'}], readOnly: true, description: 'Precios, horarios, accesos y tarifas con procedencia; vienen de content/facts/.'}),
     defineField({name: 'travelNotes', title: 'Traslado desde Benidorm', type: 'array', of: [{type: 'travelNote'}]}),
     defineField({name: 'profileContrasts', title: 'Otras playas con perfil distinto', type: 'array', description: 'Enlaces a otras fichas de playa. La diferencia debe salir de sus hechos prácticos.', of: [{type: 'object', fields: [
-      defineField({name: 'beach', title: 'Playa', type: 'reference', to: [{type: 'beach'}], validation: (rule) => rule.required()}),
+      // Débil: las fichas se enlazan entre sí en círculo y cada una debe poder publicarse sola.
+      // Mientras la otra no esté publicada, la consulta omite el enlace.
+      defineField({name: 'beach', title: 'Playa', type: 'reference', to: [{type: 'beach'}], weak: true, validation: (rule) => rule.required()}),
       defineField({name: 'reason', title: 'En qué se diferencia', type: 'text', rows: 2, validation: (rule) => rule.required()}),
     ], preview: {select: {title: 'beach.name', subtitle: 'reason'}}}]}),
     defineField({name: 'nearbyDining', title: 'Dónde comer cerca', type: 'array', description: 'Comparativas con locales registrados en la zona de la playa. Vacío si no hay ninguno.', of: [{type: 'object', fields: [

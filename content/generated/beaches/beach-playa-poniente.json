@@ -300,7 +300,8 @@
       "_type": "object",
       "beach": {
         "_type": "reference",
-        "_ref": "beach-playa-levante"
+        "_ref": "beach-playa-levante",
+        "_weak": true
       },
       "reason": "Más corta, con un único punto accesible; su carta de servicios enumera más actividades náuticas de alquiler."
     },
@@ -309,7 +310,8 @@
       "_type": "object",
       "beach": {
         "_type": "reference",
-        "_ref": "beach-playa-mal-pas"
+        "_ref": "beach-playa-mal-pas",
+        "_weak": true
       },
       "reason": "Una playa pequeña bajo el casco antiguo, frente a la Isla de Benidorm, sin punto de playa accesible ni aparcamiento documentado."
     }

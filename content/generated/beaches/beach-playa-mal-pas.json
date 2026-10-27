@@ -248,7 +248,8 @@
       "_type": "object",
       "beach": {
         "_type": "reference",
-        "_ref": "beach-playa-levante"
+        "_ref": "beach-playa-levante",
+        "_weak": true
       },
       "reason": "Una playa urbana grande, con paseo marítimo, alquiler náutico y un punto de playa accesible."
     },
@@ -257,7 +258,8 @@
       "_type": "object",
       "beach": {
         "_type": "reference",
-        "_ref": "beach-playa-poniente"
+        "_ref": "beach-playa-poniente",
+        "_weak": true
       },
       "reason": "La más larga de las tres, con dos puntos accesibles y un aparcamiento municipal documentado en su zona."
     }
