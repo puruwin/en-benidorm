@@ -10,6 +10,7 @@ import type {ManualComparisonData} from './manual-adapter'
 import {EMPTY_MANUAL_OBSERVATIONS, type ManualObservationData} from './manual-observations'
 import type {ComparisonResearchBundle} from './research'
 import {assessOperationalStatus, checkEstablishmentIdentity} from './integrity'
+import {normalizePriceUnit} from './public-facts'
 
 export function enrichComparison(
   candidates: ComparisonCandidateArtifact,
@@ -214,6 +215,7 @@ function addCommercialEvidence(evidence: ComparisonEvidence, items: CommercialIt
         ...(item.price ? {
           price: item.price.amount, currency: item.price.currency,
           ...(item.price.priceQualifier === 'from' ? {priceQualifier: 'desde'} : {}),
+          priceUnit: normalizePriceUnit(item.price.priceQualifier === 'from' ? 'desde' : undefined),
         } : {}),
         source: item.sourceKey, retrievedAt: item.observedAt,
       } satisfies ComparisonFeaturedItem : item.name,
@@ -370,6 +372,7 @@ function normalizeFeaturedItems(evidence: ComparisonEvidence, sources: readonly 
         price: priceValue.value,
         currency: priceValue.currency,
         ...(priceValue.priceQualifier ? {priceQualifier: priceValue.priceQualifier} : {}),
+        priceUnit: normalizePriceUnit(priceValue.priceQualifier),
       } : {}),
       source,
       retrievedAt: priceValue?.retrievedAt ?? sourceByKey.get(source)?.retrievedAt.slice(0, 10) ?? '',

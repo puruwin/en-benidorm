@@ -2,6 +2,7 @@ import {normalizeText} from '../../content/lib/normalize'
 import type {ContentDocument} from '../../content-validation'
 import {compactPracticalLines, hasDuplicateSectionHeadings} from '../../../src/lib/comparison-presentation'
 import {comparisonCoverage} from './gate'
+import {PRICE_UNIT_LABELS, canonicalSourceKey, classifyLimitation, normalizePriceUnit} from './public-facts'
 import {topicAliases} from './scoring'
 import {
   EVIDENCE_CATEGORIES,
@@ -65,12 +66,19 @@ export function inspectComparison(
     const evidenceBusiness = enrichedById.get(entry.businessId)
     if (!businessDocuments.has(entry.businessId)) fail('MISSING_BUSINESS_REF', `${base}.businessId`, `No existe el Business ${entry.businessId}.`)
     if (!evidenceBusiness) { fail('MISSING_COMPARISON_EVIDENCE', base, 'El negocio no aparece en el artefacto enriquecido.'); continue }
-    const operationalText = [entry.verdict, ...entry.strengths, ...entry.limitations, ...entry.bestFor, ...entry.practicalNotes].join(' ')
+    const operationalText = [entry.verdict, ...entry.strengths, ...(entry.conditions ?? []), ...entry.limitations, ...entry.bestFor, ...entry.practicalNotes].join(' ')
     if (evidenceBusiness.operationalStatus?.status !== 'open' && /\b(?:abiert[oa]s?|sigue\s+abiert[oa]|est[aá]\s+abiert[oa]|abre)\b/i.test(operationalText)) {
       fail('UNCONFIRMED_OPERATIONAL_STATUS', base, 'No se puede presentar el establecimiento como abierto sin un estado open confirmado y vigente.')
     }
     if (!evidenceBusiness.topicEvidence.length || evidenceBusiness.scores.topicRelevance === 0) fail('IRRELEVANT_BUSINESS', base, `El Business no es relevante para topic=${enriched.topic}.`)
-    if (entry.limitations.length && evidenceBusiness.evidence.limitations.length === 0) fail('UNSUPPORTED_COMPARISON_CLAIM', `${base}.limitations`, 'No se pueden inventar limitaciones sin evidence explícita.')
+    if ((entry.limitations.length || entry.conditions?.length) && evidenceBusiness.evidence.limitations.length === 0) fail('UNSUPPORTED_COMPARISON_CLAIM', `${base}.limitations`, 'No se pueden inventar limitaciones sin evidence explícita.')
+    for (const [index, value] of entry.limitations.entries()) {
+      const supporting = limitationSupport(editorial.claims, `${base}.limitations.${index}`, evidenceBusiness.evidence.limitations)
+      const conflicts = (enriched.sourceConflicts ?? []).filter((conflict) => conflict.businessId === entry.businessId)
+      if (classifyLimitation(value, supporting, conflicts) === 'condition') {
+        fail('PUBLISHED_CONDITION_AS_UNVERIFIED', `${base}.limitations.${index}`, `“${value}” es una condición que la fuente publica; va en Condiciones publicadas, no en Lo que no pudimos comprobar.`)
+      }
+    }
     requireEntryClaims(editorial.claims, base, entry, fail)
   }
 
@@ -132,7 +140,7 @@ export function inspectComparison(
       claimsRejected += 1
     }
     if (claim.path.includes('featuredItem') && supports.some(({category}) => category !== 'featuredItems')) fail('FEATURED_ITEM_PROVENANCE', path, 'featuredItem necesita evidence de featuredItems.')
-    if (claim.path.includes('limitations') && supports.some(({category}) => category !== 'limitations')) fail('UNSUPPORTED_COMPARISON_CLAIM', path, 'Una limitación necesita evidence de limitations.')
+    if (/\.(?:limitations|conditions)\./.test(claim.path) && supports.some(({category}) => category !== 'limitations')) fail('UNSUPPORTED_COMPARISON_CLAIM', path, 'Una limitación o condición necesita evidence de limitations.')
   }
 
   for (const entry of entries) {
@@ -148,6 +156,7 @@ export function inspectComparison(
     })
     if (!exact) fail('FEATURED_ITEM_PROVENANCE', `entries.${entry.businessId}.featuredItem`, 'El plato destacado no reproduce exactamente un item enriquecido y fechado.')
   }
+  inspectPriceUnits(generated, editorial, enrichedById, warn, fail)
 
   for (const conflict of enriched.sourceConflicts ?? []) {
     warn('SOURCE_CONFLICT', `sourceConflicts.${conflict.businessId}.${conflict.dimension}`, conflict.resolution)
@@ -222,6 +231,7 @@ function requireEntryClaims(
   const leaves: Array<[string, string]> = [
     [`${base}.verdict`, entry.verdict],
     ...entry.strengths.map((value, index) => [`${base}.strengths.${index}`, value] as [string, string]),
+    ...(entry.conditions ?? []).map((value, index) => [`${base}.conditions.${index}`, value] as [string, string]),
     ...entry.limitations.map((value, index) => [`${base}.limitations.${index}`, value] as [string, string]),
     ...entry.bestFor.map((value, index) => [`${base}.bestFor.${index}`, value] as [string, string]),
     ...entry.practicalNotes.map((value, index) => [`${base}.practicalNotes.${index}`, value] as [string, string]),
@@ -277,7 +287,7 @@ function textOverlap(first: string, second: string): boolean { const a = new Set
 function comparisonText(editorial: GeneratedComparisonArtifact['editorial']): string {
   return [editorial.title, editorial.intro, editorial.quickVerdict, editorial.methodology, ...editorial.criteria,
     ...editorial.choiceGuide.flatMap((choice) => [choice.label, choice.reason]),
-    ...editorial.entries.flatMap((entry) => [entry.verdict, ...entry.strengths, ...entry.limitations, ...entry.bestFor, entry.featuredItem?.name ?? '', ...entry.practicalNotes])].join('\n')
+    ...editorial.entries.flatMap((entry) => [entry.verdict, ...entry.strengths, ...(entry.conditions ?? []), ...entry.limitations, ...entry.bestFor, entry.featuredItem?.name ?? '', ...entry.practicalNotes])].join('\n')
 }
 
 function repetitiveBlocks(editorial: GeneratedComparisonArtifact['editorial']): boolean {
@@ -312,7 +322,7 @@ function inspectPublicPresentation(
   const publicStrings = [
     editorial.title, editorial.intro, editorial.quickVerdict, editorial.methodology, ...editorial.criteria,
     ...editorial.choiceGuide.flatMap((choice) => [choice.label, choice.reason]),
-    ...editorial.entries.flatMap((entry) => [entry.verdict, ...entry.strengths, ...entry.limitations, ...entry.bestFor, ...entry.practicalNotes]),
+    ...editorial.entries.flatMap((entry) => [entry.verdict, ...entry.strengths, ...(entry.conditions ?? []), ...entry.limitations, ...entry.bestFor, ...entry.practicalNotes]),
   ]
   const publicText = publicStrings.join('\n')
   const hardTechnical = /\b(?:evidence|claims?|selection\s*score|structured\s*output)\b/i
@@ -324,6 +334,14 @@ function inspectPublicPresentation(
   const sources = Array.isArray(generated.document.sources) ? generated.document.sources : []
   if (sources.some((source) => isRecord(source) && /official-website:|manual-json:|openstreetmap:\s*(?:node|way|relation)\/|https?:\/\//i.test(`${source.title ?? ''} ${source.publisher ?? ''}`))) {
     fail('RAW_SOURCE_IDENTIFIER_EXPOSED', 'sources', 'Las fuentes públicas exponen identificadores internos del adapter o URLs como etiqueta.')
+  }
+
+  const sourceKeys = new Map<string, string>()
+  for (const source of sources) if (isRecord(source) && typeof source.url === 'string') {
+    const key = `${String(source.publisher ?? '')}|${canonicalSourceKey(source.url)}`
+    const previous = sourceKeys.get(key)
+    if (previous) fail('DUPLICATE_SOURCE_VARIANT', 'sources', `${previous} y ${source.url} son la misma página (esquema, www o variante de idioma).`)
+    else sourceKeys.set(key, source.url)
   }
 
   if (!editorial.choiceGuide.length || !editorial.entries.length || !editorial.criteria.length || sources.length === 0) {
@@ -369,7 +387,7 @@ function inspectPriceContext(
 ): void {
   const choicesByBusiness = new Map(editorial.choiceGuide.map((choice) => [choice.businessId, `${choice.label}\n${choice.reason}`]))
   const entriesByBusiness = new Map(editorial.entries.map((entry) => [entry.businessId, [
-    entry.verdict, ...entry.strengths, ...entry.limitations, ...entry.bestFor, ...entry.practicalNotes,
+    entry.verdict, ...entry.strengths, ...(entry.conditions ?? []), ...entry.limitations, ...entry.bestFor, ...entry.practicalNotes,
     ...(entry.featuredItem ? [featuredItemText(entry.featuredItem)] : []),
   ].join('\n')]))
   const globalText = [editorial.title, editorial.intro, editorial.quickVerdict, editorial.methodology, ...editorial.criteria].join('\n')
@@ -390,4 +408,34 @@ function containsPublishedPrice(text: string, price: number): boolean {
   const [integer, decimals] = price.toFixed(2).split('.') as [string, string]
   const amount = decimals === '00' ? integer : `${integer}[.,]${decimals}`
   return new RegExp(`\\b${amount}\\s*(?:€|EUR)`, 'i').test(text)
+}
+
+function limitationSupport(claims: ComparisonClaim[], path: string, facts: readonly ComparisonEvidenceFact[]): ComparisonEvidenceFact[] {
+  const declared = new Set(claims.filter((claim) => claim.path === path).flatMap((claim) => claim.supportedBy))
+  return facts.filter((fact) => declared.has(fact.id))
+}
+
+function inspectPriceUnits(
+  generated: GeneratedComparisonArtifact,
+  editorial: GeneratedComparisonArtifact['editorial'],
+  enrichedById: ReadonlyMap<string, EnrichedComparisonArtifact['businesses'][number]>,
+  warn: (code: string, path: string, message: string) => void,
+  fail: (code: string, path: string, message: string) => void,
+): void {
+  const documentEntries = Array.isArray(generated.document.entries) ? generated.document.entries : []
+  for (const [index, entry] of editorial.entries.entries()) {
+    const item = entry.featuredItem
+    if (!item || typeof item.price !== 'number') continue
+    const path = `entries.${entry.businessId}.featuredItem.priceUnit`
+    const fact = enrichedById.get(entry.businessId)?.evidence.featuredItems.find(({value}) => typeof value === 'object' && 'name' in value
+      && normalizeText(value.name) === normalizeText(item.name) && value.source === item.source && (value.price ?? null) === item.price)
+    const expected = normalizePriceUnit(fact && typeof fact.value === 'object' && 'name' in fact.value ? fact.value.priceQualifier : item.priceQualifier)
+    const documentItem = isRecord(documentEntries[index]) && isRecord(documentEntries[index].featuredItem) ? documentEntries[index].featuredItem : undefined
+    const published = documentItem?.priceUnit
+    if (published !== expected) {
+      fail('PRICE_UNIT_MISMATCH', path, `La unidad publicada (${String(published ?? 'sin unidad')}) no coincide con la de la carta (${PRICE_UNIT_LABELS[expected]}).`)
+    } else if (expected === 'ambiguous') {
+      warn('PRICE_UNIT_AMBIGUOUS', path, `La carta no aclara si ${item.price} € de ${item.name} es por persona, por ración o por unidad.`)
+    }
+  }
 }

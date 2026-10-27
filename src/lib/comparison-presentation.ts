@@ -44,7 +44,8 @@ export function groupPublicSources(sources: readonly SourceItem[]): PublicSource
   for (const source of sources) {
     const name = publicPublisher(source.publisher)
     const group = groups.get(name) ?? []
-    if (!group.some((item) => item.url === source.url)) group.push({...source, label: publicSourceLabel(source)})
+    // Artifacts generated before deduplication may still list http/https or language variants of one page.
+    if (!group.some((item) => canonicalSourceKey(item.url) === canonicalSourceKey(source.url))) group.push({...source, label: publicSourceLabel(source)})
     groups.set(name, group)
   }
   return [...groups].map(([name, groupSources]) => ({name, sources: groupSources}))
@@ -67,4 +68,53 @@ function publicSourceLabel(source: SourceItem): string {
     return 'Web oficial'
   }
   return source.title
+}
+
+export const PRICE_UNITS = ['per-person', 'per-portion', 'per-unit', 'ambiguous'] as const
+export type PriceUnit = (typeof PRICE_UNITS)[number]
+
+export const PRICE_UNIT_LABELS: Record<PriceUnit, string> = {
+  'per-person': 'por persona',
+  'per-portion': 'por ración',
+  'per-unit': 'por unidad',
+  ambiguous: 'unidad no indicada en la carta',
+}
+
+/** Price context shown next to a price: the published qualifier, plus an explicit note when the unit is unclear. */
+export function priceContext(item: {priceQualifier?: string; priceUnit?: PriceUnit}): string | undefined {
+  const parts = [item.priceQualifier?.trim(), item.priceUnit === 'ambiguous' ? PRICE_UNIT_LABELS.ambiguous : undefined].filter(Boolean)
+  return parts.length ? parts.join(' · ') : undefined
+}
+
+const LANGUAGE_CODES = new Set(['es', 'en', 'fr', 'de', 'ru', 'it', 'nl', 'pt', 'ca', 'va', 'eu', 'gl', 'sv', 'no', 'da', 'pl', 'zh', 'ja'])
+const LANGUAGE_PARAMS = new Set(['lang', 'language', 'locale', 'hl', 'idioma'])
+const LANGUAGE_SWITCH_SEGMENT = /^(?:change-?lang(?:uage)?|set-?lang(?:uage)?|switch-?lang(?:uage)?)$/i
+
+/** Same page regardless of scheme, `www`, trailing slash or language variant. */
+export function canonicalSourceKey(value: string): string {
+  let url: URL
+  try { url = new URL(value) } catch { return value.trim() }
+  const host = sourceDomain(value)
+  const segments = url.pathname.split('/').filter(Boolean)
+  // Language switch endpoints (`/Base/ChangeLang/en`) only redirect to the same site in another language.
+  const switchIndex = segments.findIndex((segment) => LANGUAGE_SWITCH_SEGMENT.test(segment))
+  const path = switchIndex >= 0 ? [] : segments.filter((segment, index) => !(index === 0 && LANGUAGE_CODES.has(segment.toLowerCase())))
+  const params = [...url.searchParams].filter(([key]) => !LANGUAGE_PARAMS.has(key.toLowerCase())).sort(([left], [right]) => left.localeCompare(right))
+  const query = params.length ? `?${new URLSearchParams(params).toString()}` : ''
+  return `${host}/${path.join('/')}${query}`.toLowerCase()
+}
+
+export function sourceDomain(value: string): string {
+  try { return new URL(value).hostname.toLowerCase().replace(/^www\./, '') } catch { return value.trim().toLowerCase() }
+}
+
+/** True when the URL is itself a language variant (so a plain variant of the same page is preferred). */
+export function isLanguageVariant(value: string): boolean {
+  try {
+    const url = new URL(value)
+    const segments = url.pathname.split('/').filter(Boolean)
+    return segments.some((segment) => LANGUAGE_SWITCH_SEGMENT.test(segment))
+      || LANGUAGE_CODES.has(segments[0]?.toLowerCase() ?? '')
+      || [...url.searchParams.keys()].some((key) => LANGUAGE_PARAMS.has(key.toLowerCase()))
+  } catch { return false }
 }

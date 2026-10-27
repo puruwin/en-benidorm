@@ -546,7 +546,7 @@ function comparisonFixture(): {generated: GeneratedComparisonArtifact; enriched:
     const key = `source:${businessId}`
     evidence.cuisine.push({id: `${businessId}:cuisine:0`, value: 'italiana', nature: 'factual', sourceKeys: [key]})
     evidence.specialties.push({id: `${businessId}:specialty:0`, value: specialties[index]!, nature: 'factual', sourceKeys: [key]})
-    evidence.featuredItems.push({id: `${businessId}:item:0`, value: {name: specialties[index]!, price: 12 + index, currency: 'EUR', source: key, retrievedAt: '2026-10-06'}, nature: 'factual', sourceKeys: [key]})
+    evidence.featuredItems.push({id: `${businessId}:item:0`, value: {name: specialties[index]!, price: 12 + index, currency: 'EUR', priceQualifier: 'por ración', source: key, retrievedAt: '2026-10-06'}, nature: 'factual', sourceKeys: [key]})
     evidence.prices.push({id: `${businessId}:price:0`, value: {item: specialties[index]!, value: 12 + index, currency: 'EUR', retrievedAt: '2026-10-06'}, nature: 'factual', sourceKeys: [key]})
     evidence.services.push({id: `${businessId}:service:0`, value: services[index]!, nature: 'factual', sourceKeys: [key]})
     evidence.practical.push({id: `${businessId}:practical:0`, value: `Horario ${12 + index}:00-22:00`, nature: 'factual', sourceKeys: [key]})
@@ -557,7 +557,7 @@ function comparisonFixture(): {generated: GeneratedComparisonArtifact; enriched:
   const entries = ids.map((businessId, index) => ({
     businessId, verdict: `${names[index]} se diferencia por ${specialties[index]} y por disponer de ${services[index]}.`,
     strengths: [`${specialties[index]} documentada`, `${services[index]} disponible`], limitations: [], bestFor: [specialties[index]!],
-    featuredItem: {name: specialties[index]!, price: 12 + index, currency: 'EUR' as const, source: `source:${businessId}`, retrievedAt: '2026-10-06'},
+    featuredItem: {name: specialties[index]!, price: 12 + index, currency: 'EUR' as const, priceQualifier: 'por ración', source: `source:${businessId}`, retrievedAt: '2026-10-06'},
     practicalNotes: [`Horario ${12 + index}:00-22:00`],
   }))
   const claims = [
@@ -584,7 +584,7 @@ function comparisonFixture(): {generated: GeneratedComparisonArtifact; enriched:
   const document: ContentDocument = {
     _id: 'comparison-italiano', _type: 'comparison', title: editorial.title, slug: {_type: 'slug', current: 'italiano'}, language: 'es', topic: 'italiano', category: 'donde-comer', intro: editorial.intro, quickVerdict: editorial.quickVerdict,
     choiceGuide: choiceGuide.map((choice) => ({_type: 'comparisonChoice', business: {_type: 'reference', _ref: choice.businessId}, label: choice.label, reason: choice.reason})),
-    entries: entries.map((entry) => ({_type: 'comparisonEntry', business: {_type: 'reference', _ref: entry.businessId}, verdict: entry.verdict, strengths: entry.strengths, limitations: [], bestFor: entry.bestFor, featuredItem: {_type: 'comparisonFeaturedItem', ...entry.featuredItem}, practicalNotes: entry.practicalNotes})),
+    entries: entries.map((entry) => ({_type: 'comparisonEntry', business: {_type: 'reference', _ref: entry.businessId}, verdict: entry.verdict, strengths: entry.strengths, limitations: [], bestFor: entry.bestFor, featuredItem: {_type: 'comparisonFeaturedItem', ...entry.featuredItem, priceUnit: 'per-portion'}, practicalNotes: entry.practicalNotes})),
     methodology: editorial.methodology, criteria: editorial.criteria, author: {_type: 'reference', _ref: 'author-david'}, sources: [{_type: 'source', title: 'Fuente', url: 'https://example.com', accessedAt: '2026-10-06'}], lastVerified: '2026-10-06', seo: {...editorial.seo, noIndex: true},
   }
   const generated: GeneratedComparisonArtifact = {schemaVersion: 1, id: 'comparison-italiano', topic: 'italiano', searchIntent: enriched.searchIntent, indexability: 'noindex', generatedAt: '2026-10-06T00:00:00.000Z', editorial, document}
