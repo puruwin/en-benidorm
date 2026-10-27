@@ -41,6 +41,11 @@ export type SiteSettings = {
     intro?: string;
     seo?: Seo;
   };
+  beachesPage?: {
+    title?: string;
+    intro?: string;
+    seo?: Seo;
+  };
   defaultSeo?: Seo;
 };
 
@@ -302,6 +307,98 @@ export type Slug = {
   source?: string;
 };
 
+export type Category = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  group?:
+    "section" | "businessType" | "cuisine" | "feature" | "topic" | "placeType";
+  description?: string;
+  image?: ImageWithAlt;
+  indexable?: boolean;
+  language?: "es";
+  seo?: Seo;
+};
+
+export type ComparisonReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "comparison";
+};
+
+export type Beach = {
+  _id: string;
+  _type: "beach";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  shortDescription?: string;
+  body?: PortableText;
+  choiceNote?: string;
+  sandType?: string;
+  lengthMeters?: number;
+  accessible?: boolean;
+  services?: Array<
+    {
+      _key: string;
+    } & CategoryReference
+  >;
+  lifeguard?: boolean;
+  showers?: boolean;
+  parking?: string;
+  area?: AreaReference;
+  location?: Geopoint;
+  images?: Array<
+    {
+      _key: string;
+    } & ImageWithAlt
+  >;
+  language?: string;
+  municipality?:
+    | "Benidorm"
+    | "Finestrat"
+    | "l'Alf\xE0s del Pi"
+    | "Altea"
+    | "La Nuc\xEDa"
+    | "La Vila Joiosa"
+    | "Polop"
+    | "Callosa d'en Sarri\xE0";
+  practicalFacts?: Array<
+    {
+      _key: string;
+    } & PracticalFact
+  >;
+  travelNotes?: Array<
+    {
+      _key: string;
+    } & TravelNote
+  >;
+  profileContrasts?: Array<{
+    beach?: BeachReference;
+    reason?: string;
+    _key: string;
+  }>;
+  nearbyDining?: Array<{
+    comparison?: ComparisonReference;
+    note?: string;
+    _key: string;
+  }>;
+  lastVerified?: string;
+  sources?: Array<
+    {
+      _key: string;
+    } & Source
+  >;
+  seo?: Seo;
+};
+
 export type AuthorReference = {
   _ref: string;
   _type: "reference";
@@ -362,23 +459,6 @@ export type Comparison = {
   seo?: Seo;
 };
 
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  group?:
-    "section" | "businessType" | "cuisine" | "feature" | "topic" | "placeType";
-  description?: string;
-  image?: ImageWithAlt;
-  indexable?: boolean;
-  language?: "es";
-  seo?: Seo;
-};
-
 export type Business = {
   _id: string;
   _type: "business";
@@ -427,63 +507,6 @@ export type Business = {
   sponsored?: boolean;
   featured?: boolean;
   language?: string;
-  lastVerified?: string;
-  sources?: Array<
-    {
-      _key: string;
-    } & Source
-  >;
-  seo?: Seo;
-};
-
-export type Beach = {
-  _id: string;
-  _type: "beach";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  shortDescription?: string;
-  body?: PortableText;
-  sandType?: string;
-  lengthMeters?: number;
-  accessible?: boolean;
-  services?: Array<
-    {
-      _key: string;
-    } & CategoryReference
-  >;
-  lifeguard?: boolean;
-  showers?: boolean;
-  parking?: string;
-  area?: AreaReference;
-  location?: Geopoint;
-  images?: Array<
-    {
-      _key: string;
-    } & ImageWithAlt
-  >;
-  language?: string;
-  municipality?:
-    | "Benidorm"
-    | "Finestrat"
-    | "l'Alf\xE0s del Pi"
-    | "Altea"
-    | "La Nuc\xEDa"
-    | "La Vila Joiosa"
-    | "Polop"
-    | "Callosa d'en Sarri\xE0";
-  practicalFacts?: Array<
-    {
-      _key: string;
-    } & PracticalFact
-  >;
-  travelNotes?: Array<
-    {
-      _key: string;
-    } & TravelNote
-  >;
   lastVerified?: string;
   sources?: Array<
     {
@@ -809,11 +832,12 @@ export type AllSanitySchemaTypes =
   | Place
   | PortableText
   | Slug
+  | Category
+  | ComparisonReference
+  | Beach
   | AuthorReference
   | Comparison
-  | Category
   | Business
-  | Beach
   | Area
   | EventReference
   | Article
@@ -1055,8 +1079,9 @@ export type RESTAURANT_SLUGS_QUERY_RESULT = Array<string | null>;
 
 // Source: src/lib/sanity/queries.ts
 // Variable: RESTAURANT_QUERY
-// Query: *[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  address,  phone,  website,  googleMapsUrl,  "location": {"lat": location.lat, "lng": location.lng},  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "–" + closes)},  "features": features[]->title,  "images": images[]{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height},  lastVerified,  sources[]{title, url, publisher, accessedAt},  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+// Query: *[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{  "id": _id,  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  address,  phone,  website,  googleMapsUrl,  "location": {"lat": location.lat, "lng": location.lng},  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "–" + closes)},  "features": features[]->title,  "images": images[]{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height},  lastVerified,  sources[]{title, url, publisher, accessedAt},  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
 export type RESTAURANT_QUERY_RESULT = {
+  id: string;
   name: string | null;
   slug: string | null;
   shortDescription: string | null;
@@ -1151,7 +1176,7 @@ export type COMPARISON_SLUGS_QUERY_RESULT = Array<string | null>;
 
 // Source: src/lib/sanity/queries.ts
 // Variable: COMPARISON_QUERY
-// Query: *[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{  title,  "slug": slug.current,  "href": "/donde-comer/" + slug.current + "/",  topic,  intro,  quickVerdict,  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},  entries[]{    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,    "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}  },  methodology,  criteria,  "author": author->{name, "slug": slug.current, role},  sources[]{title, url, publisher, accessedAt},  lastVerified,  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+// Query: *[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{  title,  "slug": slug.current,  "href": "/donde-comer/" + slug.current + "/",  topic,  intro,  quickVerdict,  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},  entries[]{    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,    "business": business->{"id": _id, name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}  },  methodology,  criteria,  "author": author->{name, "slug": slug.current, role},  sources[]{title, url, publisher, accessedAt},  lastVerified,  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
 export type COMPARISON_QUERY_RESULT = {
   title: string | null;
   slug: string | null;
@@ -1185,6 +1210,7 @@ export type COMPARISON_QUERY_RESULT = {
     } | null;
     practicalNotes: Array<string> | null;
     business: {
+      id: string;
       name: string | null;
       slug: string | null;
       href: string | null;
@@ -1265,6 +1291,214 @@ export type AUTHOR_QUERY_RESULT = {
   };
 } | null;
 
+// Source: src/lib/sanity/queries.ts
+// Variable: BEACH_SLUGS_QUERY
+// Query: *[_type == "beach" && language == "es" && defined(slug.current)].slug.current
+export type BEACH_SLUGS_QUERY_RESULT = Array<string | null>;
+
+// Source: src/lib/sanity/queries.ts
+// Variable: BEACH_QUERY
+// Query: *[_type == "beach" && language == "es" && slug.current == $slug][0]{  "id": _id,  name,  "slug": slug.current,  "href": "/playas/" + slug.current + "/",  shortDescription,  choiceNote,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "area": area->name,  municipality,  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+export type BEACH_QUERY_RESULT = {
+  id: string;
+  name: string | null;
+  slug: string | null;
+  href: string | null;
+  shortDescription: string | null;
+  choiceNote: string | null;
+  description: Array<{
+    text: string | null;
+    style: "blockquote" | "h2" | "h3" | "normal" | null;
+    listItem: "bullet" | "number" | null;
+  }> | null;
+  area: string | null;
+  municipality:
+    | "Altea"
+    | "Benidorm"
+    | "Callosa d'en Sarri\xE0"
+    | "Finestrat"
+    | "l'Alf\xE0s del Pi"
+    | "La Nuc\xEDa"
+    | "La Vila Joiosa"
+    | "Polop"
+    | null;
+  facts: Array<{
+    factId: string | null;
+    value: string | null;
+    unit:
+      | "booleano"
+      | "d\xEDa-semana"
+      | "EUR"
+      | "EUR/d\xEDa"
+      | "EUR/h"
+      | "hh:mm"
+      | "km"
+      | "m"
+      | "min"
+      | "texto"
+      | null;
+    status: "confirmed" | "conflict" | "needs verification" | "unknown" | null;
+    sourceTitle: string | null;
+    sourceUrl: string | null;
+    sourceClass:
+      | "manual-first-party"
+      | "official-brand"
+      | "official-location"
+      | "open-data"
+      | "third-party"
+      | null;
+    retrievedAt: string | null;
+  }> | null;
+  contrasts: Array<{
+    name: string | null;
+    href: string | null;
+    reason: string | null;
+  }> | null;
+  nearbyDining: Array<{
+    title: string | null;
+    href: string | null;
+    note: string | null;
+  }> | null;
+  sources: Array<{
+    title: string | null;
+    url: string | null;
+    publisher: string | null;
+    accessedAt: string | null;
+  }> | null;
+  seo: {
+    title: string | null;
+    description: string | null;
+    noIndex: boolean | null;
+    image: {
+      alt: string | null;
+      caption: string | null;
+      credit: string | null;
+      url: string | null;
+      sanity: {
+        asset: SanityImageAssetReference | null;
+        crop: SanityImageCrop | null;
+        hotspot: SanityImageHotspot | null;
+      };
+      width: number | null;
+      height: number | null;
+    } | null;
+  };
+} | null;
+
+// Source: src/lib/sanity/queries.ts
+// Variable: BEACHES_QUERY
+// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].beachesPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) {  "id": _id,  name,  "slug": slug.current,  "href": "/playas/" + slug.current + "/",  shortDescription,  choiceNote,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "area": area->name,  municipality,  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}}
+export type BEACHES_QUERY_RESULT = {
+  page: {
+    title: string | null;
+    intro: string | null;
+    seo: {
+      title: string | null;
+      description: string | null;
+      noIndex: boolean | null;
+      image: {
+        alt: string | null;
+        caption: string | null;
+        credit: string | null;
+        url: string | null;
+        sanity: {
+          asset: SanityImageAssetReference | null;
+          crop: SanityImageCrop | null;
+          hotspot: SanityImageHotspot | null;
+        };
+        width: number | null;
+        height: number | null;
+      } | null;
+    };
+  } | null;
+  beaches: Array<{
+    id: string;
+    name: string | null;
+    slug: string | null;
+    href: string | null;
+    shortDescription: string | null;
+    choiceNote: string | null;
+    description: Array<{
+      text: string | null;
+      style: "blockquote" | "h2" | "h3" | "normal" | null;
+      listItem: "bullet" | "number" | null;
+    }> | null;
+    area: string | null;
+    municipality:
+      | "Altea"
+      | "Benidorm"
+      | "Callosa d'en Sarri\xE0"
+      | "Finestrat"
+      | "l'Alf\xE0s del Pi"
+      | "La Nuc\xEDa"
+      | "La Vila Joiosa"
+      | "Polop"
+      | null;
+    facts: Array<{
+      factId: string | null;
+      value: string | null;
+      unit:
+        | "booleano"
+        | "d\xEDa-semana"
+        | "EUR"
+        | "EUR/d\xEDa"
+        | "EUR/h"
+        | "hh:mm"
+        | "km"
+        | "m"
+        | "min"
+        | "texto"
+        | null;
+      status:
+        "confirmed" | "conflict" | "needs verification" | "unknown" | null;
+      sourceTitle: string | null;
+      sourceUrl: string | null;
+      sourceClass:
+        | "manual-first-party"
+        | "official-brand"
+        | "official-location"
+        | "open-data"
+        | "third-party"
+        | null;
+      retrievedAt: string | null;
+    }> | null;
+    contrasts: Array<{
+      name: string | null;
+      href: string | null;
+      reason: string | null;
+    }> | null;
+    nearbyDining: Array<{
+      title: string | null;
+      href: string | null;
+      note: string | null;
+    }> | null;
+    sources: Array<{
+      title: string | null;
+      url: string | null;
+      publisher: string | null;
+      accessedAt: string | null;
+    }> | null;
+    seo: {
+      title: string | null;
+      description: string | null;
+      noIndex: boolean | null;
+      image: {
+        alt: string | null;
+        caption: string | null;
+        credit: string | null;
+        url: string | null;
+        sanity: {
+          asset: SanityImageAssetReference | null;
+          crop: SanityImageCrop | null;
+          hotspot: SanityImageHotspot | null;
+        };
+        width: number | null;
+        height: number | null;
+      } | null;
+    };
+  }>;
+};
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
@@ -1272,10 +1506,13 @@ declare global {
     '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].diningPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "businesses": *[_type == "business" && language == "es" && businessKind in ["restaurant", "bar", "pub", "cafe"]] | order(recommended desc, name asc) {\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  "image": images[0]{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n},\n  "categories": *[_type == "category" && language == "es" && indexable == true && group in ["businessType", "cuisine"]]{\n    title,\n    "slug": slug.current,\n    description,\n    "href": "/donde-comer/#restaurantes",\n    "count": count(*[_type == "business" && references(^._id)])\n  }[count >= 3] | order(title asc),\n  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer" && seo.noIndex != true] | order(title asc){\n    title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"\n  }\n}': DINING_QUERY_RESULT;
     '*[_id == "site-settings" && _type == "siteSettings"][0]{\n  siteName,\n  tagline,\n  footerText\n}': SETTINGS_QUERY_RESULT;
     '*[_type == "business" && language == "es" && businessKind == "restaurant" && defined(slug.current)].slug.current': RESTAURANT_SLUGS_QUERY_RESULT;
-    '*[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  address,\n  phone,\n  website,\n  googleMapsUrl,\n  "location": {"lat": location.lat, "lng": location.lng},\n  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "\u2013" + closes)},\n  "features": features[]->title,\n  "images": images[]{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n},\n  lastVerified,\n  sources[]{title, url, publisher, accessedAt},\n  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': RESTAURANT_QUERY_RESULT;
+    '*[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{\n  "id": _id,\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  address,\n  phone,\n  website,\n  googleMapsUrl,\n  "location": {"lat": location.lat, "lng": location.lng},\n  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "\u2013" + closes)},\n  "features": features[]->title,\n  "images": images[]{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n},\n  lastVerified,\n  sources[]{title, url, publisher, accessedAt},\n  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': RESTAURANT_QUERY_RESULT;
     '*[_type == "comparison" && language == "es" && category == "donde-comer" && defined(slug.current)].slug.current': COMPARISON_SLUGS_QUERY_RESULT;
-    '*[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  "href": "/donde-comer/" + slug.current + "/",\n  topic,\n  intro,\n  quickVerdict,\n  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},\n  entries[]{\n    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,\n    "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}\n  },\n  methodology,\n  criteria,\n  "author": author->{name, "slug": slug.current, role},\n  sources[]{title, url, publisher, accessedAt},\n  lastVerified,\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': COMPARISON_QUERY_RESULT;
+    '*[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  "href": "/donde-comer/" + slug.current + "/",\n  topic,\n  intro,\n  quickVerdict,\n  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},\n  entries[]{\n    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,\n    "business": business->{"id": _id, name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}\n  },\n  methodology,\n  criteria,\n  "author": author->{name, "slug": slug.current, role},\n  sources[]{title, url, publisher, accessedAt},\n  lastVerified,\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': COMPARISON_QUERY_RESULT;
     '*[_type == "author" && language == "es" && slug.current == $slug][0]{\n  name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,\n  "seo": {"title": seo.metaTitle, "description": seo.metaDescription, "noIndex": seo.noIndex, "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}}\n}': AUTHOR_QUERY_RESULT;
+    '*[_type == "beach" && language == "es" && defined(slug.current)].slug.current': BEACH_SLUGS_QUERY_RESULT;
+    '*[_type == "beach" && language == "es" && slug.current == $slug][0]{\n  "id": _id,\n  name,\n  "slug": slug.current,\n  "href": "/playas/" + slug.current + "/",\n  shortDescription,\n  choiceNote,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "area": area->name,\n  municipality,\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},\n  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': BEACH_QUERY_RESULT;
+    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].beachesPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) {\n  "id": _id,\n  name,\n  "slug": slug.current,\n  "href": "/playas/" + slug.current + "/",\n  shortDescription,\n  choiceNote,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "area": area->name,\n  municipality,\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},\n  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}\n}': BEACHES_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

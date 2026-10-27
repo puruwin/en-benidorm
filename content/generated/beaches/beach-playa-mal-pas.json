@@ -1,0 +1,308 @@
+{
+  "_id": "beach-playa-mal-pas",
+  "_type": "beach",
+  "language": "es",
+  "name": "Playa de Mal Pas",
+  "slug": {
+    "_type": "slug",
+    "current": "playa-mal-pas"
+  },
+  "shortDescription": "Una cala pequeña bajo el casco antiguo, entre Levante y Poniente, frente a la Isla de Benidorm.",
+  "choiceNote": "Si te interesa el buceo o una playa pequeña: está frente a la reserva marina de la Isla de Benidorm y Turismo de Benidorm la recomienda para el submarinismo. No tiene punto de playa accesible.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "p1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p1-s",
+          "text": "Mal Pas es la playa pequeña que queda entre Levante y Poniente, bajo el casco antiguo. Al lado de las otras dos es una cala: mucho más corta y estrecha.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p2-s",
+          "text": "Su rasgo distintivo es el entorno: está frente a la Isla de Benidorm y Turismo de Benidorm la recomienda a quien quiera bucear. Para quien solo busca tumbarse en la arena, Levante y Poniente tienen bastante más espacio y servicios.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p3-s",
+          "text": "No es la opción si necesitas accesibilidad: no tiene punto de playa accesible y la carta de servicios solo recoge un acceso con pasarela. Tampoco hemos encontrado una fuente oficial actual sobre aparcamiento junto a la cala, y la carta de servicios no recoge aseos entre sus servicios propios: no sabemos si no los hay o si no constan. Su anchura tampoco la publicamos, porque la carta y Turismo de Benidorm dan cifras distintas.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "area": {
+    "_type": "reference",
+    "_ref": "area-casco-antiguo"
+  },
+  "municipality": "Benidorm",
+  "practicalFacts": [
+    {
+      "_key": "benidorm-playa-mal-pas-ubicacion",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.ubicacion",
+      "value": "Entre Levante y Poniente, en el tramo del casco antiguo, al abrigo del Cerro Canfali",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm (turismo municipal): Playas y calas",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-entorno",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.entorno",
+      "value": "Frente a la Isla de Benidorm, cuya plataforma sumergida, La Llosa, es una reserva marina; Turismo de Benidorm la recomienda para el submarinismo",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm (turismo municipal): Playa Mal Pas",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-longitud",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.longitud",
+      "value": "120",
+      "unit": "m",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-arena",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.arena",
+      "value": "Arena de grano fino",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-bandera-azul",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.bandera-azul",
+      "value": "Bandera Azul desde 1987",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-socorrismo",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.socorrismo",
+      "value": "Verano: 1 silla y 1 socorrista a pie. Otros periodos: 1 silla",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-atencion-sanitaria",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.atencion-sanitaria",
+      "value": "1 puesto, de Semana Santa a octubre",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-aseos",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.aseos",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-accesos-pasarela",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.accesos-pasarela",
+      "value": "1 acceso con pasarela",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-alquiler-y-ocio",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.alquiler-y-ocio",
+      "value": "Hamacas y sombrillas",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-punto-accesible",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.punto-accesible",
+      "value": "Sin punto de playa accesible: los tres de Benidorm están en Levante y Poniente",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-aparcamiento-cercano",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.aparcamiento-cercano",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-perros",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.perros",
+      "value": "Prohibida la presencia de animales domésticos en las playas",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-playa-mal-pas-afluencia",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-mal-pas.afluencia",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    }
+  ],
+  "profileContrasts": [
+    {
+      "_key": "contrast-0",
+      "_type": "object",
+      "beach": {
+        "_type": "reference",
+        "_ref": "beach-playa-levante",
+        "_weak": true
+      },
+      "reason": "Una playa urbana grande, con paseo marítimo, alquiler náutico y un punto de playa accesible."
+    },
+    {
+      "_key": "contrast-1",
+      "_type": "object",
+      "beach": {
+        "_type": "reference",
+        "_ref": "beach-playa-poniente",
+        "_weak": true
+      },
+      "reason": "La más larga de las tres, con dos puntos accesibles y un aparcamiento municipal documentado en su zona."
+    }
+  ],
+  "nearbyDining": [],
+  "sources": [
+    {
+      "_key": "source-0",
+      "_type": "source",
+      "title": "Carta de servicios Playa de Mal Pas 2026",
+      "publisher": "Ayuntamiento de Benidorm, Concejalía de Playas",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-1",
+      "_type": "source",
+      "title": "Manual de los puntos accesibles 2026",
+      "publisher": "Ayuntamiento de Benidorm, Concejalía de Playas",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-2",
+      "_type": "source",
+      "title": "Playas y calas",
+      "publisher": "Visit Benidorm (turismo municipal)",
+      "url": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-3",
+      "_type": "source",
+      "title": "Playa Mal Pas",
+      "publisher": "Visit Benidorm (turismo municipal)",
+      "url": "https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+      "accessedAt": "2026-10-27"
+    }
+  ],
+  "seo": {
+    "_type": "seo",
+    "metaTitle": "Playa de Mal Pas (Benidorm): la cala del casco antiguo",
+    "metaDescription": "Cala frente a la Isla de Benidorm: socorrismo, servicios y lo que no tiene, según la carta de servicios municipal 2026 y Turismo de Benidorm.",
+    "noIndex": true
+  }
+}

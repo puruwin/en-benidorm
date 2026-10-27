@@ -3,14 +3,16 @@ import type {ContentDocument} from '../../content-validation'
 /**
  * Materializes a document as a Sanity draft. References whose targets only
  * exist as drafts are temporarily weak and are strengthened by Studio when
- * the referring document is published after its target.
+ * the referring document is published after its target. References that are
+ * weak by design (`_weak: true` in the JSON) stay weak: strengthening them
+ * would bring back the publish order they exist to avoid.
  */
 export function prepareDraftDocument(
   document: ContentDocument,
   unpublishedTargets: ReadonlyMap<string, string>,
 ): ContentDocument {
   const prepared = visit(document, (value) => {
-    if (!isRecord(value) || value._type !== 'reference' || typeof value._ref !== 'string') return value
+    if (!isRecord(value) || value._type !== 'reference' || typeof value._ref !== 'string' || value._weak === true) return value
     const targetType = unpublishedTargets.get(value._ref)
     if (!targetType) return value
     return {

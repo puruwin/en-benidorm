@@ -20,6 +20,15 @@ export const settings = {
       noIndex: false,
     },
   },
+  beachesPage: {
+    title: 'Playas de Benidorm: cuál elegir según lo que necesitas',
+    intro: 'Levante, Poniente y Mal Pas comparadas con datos del Ayuntamiento de Benidorm y de Turismo de Benidorm: tamaño, socorrismo, aseos, puntos accesibles, perros y aparcamiento. Cada dato enlaza a su fuente; todos se consultaron en la misma fecha.',
+    seo: {
+      metaTitle: 'Playas de Benidorm: Levante, Poniente y Mal Pas',
+      metaDescription: 'Compara las playas de Levante, Poniente y Mal Pas con datos municipales: socorrismo, aseos, puntos accesibles, perros y aparcamiento.',
+      noIndex: false,
+    },
+  },
   defaultSeo: {
     metaTitle: 'enBenidorm · Guía local y turística de Benidorm',
     metaDescription: 'Guía de Benidorm con playas, restaurantes, lugares, actividades e información práctica.',

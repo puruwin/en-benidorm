@@ -69,7 +69,7 @@ const REFERENCE_RULES: Record<string, Record<string, readonly string[]>> = {
   },
   business: {'categories[]': ['category'], 'features[]': ['category'], area: ['area']},
   place: {'categories[]': ['category'], 'features[]': ['category'], area: ['area']},
-  beach: {'services[]': ['category'], area: ['area']},
+  beach: {'services[]': ['category'], area: ['area'], 'profileContrasts[].beach': ['beach'], 'nearbyDining[].comparison': ['comparison']},
   event: {venue: ['place', 'business'], 'categories[]': ['category']},
   article: {author: ['author'], 'categories[]': ['category'], 'relatedContent[]': ['business', 'place', 'beach', 'event', 'article']},
   comparison: {author: ['author'], area: ['area'], 'choiceGuide[].business': ['business'], 'entries[].business': ['business']},
@@ -312,6 +312,15 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
       validateNestedString(input, doc.diningPage, 'intro', 'diningPage.intro', issue)
       validateSeo(input, doc.diningPage.seo, 'diningPage.seo', issue)
     }
+    // Opcional: el singleton ya publicado no la tiene hasta que se rellena en Studio.
+    if (doc.beachesPage !== undefined) {
+      if (!isRecord(doc.beachesPage)) issue(input, 'beachesPage', 'Debe ser un objeto.')
+      else {
+        validateNestedString(input, doc.beachesPage, 'title', 'beachesPage.title', issue)
+        validateNestedString(input, doc.beachesPage, 'intro', 'beachesPage.intro', issue)
+        validateSeo(input, doc.beachesPage.seo, 'beachesPage.seo', issue)
+      }
+    }
     validateSeo(input, doc.defaultSeo, 'defaultSeo', issue)
   } else if (doc._type === 'homePage') {
     if (doc._id !== 'homepage') issue(input, '_id', 'El singleton debe usar el ID "homepage".')
@@ -353,6 +362,15 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
     validateSlug(input, issue)
     requiredString('shortDescription')
     if (doc.lengthMeters !== undefined && (typeof doc.lengthMeters !== 'number' || doc.lengthMeters <= 0)) issue(input, 'lengthMeters', 'Debe ser un número positivo.')
+    if (doc.choiceNote !== undefined && (typeof doc.choiceNote !== 'string' || !doc.choiceNote.trim())) issue(input, 'choiceNote', 'Si existe, debe ser una cadena no vacía.')
+    for (const [field, text] of [['profileContrasts', 'reason'], ['nearbyDining', 'note']] as const) {
+      const items = doc[field]
+      if (items === undefined) continue
+      if (!Array.isArray(items)) issue(input, field, 'Debe ser un array.')
+      else items.forEach((item, index) => {
+        if (!isRecord(item) || typeof item[text] !== 'string' || !item[text].trim()) issue(input, `${field}[${index}].${text}`, 'Campo obligatorio.')
+      })
+    }
     language()
   } else if (doc._type === 'event') {
     requiredString('name')

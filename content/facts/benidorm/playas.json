@@ -1,0 +1,1122 @@
+{
+  "facts": [
+    {
+      "id": "benidorm.puntos-playa-accesible.horario.verano",
+      "subject": "puntos-playa-accesible",
+      "attribute": "horario",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "De 09:30 a 18:30, del 1 de junio al 30 de septiembre",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.puntos-playa-accesible.horario.invierno",
+      "subject": "puntos-playa-accesible",
+      "attribute": "horario",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "De 10:30 a 14:30 el resto del año, salvo del 15 de enero al 14 de febrero",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.ubicacion",
+      "subject": "playa-levante",
+      "attribute": "ubicacion",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Entre Punta Pinet y Punta Canfali",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/148/playa-levante-benidorm.html/",
+            "provider": "visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/148/playa-levante-benidorm.html/",
+            "url": "https://www.visitbenidorm.es/ver/148/playa-levante-benidorm.html/",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Playa Levante",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.longitud",
+      "subject": "playa-levante",
+      "attribute": "longitud",
+      "municipality": "Benidorm",
+      "unit": "m",
+      "claims": [
+        {
+          "value": 2084,
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.anchura-maxima",
+      "subject": "playa-levante",
+      "attribute": "anchura-maxima",
+      "municipality": "Benidorm",
+      "unit": "m",
+      "claims": [
+        {
+          "value": 75,
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.arena",
+      "subject": "playa-levante",
+      "attribute": "arena",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Arena de grano fino",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.bandera-azul",
+      "subject": "playa-levante",
+      "attribute": "bandera-azul",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Bandera Azul desde 1987",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.socorrismo",
+      "subject": "playa-levante",
+      "attribute": "socorrismo",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Verano: 5 sillas y 4 socorristas a pie. Otros periodos: 2 sillas y 1 socorrista a pie",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.atencion-sanitaria",
+      "subject": "playa-levante",
+      "attribute": "atencion-sanitaria",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "2 puestos, de Semana Santa a octubre",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.aseos",
+      "subject": "playa-levante",
+      "attribute": "aseos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "2 módulos de aseos públicos (7 WC, 1 adaptado)",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.accesos-pasarela",
+      "subject": "playa-levante",
+      "attribute": "accesos-pasarela",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "21 accesos con pasarela",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.alquiler-y-ocio",
+      "subject": "playa-levante",
+      "attribute": "alquiler-y-ocio",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Hamacas y sombrillas, plataformas flotantes, Cable Ski, hidropedales y paddle surf, motos acuáticas, embarcaciones, snorkel, banana, parasailing y fly fish",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.areas-de-juego",
+      "subject": "playa-levante",
+      "attribute": "areas-de-juego",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "2 áreas de juegos infantiles y 1 área biosaludable",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.punto-accesible",
+      "subject": "playa-levante",
+      "attribute": "punto-accesible",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "1 punto de playa accesible, en la calle Murcia",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.punto-accesible-equipamiento",
+      "subject": "playa-levante",
+      "attribute": "punto-accesible-equipamiento",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Vestuario y WC adaptados, sombra con lonas paravientos, 2 sillas anfibias de adulto, 3 juegos de muletas anfibias y socorristas de apoyo al baño según temporada",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.aparcamiento-adaptado",
+      "subject": "playa-levante",
+      "attribute": "aparcamiento-adaptado",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "3 plazas de aparcamiento en el punto accesible de la calle Murcia",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.perros",
+      "subject": "playa-levante",
+      "attribute": "perros",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Prohibida la presencia de animales domésticos en las playas",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20LEVANTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Levante 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-levante.aparcamiento-cercano",
+      "subject": "playa-levante",
+      "attribute": "aparcamiento-cercano",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Sin fuente oficial actual que sitúe un aparcamiento general junto a la playa.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.playa-levante.afluencia",
+      "subject": "playa-levante",
+      "attribute": "afluencia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Requiere observación en persona; no hay visita registrada en content/manual/visits/.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.playa-poniente.ubicacion",
+      "subject": "playa-poniente",
+      "attribute": "ubicacion",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Al sur del puerto",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+            "provider": "visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+            "url": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Playas y calas",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.longitud",
+      "subject": "playa-poniente",
+      "attribute": "longitud",
+      "municipality": "Benidorm",
+      "unit": "m",
+      "claims": [
+        {
+          "value": 3100,
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.anchura-maxima",
+      "subject": "playa-poniente",
+      "attribute": "anchura-maxima",
+      "municipality": "Benidorm",
+      "unit": "m",
+      "claims": [
+        {
+          "value": 105,
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.arena",
+      "subject": "playa-poniente",
+      "attribute": "arena",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Arena de grano fino",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.bandera-azul",
+      "subject": "playa-poniente",
+      "attribute": "bandera-azul",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Bandera Azul desde 1987",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.socorrismo",
+      "subject": "playa-poniente",
+      "attribute": "socorrismo",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Verano: 5 sillas y 4 socorristas a pie. Otros periodos: 2 sillas y 1 socorrista a pie",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.atencion-sanitaria",
+      "subject": "playa-poniente",
+      "attribute": "atencion-sanitaria",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "2 puestos, de Semana Santa a octubre",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.aseos",
+      "subject": "playa-poniente",
+      "attribute": "aseos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "6 módulos de aseos públicos (20 WC, 4 adaptados)",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.accesos-pasarela",
+      "subject": "playa-poniente",
+      "attribute": "accesos-pasarela",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "44 accesos con pasarela",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        },
+        {
+          "value": "49 accesos con pasarela",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/147/playa-de-poniente-benidorm--playas-y-calas-.html",
+            "provider": "visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/147/playa-de-poniente-benidorm--playas-y-calas-.html",
+            "url": "https://www.visitbenidorm.es/ver/147/playa-de-poniente-benidorm--playas-y-calas-.html",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Playa de Poniente",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.alquiler-y-ocio",
+      "subject": "playa-poniente",
+      "attribute": "alquiler-y-ocio",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Hamacas y sombrillas, plataformas flotantes y actividades de ocio",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.areas-de-juego",
+      "subject": "playa-poniente",
+      "attribute": "areas-de-juego",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "8 áreas de juegos infantiles y 12 de juegos lúdico-deportivos",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.punto-accesible",
+      "subject": "playa-poniente",
+      "attribute": "punto-accesible",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "2 puntos de playa accesible: Parque de Elche y Vicente Llorca",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.punto-accesible-equipamiento",
+      "subject": "playa-poniente",
+      "attribute": "punto-accesible-equipamiento",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "En los dos puntos: vestuario y WC adaptados, sombra con lonas paravientos, sillas anfibias de adulto (4 en Parque de Elche y 2 en Vicente Llorca), 3 juegos de muletas anfibias en cada punto y socorristas de apoyo al baño según temporada. Sillas dentro del agua solo en Parque de Elche",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.aparcamiento-adaptado",
+      "subject": "playa-poniente",
+      "attribute": "aparcamiento-adaptado",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "3 plazas de aparcamiento en el punto accesible del Parque de Elche",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.perros",
+      "subject": "playa-poniente",
+      "attribute": "perros",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Prohibida la presencia de animales domésticos en las playas",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20PONIENTE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Poniente 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.aparcamiento-cercano",
+      "subject": "playa-poniente",
+      "attribute": "aparcamiento-cercano",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "La nota municipal no indica la distancia hasta la arena.",
+      "claims": [
+        {
+          "value": "Aparcamiento de Poniente, en la avenida Puerto Rico. Según la nota municipal de abril de 2026: 151 plazas en cubierta, gratuitas todo el año; las 246 interiores abrieron gratis en la Semana Santa de 2026 y la nota anunciaba su reapertura gratuita de principios de julio a después del puente de octubre",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/benidorm-pone-en-servicio-el-aparcamiento-de-poniente-durante-toda-la-semana-santa",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/benidorm-pone-en-servicio-el-aparcamiento-de-poniente-durante-toda-la-semana-santa",
+            "url": "https://benidorm.org/es/noticias/benidorm-pone-en-servicio-el-aparcamiento-de-poniente-durante-toda-la-semana-santa",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: nota del 2 de abril de 2026 sobre el aparcamiento de Poniente",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-poniente.afluencia",
+      "subject": "playa-poniente",
+      "attribute": "afluencia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Requiere observación en persona; no hay visita registrada en content/manual/visits/.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.playa-mal-pas.ubicacion",
+      "subject": "playa-mal-pas",
+      "attribute": "ubicacion",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Entre Levante y Poniente, en el tramo del casco antiguo, al abrigo del Cerro Canfali",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+            "provider": "visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+            "url": "https://www.visitbenidorm.es/ver/144/playas-y-calas-de-benidorm.html",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Playas y calas",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.longitud",
+      "subject": "playa-mal-pas",
+      "attribute": "longitud",
+      "municipality": "Benidorm",
+      "unit": "m",
+      "claims": [
+        {
+          "value": 120,
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.anchura-maxima",
+      "subject": "playa-mal-pas",
+      "attribute": "anchura-maxima",
+      "municipality": "Benidorm",
+      "unit": "m",
+      "claims": [
+        {
+          "value": 20,
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        },
+        {
+          "value": 30,
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+            "provider": "visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+            "url": "https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Playa Mal Pas",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.entorno",
+      "subject": "playa-mal-pas",
+      "attribute": "entorno",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Frente a la Isla de Benidorm, cuya plataforma sumergida, La Llosa, es una reserva marina; Turismo de Benidorm la recomienda para el submarinismo",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+            "provider": "visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+            "url": "https://www.visitbenidorm.es/ver/149/cala-mal-pas--playas-y-calas-benidorm.html/",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Playa Mal Pas",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.aseos",
+      "subject": "playa-mal-pas",
+      "attribute": "aseos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "La carta de servicios 2026 de Mal Pas no recoge módulos de aseos entre sus servicios propios; no sabemos si no los hay o si no constan.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.playa-mal-pas.arena",
+      "subject": "playa-mal-pas",
+      "attribute": "arena",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Arena de grano fino",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.bandera-azul",
+      "subject": "playa-mal-pas",
+      "attribute": "bandera-azul",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Bandera Azul desde 1987",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.socorrismo",
+      "subject": "playa-mal-pas",
+      "attribute": "socorrismo",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Verano: 1 silla y 1 socorrista a pie. Otros periodos: 1 silla",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.atencion-sanitaria",
+      "subject": "playa-mal-pas",
+      "attribute": "atencion-sanitaria",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "1 puesto, de Semana Santa a octubre",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.accesos-pasarela",
+      "subject": "playa-mal-pas",
+      "attribute": "accesos-pasarela",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "1 acceso con pasarela",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.alquiler-y-ocio",
+      "subject": "playa-mal-pas",
+      "attribute": "alquiler-y-ocio",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Hamacas y sombrillas",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.punto-accesible",
+      "subject": "playa-mal-pas",
+      "attribute": "punto-accesible",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Sin punto de playa accesible: los tres de Benidorm están en Levante y Poniente",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-08/MANUAL%20PUNTO%20ACCESIBLE%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Manual de los puntos accesibles 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.perros",
+      "subject": "playa-mal-pas",
+      "attribute": "perros",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Prohibida la presencia de animales domésticos en las playas",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2026-07/CARTA%20DE%20SERVICIOS%20PLAYA%20DE%20MAL%20PAS%202026.pdf",
+            "retrievedAt": "2026-10-27T10:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Playas: Carta de servicios Playa de Mal Pas 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.playa-mal-pas.aparcamiento-cercano",
+      "subject": "playa-mal-pas",
+      "attribute": "aparcamiento-cercano",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Sin fuente oficial actual que sitúe un aparcamiento junto a la cala.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.playa-mal-pas.afluencia",
+      "subject": "playa-mal-pas",
+      "attribute": "afluencia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Requiere observación en persona; no hay visita registrada en content/manual/visits/.",
+      "claims": []
+    }
+  ]
+}

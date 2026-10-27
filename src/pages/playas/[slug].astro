@@ -1,0 +1,77 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro'
+import PracticalFacts from '../../components/PracticalFacts.astro'
+import Sources from '../../components/Sources.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import {FACT_GROUPS, factRows, findFact, pendingFacts} from '../../lib/beach-presentation'
+import {getBeachBySlug, getBeachSlugs} from '../../lib/content-source'
+import {beachIndexability} from '../../lib/indexability'
+import {beachJsonLd} from '../../lib/jsonld'
+import {HUBS, breadcrumbTrail, getRouteRegistry, routes} from '../../lib/routes'
+
+export async function getStaticPaths() {
+  const slugs = await getBeachSlugs()
+  return slugs.map((slug) => ({params: {slug}}))
+}
+
+const {slug} = Astro.params
+const beach = slug ? await getBeachBySlug(slug) : null
+if (!beach) throw new Error(`No se encontró la playa estática: ${slug ?? 'sin slug'}`)
+const item = beach
+const breadcrumbs = breadcrumbTrail('beaches', item.name, await getRouteRegistry())
+const site = Astro.site ?? new URL('https://enbenidorm.es')
+const location = findFact(item, 'ubicacion')
+const groups = FACT_GROUPS.map((group) => ({...group, rows: factRows(item.facts, group.attributes)})).filter((group) => group.rows.length > 0)
+const pending = pendingFacts(item.facts)
+---
+
+<BaseLayout seo={item.seo} indexability={beachIndexability(item)} seoFallback={{title: item.name, description: item.shortDescription}} breadcrumbs={breadcrumbs} jsonLd={[beachJsonLd(item, site)]}>
+  <article>
+    <header class="bg-sand pb-12 pt-8 md:pb-16">
+      <div class="container-site">
+        <Breadcrumbs items={breadcrumbs} />
+        <p class="mt-12 text-xs font-black uppercase tracking-[.14em] text-sea-dark">Playa · {item.municipality}{item.area && ` · ${item.area}`}</p>
+        <h1 class="font-editorial mt-3 text-5xl leading-[.95] tracking-[-.045em] md:text-7xl">{item.name}</h1>
+        <p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink/70">{item.shortDescription}</p>
+        {location?.value && <p class="mt-4 text-sm font-bold text-ink/70">{location.value}</p>}
+      </div>
+    </header>
+
+    <div class="container-site grid gap-12 py-10 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div>
+        {item.description.length > 0 && <div class="prose-editorial">{item.description.map((block) => <p>{block.text}</p>)}</div>}
+
+        {groups.map((group) => <section class="mt-12" aria-labelledby={`${group.id}-title`}>
+          <h2 id={`${group.id}-title`} class="font-editorial text-3xl">{group.title}</h2>
+          <div class="mt-4"><PracticalFacts rows={group.rows} /></div>
+        </section>)}
+
+        {pending.length > 0 && <section class="mt-12 rounded-2xl border border-coral/30 bg-coral/5 p-6" aria-labelledby="pending-title">
+          <h2 id="pending-title" class="font-editorial text-2xl">Lo que aún no hemos comprobado</h2>
+          <p class="mt-2 text-sm text-ink/70">No hay ninguna visita registrada a esta playa. Estos datos necesitan una fuente oficial actual o una observación en persona, y no los rellenamos de otra forma.</p>
+          <ul class="mt-4 list-disc space-y-1 pl-5 text-sm font-bold">{pending.map((row) => <li>{row.label}</li>)}</ul>
+        </section>}
+
+        <Sources sources={item.sources} />
+      </div>
+
+      <aside class="h-fit space-y-8 rounded-[1.5rem] border border-ink/10 bg-white p-6 shadow-[0_12px_40px_rgba(16,47,59,.06)]">
+        <section aria-labelledby="contrasts-title">
+          <h2 id="contrasts-title" class="font-editorial text-2xl">Otra playa con otro perfil</h2>
+          <ul class="mt-4 space-y-4 text-sm">{item.contrasts.map((contrast) => <li><a class="font-bold text-sea-dark underline" href={contrast.href}>{contrast.name}</a><p class="mt-1 text-ink/70">{contrast.reason}</p></li>)}</ul>
+        </section>
+        <section class="border-t border-ink/10 pt-6" aria-labelledby="dining-title">
+          <h2 id="dining-title" class="font-editorial text-2xl">Dónde comer cerca</h2>
+          {item.nearbyDining.length > 0
+            ? <ul class="mt-4 space-y-4 text-sm">{item.nearbyDining.map((dining) => <li><p class="text-ink/70">{dining.note}</p><a class="mt-1 inline-block font-bold text-sea-dark underline" href={dining.href}>{dining.title}</a></li>)}</ul>
+            : <p class="mt-4 text-sm text-ink/70"><span class="font-bold text-coral">Pendiente:</span> ninguna de nuestras comparativas registra todavía un local en la zona de esta playa. Mientras tanto, puedes ver todas las opciones en <a class="font-bold text-sea-dark underline" href={routes.dining()}>Dónde comer en Benidorm</a>.</p>}
+        </section>
+        <section class="border-t border-ink/10 pt-6" aria-labelledby="hub-title">
+          <h2 id="hub-title" class="font-editorial text-2xl">Comparar las playas</h2>
+          <p class="mt-2 text-sm text-ink/70">Servicios, accesibilidad, perros y aparcamiento de las tres playas, lado a lado.</p>
+          <a class="mt-3 inline-block font-bold text-sea-dark underline" href={routes.beaches()}>Ver {HUBS.beaches.label.toLowerCase()} de Benidorm</a>
+        </section>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

@@ -174,3 +174,55 @@ export interface BreadcrumbItem {
   label: string
   href?: string
 }
+
+/** Copia de un hecho de content/facts/ que cita la página (PracticalFactSnapshot). */
+export interface PracticalFactView {
+  factId: string
+  /** Solo relleno si `status` es `confirmed`. */
+  value: string | null
+  unit: string
+  status: 'confirmed' | 'unknown' | 'needs verification' | 'conflict'
+  sourceTitle: string | null
+  sourceUrl: string | null
+  sourceClass: string | null
+  retrievedAt: string | null
+}
+
+/** Otra playa enlazada desde una ficha, con la diferencia de perfil que justifica el enlace. */
+export interface BeachContrast {
+  name: string
+  href: string
+  reason: string
+}
+
+/** Dónde comer cerca: una comparativa con locales en la zona, o nada si no hay ninguno registrado. */
+export interface NearbyDining {
+  title: string
+  href: string
+  note: string
+}
+
+export interface BeachDetail {
+  id: string
+  name: string
+  slug: string
+  href: string
+  shortDescription: string
+  /** «Si buscas…»: para quién es, en el hub. */
+  choiceNote?: string
+  description: DescriptionBlock[]
+  area?: string
+  municipality: string
+  facts: PracticalFactView[]
+  contrasts: BeachContrast[]
+  nearbyDining: NearbyDining[]
+  sources: SourceItem[]
+  seo: SeoData
+}
+
+export interface BeachesPageContent {
+  title: string
+  intro: string
+  seo: SeoData
+  beaches: BeachDetail[]
+}

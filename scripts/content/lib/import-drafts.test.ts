@@ -24,3 +24,14 @@ test('draft import debilita temporalmente referencias a targets aún no publicad
   assert.deepEqual(draft.author, {_type: 'reference', _ref: 'author-david'})
   assert.equal(document._id, 'comparison-italiano')
 })
+
+test('draft import no refuerza al publicar las referencias débiles por diseño', () => {
+  const document: ContentDocument = {
+    _id: 'beach-playa-levante',
+    _type: 'beach',
+    profileContrasts: [{_type: 'object', beach: {_type: 'reference', _ref: 'beach-playa-poniente', _weak: true}, reason: 'Más larga.'}],
+  }
+  const draft = prepareDraftDocument(document, new Map([['beach-playa-poniente', 'beach']]))
+  const contrasts = draft.profileContrasts as Array<{beach: Record<string, unknown>}>
+  assert.deepEqual(contrasts[0]!.beach, {_type: 'reference', _ref: 'beach-playa-poniente', _weak: true})
+})
