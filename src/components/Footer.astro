@@ -1,7 +1,9 @@
 ---
+import {filterLinks, getRouteRegistry} from '../lib/routes'
 import type {SiteSettingsData} from '../types/content'
 interface Props { settings: SiteSettingsData }
 const {settings} = Astro.props
+const explore = filterLinks(settings.navigation, await getRouteRegistry(), 'siteSettings.navigation').slice(0, 3)
 const year = new Date().getFullYear()
 ---
 
@@ -11,10 +13,10 @@ const year = new Date().getFullYear()
       <p class="text-2xl font-black tracking-[-.05em]"><span class="text-[#65d4cf]">en</span>Benidorm<span class="text-coral">.</span></p>
       <p class="mt-3 max-w-sm text-sm text-white/70">{settings.footerText}</p>
     </div>
-    <div>
+    {explore.length > 0 && <div>
       <h2 class="text-sm font-black uppercase tracking-[.16em] text-[#65d4cf]">Explora</h2>
-      <ul class="mt-3 space-y-2 text-sm">{settings.navigation.slice(0, 3).map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
-    </div>
+      <ul class="mt-3 space-y-2 text-sm">{explore.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+    </div>}
     <div>
       <h2 class="text-sm font-black uppercase tracking-[.16em] text-[#65d4cf]">Proyecto</h2>
       <p class="mt-3 text-sm text-white/70">Contenido verificado, fuentes visibles y recomendaciones claramente identificadas.</p>

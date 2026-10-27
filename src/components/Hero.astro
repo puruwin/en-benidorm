@@ -2,8 +2,8 @@
 import ResponsiveImage from './media/ResponsiveImage.astro'
 import type {HomeContent} from '../types/content'
 
-interface Props { content: Pick<HomeContent, 'eyebrow' | 'title' | 'intro' | 'heroImage'> }
-const {content} = Astro.props
+interface Props { content: Pick<HomeContent, 'eyebrow' | 'title' | 'intro' | 'heroImage'>; showExplore?: boolean }
+const {content, showExplore = true} = Astro.props
 ---
 
 <section class="relative isolate min-h-[38rem] overflow-hidden bg-ink text-white md:min-h-[44rem]">
@@ -14,7 +14,7 @@ const {content} = Astro.props
       <p class="mb-5 text-xs font-black uppercase tracking-[.22em] text-[#8ce3df]">{content.eyebrow}</p>
       <h1 class="font-editorial text-6xl leading-[.93] tracking-[-.055em] sm:text-7xl md:text-8xl">{content.title}</h1>
       <p class="mt-7 max-w-xl text-lg leading-relaxed text-white/88 md:text-xl">{content.intro}</p>
-      <a href="#explorar" class="mt-8 inline-flex items-center gap-3 rounded-full bg-coral px-6 py-3 text-sm font-black text-white no-underline transition-transform hover:-translate-y-1">Empieza a explorar <span aria-hidden="true">↓</span></a>
+      {showExplore && <a href="#explorar" class="mt-8 inline-flex items-center gap-3 rounded-full bg-coral px-6 py-3 text-sm font-black text-white no-underline transition-transform hover:-translate-y-1">Empieza a explorar <span aria-hidden="true">↓</span></a>}
     </div>
   </div>
 </section>
