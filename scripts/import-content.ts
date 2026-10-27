@@ -6,6 +6,7 @@ import {
   errorMessage,
   formatIssues,
   loadGeneratedContent,
+  loadPracticalFactsContext,
   validateContent,
 } from './content-validation'
 import {getSanityClient} from './sanity-client'
@@ -25,11 +26,12 @@ if (unknownArguments.length) {
 
 async function runImport(): Promise<void> {
   const loaded = await loadGeneratedContent()
+  const facts = await loadPracticalFactsContext()
   const seed = seedInputs()
   // La importación real puede referenciar documentos ya existentes en Sanity;
   // el dry-run, al no conectarse, exige que todos los destinos estén en seed/generated.
-  const validation = validateContent([...seed, ...loaded.inputs], {allowUnresolvedReferences: !dryRun})
-  const issues = [...loaded.issues, ...validation.issues]
+  const validation = validateContent([...seed, ...loaded.inputs], {allowUnresolvedReferences: !dryRun, practicalFacts: facts.context})
+  const issues = [...loaded.issues, ...facts.issues, ...validation.issues]
 
   if (issues.length) return failValidation(issues)
 
