@@ -1,10 +1,17 @@
 ---
-import {resolveSeo, type SeoFallback} from '../../lib/seo'
-import type {SeoData} from '../../types/content'
+import {incomingContextualLinks} from '../../lib/crawl-graph'
+import {INDEXABILITY_META, isIndexable, type IndexabilitySignals} from '../../lib/indexability'
+import {assertBreadcrumbs, resolveSeo, type SeoFallback} from '../../lib/seo'
+import type {BreadcrumbItem, SeoData} from '../../types/content'
 
-interface Props { seo: SeoData; canonical: URL; fallback?: SeoFallback | undefined }
-const {canonical, fallback} = Astro.props
-const seo = resolveSeo(Astro.props.seo, fallback, canonical, Astro.url.pathname)
+interface Props { seo: SeoData; canonical: URL; fallback?: SeoFallback | undefined; indexability: IndexabilitySignals; breadcrumbs?: BreadcrumbItem[] | undefined }
+const {canonical, fallback, indexability, breadcrumbs} = Astro.props
+const route = Astro.url.pathname
+// robots sale de la regla única (src/lib/indexability.ts); seo:audit la repite con las señales del meta.
+const ownTitle = Astro.props.seo.title?.trim() ? Astro.props.seo.title : undefined
+const decision = isIndexable({...indexability, route, title: ownTitle ?? fallback?.title ?? null, incomingContextualLinks: incomingContextualLinks(route)})
+const seo = resolveSeo({...Astro.props.seo, noIndex: !decision.indexable}, fallback, canonical, route)
+assertBreadcrumbs(breadcrumbs, route, seo.noIndex === true)
 const image = seo.image?.url ? new URL(seo.image.url, canonical).toString() : undefined
 ---
 
@@ -12,6 +19,7 @@ const image = seo.image?.url ? new URL(seo.image.url, canonical).toString() : un
 <meta name="description" content={seo.description} />
 <link rel="canonical" href={canonical} />
 <meta name="robots" content={seo.noIndex ? 'noindex,follow' : 'index,follow'} />
+<meta name={INDEXABILITY_META} content={JSON.stringify(indexability)} />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_ES" />
 <meta property="og:site_name" content="enBenidorm" />

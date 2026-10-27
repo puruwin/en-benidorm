@@ -69,7 +69,7 @@ Estado: **E** existe y está publicada, **P** está prevista.
 | `/donde-comer/` | E | — | Elegir tipo de comida o plan gastronómico | Sí | Comparativas, guías y fichas del hub | Inicio, menú, migas de comparativas, guías y fichas |
 | `/donde-comer/{tema}/` | E | Dónde comer | Decidir entre 4–8 locales para una intención concreta | Sí, si pasa el gate y la QA | Hub, cada ficha comparada, comparativas hermanas cuando aporten | Hub, fichas incluidas, guías relacionadas, inicio si está destacada |
 | `/donde-comer/{guía}/` | P | Dónde comer | Contexto gastronómico que no es una comparativa (p. ej. platos típicos) | Sí, si pasa auditar-pagina | Hub, fichas o comparativas citadas | Hub y al menos otra página distinta |
-| `/restaurantes/{slug}/` | E | Dónde comer | Datos comprobados de un local concreto, con procedencia | Sí con evidencia propia; `noindex` si solo hay OSM y ninguna señal de elección (`provisionalNoIndex`) | Hub (migas), comparativas donde aparece, fichas de la misma zona o comparativa | Hub, comparativas, fichas hermanas (mínimo 2 páginas distintas) |
+| `/restaurantes/{slug}/` | E | Dónde comer | Datos comprobados de un local concreto, con procedencia | Sí si cumple `isIndexable` (evidencia, dirección, aportación propia, enlaces); si no, `noindex,follow` | Hub (migas), comparativas donde aparece, fichas de la misma zona o comparativa | Hub, comparativas, fichas hermanas (mínimo 2 páginas distintas) |
 | `/que-ver/` | P | — | Saber qué visitar | Sí, cuando se genere | Guías y fichas de lugares | Inicio, menú, migas de sus páginas |
 | `/que-ver/{lugar}/` | P | Qué ver | Cómo es, cómo se llega, horario y acceso de un lugar | Sí, con evidencia propia | Hub, lugares cercanos, guías de Qué hacer que lo usan | Hub, guías, lugares cercanos |
 | `/que-ver/{guía}/` | P | Qué ver | Recorrido o selección (p. ej. «Benidorm en un día») | Sí, si pasa auditar-pagina | Hub, fichas de lugares y playas citadas | Hub y otra página distinta |
@@ -87,9 +87,19 @@ Estado: **E** existe y está publicada, **P** está prevista.
 
 Reglas de indexación:
 
-- Toda página indexable, salvo `/`, recibe enlaces de al menos 2 páginas distintas
-  (`MIN_INCOMING_LINKS`). No cuentan el menú ni el pie de página cuando se usan para tapar una página
-  huérfana, ni los enlaces que pasan por una redirección.
+- La decisión index/noindex es una sola función, `isIndexable` en `src/lib/indexability.ts` (issue #15),
+  con su contrato documentado allí. La usan `SeoHead` (meta robots) y `seo:audit`, que la repite con el
+  grafo recién rastreado y da `indexability-mismatch` si no coinciden. Una ficha, comparativa o guía es
+  indexable solo con evidencia (fuente oficial fechada, observación propia u observación de creador
+  atribuida y fechada; en fichas, además la dirección), una aportación que se ve en la propia página
+  (foto propia, comparación, condición práctica, advertencia o resumen de creador), enlaces
+  contextuales suficientes y título y H1 propios que nombran el sujeto. Inicio, hubs y autor solo exigen
+  enlaces y título/H1. Un `noIndex` guardado en el documento siempre gana.
+- Toda página indexable, salvo `/`, recibe enlaces del cuerpo de al menos 2 páginas distintas
+  (`MIN_INCOMING_LINKS`). No cuentan el menú, las migas ni el pie de página, ni los enlaces que pasan
+  por una redirección.
+- Los enlaces salen de `content/reports/seo/crawl.json`: `npm run build` hace dos pasadas (build →
+  `seo:audit --graph-only` → build) para que la segunda lea el grafo del mismo contenido.
 - Una guía o comparativa indexable pasa `auditar-pagina` y, si tiene datos prácticos,
   `verificar-datos`. Si no tiene enlaces que merezca, probablemente no merece ser indexable.
 - Una ficha con contenido de demo nunca se indexa ni se enlaza desde contenido real.

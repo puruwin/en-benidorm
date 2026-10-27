@@ -3,15 +3,18 @@ import test from 'node:test'
 import type {PageGraphEntry, PageType} from './lib/audit'
 import {classifyRoute, proposeLinks} from './lib/links'
 
-/** Grafo a partir de los enlaces salientes; los entrantes se calculan como en seo:audit. */
+/** Grafo a partir de los enlaces salientes; los entrantes se calculan como en seo:audit, todos desde el cuerpo. */
 function graph(outgoing: Record<string, string[]>, types: Record<string, PageType> = {}): Record<string, PageGraphEntry> {
   const pages: Record<string, PageGraphEntry> = {}
-  for (const [route, targets] of Object.entries(outgoing)) pages[route] = {type: types[route] ?? 'indexable', outgoing: [...targets].sort(), incoming: []}
+  for (const [route, targets] of Object.entries(outgoing)) pages[route] = {type: types[route] ?? 'indexable', outgoing: [...targets].sort(), incoming: [], incomingContextual: []}
   for (const [route, targets] of Object.entries(outgoing)) {
     if (pages[route]?.type === 'redirect' || pages[route]?.type === 'not-found') continue
     for (const target of targets) pages[target]?.incoming.push(route)
   }
-  for (const entry of Object.values(pages)) entry.incoming.sort()
+  for (const entry of Object.values(pages)) {
+    entry.incoming.sort()
+    entry.incomingContextual = [...entry.incoming]
+  }
   return pages
 }
 
@@ -80,6 +83,18 @@ test('no propone enlaces existentes ni desde o hacia páginas no indexables', ()
     '/404.html': ['/restaurantes/a/'],
   }, {'/restaurantes/borrador/': 'noindex', '/restaurantes/vieja/': 'redirect', '/404.html': 'not-found'}))
   assert.deepEqual(result, [])
+})
+
+test('propone enlaces hacia una ficha noindex solo si lo único que le falta son enlaces', () => {
+  const pages = graph({
+    '/donde-comer/arroces/': ['/restaurantes/a/', '/restaurantes/b/', '/restaurantes/c/'],
+    '/restaurantes/a/': ['/donde-comer/arroces/'],
+    '/restaurantes/b/': ['/donde-comer/arroces/'],
+    '/restaurantes/c/': ['/donde-comer/arroces/'],
+  }, {'/restaurantes/b/': 'noindex', '/restaurantes/c/': 'noindex'})
+  pages['/restaurantes/b/']!.indexabilityReasons = [{code: 'few-links', detail: '1 enlaces contextuales entrantes (mínimo 2)'}]
+  pages['/restaurantes/c/']!.indexabilityReasons = [{code: 'few-links', detail: '1'}, {code: 'no-contribution', detail: 'sin aportación'}]
+  assert.deepEqual(pairs(proposeLinks(pages)), ['/restaurantes/b/ → /restaurantes/a/ ficha-hermana', '/restaurantes/a/ → /restaurantes/b/ ficha-hermana'])
 })
 
 test('el resultado no depende del orden de entrada', () => {

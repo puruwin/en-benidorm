@@ -5,13 +5,14 @@ import CategoryCard from '../../components/CategoryCard.astro'
 import FeaturedGrid from '../../components/FeaturedGrid.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import {getDiningContent, isDemoMode} from '../../lib/content-source'
+import {structuralIndexability} from '../../lib/indexability'
 import {HUBS, breadcrumbTrail, getRouteRegistry} from '../../lib/routes'
 
 const content = await getDiningContent()
 const breadcrumbs = breadcrumbTrail(null, HUBS.dining.label, await getRouteRegistry())
 ---
 
-<BaseLayout seo={content.seo} breadcrumbs={breadcrumbs} demo={isDemoMode}>
+<BaseLayout seo={content.seo} indexability={structuralIndexability({subject: HUBS.dining.label, h1: content.title, storedNoIndex: content.seo.noIndex, title: content.seo.title})} breadcrumbs={breadcrumbs} demo={isDemoMode}>
   <header class="bg-sand py-10 md:py-16">
     <div class="container-site">
       <Breadcrumbs items={breadcrumbs} />

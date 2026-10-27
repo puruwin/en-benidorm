@@ -22,7 +22,7 @@ Scripts principales:
 
 ```bash
 npm run dev                    # frontend Astro
-npm run build                  # build estático en dist/
+npm run build                  # build estático en dist/ (dos pasadas: la segunda lee los enlaces de crawl.json)
 npm run check                  # TypeScript y diagnósticos Astro
 npm run studio                 # Sanity Studio local
 npm run studio:build           # build del Studio en sanity-dist/

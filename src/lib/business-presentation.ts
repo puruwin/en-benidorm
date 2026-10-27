@@ -1,4 +1,4 @@
-import type {BusinessDetail, DescriptionBlock, SourceItem} from '../types/content'
+import type {DescriptionBlock, SourceItem} from '../types/content'
 
 /**
  * Qué pasó realmente con los datos de una página, según lo que guardan sus `sources`.
@@ -50,17 +50,6 @@ export function provenanceLines(sources: readonly SourceItem[], lastVerified?: s
     lines.push({kind: 'consulted', label: 'Datos consultados', from: lastVerified, to: lastVerified})
   }
   return lines
-}
-
-/**
- * Regla provisional hasta la issue del umbral de indexación: noindex si todas las fuentes son
- * OpenStreetMap y la ficha no tiene ninguna señal de elección estructurada (precio, horario o
- * características). El texto derivado de etiquetas OSM no cuenta como señal.
- */
-export function provisionalNoIndex(business: Pick<BusinessDetail, 'sources' | 'priceRange' | 'hours' | 'features'>): boolean {
-  const osmOnly = business.sources.length > 0 && business.sources.every((source) => sourceKind(source) === 'openstreetmap')
-  const hasChoiceSignal = Boolean(business.priceRange) || business.hours.length > 0 || business.features.length > 0
-  return osmOnly && !hasChoiceSignal
 }
 
 export interface DescriptionSection {
