@@ -1,8 +1,10 @@
 ---
+import {resolveSeo, type SeoFallback} from '../../lib/seo'
 import type {SeoData} from '../../types/content'
 
-interface Props { seo: SeoData; canonical: URL }
-const {seo, canonical} = Astro.props
+interface Props { seo: SeoData; canonical: URL; fallback?: SeoFallback | undefined }
+const {canonical, fallback} = Astro.props
+const seo = resolveSeo(Astro.props.seo, fallback, canonical, Astro.url.pathname)
 const image = seo.image?.url ? new URL(seo.image.url, canonical).toString() : undefined
 ---
 

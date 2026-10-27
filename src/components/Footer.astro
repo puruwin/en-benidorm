@@ -1,9 +1,9 @@
 ---
-import {filterLinks, getRouteRegistry} from '../lib/routes'
+import {getNavigation} from '../lib/routes'
 import type {SiteSettingsData} from '../types/content'
 interface Props { settings: SiteSettingsData }
 const {settings} = Astro.props
-const explore = filterLinks(settings.navigation, await getRouteRegistry(), 'siteSettings.navigation').slice(0, 3)
+const explore = (await getNavigation()).footer
 const year = new Date().getFullYear()
 ---
 

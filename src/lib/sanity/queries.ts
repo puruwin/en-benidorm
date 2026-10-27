@@ -62,8 +62,8 @@ export const DINING_QUERY = defineQuery(`{
     title,
     intro,
     "seo": {
-      "title": coalesce(seo.metaTitle, title + " · enBenidorm"),
-      "description": coalesce(seo.metaDescription, intro),
+      "title": seo.metaTitle,
+      "description": seo.metaDescription,
       "noIndex": seo.noIndex,
       "image": seo.socialImage${imageProjection}
     }
@@ -84,7 +84,6 @@ export const DINING_QUERY = defineQuery(`{
 export const SETTINGS_QUERY = defineQuery(`*[_id == "site-settings" && _type == "siteSettings"][0]{
   siteName,
   tagline,
-  navigation[]{label, href},
   footerText
 }`)
 
@@ -114,8 +113,8 @@ export const RESTAURANT_QUERY = defineQuery(`*[_type == "business" && language =
   sources[]{title, url, publisher, accessedAt},
   "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},
   "seo": {
-    "title": coalesce(seo.metaTitle, name + " en Benidorm"),
-    "description": coalesce(seo.metaDescription, shortDescription),
+    "title": seo.metaTitle,
+    "description": seo.metaDescription,
     "noIndex": seo.noIndex,
     "image": seo.socialImage${imageProjection}
   }

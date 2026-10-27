@@ -88,12 +88,5 @@ export const demoDining: DiningPageContent = {
 export const demoSettings: SiteSettingsData = {
   siteName: 'enBenidorm',
   tagline: 'Guía local y turística de Benidorm',
-  navigation: [
-    {label: 'Qué ver', href: routes.thingsToSee()},
-    {label: 'Dónde comer', href: routes.dining()},
-    {label: 'Playas', href: routes.beaches()},
-    {label: 'Qué hacer', href: routes.thingsToDo()},
-    {label: 'Información', href: routes.information()},
-  ],
   footerText: 'Una guía local independiente para entender, disfrutar y recorrer Benidorm.',
 }

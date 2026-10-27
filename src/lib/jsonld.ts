@@ -26,26 +26,29 @@ export function websiteJsonLd(site: URL) {
   }
 }
 
+const present = (value: string | undefined): value is string => typeof value === 'string' && value.trim().length > 0
+
+/** Solo campos con valor y visibles en la ficha. Nunca valoraciones agregadas ni reseñas. */
 export function restaurantJsonLd(business: BusinessDetail, site: URL) {
+  const address = Object.fromEntries(([
+    ['streetAddress', business.address.street],
+    ['postalCode', business.address.postalCode],
+    ['addressLocality', business.address.locality],
+    ['addressRegion', business.address.province],
+    ['addressCountry', business.address.country],
+  ] as const).filter(([, value]) => present(value)))
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
     name: business.name,
-    description: business.shortDescription,
+    ...(present(business.shortDescription) ? {description: business.shortDescription} : {}),
     url: absoluteUrl(business.href, site),
-    ...(business.phone ? {telephone: business.phone} : {}),
-    ...(business.website ? {sameAs: business.website} : {}),
-    ...(business.priceRange ? {priceRange: business.priceRange} : {}),
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: business.address.street,
-      postalCode: business.address.postalCode,
-      addressLocality: business.address.locality,
-      addressRegion: business.address.province,
-      addressCountry: business.address.country,
-    },
+    ...(present(business.phone) ? {telephone: business.phone} : {}),
+    ...(present(business.website) ? {sameAs: business.website} : {}),
+    ...(present(business.priceRange) ? {priceRange: business.priceRange} : {}),
+    ...(Object.keys(address).length > 0 ? {address: {'@type': 'PostalAddress', ...address}} : {}),
     ...(business.location ? {geo: {'@type': 'GeoCoordinates', latitude: business.location.lat, longitude: business.location.lng}} : {}),
-    ...(business.images[0]?.url ? {image: business.images[0].url} : {}),
+    ...(present(business.images[0]?.url) ? {image: business.images[0].url} : {}),
   }
 }
 

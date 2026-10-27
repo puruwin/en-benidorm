@@ -15,8 +15,9 @@ export interface EditorialImage {
 }
 
 export interface SeoData {
-  title: string
-  description: string
+  /** Vacío solo si la página es noindex: `resolveSeo` hace fallar el build en las indexables. */
+  title?: string
+  description?: string
   image?: EditorialImage
   noIndex?: boolean
 }
@@ -29,7 +30,6 @@ export interface LinkItem {
 export interface SiteSettingsData {
   siteName: string
   tagline: string
-  navigation: LinkItem[]
   footerText: string
 }
 
