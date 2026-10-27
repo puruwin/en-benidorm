@@ -1,0 +1,15 @@
+---
+import GuideArticle from '../../components/GuideArticle.astro'
+import {getGuideBySlug, getGuideSlugs} from '../../lib/content-source'
+
+export async function getStaticPaths() {
+  const slugs = await getGuideSlugs('thingsToDo')
+  return slugs.map((slug) => ({params: {slug}}))
+}
+
+const {slug} = Astro.params
+const guide = slug ? await getGuideBySlug('thingsToDo', slug) : null
+if (!guide) throw new Error(`No se encontró la guía estática: ${slug ?? 'sin slug'}`)
+---
+
+<GuideArticle guide={guide} hub="thingsToDo" topic="Mercadillos" hubSummary="Los mercadillos semanales de Benidorm, con día, horario y ubicación de fuente oficial." hubLinkText="Ver qué hacer en Benidorm" />

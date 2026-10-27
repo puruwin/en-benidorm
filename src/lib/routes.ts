@@ -9,6 +9,7 @@ export const routes = {
   beaches: () => '/playas/',
   beach: (slug: string) => `/playas/${slug}/`,
   thingsToDo: () => '/que-hacer/',
+  thingsToDoGuide: (slug: string) => `/que-hacer/${slug}/`,
   accommodation: () => '/donde-dormir/',
   informationPractical: () => '/informacion-practica/',
   informationGuide: (slug: string) => `/informacion-practica/${slug}/`,
@@ -67,8 +68,8 @@ export function getRouteRegistry(): Promise<ReadonlySet<string>> {
 
 async function buildRegistry(): Promise<ReadonlySet<string>> {
   // Import dinámico: content-source → data/demo/content → routes.
-  const {getBeachSlugs, getComparisonSlugs, getInformationGuideSlugs, getRestaurantSlugs} = await import('./content-source')
-  const [restaurants, comparisons, beaches, informationGuides] = await Promise.all([getRestaurantSlugs(), getComparisonSlugs(), getBeachSlugs(), getInformationGuideSlugs()])
+  const {getBeachSlugs, getComparisonSlugs, getGuideSlugs, getRestaurantSlugs} = await import('./content-source')
+  const [restaurants, comparisons, beaches, informationGuides, thingsToDoGuides] = await Promise.all([getRestaurantSlugs(), getComparisonSlugs(), getBeachSlugs(), getGuideSlugs('informationPractical'), getGuideSlugs('thingsToDo')])
   return new Set<string>([
     ...STATIC_ROUTES,
     ...restaurants.map(routes.restaurant),
@@ -78,6 +79,8 @@ async function buildRegistry(): Promise<ReadonlySet<string>> {
     ...beaches.map(routes.beach),
     ...(informationGuides.length > 0 ? [routes.informationPractical()] : []),
     ...informationGuides.map(routes.informationGuide),
+    ...(thingsToDoGuides.length > 0 ? [routes.thingsToDo()] : []),
+    ...thingsToDoGuides.map(routes.thingsToDoGuide),
   ])
 }
 

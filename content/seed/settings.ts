@@ -38,6 +38,15 @@ export const settings = {
       noIndex: false,
     },
   },
+  thingsToDoPage: {
+    title: 'Qué hacer en Benidorm: mercadillos semanales',
+    intro: 'Los mercadillos semanales de Benidorm con día, horario y ubicación de fuente oficial: el municipal, con su ficha del Ayuntamiento, y Pueblo y El Cisne, con la guía de compras de Visit Benidorm. Lo que pide ir en persona queda pendiente y a la vista.',
+    seo: {
+      metaTitle: 'Qué hacer en Benidorm: mercadillos semanales',
+      metaDescription: 'Mercadillos semanales de Benidorm con día, horario y ubicación de fuente oficial enlazada: el municipal, Pueblo y El Cisne.',
+      noIndex: false,
+    },
+  },
   defaultSeo: {
     metaTitle: 'enBenidorm · Guía local y turística de Benidorm',
     metaDescription: 'Guía de Benidorm con playas, restaurantes, lugares, actividades e información práctica.',

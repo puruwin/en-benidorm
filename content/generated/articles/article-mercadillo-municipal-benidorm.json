@@ -1,0 +1,233 @@
+{
+  "_id": "article-mercadillo-municipal-benidorm",
+  "_type": "article",
+  "language": "es",
+  "title": "Mercadillo municipal de Benidorm: día, horario, festivos y traslados de verano",
+  "slug": {
+    "_type": "slug",
+    "current": "mercadillo-municipal-benidorm"
+  },
+  "section": "thingsToDo",
+  "excerpt": "Qué día abre el mercadillo del Ayuntamiento de Benidorm, a qué hora, dónde se pone, qué pasa si cae en festivo y adónde se traslada algunos veranos.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "p1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p1-s",
+          "text": "Es el mercadillo que organiza el Ayuntamiento de Benidorm y el que tiene más datos oficiales: su ficha municipal, las notas de prensa sobre sus traslados y la guía de compras de Visit Benidorm. El horario solo lo publica Visit Benidorm, en una página sin fecha; el Ayuntamiento no lo da.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p2-s",
+          "text": "Antes de ir, comprueba dos cosas. La primera, si su día cae en festivo: entonces se traslada, habitualmente, al día anterior. La segunda, si vas en pleno verano, dónde está ese año. En 2025 pasó semanas en el Recinto Ferial, en Els Tolls, mientras su recinto acogía festivales; para 2026 no hemos encontrado nota municipal, así que mira las noticias del Ayuntamiento antes de ir.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p3-s",
+          "text": "Para aparcar sin pagar, la guía de aparcamientos gratuitos tiene el plano municipal de aparcamientos disuasorios.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p4",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p4-s",
+          "text": "Qué se encuentra en los puestos, cuánta gente hay y a qué hora conviene ir piden una visita que aún no hemos hecho. Lo dejamos pendiente en lugar de rellenarlo.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "author": {
+    "_type": "reference",
+    "_ref": "author-david"
+  },
+  "publishedAt": "2026-10-27T12:00:00.000Z",
+  "practicalFacts": [
+    {
+      "_key": "benidorm-mercadillo-municipal-dia",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercadillo-municipal.dia",
+      "value": "miércoles",
+      "unit": "día-semana",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Mercadillos, ficha de trámite COM003 (27 de agosto de 2020)",
+      "sourceUrl": "https://benidorm.org/es/pagina/mercadillos",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercadillo-municipal-horario",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercadillo-municipal.horario",
+      "value": "08:00-13:30",
+      "unit": "hh:mm",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm: De compras en Benidorm (página sin fecha)",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/1175/de-compras-en-benidorm-shopping.html",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercadillo-municipal-ubicacion",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercadillo-municipal.ubicacion",
+      "value": "Explanada de Mercasa, junto a la Ciudad Deportiva Guillermo Amor, su emplazamiento habitual",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: «El mercadillo municipal vuelve a Mercasa a partir del próximo miércoles 6 de agosto» (1 de agosto de 2025)",
+      "sourceUrl": "https://benidorm.org/es/comunicacion/noticias/el-mercadillo-municipal-vuelve-mercasa-partir-del-proximo-miercoles-6-de-agosto",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercadillo-municipal-festivos",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercadillo-municipal.festivos",
+      "value": "Si el miércoles es festivo, se traslada habitualmente al día anterior",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Mercadillos, ficha de trámite COM003 (27 de agosto de 2020)",
+      "sourceUrl": "https://benidorm.org/es/pagina/mercadillos",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercadillo-municipal-traslado-verano",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercadillo-municipal.traslado-verano",
+      "value": "En verano de 2025 se instaló en el Recinto Ferial, en Els Tolls, desde el 2 de julio, por dos festivales de música en su emplazamiento habitual, y volvió a Mercasa el miércoles 6 de agosto",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: «El mercadillo municipal vuelve a Mercasa a partir del próximo miércoles 6 de agosto» (1 de agosto de 2025)",
+      "sourceUrl": "https://benidorm.org/es/comunicacion/noticias/el-mercadillo-municipal-vuelve-mercasa-partir-del-proximo-miercoles-6-de-agosto",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercadillo-municipal-ambiente",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercadillo-municipal.ambiente",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    }
+  ],
+  "contextLinks": [
+    {
+      "_key": "link-0",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-mercadillos-de-benidorm",
+        "_weak": true
+      },
+      "note": "Los tres mercadillos semanales, comparados por día, horario y ubicación."
+    },
+    {
+      "_key": "link-1",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-mercadillo-pueblo-benidorm",
+        "_weak": true
+      },
+      "note": "Si tu visita no coincide con su día: Pueblo abre también en domingo."
+    },
+    {
+      "_key": "link-2",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-mercado-el-cisne-benidorm",
+        "_weak": true
+      },
+      "note": "Si solo estás el fin de semana: El Cisne abre sábados y domingos."
+    },
+    {
+      "_key": "link-3",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-aparcamientos-gratuitos-benidorm",
+        "_weak": true
+      },
+      "note": "Dónde aparcar gratis: la red de aparcamientos disuasorios, con el plano municipal que incluye Parc de Foietes y el recinto ferial."
+    }
+  ],
+  "sources": [
+    {
+      "_key": "source-0",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "Mercadillos, ficha de trámite COM003 (27 de agosto de 2020)",
+      "url": "https://benidorm.org/es/pagina/mercadillos",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-1",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "El mercadillo municipal vuelve a Mercasa a partir del próximo miércoles 6 de agosto (1 de agosto de 2025)",
+      "url": "https://benidorm.org/es/comunicacion/noticias/el-mercadillo-municipal-vuelve-mercasa-partir-del-proximo-miercoles-6-de-agosto",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-2",
+      "_type": "source",
+      "publisher": "Visit Benidorm",
+      "title": "De compras en Benidorm (página sin fecha)",
+      "url": "https://www.visitbenidorm.es/ver/1175/de-compras-en-benidorm-shopping.html",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-3",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "Plano de aparcamientos disuasorios (septiembre de 2023)",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+      "accessedAt": "2026-10-27"
+    }
+  ],
+  "seo": {
+    "_type": "seo",
+    "metaTitle": "Mercadillo municipal de Benidorm: día, horario y traslados",
+    "metaDescription": "Día y horario del mercadillo municipal de Benidorm, dónde se instala, qué pasa en festivos y su traslado al Recinto Ferial en verano, con fuente municipal.",
+    "noIndex": false
+  }
+}

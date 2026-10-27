@@ -313,7 +313,7 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
       validateSeo(input, doc.diningPage.seo, 'diningPage.seo', issue)
     }
     // Opcionales: el singleton ya publicado no las tiene hasta que se rellenan en Studio.
-    for (const page of ['beachesPage', 'informationPage'] as const) {
+    for (const page of ['beachesPage', 'informationPage', 'thingsToDoPage'] as const) {
       const value = doc[page]
       if (value === undefined) continue
       if (!isRecord(value)) issue(input, page, 'Debe ser un objeto.')
