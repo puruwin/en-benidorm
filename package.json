@@ -36,6 +36,7 @@
     "content:import": "node --import tsx scripts/import-content.ts",
     "content:validate": "node --import tsx scripts/validate-content.ts",
     "visit:process": "node --import tsx scripts/content/process-visit.ts",
+    "creator:process": "node --import tsx scripts/comparison/process-creator.ts",
     "test": "node --import tsx --test scripts/seo/*.test.ts scripts/content/*.test.ts scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "sanity:schema:validate": "sanity schema validate",
     "sanity:schema:extract": "sanity schema extract --path schema.json --force",

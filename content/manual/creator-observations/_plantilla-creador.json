@@ -1,0 +1,21 @@
+{
+  "kind": "creator-observation",
+  "businessId": "business-<id-del-local>",
+  "sourceType": "third-party-creator-video",
+  "urlVideo": "https://www.instagram.com/reel/<codigo>/",
+  "creador": "@usuario",
+  "publicadoEl": "AAAA-MM-DD",
+  "registradoPor": "David",
+  "registradoEl": "AAAA-MM-DD",
+  "resumen": "Con tus palabras: qué enseña y qué destaca el creador. Ejemplo: Enseña el arroz a banda y la gamba roja; dice que conviene reservar en fin de semana.",
+  "loQueSeMuestra": {
+    "platos": ["Arroz a banda", "Gamba roja"],
+    "precios": [
+      {"concepto": "Arroz a banda", "importe": 16.5, "moneda": "EUR", "unidad": "per-person", "vistoEl": "AAAA-MM-DD"}
+    ],
+    "ambiente": "Terraza llena a mediodía; se ve el paseo.",
+    "espera": "Dice que esperó unos 20 minutos sin reserva."
+  },
+  "colaboracionPagada": "desconocido",
+  "permisoCreador": "pendiente"
+}

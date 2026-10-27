@@ -148,6 +148,54 @@ autor visitó el local. Si una observación contradice una fuente publicada, la 
 el conflicto para revisión editorial; no lo resuelve silenciosamente. Content Lab sólo muestra
 estas observaciones y su provenance: siguen editándose en el JSON del repositorio.
 
+### Observaciones de creadores
+
+Lo que una persona anota después de ver el vídeo de un creador gastronómico vive en
+`content/manual/creator-observations/`, un archivo por vídeo. El contrato está en
+`scripts/comparison/schemas/creator-observation.schema.json` y la validación en
+`src/lib/creator-observations.ts`; la plantilla es `_plantilla-creador.json`.
+
+```json
+{
+  "kind": "creator-observation",
+  "businessId": "business-cucina-italiana",
+  "sourceType": "third-party-creator-video",
+  "urlVideo": "https://www.instagram.com/reel/ABC123/",
+  "creador": "@usuario",
+  "publicadoEl": "2026-09-12",
+  "registradoPor": "David",
+  "registradoEl": "2026-10-20",
+  "resumen": "Enseña la pasta fresca y dice que conviene reservar en fin de semana.",
+  "loQueSeMuestra": {
+    "platos": ["Pasta fresca"],
+    "precios": [{"concepto": "Pizza de burrata", "importe": 14.5, "moneda": "EUR", "unidad": "per-unit", "vistoEl": "2026-09-12"}],
+    "ambiente": "Terraza llena a mediodía.",
+    "espera": "Dice que esperó unos 20 minutos."
+  },
+  "colaboracionPagada": "desconocido",
+  "permisoCreador": "pendiente"
+}
+```
+
+`colaboracionPagada` admite `sí`, `no` o `desconocido`; `permisoCreador`, `sí`, `no` o `pendiente`.
+Las notas son de quien vio el vídeo y tienen límite de longitud: no son una transcripción. La URL no
+puede llevar parámetros de seguimiento y `registradoPor` debe ser una persona, nunca un asistente.
+
+Es evidencia de tercero. `comparison:enrich` la adjunta en `creatorObservations` de cada Business
+confirmado, después del gate y fuera de `evidence`: no puntúa, no confirma candidatos, no rellena
+huecos de la web oficial y `comparison:generate` la retira antes de llamar a la IA. Tampoco respalda
+hechos de `content/facts/`.
+
+La ficha y las comparativas muestran el bloque «Lo que han contado creadores locales»: resumen
+atribuido, fecha del vídeo, precio visto con su unidad y fecha, enlace de texto al vídeo y aviso si
+fue colaboración pagada o no consta. Las de `permisoCreador: "no"` no se muestran. No se carga
+ningún script ni iframe de la plataforma; si algún día se inserta el vídeo, será con una fachada
+que no cargue nada de terceros hasta que el lector haga clic. No se descargan vídeos, miniaturas ni
+datos de oEmbed.
+
+`npm run creator:process -- <archivo>` (o `/procesar-creador`) valida la observación y muestra la
+ficha, las comparativas y los artefactos de enrichment a los que se conecta. No escribe nada.
+
 Los cuatro comandos aceptan `--topic`, `--id`, `--limit`, `--force` y `--dry-run`. Selection excluye tiers `insufficient`, comprueba relevancia con facts respaldados y ordena de forma determinista por relevancia, especificidad, cobertura comparativa, valor distintivo y utilidad práctica. Enrichment combina facts de Business, evidence editorial y observaciones locales, conserva `factual`, `self_claim`, `external_observation` o `first_party_observation` y escribe `content/comparisons/enriched/`. La IA recibe exclusivamente ese artefacto y usa `gpt-5.6-luna` por defecto para Comparison.
 
 `comparison:qa` exige 4–8 Businesses existentes, ranks únicos, provenance de precios/platos/strengths/weaknesses, bindings de claims, SEO único, texto específico y ausencia de superlativos o experiencias personales inventadas. Sólo `PASS` o `WARNING` llega a `content/generated/comparisons/`; el importador lo escribe siempre como `drafts.comparison-<slug>`.

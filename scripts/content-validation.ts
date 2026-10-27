@@ -5,6 +5,7 @@ import {relative, resolve, sep} from 'node:path'
 import {PRICE_UNITS} from './comparison/lib/public-facts'
 import {EMPTY_PRACTICAL_FACTS_CONTEXT, type PracticalFactsContext, type VisitEvidence, validatePracticalFacts} from './content/lib/practical-facts'
 import {isVisitPath, parseSiteVisit} from './content/lib/site-visits'
+import {isCreatorObservationPath, parseCreatorObservation} from '../src/lib/creator-observations'
 
 export type ContentDocument = Record<string, unknown> & {_id: string; _type: string}
 
@@ -210,6 +211,8 @@ export function validateContent(
  * Lee el registro de hechos prácticos (`content/facts/<municipio>/*.json`), los hosts oficiales
  * aprobados (`content/facts/official-sources.json`), el `observedAt` de cada observación de
  * `content/manual/` y las visitas de campo de `content/manual/visits/` (las rotas se reportan aquí).
+ * Las observaciones de creador (`content/manual/creator-observations/`) se validan aquí, pero no
+ * entran en `observations`: son evidencia de tercero y no respaldan un hecho observado.
  * Los archivos que empiezan por `_` son plantillas y no cuentan como observación. Solo lee; la
  * validación de los hechos está en `validatePracticalFacts`.
  */
@@ -241,8 +244,16 @@ export async function loadPracticalFactsContext(root = process.cwd()): Promise<{
       value = JSON.parse(await readFile(resolve(manualRoot, path), 'utf8'))
     } catch (error) {
       // Un JSON manual roto se reporta donde se consume; aquí solo se registra que existe sin fecha.
+      if (isCreatorObservationPath(path)) {
+        issues.push({source: `content/manual/${path}`, path: '', message: `JSON no válido: ${errorMessage(error)}`})
+        continue
+      }
       observations.set(path, null)
       if (isVisitPath(path)) issues.push({source: `content/manual/${path}`, path: '', message: `JSON no válido: ${errorMessage(error)}`})
+      continue
+    }
+    if (isCreatorObservationPath(path)) {
+      issues.push(...parseCreatorObservation(value, `content/manual/${path}`).issues)
       continue
     }
     observations.set(path, isRecord(value) && typeof value.observedAt === 'string' ? value.observedAt : null)

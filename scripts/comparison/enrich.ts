@@ -10,6 +10,7 @@ import {enrichComparison} from './lib/enrichment'
 import {evaluateComparisonDataGate} from './lib/gate'
 import {ManualJsonAdapter, type ManualComparisonBusiness} from './lib/manual-adapter'
 import {loadManualComparisonObservations, type ManualObservationBusiness} from './lib/manual-observations'
+import {attachCreatorObservations, creatorObservationSummary, loadCreatorObservations} from './lib/creator-observations'
 import {researchPotentialCandidates, type PotentialResearchOptions} from './lib/research'
 import {FileResearchResultCache} from './lib/research-cache'
 import {writeComparisonReport} from './lib/reporting'
@@ -31,6 +32,7 @@ export async function runComparisonEnrichment(
   }
   const manual = await new ManualJsonAdapter(resolve(root, `content/manual/comparisons/${candidates.topic}.json`)).load()
   const manualObservations = await loadManualComparisonObservations(resolve(root, 'content/manual/comparison-observations'), enrichedEntities)
+  const creatorObservations = await loadCreatorObservations(resolve(root, 'content/manual/creator-observations'), new Set(enrichedEntities.keys()))
   const existingEvidenceByBusiness = mergePlanningEvidence(manual.businesses, manualObservations.businesses)
   const research = await researchPotentialCandidates(candidates, entities, now, {
     ...researchOptions,
@@ -39,8 +41,10 @@ export async function runComparisonEnrichment(
     ...(!options.dryRun && !researchOptions.resultCache ? {resultCache: new FileResearchResultCache(resolve(root, 'content/reports/.comparison-research-cache'))} : {}),
     logger: researchOptions.logger ?? ((message) => console.log(`comparison-research: ${message}`)),
   })
-  const artifact = enrichComparison(candidates, entities, manual, now, research, manualObservations)
-  const dataGate = evaluateComparisonDataGate(artifact)
+  const evidenceArtifact = enrichComparison(candidates, entities, manual, now, research, manualObservations)
+  const dataGate = evaluateComparisonDataGate(evidenceArtifact)
+  // Evidencia de tercero: se adjunta después del gate y fuera de `evidence`, así no puede moverlo.
+  const artifact = attachCreatorObservations(evidenceArtifact, creatorObservations)
   const investigations = artifact.investigations ?? []
   const directCount = candidates.candidates.filter((candidate) => (candidate.matchType ?? 'direct') === 'direct').length
   const potentialCount = candidates.candidates.filter((candidate) => candidate.matchType === 'potential').length
@@ -96,6 +100,7 @@ export async function runComparisonEnrichment(
     },
     research: researchSummary,
     manualObservations: manualSummary,
+    creatorObservations: creatorObservationSummary(creatorObservations, artifact),
     evidenceCoverage: {
       perBusiness: artifact.businesses.map((business) => ({businessId: business.businessId, ...Object.fromEntries(Object.entries(business.evidence).map(([key, facts]) => [key, facts.length]))})),
       perDimension: Object.fromEntries(EVIDENCE_CATEGORIES.map((dimension) => [dimension, {

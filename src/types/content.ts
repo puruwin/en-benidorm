@@ -79,6 +79,8 @@ export interface DescriptionBlock {
 }
 
 export interface BusinessDetail extends BusinessSummary {
+  /** `_id` del documento; falta en el contenido demo. */
+  id?: string
   description: DescriptionBlock[]
   address: {
     street: string
@@ -114,7 +116,7 @@ export interface ComparisonEntryDetail {
   bestFor: string[]
   featuredItem?: {name: string; price?: number; currency?: 'EUR'; priceQualifier?: string; priceUnit?: 'per-person' | 'per-portion' | 'per-unit' | 'ambiguous'; source: string; retrievedAt: string}
   practicalNotes: string[]
-  business: Pick<BusinessDetail, 'name' | 'slug' | 'href' | 'kind' | 'phone' | 'website'>
+  business: Pick<BusinessDetail, 'id' | 'name' | 'slug' | 'href' | 'kind' | 'phone' | 'website'>
 }
 
 export interface ComparisonChoiceDetail {

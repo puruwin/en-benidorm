@@ -3,7 +3,8 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import DataProvenance from '../../components/DataProvenance.astro'
 import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import {getComparisonBySlug, getComparisonSlugs} from '../../lib/content-source'
+import CreatorObservations from '../../components/CreatorObservations.astro'
+import {getComparisonBySlug, getComparisonSlugs, getCreatorObservations} from '../../lib/content-source'
 import {comparisonIndexability} from '../../lib/indexability'
 import {comparisonItemListJsonLd} from '../../lib/jsonld'
 import {breadcrumbTrail, getRouteRegistry} from '../../lib/routes'
@@ -22,6 +23,7 @@ const site = Astro.site ?? new URL('https://enbenidorm.es')
 const showPrice = comparison.entries.some((entry) => typeof entry.featuredItem?.price === 'number')
 const showPractical = comparison.entries.some((entry) => entry.practicalNotes.length > 0)
 const euro = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'})
+const creatorGroups = comparison.entries.map((entry) => ({business: {name: entry.business.name, href: entry.business.href}, observations: getCreatorObservations(entry.business.id)}))
 ---
 
 <BaseLayout seo={comparison.seo} indexability={comparisonIndexability(comparison)} seoFallback={{title: comparison.title, description: comparison.intro}} breadcrumbs={breadcrumbs} jsonLd={[comparisonItemListJsonLd(comparison, site)]} demo={false}>
@@ -69,6 +71,8 @@ const euro = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'}
           </article>
         ))}
       </section>
+
+      <CreatorObservations groups={creatorGroups} />
 
       <section class="mt-16" aria-labelledby="criteria-title"><h2 id="criteria-title" class="font-editorial text-3xl md:text-4xl">Qué hemos comparado</h2><ul class="mt-6 flex flex-wrap gap-3">{comparison.criteria.map((criterion) => <li class="rounded-full bg-sand px-4 py-2 text-sm font-bold text-sea-dark">{criterion}</li>)}</ul></section>
 
