@@ -1,0 +1,992 @@
+{
+  "facts": [
+    {
+      "id": "benidorm.zona-azul.horario.invierno-visitantes",
+      "subject": "zona-azul",
+      "attribute": "horario",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo III.1: horario para no residentes o visitantes. La ordenanza dice que el horario puede modificarse por decreto.",
+      "claims": [
+        {
+          "value": "De lunes a domingo, festivos incluidos, de 9 a 14 y de 16 a 20 horas, del 1 de octubre al 14 de junio",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.horario.verano-visitantes",
+      "subject": "zona-azul",
+      "attribute": "horario",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo III.1: horario para no residentes o visitantes.",
+      "claims": [
+        {
+          "value": "De lunes a domingo, festivos incluidos, de 9 a 24 horas, del 15 de junio al 30 de septiembre y en Semana Santa",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.horario.residentes",
+      "subject": "zona-azul",
+      "attribute": "horario",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo III.1: horario para residentes empadronados en Benidorm.",
+      "claims": [
+        {
+          "value": "De lunes a viernes, de 9 a 14 y de 16 a 20 horas (de 16 a 21 en verano y Semana Santa); sábados, de 9 a 14; domingos y festivos, libre",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.vigencia",
+      "subject": "zona-azul",
+      "attribute": "vigencia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Las calles de zona azul se regulan todo el año; las de zona azul de verano, del 15 de junio al 30 de septiembre y en Semana Santa, del viernes de Dolores al segundo lunes de Pascua",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.estancia-maxima",
+      "subject": "zona-azul",
+      "attribute": "estancia-maxima",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Artículo 32.4.a.",
+      "claims": [
+        {
+          "value": "5 horas; al terminar hay que cambiar el coche de calle",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.pago",
+      "subject": "zona-azul",
+      "attribute": "pago",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Artículo 32.5 y 32.6.",
+      "claims": [
+        {
+          "value": "En el parquímetro (monedas, tarjeta o monedero electrónico) o por app, introduciendo la matrícula; el tique ya no se deja en el parabrisas",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.tarifa",
+      "subject": "zona-azul",
+      "attribute": "tarifa",
+      "municipality": "Benidorm",
+      "unit": "EUR/h",
+      "conditions": "La Ordenanza de Movilidad remite la tarifa a la Ordenanza Fiscal nº 26, cuyo texto vigente no hemos encontrado en benidorm.org. Solo la publican webs de terceros; hasta tener la fuente municipal no se muestra la cifra.",
+      "requiresMunicipalSource": true,
+      "claims": [
+        {
+          "value": 0.5,
+          "source": {
+            "key": "third-party:https://www.salir.com/donde-aparcar-en-benidorm-693.html",
+            "provider": "www.salir.com",
+            "identifier": "https://www.salir.com/donde-aparcar-en-benidorm-693.html",
+            "url": "https://www.salir.com/donde-aparcar-en-benidorm-693.html",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Salir.com: Dónde aparcar en Benidorm (29 de septiembre de 2026)",
+            "licenseUrl": null,
+            "sourceClass": "third-party",
+            "claimScope": "establishment"
+          }
+        },
+        {
+          "value": 0.5,
+          "source": {
+            "key": "third-party:https://zona-azul.es/benidorm/",
+            "provider": "zona-azul.es",
+            "identifier": "https://zona-azul.es/benidorm/",
+            "url": "https://zona-azul.es/benidorm/",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Zona-azul.es: Zona Azul Benidorm",
+            "licenseUrl": null,
+            "sourceClass": "third-party",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.motos",
+      "subject": "zona-azul",
+      "attribute": "motos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Artículo 32.2.",
+      "claims": [
+        {
+          "value": "Prohibido aparcar vehículos de dos ruedas en la zona regulada, salvo en las plazas señalizadas para ellos",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-verde.acceso",
+      "subject": "zona-verde",
+      "attribute": "acceso",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Artículo 32.3.d y anexo III.1.",
+      "claims": [
+        {
+          "value": "Visitantes: pagan con la tarifa de la zona azul, las 24 horas, todos los días del año. Residentes empadronados: gratis, hasta 48 horas",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-naranja.acceso",
+      "subject": "zona-naranja",
+      "attribute": "acceso",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Artículo 32.3.b.",
+      "claims": [
+        {
+          "value": "Solo residentes empadronados en Benidorm, hasta 10 días y sin pagar; el resto no puede aparcar",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-roja.acceso",
+      "subject": "zona-roja",
+      "attribute": "acceso",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Artículo 32.3.c.",
+      "claims": [
+        {
+          "value": "Solo residentes empadronados en Benidorm; el resto no puede aparcar",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zona-azul.facilidad-aparcar",
+      "subject": "zona-azul",
+      "attribute": "facilidad-aparcar",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Requiere observación en persona; no hay visita registrada en content/manual/visits/.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.aparcamientos-disuasorios.plazas",
+      "subject": "aparcamientos-disuasorios",
+      "attribute": "plazas",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Dos fuentes municipales de 2023 dan totales distintos; David decidió publicar el rango (resolution).",
+      "claims": [
+        {
+          "value": "Más de 8.000 plazas gratuitas en casi 40 aparcamientos disuasorios (nota municipal de abril de 2023)",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+            "url": "https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: nota del 20 de abril de 2023 sobre el aparcamiento disuasorio de Bernat de Sarrià",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        },
+        {
+          "value": "7.005 plazas gratuitas en 36 aparcamientos disuasorios (plano municipal de septiembre de 2023)",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Movilidad: plano de los aparcamientos disuasorios (septiembre de 2023)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ],
+      "resolution": {
+        "claimIndex": 1,
+        "value": "De 7.000 a 8.000 plazas gratuitas, según dos fuentes municipales de 2023: el plano de septiembre y la nota de abril",
+        "reviewedBy": "David",
+        "reviewedAt": "2026-10-27",
+        "reason": "El plano de septiembre de 2023 da 7.005 y la nota de abril de 2023 «más de 8.000»; se publica el rango entre las dos cifras oficiales."
+      }
+    },
+    {
+      "id": "benidorm.aparcamientos-disuasorios.mapa",
+      "subject": "aparcamientos-disuasorios",
+      "attribute": "mapa",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Plano municipal con 36 aparcamientos disuasorios numerados, con su dirección, sus plazas y la parada de autobús más cercana (septiembre de 2023)",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Movilidad: plano de los aparcamientos disuasorios (septiembre de 2023)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.aparcamientos-disuasorios.mayores",
+      "subject": "aparcamientos-disuasorios",
+      "attribute": "mayores",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Los cinco con más plazas del plano de septiembre de 2023; Beniardá tiene una nota posterior (julio de 2026).",
+      "claims": [
+        {
+          "value": "Según el plano de septiembre de 2023, los de más plazas: avenida Beniardà (1.004), avenida Comunidad Europea (680), avenida de Cuba (510), avenida de Inglaterra, en el recinto ferial (467), y Parc de Foietes (440)",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm, Concejalía de Movilidad: plano de los aparcamientos disuasorios (septiembre de 2023)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.aparcamiento-beniarda.plazas",
+      "subject": "aparcamiento-beniarda",
+      "attribute": "plazas",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Más de 360 plazas en la avenida de Beniardá (Foietes-Colonia Madrid), reabierto en julio de 2026; con el aparcamiento contiguo de El Moralet suman cerca de mil plazas gratuitas",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/benidorm-reabre-tras-su-acondicionamiento-el-parking-de-la-avenida-de-beniarda-con-capacidad-para-mas-de-360-vehiculos",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/benidorm-reabre-tras-su-acondicionamiento-el-parking-de-la-avenida-de-beniarda-con-capacidad-para-mas-de-360-vehiculos",
+            "url": "https://benidorm.org/es/noticias/benidorm-reabre-tras-su-acondicionamiento-el-parking-de-la-avenida-de-beniarda-con-capacidad-para-mas-de-360-vehiculos",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: nota del 1 de julio de 2026 sobre el aparcamiento de la avenida de Beniardá",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.aparcamiento-bernat-de-sarria.plazas",
+      "subject": "aparcamiento-bernat-de-sarria",
+      "attribute": "plazas",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Casi 700 plazas públicas y gratuitas en la avenida Bernat de Sarrià, cerca del Rincón de Loix (nota municipal de abril de 2023)",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+            "url": "https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: nota del 20 de abril de 2023 sobre el aparcamiento disuasorio de Bernat de Sarrià",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.aparcamiento-bernat-de-sarria.vigencia",
+      "subject": "aparcamiento-bernat-de-sarria",
+      "attribute": "vigencia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "No hemos encontrado una fuente municipal posterior a abril de 2023 que confirme que sigue abierto y gratuito.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.aparcamientos-disuasorios.autobus",
+      "subject": "aparcamientos-disuasorios",
+      "attribute": "autobus",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "En febrero de 2023, quien aparcaba en Francisco Llorca Antón (Estación de Autobuses) o en la avenida de Cuba (Vía Parque) podía sacar un billete de autobús gratuito de ida y vuelta al centro o al Rincón de Loix, con autobuses cada unos quince minutos",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/comunicacion/noticias/como-aparcar-gratis-en-benidorm-desde-el-ordenador-o-el-movil",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/comunicacion/noticias/como-aparcar-gratis-en-benidorm-desde-el-ordenador-o-el-movil",
+            "url": "https://benidorm.org/es/comunicacion/noticias/como-aparcar-gratis-en-benidorm-desde-el-ordenador-o-el-movil",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: nota del 10 de febrero de 2023 «¿Cómo aparcar gratis en Benidorm desde el ordenador o el móvil?»",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.aparcamientos-disuasorios.autobus-vigencia",
+      "subject": "aparcamientos-disuasorios",
+      "attribute": "autobus-vigencia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "No hemos encontrado una fuente municipal posterior a febrero de 2023 que confirme que el billete de autobús gratuito sigue vigente.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.aparcamientos-disuasorios.ocupacion",
+      "subject": "aparcamientos-disuasorios",
+      "attribute": "ocupacion",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Requiere observación en persona en temporada alta; no hay visita registrada en content/manual/visits/.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.zbe.ambito",
+      "subject": "zbe",
+      "attribute": "ambito",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo IV.",
+      "claims": [
+        {
+          "value": "Tres subzonas: el centro (casco histórico), Levante y el Paseo de Poniente",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.acceso-libre",
+      "subject": "zbe",
+      "attribute": "acceso-libre",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Vehículos con distintivo ambiental C, ECO o Cero emisiones, además de los de residentes en la ZBE, el transporte urbano y los vehículos con autorización especial",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.restricciones",
+      "subject": "zbe",
+      "attribute": "restricciones",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Los vehículos sin distintivo o con distintivo B tienen restricciones para entrar",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.restricciones-detalle",
+      "subject": "zbe",
+      "attribute": "restricciones-detalle",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Ni el tríptico ni el anexo V de la ordenanza detallan en qué consiste la restricción para un coche con distintivo B o sin distintivo que no está en ninguno de los casos autorizados.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.zbe.control",
+      "subject": "zbe",
+      "attribute": "control",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "22 puntos de control con cámaras; no es obligatorio llevar la pegatina del distintivo, aunque se recomienda",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.inicio",
+      "subject": "zbe",
+      "attribute": "inicio",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Según el tríptico municipal de diciembre de 2024, operativa desde el 1 de enero de 2025, empezando por una fase informativa de varios meses con preaviso y sin sanciones",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ],
+      "conditions": "El tríptico no dice cuándo termina la fase informativa."
+    },
+    {
+      "id": "benidorm.zbe.autorizaciones",
+      "subject": "zbe",
+      "attribute": "autorizaciones",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Los accesos puntuales o temporales se solicitan en la plataforma ZBEnidorm (zbe.benidorm.org)",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/pagina/zbe",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/pagina/zbe",
+            "url": "https://benidorm.org/es/pagina/zbe",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: página de la Zona de Bajas Emisiones",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.hoteles",
+      "subject": "zbe",
+      "attribute": "hoteles",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo V, apartado 2.",
+      "claims": [
+        {
+          "value": "Con o sin distintivo, el hotel pide la autorización por los días de la estancia si el coche aparca en el hotel; si no, solo para los días de entrada y salida, usando las reservas de la calle",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.aparcamientos-publicos",
+      "subject": "zbe",
+      "attribute": "aparcamientos-publicos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo V, apartado 2.",
+      "claims": [
+        {
+          "value": "Con o sin distintivo, el aparcamiento público del interior de la ZBE pide la autorización para sus clientes por el tiempo de su estancia",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.matricula-extranjera",
+      "subject": "zbe",
+      "attribute": "matricula-extranjera",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo V, apartado 2. La ordenanza no detalla cómo se acredita la equivalencia.",
+      "claims": [
+        {
+          "value": "Los vehículos con matrícula extranjera o diplomática deben solicitar permiso de acceso, siempre que sean equiparables en características ambientales",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.taxis",
+      "subject": "zbe",
+      "attribute": "taxis",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo V, apartado 2.",
+      "claims": [
+        {
+          "value": "Taxis y VTC con etiqueta B, C, ECO o CERO, sin restricciones de acceso",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.invitaciones",
+      "subject": "zbe",
+      "attribute": "invitaciones",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo V, apartado 2.",
+      "claims": [
+        {
+          "value": "Un empadronado en la ZBE puede pedir acceso para coches sin distintivo de sus visitas: hasta 10 permisos al mes, de un día cada uno y solo para aparcar",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.movilidad-reducida",
+      "subject": "zbe",
+      "attribute": "movilidad-reducida",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Anexo V, apartado 2.",
+      "claims": [
+        {
+          "value": "Con tarjeta de estacionamiento para personas con movilidad reducida, hay que dar de alta antes la tarjeta y el vehículo en la plataforma de la ZBE",
+          "source": {
+            "key": "official-location:https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "provider": "contenidos.benidorm.org",
+            "identifier": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.moratoria-sin-distintivo",
+      "subject": "zbe",
+      "attribute": "moratoria-sin-distintivo",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Solo hay una noticia de prensa; falta el anuncio del BOP o una nota municipal.",
+      "claims": [
+        {
+          "value": "Moratoria de un año para vehículos sin distintivo ambiental que cumplan el resto de la normativa, que podría estar vigente hasta marzo de 2027",
+          "source": {
+            "key": "third-party:https://alicanteplaza.es/alicanteplaza/marinabaixa/benidorm-amplia-un-ano-mas-la-moratoria-para-coches-sin-etiqueta-ambiental-en-la-zbe",
+            "provider": "alicanteplaza.es",
+            "identifier": "https://alicanteplaza.es/alicanteplaza/marinabaixa/benidorm-amplia-un-ano-mas-la-moratoria-para-coches-sin-etiqueta-ambiental-en-la-zbe",
+            "url": "https://alicanteplaza.es/alicanteplaza/marinabaixa/benidorm-amplia-un-ano-mas-la-moratoria-para-coches-sin-etiqueta-ambiental-en-la-zbe",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Alicante Plaza: noticia del 15 de marzo de 2026 sobre la moratoria de la ZBE",
+            "licenseUrl": null,
+            "sourceClass": "third-party",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.zbe.sanciones",
+      "subject": "zbe",
+      "attribute": "sanciones",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "No hemos encontrado una fuente municipal actual que diga desde cuándo se sanciona ni a qué vehículos.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.autobus-urbano.billetes",
+      "subject": "autobus-urbano",
+      "attribute": "billetes",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Billete sencillo (se compra a bordo), TarjetaBus recargable y compartible, tarjetas turísticas de 24 y 72 horas con viajes ilimitados y Tarjeta Eco de 30 días",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+            "url": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Tarifas y bonos del transporte urbano",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.autobus-urbano.transbordo",
+      "subject": "autobus-urbano",
+      "attribute": "transbordo",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Con la TarjetaBus, transbordo en 45 minutos a una línea del mismo precio o inferior",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+            "url": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Visit Benidorm (turismo municipal): Tarifas y bonos del transporte urbano",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        },
+        {
+          "value": "Con los títulos multiviaje, transbordo gratis si cambias a otra línea y vuelves a validar en menos de 90 minutos",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ],
+      "conditions": "Turismo de Benidorm daba 45 minutos; David decidió que, para el autobús urbano, manda la concesionaria (resolution).",
+      "resolution": {
+        "claimIndex": 1,
+        "reviewedBy": "David",
+        "reviewedAt": "2026-10-27",
+        "reason": "Para el autobús urbano, la concesionaria (Avanza) manda sobre Visit Benidorm."
+      }
+    },
+    {
+      "id": "benidorm.autobus-urbano.tarifa",
+      "subject": "autobus-urbano",
+      "attribute": "tarifa",
+      "municipality": "Benidorm",
+      "unit": "EUR",
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": 2,
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.autobus-urbano.tarjeta-bus",
+      "subject": "autobus-urbano",
+      "attribute": "tarjeta-bus",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": "1,50 € por viaje con la tarjeta BUS, un monedero que se recarga a bordo con 10 a 20 €; la tarjeta cuesta 2,00 € (4,00 € la personalizada)",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.autobus-urbano.titulos-turisticos",
+      "subject": "autobus-urbano",
+      "attribute": "titulos-turisticos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": "Títulos turísticos de viajes ilimitados: 24 horas, 12,00 €; 72 horas, 24,00 €; 7 días, 48,00 €",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.autobus-urbano.tarjeta-eco",
+      "subject": "autobus-urbano",
+      "attribute": "tarjeta-eco",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Tabla de tarifas 2026 de la concesionaria (imagen en la página); no indica fecha de vigencia. Tarifa única en toda la concesión.",
+      "claims": [
+        {
+          "value": "Tarjeta ECO, 30 días de viajes: 88,00 €",
+          "source": {
+            "key": "official-location:https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "provider": "alicante.avanzagrupo.com",
+            "identifier": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "url": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.tram.tarifa-sencillo",
+      "subject": "tram",
+      "attribute": "tarifa-sencillo",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Tarifas temporales del 1 de octubre al 31 de diciembre de 2026 (Orden 8/2026, DOGV). Cita siempre esta página: la portada de tramalacant.es redirige a Metrovalencia.",
+      "claims": [
+        {
+          "value": "Del 1 de octubre al 31 de diciembre de 2026: 2,00 € una zona, 2,90 € dos zonas y 4,00 € tres zonas",
+          "source": {
+            "key": "official-location:https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
+            "provider": "www.tramalacant.es",
+            "identifier": "https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
+            "url": "https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
+            "retrievedAt": "2026-10-27T12:00:00.000Z",
+            "attribution": "TRAM d'Alacant (FGV): Tarifas temporales",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    }
+  ]
+}

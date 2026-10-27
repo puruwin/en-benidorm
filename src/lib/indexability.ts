@@ -1,4 +1,4 @@
-import type {BeachDetail, BusinessDetail, ComparisonDetail, PracticalFactView, SourceItem} from '../types/content'
+import type {BeachDetail, BusinessDetail, ComparisonDetail, GuideDetail, PracticalFactView, SourceItem} from '../types/content'
 import {sourceKind} from './business-presentation'
 
 /**
@@ -228,6 +228,38 @@ export function beachIndexability(beach: BeachDetail): IndexabilitySignals {
     h1: beach.name,
     titleIsFallback: !filled(beach.seo.title),
   }
+}
+
+/**
+ * Guía de Información práctica. La evidencia son sus hechos prácticos confirmados. Aporta condición
+ * práctica si cita un hecho confirmado (horario, norma, acceso), advertencia si deja a la vista lo que
+ * no está confirmado y comparación si enlaza otra página explicando por qué. El sujeto es lo que el
+ * título declara antes de los dos puntos: «Zona azul en Benidorm: …».
+ */
+export function guideIndexability(guide: GuideDetail): IndexabilitySignals {
+  const contributions: Contribution[] = []
+  if (guide.facts.some((fact) => fact.status === 'confirmed')) contributions.push('practical-condition')
+  if (guide.facts.some((fact) => fact.status !== 'confirmed')) contributions.push('warning')
+  if (guide.links.some((link) => link.note.trim().length > 0)) contributions.push('comparison')
+  return {
+    kind: 'guide',
+    storedNoIndex: guide.seo.noIndex === true,
+    demo: false,
+    evidence: {
+      officialFact: guide.facts.some(isConfirmedOfficial),
+      ownObservation: guide.facts.some((fact) => fact.status === 'confirmed' && fact.sourceClass === 'manual-first-party'),
+      creatorObservations: [],
+    },
+    hasAddress: false,
+    contributions,
+    subject: guideSubject(guide.title),
+    h1: guide.title,
+    titleIsFallback: !filled(guide.seo.title),
+  }
+}
+
+export function guideSubject(title: string): string {
+  return title.split(':')[0]!.trim()
 }
 
 /** Inicio, hubs y autor: solo título/H1 y enlaces. */

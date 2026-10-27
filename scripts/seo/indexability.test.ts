@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {beachIndexability, comparisonIndexability, isIndexable, parseIndexabilitySignals, restaurantIndexability, structuralIndexability, type IndexabilityInput, type IndexabilityReasonCode} from '../../src/lib/indexability'
-import type {BeachDetail, BusinessDetail, ComparisonDetail, PracticalFactView} from '../../src/types/content'
+import {beachIndexability, comparisonIndexability, guideIndexability, isIndexable, parseIndexabilitySignals, restaurantIndexability, structuralIndexability, type IndexabilityInput, type IndexabilityReasonCode} from '../../src/lib/indexability'
+import type {BeachDetail, BusinessDetail, ComparisonDetail, GuideDetail, PracticalFactView} from '../../src/types/content'
 
 const official = {title: 'official-website: https://local.test/', url: 'https://local.test/', publisher: 'Sitio web oficial de Local', accessedAt: '2026-10-06'}
 const osm = {title: 'OpenStreetMap', url: 'https://www.openstreetmap.org/node/1', accessedAt: '2026-10-06'}
@@ -113,6 +113,20 @@ test('beachIndexability: la ubicación oficial confirmada es la dirección; la d
   assert.deepEqual(codes({...ficha(), ...beachIndexability(beach({contrasts: [], facts: [fact('ubicacion')]})), route: '/playas/playa-levante/', title: 'Playa de Levante', h1: 'Playa de Levante'}), ['no-contribution'])
 })
 
+test('guideIndexability: hechos oficiales confirmados son evidencia; lo pendiente a la vista es advertencia; el sujeto va antes de los dos puntos', () => {
+  const tariff = fact('tarifa', {factId: 'benidorm.zona-azul.tarifa', status: 'needs verification', value: null, unit: 'EUR/h', sourceClass: 'third-party'})
+  const signals = guideIndexability(guide({facts: [fact('horario', {factId: 'benidorm.zona-azul.horario.verano-visitantes'}), tariff]}))
+  assert.deepEqual(signals.evidence, {officialFact: true, ownObservation: false, creatorObservations: []})
+  assert.deepEqual(signals.contributions, ['practical-condition', 'warning', 'comparison'])
+  assert.equal(signals.subject, 'Zona azul en Benidorm')
+  assert.equal(isIndexable({...signals, route: '/informacion-practica/zona-azul-benidorm/', title: 'Zona azul en Benidorm: horario', h1: signals.h1, incomingContextualLinks: 2}).indexable, true)
+
+  // Solo datos de terceros: no hay evidencia aunque haya advertencias.
+  const thirdPartyOnly = guideIndexability(guide({facts: [tariff], links: []}))
+  assert.equal(thirdPartyOnly.evidence.officialFact, false)
+  assert.deepEqual(codes({...thirdPartyOnly, route: '/informacion-practica/zona-azul-benidorm/', title: 'Zona azul en Benidorm: horario', h1: thirdPartyOnly.h1, incomingContextualLinks: 2}), ['no-evidence'])
+})
+
 test('las señales sobreviven al meta y un meta roto se rechaza', () => {
   const signals = structuralIndexability({subject: 'Dónde comer', h1: 'Dónde comer en Benidorm', title: 'Dónde comer en Benidorm · enBenidorm'})
   assert.deepEqual(parseIndexabilitySignals(JSON.stringify(signals)), signals)
@@ -155,6 +169,16 @@ function beach(overrides: Partial<BeachDetail> = {}): BeachDetail {
     facts: [fact('ubicacion'), {...fact('perros'), factId: 'benidorm.playas.perros', value: 'Prohibida la presencia de animales domésticos en las playas'}],
     contrasts: [{name: 'Playa de Poniente', href: '/playas/playa-poniente/', reason: 'Más larga y con dos puntos accesibles.'}],
     nearbyDining: [], sources: [], seo: {title: 'Playa de Levante (Benidorm)'},
+    ...overrides,
+  }
+}
+
+function guide(overrides: Partial<GuideDetail> = {}): GuideDetail {
+  return {
+    id: 'article-zona-azul-benidorm', title: 'Zona azul en Benidorm: horarios para visitantes', slug: 'zona-azul-benidorm', href: '/informacion-practica/zona-azul-benidorm/',
+    excerpt: 'E', description: [], facts: [fact('horario')],
+    links: [{title: 'Aparcamientos gratuitos en Benidorm', href: '/informacion-practica/aparcamientos-gratuitos-benidorm/', note: 'Si no quieres pagar.'}],
+    author: {name: 'David', slug: 'david'}, publishedAt: '2026-10-27T12:00:00.000Z', sources: [], seo: {title: 'Zona azul en Benidorm: horario'},
     ...overrides,
   }
 }

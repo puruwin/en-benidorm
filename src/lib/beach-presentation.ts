@@ -44,20 +44,31 @@ export function factLabel(fact: PracticalFactView): string {
 }
 
 const number = new Intl.NumberFormat('es-ES')
+const euros = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'})
 
 /** Valor legible según la unidad; `null` si el hecho no está confirmado (no se publica cifra). */
 export function factValue(fact: PracticalFactView): string | null {
   if (fact.status !== 'confirmed' || fact.value === null) return null
   if (fact.unit === 'm' || fact.unit === 'km' || fact.unit === 'min') return `${number.format(Number(fact.value))} ${fact.unit}`
   if (fact.unit === 'booleano') return fact.value === 'true' ? 'Sí' : 'No'
+  if (fact.unit === 'EUR' || fact.unit === 'EUR/h' || fact.unit === 'EUR/día') return `${euros.format(Number(fact.value))}${fact.unit === 'EUR' ? '' : fact.unit.slice(3)}`
   return fact.value
 }
 
 /** Texto para lo que no está confirmado. Nunca afirma una verificación que no hay. */
 export function pendingText(fact: PracticalFactView): string {
   if (fact.status === 'conflict') return 'Las fuentes no coinciden: pendiente de revisión'
-  if (fact.status === 'needs verification') return 'Solo hay fuentes no oficiales: pendiente de confirmar'
+  if (fact.status === 'needs verification') return 'Sin fuente oficial aprobada: pendiente de confirmar'
   return 'Pendiente: sin fuente oficial ni visita registrada'
+}
+
+/**
+ * Procedencia de un hecho sin confirmar: se nombra quién lo publica, sin enlace. Enlazarla llevaría al
+ * lector a la cifra que la página no publica (#17: sin fuente municipal, sin cifra).
+ */
+export function unconfirmedSourceText(fact: PracticalFactView): string | null {
+  if (fact.status === 'confirmed' || !fact.sourceTitle) return null
+  return `Lo publica ${fact.sourceTitle.split(':')[0]}, una fuente que no tenemos aprobada como oficial; no la enlazamos mientras no se confirme.`
 }
 
 export interface FactRow {

@@ -53,7 +53,7 @@ const BUSINESS_KINDS = new Set(['restaurant', 'bar', 'pub', 'cafe', 'hotel', 'sh
 const PRICE_RANGES = new Set(['€', '€€', '€€€', '€€€€'])
 const PLACE_TYPES = new Set(['Mirador', 'Parque', 'Monumento', 'Ruta', 'Punto de interés'])
 const EVENT_STATUSES = new Set(['scheduled', 'postponed', 'cancelled', 'rescheduled'])
-const ARTICLE_SECTIONS = new Set(['guides', 'thingsToDo', 'information'])
+const ARTICLE_SECTIONS = new Set(['guides', 'thingsToDo', 'information', 'informationPractical'])
 const DAYS = new Set(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])
 const CALLOUT_TONES = new Set(['Consejo', 'Información', 'Aviso'])
 // Los documentos importados reciben el prefijo `drafts.` (7 caracteres), así
@@ -71,7 +71,7 @@ const REFERENCE_RULES: Record<string, Record<string, readonly string[]>> = {
   place: {'categories[]': ['category'], 'features[]': ['category'], area: ['area']},
   beach: {'services[]': ['category'], area: ['area'], 'profileContrasts[].beach': ['beach'], 'nearbyDining[].comparison': ['comparison']},
   event: {venue: ['place', 'business'], 'categories[]': ['category']},
-  article: {author: ['author'], 'categories[]': ['category'], 'relatedContent[]': ['business', 'place', 'beach', 'event', 'article']},
+  article: {author: ['author'], 'categories[]': ['category'], 'relatedContent[]': ['business', 'place', 'beach', 'event', 'article'], 'contextLinks[].target': ['article', 'beach']},
   comparison: {author: ['author'], area: ['area'], 'choiceGuide[].business': ['business'], 'entries[].business': ['business']},
 }
 
@@ -312,13 +312,15 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
       validateNestedString(input, doc.diningPage, 'intro', 'diningPage.intro', issue)
       validateSeo(input, doc.diningPage.seo, 'diningPage.seo', issue)
     }
-    // Opcional: el singleton ya publicado no la tiene hasta que se rellena en Studio.
-    if (doc.beachesPage !== undefined) {
-      if (!isRecord(doc.beachesPage)) issue(input, 'beachesPage', 'Debe ser un objeto.')
+    // Opcionales: el singleton ya publicado no las tiene hasta que se rellenan en Studio.
+    for (const page of ['beachesPage', 'informationPage'] as const) {
+      const value = doc[page]
+      if (value === undefined) continue
+      if (!isRecord(value)) issue(input, page, 'Debe ser un objeto.')
       else {
-        validateNestedString(input, doc.beachesPage, 'title', 'beachesPage.title', issue)
-        validateNestedString(input, doc.beachesPage, 'intro', 'beachesPage.intro', issue)
-        validateSeo(input, doc.beachesPage.seo, 'beachesPage.seo', issue)
+        validateNestedString(input, value, 'title', `${page}.title`, issue)
+        validateNestedString(input, value, 'intro', `${page}.intro`, issue)
+        validateSeo(input, value.seo, `${page}.seo`, issue)
       }
     }
     validateSeo(input, doc.defaultSeo, 'defaultSeo', issue)
@@ -389,6 +391,12 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
     if (!Array.isArray(doc.body) || doc.body.length === 0) issue(input, 'body', 'El contenido Portable Text es obligatorio y no puede estar vacío.')
     validateDate(input, 'publishedAt', true, false, issue)
     validateDate(input, 'updatedAt', false, false, issue)
+    if (doc.contextLinks !== undefined) {
+      if (!Array.isArray(doc.contextLinks)) issue(input, 'contextLinks', 'Debe ser un array.')
+      else doc.contextLinks.forEach((item, index) => {
+        if (!isRecord(item) || typeof item.note !== 'string' || !item.note.trim()) issue(input, `contextLinks[${index}].note`, 'Campo obligatorio.')
+      })
+    }
     language()
   } else if (doc._type === 'comparison') {
     requiredString('title')

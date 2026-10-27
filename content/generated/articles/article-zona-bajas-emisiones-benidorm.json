@@ -1,0 +1,338 @@
+{
+  "_id": "article-zona-bajas-emisiones-benidorm",
+  "_type": "article",
+  "language": "es",
+  "title": "Zona de bajas emisiones de Benidorm: hoteles, matrícula extranjera y accesos",
+  "slug": {
+    "_type": "slug",
+    "current": "zona-bajas-emisiones-benidorm"
+  },
+  "section": "informationPractical",
+  "excerpt": "Qué abarca la ZBE de Benidorm, qué coches entran sin restricciones y qué dice la ordenanza si te alojas en un hotel, aparcas en un parking del interior o llegas con matrícula extranjera.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "p1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p1-s",
+          "text": "El centro, Levante y el Paseo de Poniente forman la zona de bajas emisiones de Benidorm. Si vas a conducir hasta ellos, conviene mirar antes el distintivo ambiental del coche y dónde vas a aparcar.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p2-s",
+          "text": "Si tu coche tiene uno de los distintivos más limpios, entra sin restricciones. Con los demás, o sin distintivo, hay restricciones, pero ni el folleto municipal ni la ordenanza dicen en qué consisten fuera de los casos autorizados que siguen; lo dejamos marcado como pendiente. No hace falta llevar la pegatina: el acceso se controla con cámaras.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p3-s",
+          "text": "Si te alojas en un hotel o aparcas en un parking público del interior, el acceso no lo pides tú: lo pide el establecimiento, y vale también para coches sin distintivo. Si el coche no se queda en el aparcamiento del hotel, la autorización cubre solo los días de llegada y salida, para usar las plazas reservadas de la calle. Pregunta a tu hotel si lo tramita.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p4",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p4-s",
+          "text": "Con matrícula extranjera hay que pedir permiso de acceso; la ordenanza no explica cómo se acredita que el coche es equiparable en emisiones, así que no lo damos por resuelto. Taxis y VTC con etiqueta entran sin restricciones, una alternativa si no quieres complicarte.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p5",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p5-s",
+          "text": "Lo que no podemos confirmar con una fuente municipal: si sigue vigente la moratoria para coches sin distintivo de la que informó la prensa en marzo de 2026, y desde cuándo se sanciona. Lo dejamos marcado como pendiente.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "author": {
+    "_type": "reference",
+    "_ref": "author-david"
+  },
+  "publishedAt": "2026-10-27T12:00:00.000Z",
+  "practicalFacts": [
+    {
+      "_key": "benidorm-zbe-ambito",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.ambito",
+      "value": "Tres subzonas: el centro (casco histórico), Levante y el Paseo de Poniente",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-acceso-libre",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.acceso-libre",
+      "value": "Vehículos con distintivo ambiental C, ECO o Cero emisiones, además de los de residentes en la ZBE, el transporte urbano y los vehículos con autorización especial",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-restricciones",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.restricciones",
+      "value": "Los vehículos sin distintivo o con distintivo B tienen restricciones para entrar",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-restricciones-detalle",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.restricciones-detalle",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-zbe-control",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.control",
+      "value": "22 puntos de control con cámaras; no es obligatorio llevar la pegatina del distintivo, aunque se recomienda",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-inicio",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.inicio",
+      "value": "Según el tríptico municipal de diciembre de 2024, operativa desde el 1 de enero de 2025, empezando por una fase informativa de varios meses con preaviso y sin sanciones",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-hoteles",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.hoteles",
+      "value": "Con o sin distintivo, el hotel pide la autorización por los días de la estancia si el coche aparca en el hotel; si no, solo para los días de entrada y salida, usando las reservas de la calle",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-aparcamientos-publicos",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.aparcamientos-publicos",
+      "value": "Con o sin distintivo, el aparcamiento público del interior de la ZBE pide la autorización para sus clientes por el tiempo de su estancia",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-matricula-extranjera",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.matricula-extranjera",
+      "value": "Los vehículos con matrícula extranjera o diplomática deben solicitar permiso de acceso, siempre que sean equiparables en características ambientales",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-taxis",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.taxis",
+      "value": "Taxis y VTC con etiqueta B, C, ECO o CERO, sin restricciones de acceso",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-invitaciones",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.invitaciones",
+      "value": "Un empadronado en la ZBE puede pedir acceso para coches sin distintivo de sus visitas: hasta 10 permisos al mes, de un día cada uno y solo para aparcar",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-movilidad-reducida",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.movilidad-reducida",
+      "value": "Con tarjeta de estacionamiento para personas con movilidad reducida, hay que dar de alta antes la tarjeta y el vehículo en la plataforma de la ZBE",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-autorizaciones",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.autorizaciones",
+      "value": "Los accesos puntuales o temporales se solicitan en la plataforma ZBEnidorm (zbe.benidorm.org)",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: página de la Zona de Bajas Emisiones",
+      "sourceUrl": "https://benidorm.org/es/pagina/zbe",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-moratoria-sin-distintivo",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.moratoria-sin-distintivo",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "needs verification",
+      "sourceTitle": "Alicante Plaza: noticia del 15 de marzo de 2026 sobre la moratoria de la ZBE",
+      "sourceUrl": "https://alicanteplaza.es/alicanteplaza/marinabaixa/benidorm-amplia-un-ano-mas-la-moratoria-para-coches-sin-etiqueta-ambiental-en-la-zbe",
+      "sourceClass": "third-party",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-zbe-sanciones",
+      "_type": "practicalFact",
+      "factId": "benidorm.zbe.sanciones",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    }
+  ],
+  "contextLinks": [
+    {
+      "_key": "link-0",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-aparcamientos-gratuitos-benidorm",
+        "_weak": true
+      },
+      "note": "Para dejar el coche y seguir a pie o en autobús: la red municipal de aparcamientos gratuitos."
+    },
+    {
+      "_key": "link-1",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-zona-azul-benidorm",
+        "_weak": true
+      },
+      "note": "Si entras y aparcas en la calle: los colores de la zona regulada y el horario para visitantes."
+    }
+  ],
+  "sources": [
+    {
+      "_key": "source-0",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "Ordenanza Municipal nº 1 de Movilidad, texto refundido (BOP de Alicante nº 213, 6 de noviembre de 2024)",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-11/2024_008876.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-1",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "tríptico ZBEnidorm, preguntas frecuentes (diciembre de 2024)",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2024-12/Tr%C3%ADptico_actualizado_diciembre_2024.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-2",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "página de la Zona de Bajas Emisiones",
+      "url": "https://benidorm.org/es/pagina/zbe",
+      "accessedAt": "2026-10-27"
+    }
+  ],
+  "seo": {
+    "_type": "seo",
+    "metaTitle": "Zona de bajas emisiones de Benidorm: hoteles y accesos",
+    "metaDescription": "Zona de bajas emisiones de Benidorm según la ordenanza municipal: quién entra, qué tramita tu hotel o parking, matrícula extranjera, taxis y lo pendiente.",
+    "noIndex": false
+  }
+}

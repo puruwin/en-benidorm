@@ -9,5 +9,7 @@
   {"host": "sanidad.gob.es", "municipality": "*", "publisher": "Ministerio de Sanidad (Náyade, aguas de baño)", "approvedBy": "David", "approvedAt": "2026-10-27"},
   {"host": "fgv.es", "municipality": "*", "publisher": "Ferrocarrils de la Generalitat Valenciana", "approvedBy": "David", "approvedAt": "2026-10-27"},
   {"host": "dogv.gva.es", "municipality": "*", "publisher": "Diari Oficial de la Generalitat Valenciana", "approvedBy": "David", "approvedAt": "2026-10-27"},
-  {"host": "comunitatvalenciana.com", "municipality": "*", "publisher": "Turisme Comunitat Valenciana (solo espacios naturales y oficinas de turismo, no fichas de negocios)", "approvedBy": "David", "approvedAt": "2026-10-27"}
+  {"host": "comunitatvalenciana.com", "municipality": "*", "publisher": "Turisme Comunitat Valenciana (solo espacios naturales y oficinas de turismo, no fichas de negocios)", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "tramalacant.es", "municipality": "*", "publisher": "TRAM d'Alacant, FGV (cita siempre la página concreta de tarifas; la portada redirige a Metrovalencia)", "approvedBy": "David", "approvedAt": "2026-10-27"},
+  {"host": "alicante.avanzagrupo.com", "municipality": "Benidorm", "publisher": "Avanza, concesionaria del autobús urbano de Benidorm (solo tarifas y líneas; cita la página concreta, p. ej. /es/billetes-y-bonos/tarifas)", "approvedBy": "David", "approvedAt": "2026-10-27"}
 ]
