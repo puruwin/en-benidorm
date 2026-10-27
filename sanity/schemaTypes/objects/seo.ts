@@ -1,4 +1,5 @@
-import {defineField, defineType} from 'sanity'
+import {defineField, defineType, type Rule} from 'sanity'
+import {indexableSeoIssues, type SeoFields} from '../../lib/seo-rules'
 
 export const seo = defineType({
   name: 'seo',
@@ -11,4 +12,10 @@ export const seo = defineType({
     defineField({name: 'socialImage', title: 'Imagen social', type: 'imageWithAlt'}),
     defineField({name: 'noIndex', title: 'No indexar', type: 'boolean', initialValue: false}),
   ],
+})
+
+/** Validación del campo `seo` en tipos con página pública: título y description (70–155) si es indexable. */
+export const indexableSeoValidation = (rule: Rule) => rule.custom<SeoFields | undefined>((value) => {
+  const issues = indexableSeoIssues(value)
+  return issues.length === 0 ? true : issues.join(' ')
 })
