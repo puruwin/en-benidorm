@@ -5,6 +5,7 @@ import GuideCard from '../components/GuideCard.astro'
 import Hero from '../components/Hero.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import {getHomeContent, isDemoMode} from '../lib/content-source'
+import {structuralIndexability} from '../lib/indexability'
 import {websiteJsonLd} from '../lib/jsonld'
 import {filterLinks, getRouteRegistry, routes} from '../lib/routes'
 
@@ -17,7 +18,7 @@ const recent = filterLinks(content.recent, registry, 'artículos recientes')
 const site = Astro.site ?? new URL('https://enbenidorm.es')
 ---
 
-<BaseLayout seo={content.seo} jsonLd={[websiteJsonLd(site)]} demo={isDemoMode}>
+<BaseLayout seo={content.seo} indexability={structuralIndexability({subject: 'Benidorm', h1: content.title, storedNoIndex: content.seo.noIndex, title: content.seo.title})} jsonLd={[websiteJsonLd(site)]} demo={isDemoMode}>
   <Hero content={content} showExplore={primaryLinks.length > 0} />
 
   {primaryLinks.length > 0 && <section id="explorar" class="bg-cream py-16 md:py-20" aria-labelledby="explorar-title">

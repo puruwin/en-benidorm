@@ -1,8 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro'
 import Breadcrumbs from '../components/Breadcrumbs.astro'
+import type {IndexabilitySignals} from '../lib/indexability'
 import type {BreadcrumbItem, SeoData} from '../types/content'
-interface Props { seo: SeoData; breadcrumbs: BreadcrumbItem[]; jsonLd?: unknown[]; demo?: boolean }
-const {seo, breadcrumbs, jsonLd = [], demo = false} = Astro.props
+interface Props { seo: SeoData; breadcrumbs: BreadcrumbItem[]; jsonLd?: unknown[]; demo?: boolean; indexability: IndexabilitySignals }
+const {seo, breadcrumbs, jsonLd = [], demo = false, indexability} = Astro.props
 ---
-<BaseLayout seo={seo} breadcrumbs={breadcrumbs} jsonLd={jsonLd} demo={demo}><div class="container-site py-8"><Breadcrumbs items={breadcrumbs} /></div><slot /></BaseLayout>
+<BaseLayout seo={seo} indexability={indexability} breadcrumbs={breadcrumbs} jsonLd={jsonLd} demo={demo}><div class="container-site py-8"><Breadcrumbs items={breadcrumbs} /></div><slot /></BaseLayout>

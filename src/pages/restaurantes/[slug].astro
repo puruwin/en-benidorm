@@ -5,8 +5,9 @@ import DataProvenance from '../../components/DataProvenance.astro'
 import MapLink from '../../components/MapLink.astro'
 import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import {descriptionSections, provisionalNoIndex} from '../../lib/business-presentation'
-import {getRestaurantBySlug, getRestaurantSlugs, isDemoMode} from '../../lib/content-source'
+import {descriptionSections} from '../../lib/business-presentation'
+import {getRestaurantBySlug, getRestaurantSlugs, isDemoBusiness, isDemoMode} from '../../lib/content-source'
+import {restaurantIndexability} from '../../lib/indexability'
 import {restaurantJsonLd} from '../../lib/jsonld'
 import {breadcrumbTrail, getRouteRegistry} from '../../lib/routes'
 
@@ -21,11 +22,11 @@ if (!business) throw new Error(`No se encontró el restaurante estático: ${slug
 const item = business
 const breadcrumbs = breadcrumbTrail('dining', item.name, await getRouteRegistry())
 const sections = descriptionSections(item.description)
-const seo = provisionalNoIndex(item) ? {...item.seo, noIndex: true} : item.seo
+const indexability = restaurantIndexability(item, {demo: isDemoBusiness(item.slug)})
 const site = Astro.site ?? new URL('https://enbenidorm.es')
 ---
 
-<BaseLayout seo={seo} seoFallback={{title: item.name, description: item.shortDescription}} breadcrumbs={breadcrumbs} jsonLd={[restaurantJsonLd(item, site)]} demo={isDemoMode}>
+<BaseLayout seo={item.seo} indexability={indexability} seoFallback={{title: item.name, description: item.shortDescription}} breadcrumbs={breadcrumbs} jsonLd={[restaurantJsonLd(item, site)]} demo={isDemoMode}>
   <article>
     <header class="bg-sand pb-12 pt-8 md:pb-16">
       <div class="container-site">

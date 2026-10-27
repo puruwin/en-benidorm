@@ -4,6 +4,7 @@ import DataProvenance from '../../components/DataProvenance.astro'
 import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import {getComparisonBySlug, getComparisonSlugs} from '../../lib/content-source'
+import {comparisonIndexability} from '../../lib/indexability'
 import {comparisonItemListJsonLd} from '../../lib/jsonld'
 import {breadcrumbTrail, getRouteRegistry} from '../../lib/routes'
 import {compactPracticalLines, priceContext} from '../../lib/comparison-presentation'
@@ -23,7 +24,7 @@ const showPractical = comparison.entries.some((entry) => entry.practicalNotes.le
 const euro = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'})
 ---
 
-<BaseLayout seo={comparison.seo} seoFallback={{title: comparison.title, description: comparison.intro}} breadcrumbs={breadcrumbs} jsonLd={[comparisonItemListJsonLd(comparison, site)]} demo={false}>
+<BaseLayout seo={comparison.seo} indexability={comparisonIndexability(comparison)} seoFallback={{title: comparison.title, description: comparison.intro}} breadcrumbs={breadcrumbs} jsonLd={[comparisonItemListJsonLd(comparison, site)]} demo={false}>
   <article>
     <header class="bg-sand pb-14 pt-8 md:pb-20">
       <div class="container-site">

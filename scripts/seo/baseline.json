@@ -2,21 +2,6 @@
   "description": "Errores conocidos de seo:audit aceptados temporalmente. El hook Stop solo bloquea los que no están aquí. Cada entrada debe desaparecer cuando se corrija.",
   "accepted": [
     {
-      "rule": "orphan",
-      "route": "/donde-comer/arroces/",
-      "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/"
-    },
-    {
-      "rule": "orphan",
-      "route": "/restaurantes/cucina-italiana/",
-      "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/italiano/"
-    },
-    {
-      "rule": "orphan",
-      "route": "/restaurantes/essenza-italiana/",
-      "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/italiano/"
-    },
-    {
       "rule": "facts-without-sources",
       "route": "/restaurantes/la-esquina-azul-demo/",
       "detail": "horarios sin el componente Sources"

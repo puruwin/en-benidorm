@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node --import tsx scripts/seo/audit-site.ts --graph-only && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "studio": "sanity dev",

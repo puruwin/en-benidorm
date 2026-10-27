@@ -1,4 +1,7 @@
 import {parse} from 'parse5'
+import {INDEXABILITY_META, isIndexable, MIN_INCOMING_LINKS, parseIndexabilitySignals, type IndexabilityReason, type IndexabilitySignals} from '../../../src/lib/indexability'
+
+export {MIN_INCOMING_LINKS}
 
 export type LinkZone = 'menu' | 'footer' | 'body'
 export type PageType = 'indexable' | 'noindex' | 'redirect' | 'not-found'
@@ -18,6 +21,8 @@ export type ErrorRule =
   | 'breadcrumb-missing'
   | 'unreviewed-verified'
   | 'facts-without-sources'
+  | 'indexability-missing'
+  | 'indexability-mismatch'
 
 export type WarningRule = 'img-missing-alt' | 'title-too-long'
 
@@ -46,6 +51,9 @@ export interface ParsedPage {
   description: string | null
   canonical: string | null
   h1Count: number
+  h1: string | null
+  /** Señales que SeoHead deja en el meta `enbenidorm-indexability`; `null` si no lo hay. */
+  indexability: IndexabilitySignals | null
   links: ParsedLink[]
   jsonLdErrors: string[]
   hasBreadcrumbList: boolean
@@ -61,6 +69,10 @@ export interface PageGraphEntry {
   type: PageType
   outgoing: string[]
   incoming: string[]
+  /** Solo enlaces del cuerpo (zona `body`): los que cuenta la regla de indexación. */
+  incomingContextual: string[]
+  /** Motivos de `isIndexable` con el grafo de este rastreo; solo en páginas con el meta. */
+  indexabilityReasons?: IndexabilityReason[]
 }
 
 export interface AuditResult {
@@ -71,7 +83,6 @@ export interface AuditResult {
   warnings: Array<Finding<WarningRule>>
 }
 
-export const MIN_INCOMING_LINKS = 2
 export const MAX_TITLE_LENGTH = 60
 
 const VERIFIED = /\bverificadas?\b/i
@@ -122,6 +133,8 @@ export function parsePage(source: SourcePage, origin: string): ParsedPage {
   const description = collapse(attr(descriptionNode, 'content') ?? '') || null
   const canonicalNode = byTag('link').find((node) => (attr(node, 'rel') ?? '').toLowerCase().split(/\s+/).includes('canonical'))
   const canonical = attr(canonicalNode, 'href') ?? null
+  const indexabilityNode = byTag('meta').find((node) => attr(node, 'name') === INDEXABILITY_META)
+  const firstH1 = byTag('h1')[0]
 
   const links: ParsedLink[] = []
   for (const anchor of byTag('a')) {
@@ -155,6 +168,8 @@ export function parsePage(source: SourcePage, origin: string): ParsedPage {
     description,
     canonical,
     h1Count: byTag('h1').length,
+    h1: firstH1 ? collapse(textOf(firstH1, true)) || null : null,
+    indexability: parseIndexabilitySignals(attr(indexabilityNode, 'content')),
     links,
     jsonLdErrors,
     hasBreadcrumbList: jsonLdTypes.includes('BreadcrumbList'),
@@ -176,16 +191,20 @@ export function auditSite(sources: readonly SourcePage[], options: {origin: stri
   const errors: Array<Finding<ErrorRule>> = []
   const warnings: Array<Finding<WarningRule>> = []
   const incoming = new Map<string, Set<string>>(pages.map((page) => [page.route, new Set<string>()]))
+  const contextual = new Map<string, Set<string>>(pages.map((page) => [page.route, new Set<string>()]))
   const graph: Record<string, PageGraphEntry> = {}
 
   for (const page of pages) {
-    graph[page.route] = {type: page.type, outgoing: unique(page.links.map((link) => link.target).filter((target) => target !== page.route)), incoming: []}
+    graph[page.route] = {type: page.type, outgoing: unique(page.links.map((link) => link.target).filter((target) => target !== page.route)), incoming: [], incomingContextual: []}
     if (page.type === 'redirect') continue
     const passesLinks = page.type === 'indexable' || page.type === 'noindex'
     const reported = new Set<string>()
     for (const link of page.links) {
       const target = resolve(link.target)
-      if (target && target.route !== page.route && passesLinks) incoming.get(target.route)?.add(page.route)
+      if (target && target.route !== page.route && passesLinks) {
+        incoming.get(target.route)?.add(page.route)
+        if (link.zone === 'body') contextual.get(target.route)?.add(page.route)
+      }
       const finding: Finding<ErrorRule> | null = !target
         ? {rule: 'broken-link', route: page.route, zone: link.zone, detail: link.target}
         : target.type === 'redirect'
@@ -200,12 +219,30 @@ export function auditSite(sources: readonly SourcePage[], options: {origin: stri
 
   for (const page of pages) {
     const entry = graph[page.route]
-    if (entry) entry.incoming = unique([...(incoming.get(page.route) ?? [])])
+    if (entry) {
+      entry.incoming = unique([...(incoming.get(page.route) ?? [])])
+      entry.incomingContextual = unique([...(contextual.get(page.route) ?? [])])
+    }
     if (page.type === 'redirect') continue
     const push = (rule: ErrorRule, detail: string) => errors.push({rule, route: page.route, detail})
+    const contextualIncoming = entry?.incomingContextual ?? []
 
-    if (page.type === 'indexable' && page.route !== '/' && (entry?.incoming.length ?? 0) < MIN_INCOMING_LINKS) {
-      push('orphan', `${entry?.incoming.length ?? 0} enlaces entrantes (mínimo ${MIN_INCOMING_LINKS})${entry?.incoming.length ? `: ${entry.incoming.join(', ')}` : ''}`)
+    // Menú, migas y pie no cuentan: no tapan una página huérfana (docs/arquitectura-seo.md §3).
+    if (page.type === 'indexable' && page.route !== '/' && contextualIncoming.length < MIN_INCOMING_LINKS) {
+      push('orphan', `${contextualIncoming.length} enlaces contextuales entrantes (mínimo ${MIN_INCOMING_LINKS})${contextualIncoming.length ? `: ${contextualIncoming.join(', ')}` : ''}`)
+    }
+    if (page.type !== 'not-found') {
+      if (page.indexability) {
+        // Misma regla que SeoHead, con el grafo de este rastreo y el título y H1 del HTML.
+        const decision = isIndexable({...page.indexability, route: page.route, title: page.title, h1: page.h1, incomingContextualLinks: contextualIncoming.length})
+        if (entry) entry.indexabilityReasons = decision.reasons
+        if (decision.indexable !== (page.type === 'indexable')) {
+          const why = decision.reasons.map((reason) => reason.code).join(', ')
+          push('indexability-mismatch', `robots ${page.type}; la regla dice ${decision.indexable ? 'indexable' : `noindex (${why})`}`)
+        }
+      } else if (page.type === 'indexable') {
+        push('indexability-missing', `sin <meta name="${INDEXABILITY_META}">: la página no pasa por la regla de indexación`)
+      }
     }
     if (page.h1Count === 0) push('h1-missing', 'la página no tiene <h1>')
     if (page.h1Count > 1) push('h1-multiple', `${page.h1Count} elementos <h1>`)

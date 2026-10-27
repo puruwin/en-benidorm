@@ -12,6 +12,11 @@ const localComparisons = Object.values(localComparisonModules)
 
 export const isDemoMode = import.meta.env.CONTENT_SOURCE !== 'sanity'
 
+/** Ficha ficticia de `src/data/demo`: nunca se indexa. */
+export function isDemoBusiness(slug: string): boolean {
+  return isDemoMode && demoBusinesses.some((business) => business.slug === slug)
+}
+
 function assertSanityConfigured(): void {
   if (!import.meta.env.PUBLIC_SANITY_PROJECT_ID) {
     throw new Error('CONTENT_SOURCE=sanity requiere PUBLIC_SANITY_PROJECT_ID.')

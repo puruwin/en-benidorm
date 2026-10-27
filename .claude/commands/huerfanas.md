@@ -15,9 +15,12 @@ Solo lectura salvo `dist/` y `content/reports/seo/crawl.json`: propone, no edita
 
    `seo:audit` sale con 1 si hay errores nuevos de cualquier regla; eso no impide seguir con este
    comando, pero menciónalos al final.
-2. Lista las huérfanas a partir de `content/reports/seo/crawl.json` (`errors` con
-   `rule: "orphan"`). Por cada una, muestra la ruta, los enlaces entrantes (detalle del hallazgo) y si
-   está en `scripts/seo/baseline.json` o es nueva. Si no hay ninguna, dilo y termina.
+2. Lista las huérfanas a partir de `content/reports/seo/crawl.json`: los `errors` con
+   `rule: "orphan"` (indexables con pocos enlaces del cuerpo) y las páginas `noindex` cuyos
+   `indexabilityReasons` incluyen `few-links` (la regla de `src/lib/indexability.ts` ya las dejó fuera
+   por eso). Por cada una, muestra la ruta, los enlaces contextuales entrantes (`incomingContextual`),
+   los demás motivos de `isIndexable` si los hay y si está en `scripts/seo/baseline.json` o es nueva.
+   Si no hay ninguna, dilo y termina.
 3. Usa la skill `enlazado-interno` para pedir propuestas:
 
    ```bash

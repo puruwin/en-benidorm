@@ -26,13 +26,15 @@ export function classifyRoute(route: string): RouteKind {
 
 /**
  * Propone enlaces contextuales hub ↔ ficha y ficha ↔ ficha cercana a partir del grafo de seo:audit.
- * Solo entre páginas indexables, nunca enlaces que ya existen. «Cercana» es compartir un hub entrante
+ * Solo entre páginas indexables o que solo no lo son por falta de enlaces (`isIndexable`), nunca
+ * enlaces que ya existen. «Cercana» es compartir un hub entrante
  * de categoría (cercanía temática) o, si se pasa `zones`, la misma zona (cercanía geográfica).
  */
 export function proposeLinks(pages: Readonly<Record<string, PageGraphEntry>>, options: {zones?: Readonly<Record<string, string>>} = {}): LinkProposal[] {
-  const indexable = Object.keys(pages).filter((route) => pages[route]?.type === 'indexable').sort(compare)
+  const indexable = Object.keys(pages).filter((route) => linkable(pages[route])).sort(compare)
   const outgoing = new Map(indexable.map((route) => [route, new Set(pages[route]?.outgoing ?? [])]))
-  const incomingCount = new Map(indexable.map((route) => [route, pages[route]?.incoming.length ?? 0]))
+  // crawl.json anteriores a la regla no traen `incomingContextual`.
+  const incomingCount = new Map(indexable.map((route) => [route, (pages[route]?.incomingContextual ?? pages[route]?.incoming)?.length ?? 0]))
   const fichas = indexable.filter((route) => classifyRoute(route) === 'ficha')
   const hubs = indexable.filter((route) => classifyRoute(route) === 'hub')
   const proposals = new Map<string, LinkProposal>()
@@ -72,6 +74,13 @@ export function proposeLinks(pages: Readonly<Record<string, PageGraphEntry>>, op
   // Primero lo que arregla huérfanas; después por destino, origen y motivo.
   return [...proposals.values()].sort((x, y) => Number(y.targetBelowMinimum) - Number(x.targetBelowMinimum)
     || compare(x.to, y.to) || compare(x.from, y.from) || REASON_ORDER[x.reason] - REASON_ORDER[y.reason])
+}
+
+/** Indexable, o noindex solo porque le faltan enlaces: un enlace propuesto es justo lo que la desbloquea. */
+function linkable(page: PageGraphEntry | undefined): boolean {
+  if (page?.type === 'indexable') return true
+  const reasons = page?.type === 'noindex' ? page.indexabilityReasons : undefined
+  return Boolean(reasons?.length) && reasons!.every((reason) => reason.code === 'few-links' || reason.code === 'links-unknown')
 }
 
 function isCategoryHub(route: string): boolean {

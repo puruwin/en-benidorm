@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {descriptionSections, provenanceLines, provisionalNoIndex, sourceKind} from '../../src/lib/business-presentation'
+import {descriptionSections, provenanceLines, sourceKind} from '../../src/lib/business-presentation'
 import type {SourceItem} from '../../src/types/content'
 
 const osm: SourceItem = {title: 'openstreetmap: node/1', url: 'https://www.openstreetmap.org/node/1', publisher: '© OpenStreetMap contributors', accessedAt: '2026-10-07'}
@@ -34,16 +34,6 @@ test('provenanceLines separa la observación en persona de las fuentes automáti
 test('provenanceLines sin fuentes fechadas solo muestra la fecha de consulta, y nada si no hay fecha', () => {
   assert.deepEqual(provenanceLines([], '2026-10-06'), [{kind: 'consulted', label: 'Datos consultados', from: '2026-10-06', to: '2026-10-06'}])
   assert.deepEqual(provenanceLines([]), [])
-})
-
-test('provisionalNoIndex: solo OSM y sin señal de elección', () => {
-  const base = {sources: [osm], hours: [], features: []}
-  assert.equal(provisionalNoIndex(base), true)
-  assert.equal(provisionalNoIndex({...base, sources: [osm, web]}), false)
-  assert.equal(provisionalNoIndex({...base, priceRange: '€€'}), false)
-  assert.equal(provisionalNoIndex({...base, hours: [{day: 'Lunes', value: '13:00–16:00'}]}), false)
-  assert.equal(provisionalNoIndex({...base, features: ['Terraza']}), false)
-  assert.equal(provisionalNoIndex({...base, sources: []}), false)
 })
 
 const h2 = (text: string) => ({text, style: 'h2'})

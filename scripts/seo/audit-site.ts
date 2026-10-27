@@ -16,6 +16,8 @@ const {values} = parseArgs({
     report: {type: 'string', default: 'content/reports/seo/crawl.json'},
     baseline: {type: 'string'},
     'update-baseline': {type: 'boolean', default: false},
+    // Primera pasada de `npm run build`: solo escribe el grafo para que la segunda lo lea (src/lib/crawl-graph.ts).
+    'graph-only': {type: 'boolean', default: false},
   },
 })
 
@@ -30,6 +32,12 @@ const result = auditSite(pages, {origin})
 const baselinePath = values.baseline ? resolve(values.baseline) : null
 const baseline = baselinePath ? await readJsonIfExists<Baseline>(baselinePath, {description: '', accepted: []}) : null
 const fresh = baseline ? newFindings(result.errors, baseline.accepted) : result.errors
+
+if (values['graph-only']) {
+  await writeJsonAtomic(resolve(values.report), {dist: values.dist, baseline: null, ...result, newErrors: []})
+  console.log(`Grafo de enlaces de ${result.summary.pages} páginas: ${values.report}`)
+  process.exit(0)
+}
 
 await writeJsonAtomic(resolve(values.report), {
   dist: values.dist,

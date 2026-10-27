@@ -4,16 +4,17 @@ import Header from '../components/Header.astro'
 import SeoHead from '../components/seo/SeoHead.astro'
 import {breadcrumbJsonLd, serializeJsonLd} from '../lib/jsonld'
 import {getSiteSettings} from '../lib/content-source'
-import {assertBreadcrumbs, type SeoFallback} from '../lib/seo'
+import type {IndexabilitySignals} from '../lib/indexability'
+import type {SeoFallback} from '../lib/seo'
 import type {BreadcrumbItem, SeoData} from '../types/content'
 import '../styles/global.css'
 
 // `breadcrumbs` genera el BreadcrumbList: obligatorio en toda página indexable salvo la de inicio.
-interface Props { seo: SeoData; seoFallback?: SeoFallback; breadcrumbs?: BreadcrumbItem[]; jsonLd?: unknown[]; demo?: boolean }
-const {seo, seoFallback, breadcrumbs, jsonLd = [], demo = false} = Astro.props
+// `indexability`: señales de contenido de la página para la regla única de indexación (src/lib/indexability.ts).
+interface Props { seo: SeoData; seoFallback?: SeoFallback; breadcrumbs?: BreadcrumbItem[]; jsonLd?: unknown[]; demo?: boolean; indexability: IndexabilitySignals }
+const {seo, seoFallback, breadcrumbs, jsonLd = [], demo = false, indexability} = Astro.props
 const site = Astro.site ?? new URL('https://enbenidorm.es')
 const canonical = new URL(Astro.url.pathname, site)
-assertBreadcrumbs(breadcrumbs, Astro.url.pathname, seo.noIndex === true)
 const structuredData = breadcrumbs ? [breadcrumbJsonLd(breadcrumbs, site), ...jsonLd] : jsonLd
 const settings = await getSiteSettings()
 ---
@@ -25,7 +26,7 @@ const settings = await getSiteSettings()
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <SeoHead seo={seo} canonical={canonical} fallback={seoFallback} />
+    <SeoHead seo={seo} canonical={canonical} fallback={seoFallback} indexability={indexability} breadcrumbs={breadcrumbs} />
     {structuredData.map((data) => <script type="application/ld+json" set:html={serializeJsonLd(data)} />)}
   </head>
   <body>

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import {resolve} from 'node:path'
 import test from 'node:test'
+import {structuralIndexability, type IndexabilitySignals} from '../../src/lib/indexability'
 import {auditSite, findingKey, newFindings, routeFromFile, type SourcePage} from './lib/audit'
 import {readDistPages, readSitemapOrigin} from './lib/dist'
 
@@ -17,7 +18,13 @@ interface PageOptions {
   main?: string
   nav?: string
   footer?: string
+  /** Enlaces del cuerpo fuera de <main>; por defecto, a las tres páginas de `cleanSite`. */
+  related?: string
+  /** Señales del meta de indexación; `null` lo omite. Por defecto, estructural con sujeto vacío. */
+  indexability?: IndexabilitySignals | null
 }
+
+const structural = structuralIndexability({subject: '', h1: '', title: 'propio'})
 
 function page(route: string, options: PageOptions = {}): SourcePage {
   const title = options.title === undefined ? `Título ${route}` : options.title
@@ -28,16 +35,18 @@ function page(route: string, options: PageOptions = {}): SourcePage {
     ${description === null ? '' : `<meta name="description" content="${description}">`}
     ${canonical === null ? '' : `<link rel="canonical" href="${canonical}">`}
     <meta name="robots" content="${options.robots ?? 'index,follow'}">${options.head ?? ''}
+    ${options.indexability === null ? '' : `<meta name="enbenidorm-indexability" content='${JSON.stringify(options.indexability ?? structural)}'>`}
     ${options.breadcrumbs === false ? '' : '<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[]}</script>'}
   </head><body>
     <header><nav>${options.nav ?? '<a href="/">Inicio</a> <a href="/a/">A</a> <a href="/b/">B</a>'}</nav></header>
     <main>${options.main ?? `<h1>Página ${route}</h1>`}</main>
+    <aside>${options.related ?? '<a href="/">Inicio</a> <a href="/a/">A</a> <a href="/b/">B</a>'}</aside>
     <footer>${options.footer ?? '<a href="/b/">B</a>'}</footer>
   </body></html>`
   return {route, html}
 }
 
-/** Sitio mínimo sin errores: tres páginas enlazadas entre sí por el menú. */
+/** Sitio mínimo sin errores: tres páginas enlazadas entre sí por el menú y desde el cuerpo. */
 function cleanSite(overrides: Record<string, PageOptions> = {}): SourcePage[] {
   return ['/', '/a/', '/b/'].map((route) => page(route, overrides[route]))
 }
@@ -60,17 +69,21 @@ test('reproduce los hallazgos de la auditoría de encalpe', async () => {
 
   assert.deepEqual(rules(result), [
     '/ broken-link:footer',
+    '/ indexability-missing',
     '/ link-to-redirect:menu',
     '/huerfana/ breadcrumb-missing',
     '/huerfana/ broken-link:footer',
+    '/huerfana/ indexability-missing',
     '/huerfana/ link-to-redirect:menu',
     '/huerfana/ orphan',
     '/restaurantes/ficha/ breadcrumb-missing',
     '/restaurantes/ficha/ broken-link:footer',
+    '/restaurantes/ficha/ indexability-missing',
     '/restaurantes/ficha/ link-to-redirect:menu',
     '/sin-h1/ breadcrumb-missing',
     '/sin-h1/ broken-link:footer',
     '/sin-h1/ h1-missing',
+    '/sin-h1/ indexability-missing',
     '/sin-h1/ link-to-redirect:menu',
   ])
   const footer = result.errors.find((error) => error.rule === 'broken-link')
@@ -88,18 +101,34 @@ test('un sitio correcto no produce errores ni avisos', () => {
   const result = auditSite(cleanSite(), {origin})
   assert.deepEqual(result.errors, [])
   assert.deepEqual(result.warnings, [])
-  assert.deepEqual(result.pages['/a/'], {type: 'indexable', outgoing: ['/', '/b/'], incoming: ['/', '/b/']})
+  assert.deepEqual(result.pages['/a/'], {type: 'indexable', outgoing: ['/', '/b/'], incoming: ['/', '/b/'], incomingContextual: ['/', '/b/'], indexabilityReasons: []})
 })
 
 test('los enlaces entrantes cuentan páginas distintas, no enlaces repetidos ni la 404', () => {
   const site = [
-    page('/', {nav: '<a href="/a/">A</a> <a href="/a/">A otra vez</a>', footer: ''}),
-    page('/a/', {nav: '<a href="/">Inicio</a>', footer: ''}),
-    page('/404.html', {robots: 'noindex', nav: '<a href="/a/">A</a>', footer: ''}),
+    page('/', {nav: '', related: '<a href="/a/">A</a> <a href="/a/">A otra vez</a>', footer: ''}),
+    page('/a/', {nav: '', related: '<a href="/">Inicio</a>', footer: ''}),
+    page('/404.html', {robots: 'noindex', nav: '', related: '<a href="/a/">A</a>', footer: ''}),
   ]
   const result = auditSite(site, {origin})
-  assert.deepEqual(rules(result), ['/a/ orphan'])
+  // /a/ se declara indexable con un solo enlace: es huérfana y además contradice la regla.
+  assert.deepEqual(rules(result), ['/a/ indexability-mismatch', '/a/ orphan'])
   assert.deepEqual(result.pages['/a/']?.incoming, ['/'])
+  assert.deepEqual(result.pages['/a/']?.indexabilityReasons?.map((reason) => reason.code), ['few-links'])
+})
+
+test('solo cuentan los enlaces del cuerpo: menú, migas y pie no tapan una huérfana', () => {
+  const result = auditSite(cleanSite({'/': {related: '<a href="/a/">A</a>'}, '/b/': {related: '<a href="/">Inicio</a> <a href="/a/">A</a>'}}), {origin})
+  assert.deepEqual(result.pages['/b/']?.incoming, ['/', '/a/'])
+  assert.deepEqual(result.pages['/b/']?.incomingContextual, ['/a/'])
+  assert.deepEqual(rules(result), ['/b/ indexability-mismatch', '/b/ orphan'])
+})
+
+test('una página noindex por la regla no es un error; una indexable sin meta sí', () => {
+  const ficha = {...structuralIndexability({subject: 'Casa', h1: 'Casa', title: 'Casa'}), kind: 'ficha' as const}
+  const result = auditSite([...cleanSite(), page('/ficha/', {robots: 'noindex,follow', indexability: ficha, title: 'Casa', main: '<h1>Casa</h1>'}), page('/sin-meta/', {indexability: null})], {origin})
+  assert.deepEqual(result.pages['/ficha/']?.indexabilityReasons?.map((reason) => reason.code), ['no-evidence', 'no-address', 'no-contribution', 'few-links'])
+  assert.deepEqual(rules(result), ['/sin-meta/ indexability-missing', '/sin-meta/ orphan'])
 })
 
 test('las páginas noindex no exigen enlaces entrantes ni canonical propio', () => {
@@ -113,7 +142,7 @@ test('detecta H1 múltiple, title y description ausentes o duplicados', () => {
     '/a/': {title: 'Repetido', description: null},
     '/b/': {title: null},
   }), {origin})
-  assert.deepEqual(rules(result), ['/ h1-multiple', '/ title-duplicate', '/a/ description-missing', '/a/ title-duplicate', '/b/ title-missing'])
+  assert.deepEqual(rules(result), ['/ h1-multiple', '/ title-duplicate', '/a/ description-missing', '/a/ title-duplicate', '/b/ indexability-mismatch', '/b/ title-missing'])
 })
 
 test('exige canonical a la propia URL en páginas indexables', () => {
@@ -136,7 +165,7 @@ test('JSON-LD con valoraciones agregadas o reseñas es un error', () => {
 })
 
 test('toda página indexable salvo la de inicio lleva BreadcrumbList', () => {
-  const result = auditSite(cleanSite({'/': {breadcrumbs: false}, '/a/': {breadcrumbs: false}, '/b/': {breadcrumbs: false, robots: 'noindex,follow'}}), {origin})
+  const result = auditSite(cleanSite({'/': {breadcrumbs: false}, '/a/': {breadcrumbs: false}, '/b/': {breadcrumbs: false, robots: 'noindex,follow', indexability: {...structural, storedNoIndex: true}}}), {origin})
   assert.deepEqual(rules(result), ['/a/ breadcrumb-missing'])
 })
 
@@ -195,5 +224,5 @@ test('la línea base solo deja pasar los errores ya conocidos', async () => {
   const result = auditSite(await readDistPages(fixtures), {origin: 'https://encalpe.test'})
   const baseline = result.errors.filter((error) => error.rule !== 'orphan')
   const fresh = newFindings(result.errors, baseline)
-  assert.deepEqual(fresh.map(findingKey), ['orphan|/huerfana/||0 enlaces entrantes (mínimo 2)'])
+  assert.deepEqual(fresh.map(findingKey), ['orphan|/huerfana/||0 enlaces contextuales entrantes (mínimo 2)'])
 })
