@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {comparisonIndexability, isIndexable, parseIndexabilitySignals, restaurantIndexability, structuralIndexability, type IndexabilityInput, type IndexabilityReasonCode} from '../../src/lib/indexability'
-import type {BusinessDetail, ComparisonDetail} from '../../src/types/content'
+import {beachIndexability, comparisonIndexability, isIndexable, parseIndexabilitySignals, restaurantIndexability, structuralIndexability, type IndexabilityInput, type IndexabilityReasonCode} from '../../src/lib/indexability'
+import type {BeachDetail, BusinessDetail, ComparisonDetail, PracticalFactView} from '../../src/types/content'
 
 const official = {title: 'official-website: https://local.test/', url: 'https://local.test/', publisher: 'Sitio web oficial de Local', accessedAt: '2026-10-06'}
 const osm = {title: 'OpenStreetMap', url: 'https://www.openstreetmap.org/node/1', accessedAt: '2026-10-06'}
@@ -95,6 +95,24 @@ test('comparisonIndexability: comparación, condiciones y advertencias; el sujet
   assert.equal(comparisonIndexability(comparison({seo: {title: 'T', noIndex: true}})).storedNoIndex, true)
 })
 
+test('beachIndexability: la ubicación oficial confirmada es la dirección; la diferencia con otra playa es la comparación', () => {
+  const signals = beachIndexability(beach())
+  assert.deepEqual(signals.evidence, {officialFact: true, ownObservation: false, creatorObservations: []})
+  assert.equal(signals.hasAddress, true)
+  assert.deepEqual(signals.contributions, ['comparison', 'practical-condition'])
+  assert.equal(signals.subject, 'Playa de Levante')
+
+  // Sin ubicación confirmada no hay dirección; un hecho sin fuente no es evidencia.
+  const unknownLocation = beachIndexability(beach({facts: [fact('ubicacion', {status: 'unknown', value: null, sourceClass: null, sourceUrl: null, sourceTitle: null, retrievedAt: null})]}))
+  assert.equal(unknownLocation.hasAddress, false)
+  assert.equal(unknownLocation.evidence.officialFact, false)
+  // Un dato de terceros no confirma la ubicación.
+  assert.equal(beachIndexability(beach({facts: [fact('ubicacion', {status: 'needs verification', value: null, sourceClass: 'third-party'})]})).hasAddress, false)
+  // Sin otra playa enlazada ni norma o horario confirmados, no hay aportación.
+  assert.deepEqual(beachIndexability(beach({contrasts: [], facts: [fact('ubicacion')]})).contributions, [])
+  assert.deepEqual(codes({...ficha(), ...beachIndexability(beach({contrasts: [], facts: [fact('ubicacion')]})), route: '/playas/playa-levante/', title: 'Playa de Levante', h1: 'Playa de Levante'}), ['no-contribution'])
+})
+
 test('las señales sobreviven al meta y un meta roto se rechaza', () => {
   const signals = structuralIndexability({subject: 'Dónde comer', h1: 'Dónde comer en Benidorm', title: 'Dónde comer en Benidorm · enBenidorm'})
   assert.deepEqual(parseIndexabilitySignals(JSON.stringify(signals)), signals)
@@ -118,6 +136,25 @@ function comparison(overrides: Partial<ComparisonDetail> = {}): ComparisonDetail
     title: 'Dónde comer arroz en Benidorm: cartas y precios', slug: 'arroces', href: '/donde-comer/arroces/', topic: 'arroces', intro: 'I', quickVerdict: 'Q',
     choiceGuide: [], entries: [entry], methodology: 'M', criteria: [], author: {name: 'David', slug: 'david'}, sources: [{...official, title: 'Web oficial'}],
     lastVerified: '2026-10-06', seo: {title: 'Dónde comer arroz en Benidorm: comparación'},
+    ...overrides,
+  }
+}
+
+function fact(attribute: string, overrides: Partial<PracticalFactView> = {}): PracticalFactView {
+  return {
+    factId: `benidorm.playa-levante.${attribute}`, value: 'Entre Punta Pinet y Punta Canfali', unit: 'texto', status: 'confirmed',
+    sourceTitle: 'Carta de servicios', sourceUrl: 'https://contenidos.benidorm.org/carta.pdf', sourceClass: 'official-location', retrievedAt: '2026-10-27T10:00:00.000Z',
+    ...overrides,
+  }
+}
+
+function beach(overrides: Partial<BeachDetail> = {}): BeachDetail {
+  return {
+    id: 'beach-playa-levante', name: 'Playa de Levante', slug: 'playa-levante', href: '/playas/playa-levante/', shortDescription: 'Playa urbana.',
+    description: [], municipality: 'Benidorm',
+    facts: [fact('ubicacion'), {...fact('perros'), factId: 'benidorm.playas.perros', value: 'Prohibida la presencia de animales domésticos en las playas'}],
+    contrasts: [{name: 'Playa de Poniente', href: '/playas/playa-poniente/', reason: 'Más larga y con dos puntos accesibles.'}],
+    nearbyDining: [], sources: [], seo: {title: 'Playa de Levante (Benidorm)'},
     ...overrides,
   }
 }

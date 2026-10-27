@@ -1,4 +1,4 @@
-import type {BusinessDetail, ComparisonDetail, SourceItem} from '../types/content'
+import type {BeachDetail, BusinessDetail, ComparisonDetail, PracticalFactView, SourceItem} from '../types/content'
 import {sourceKind} from './business-presentation'
 
 /**
@@ -190,6 +190,43 @@ export function comparisonIndexability(comparison: ComparisonDetail): Indexabili
     subject: comparison.title.split(':')[0]!.trim(),
     h1: comparison.title,
     titleIsFallback: !filled(comparison.seo.title),
+  }
+}
+
+const OFFICIAL_FACT_CLASSES: ReadonlySet<string> = new Set(['official-location', 'official-brand'])
+
+/** Atributo de un hecho: `benidorm.playa-levante.ubicacion[.calificador]` → `ubicacion`. */
+export function factAttribute(factId: string): string {
+  return factId.split('.')[2] ?? ''
+}
+
+function isConfirmedOfficial(fact: PracticalFactView): boolean {
+  return fact.status === 'confirmed' && OFFICIAL_FACT_CLASSES.has(fact.sourceClass ?? '') && Boolean(fact.retrievedAt)
+}
+
+/**
+ * Ficha de playa. La evidencia son sus hechos prácticos; la dirección, el hecho `ubicacion` confirmado
+ * por fuente oficial (una playa no tiene dirección postal). Aporta comparación si enlaza otra playa
+ * explicando la diferencia, y condición práctica si cita un horario o una norma confirmados.
+ */
+export function beachIndexability(beach: BeachDetail): IndexabilitySignals {
+  const contributions: Contribution[] = []
+  if (beach.contrasts.some((contrast) => contrast.reason.trim().length > 0)) contributions.push('comparison')
+  if (beach.facts.some((fact) => fact.status === 'confirmed' && ['horario', 'perros'].includes(factAttribute(fact.factId)))) contributions.push('practical-condition')
+  return {
+    kind: 'ficha',
+    storedNoIndex: beach.seo.noIndex === true,
+    demo: false,
+    evidence: {
+      officialFact: beach.facts.some(isConfirmedOfficial),
+      ownObservation: beach.facts.some((fact) => fact.status === 'confirmed' && fact.sourceClass === 'manual-first-party'),
+      creatorObservations: [],
+    },
+    hasAddress: beach.facts.some((fact) => factAttribute(fact.factId) === 'ubicacion' && isConfirmedOfficial(fact)),
+    contributions,
+    subject: beach.name,
+    h1: beach.name,
+    titleIsFallback: !filled(beach.seo.title),
   }
 }
 

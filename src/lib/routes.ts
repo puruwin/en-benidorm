@@ -7,6 +7,7 @@ export const routes = {
   diningCategory: (slug: string) => `/donde-comer/${slug}/`,
   restaurant: (slug: string) => `/restaurantes/${slug}/`,
   beaches: () => '/playas/',
+  beach: (slug: string) => `/playas/${slug}/`,
   thingsToDo: () => '/que-hacer/',
   accommodation: () => '/donde-dormir/',
   informationPractical: () => '/informacion-practica/',
@@ -65,12 +66,15 @@ export function getRouteRegistry(): Promise<ReadonlySet<string>> {
 
 async function buildRegistry(): Promise<ReadonlySet<string>> {
   // Import dinámico: content-source → data/demo/content → routes.
-  const {getComparisonSlugs, getRestaurantSlugs} = await import('./content-source')
-  const [restaurants, comparisons] = await Promise.all([getRestaurantSlugs(), getComparisonSlugs()])
+  const {getBeachSlugs, getComparisonSlugs, getRestaurantSlugs} = await import('./content-source')
+  const [restaurants, comparisons, beaches] = await Promise.all([getRestaurantSlugs(), getComparisonSlugs(), getBeachSlugs()])
   return new Set<string>([
     ...STATIC_ROUTES,
     ...restaurants.map(routes.restaurant),
     ...comparisons.map(routes.diningCategory),
+    // El hub de Playas solo existe si hay alguna ficha que enlazar (docs/arquitectura-seo.md §2).
+    ...(beaches.length > 0 ? [routes.beaches()] : []),
+    ...beaches.map(routes.beach),
   ])
 }
 

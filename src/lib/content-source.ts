@@ -1,17 +1,21 @@
 import {sanityClient} from 'sanity:client'
 import {demoBusinesses, demoDining, demoHome, demoSettings} from '../data/demo/content'
+import {areas} from '../../content/seed/areas'
 import {authors} from '../../content/seed/authors'
-import type {AuthorDetail, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideSummary, HomeContent, SeoData, SiteSettingsData, SourceItem} from '../types/content'
+import {settings as seedSettings} from '../../content/seed/settings'
+import type {AuthorDetail, BeachContrast, BeachDetail, BeachesPageContent, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideSummary, HomeContent, NearbyDining, PracticalFactView, SeoData, SiteSettingsData, SourceItem} from '../types/content'
 import {type CreatorObservation, isCreatorObservationPath, isPublishable, parseCreatorObservation, sortCreatorObservations} from './creator-observations'
-import {AUTHOR_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
+import {AUTHOR_QUERY, BEACH_QUERY, BEACH_SLUGS_QUERY, BEACHES_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
 
 type LocalDocument = Record<string, unknown> & {_id: string; _type: string}
 const localBusinessModules = import.meta.glob('../../content/generated/businesses/*.json', {eager: true, import: 'default'}) as Record<string, LocalDocument>
+const localBeachModules = import.meta.glob('../../content/generated/beaches/*.json', {eager: true, import: 'default'}) as Record<string, LocalDocument>
 const localComparisonModules = import.meta.glob('../../content/generated/comparisons/*.json', {eager: true, import: 'default'}) as Record<string, LocalDocument>
 // Notas de personas que vieron el vídeo de un creador; se leen del repositorio en cualquier CONTENT_SOURCE.
 const creatorObservationModules = import.meta.glob('../../content/manual/creator-observations/*.json', {eager: true, import: 'default'}) as Record<string, unknown>
 const localBusinesses = Object.values(localBusinessModules)
 const localComparisons = Object.values(localComparisonModules)
+const localBeaches = Object.values(localBeachModules)
 
 export const isDemoMode = import.meta.env.CONTENT_SOURCE !== 'sanity'
 
@@ -100,6 +104,46 @@ export async function getComparisonBySlug(slug: string): Promise<ComparisonDetai
   const comparison = await sanityClient.fetch<ComparisonDetail | null>(COMPARISON_QUERY, {slug})
   if (!comparison) return null
   return {...comparison, choiceGuide: comparison.choiceGuide ?? [], entries: (comparison.entries ?? []).map((entry) => ({...entry, conditions: entry.conditions ?? [], limitations: entry.limitations ?? []})), criteria: comparison.criteria ?? [], sources: comparison.sources ?? []}
+}
+
+export async function getBeachSlugs(): Promise<string[]> {
+  if (isDemoMode) return localBeaches.map((document) => slugValue(document.slug)).filter((slug): slug is string => Boolean(slug))
+  assertSanityConfigured()
+  return sanityClient.fetch<string[]>(BEACH_SLUGS_QUERY)
+}
+
+export async function getBeachBySlug(slug: string): Promise<BeachDetail | null> {
+  if (isDemoMode) {
+    const document = localBeaches.find((item) => slugValue(item.slug) === slug)
+    return document ? localBeachDetail(document) : null
+  }
+  assertSanityConfigured()
+  const beach = await sanityClient.fetch<BeachDetail | null>(BEACH_QUERY, {slug})
+  return beach ? normalizeBeach(beach) : null
+}
+
+/** Hub de Playas. En demo, la intro y el SEO salen del seed de siteSettings; las fichas, del repositorio. */
+export async function getBeachesContent(): Promise<BeachesPageContent> {
+  if (isDemoMode) {
+    const page = seedSettings.beachesPage
+    return {
+      title: page.title, intro: page.intro, seo: ownSeo(page.seo),
+      beaches: localBeaches.map(localBeachDetail).sort((a, b) => a.name.localeCompare(b.name, 'es')),
+    }
+  }
+  assertSanityConfigured()
+  const result = await sanityClient.fetch<{page: Pick<BeachesPageContent, 'title' | 'intro' | 'seo'> | null; beaches: BeachDetail[]}>(BEACHES_QUERY)
+  if (!result.page) throw new Error('Falta siteSettings.beachesPage en Sanity.')
+  return {...result.page, beaches: result.beaches.map(normalizeBeach)}
+}
+
+function normalizeBeach(beach: BeachDetail): BeachDetail {
+  return {
+    ...beach,
+    // Sanity devuelve `text: null` en bloques sin spans.
+    description: (beach.description ?? []).filter((block) => typeof block.text === 'string' && block.text.length > 0),
+    facts: beach.facts ?? [], contrasts: beach.contrasts ?? [], nearbyDining: beach.nearbyDining ?? [], sources: beach.sources ?? [],
+  }
 }
 
 export async function getAuthorBySlug(slug: string): Promise<AuthorDetail | null> {
@@ -197,6 +241,38 @@ function localBusinessDetail(document: LocalDocument): BusinessDetail {
     }),
     seo: ownSeo(document.seo),
   }
+}
+
+function localBeachDetail(document: LocalDocument): BeachDetail {
+  const slug = slugValue(document.slug)!
+  const areaRef = isRecord(document.area) ? document.area._ref : undefined
+  const area = areas.find((item) => item._id === areaRef)?.name
+  return {
+    id: document._id, name: String(document.name), slug, href: `/playas/${slug}/`, shortDescription: String(document.shortDescription), ...(typeof document.choiceNote === 'string' ? {choiceNote: document.choiceNote} : {}),
+    description: portableTextBlocks(document.body), ...(area ? {area} : {}), municipality: String(document.municipality ?? ''),
+    facts: Array.isArray(document.practicalFacts) ? document.practicalFacts.flatMap(localFact) : [],
+    contrasts: Array.isArray(document.profileContrasts) ? document.profileContrasts.flatMap((item): BeachContrast[] => {
+      if (!isRecord(item) || !isRecord(item.beach) || typeof item.reason !== 'string') return []
+      const target = localBeaches.find((beach) => beach._id === (item.beach as Record<string, unknown>)._ref)
+      const targetSlug = target ? slugValue(target.slug) : undefined
+      return target && targetSlug ? [{name: String(target.name), href: `/playas/${targetSlug}/`, reason: item.reason}] : []
+    }) : [],
+    nearbyDining: Array.isArray(document.nearbyDining) ? document.nearbyDining.flatMap((item): NearbyDining[] => {
+      if (!isRecord(item) || !isRecord(item.comparison) || typeof item.note !== 'string') return []
+      const target = localComparisons.find((comparison) => comparison._id === (item.comparison as Record<string, unknown>)._ref)
+      const targetSlug = target ? slugValue(target.slug) : undefined
+      return target && targetSlug ? [{title: String(target.title), href: `/donde-comer/${targetSlug}/`, note: item.note}] : []
+    }) : [],
+    sources: localSources(document.sources), seo: ownSeo(document.seo),
+  }
+}
+
+function localFact(value: unknown): PracticalFactView[] {
+  if (!isRecord(value) || typeof value.factId !== 'string' || typeof value.unit !== 'string') return []
+  const status = value.status
+  if (status !== 'confirmed' && status !== 'unknown' && status !== 'needs verification' && status !== 'conflict') return []
+  const text = (field: string) => typeof value[field] === 'string' ? value[field] as string : null
+  return [{factId: value.factId, value: text('value'), unit: value.unit, status, sourceTitle: text('sourceTitle'), sourceUrl: text('sourceUrl'), sourceClass: text('sourceClass'), retrievedAt: text('retrievedAt')}]
 }
 
 function localSources(value: unknown): SourceItem[] {

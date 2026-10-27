@@ -1,4 +1,4 @@
-import type {BreadcrumbItem, BusinessDetail, ComparisonDetail} from '../types/content'
+import type {BeachDetail, BreadcrumbItem, BusinessDetail, ComparisonDetail} from '../types/content'
 
 const absoluteUrl = (path: string, site: URL): string => new URL(path, site).toString()
 
@@ -66,6 +66,18 @@ export function comparisonItemListJsonLd(comparison: ComparisonDetail, site: URL
       name: entry.business.name,
       url: absoluteUrl(entry.business.href, site),
     })),
+  }
+}
+
+/** Playa: nombre, descripción y municipio, todo visible en la ficha. Sin geo: la ficha no muestra coordenadas. */
+export function beachJsonLd(beach: BeachDetail, site: URL) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Beach',
+    name: beach.name,
+    ...(present(beach.shortDescription) ? {description: beach.shortDescription} : {}),
+    url: absoluteUrl(beach.href, site),
+    ...(present(beach.municipality) ? {address: {'@type': 'PostalAddress', addressLocality: beach.municipality}} : {}),
   }
 }
 

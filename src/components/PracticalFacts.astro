@@ -1,0 +1,16 @@
+---
+import type {FactRow} from '../lib/beach-presentation'
+import {formatRetrievedAt, pendingText} from '../lib/beach-presentation'
+// Lista de hechos prácticos con su procedencia: valor, fuente enlazada y fecha de consulta.
+interface Props { rows: FactRow[] }
+const {rows} = Astro.props
+---
+{rows.length > 0 && <dl class="divide-y divide-ink/10 border-y border-ink/10">
+  {rows.map(({fact, label, value}) => <div class="grid gap-1 py-4 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-6" data-fact-id={fact.factId}>
+    <dt class="text-sm font-black text-ink/60">{label}</dt>
+    <dd>
+      {value ? <p class="font-bold leading-snug">{value}</p> : <p class="font-bold text-coral">{pendingText(fact)}</p>}
+      {fact.sourceUrl && fact.sourceTitle && <p class="mt-1 text-xs text-ink/60">Fuente: <a class="underline decoration-ink/30 underline-offset-2" href={fact.sourceUrl} rel="noopener noreferrer">{fact.sourceTitle}</a>{fact.retrievedAt && <>, consultada el <time datetime={fact.retrievedAt.slice(0, 10)}>{formatRetrievedAt(fact.retrievedAt)}</time></>}</p>}
+    </dd>
+  </div>)}
+</dl>}
