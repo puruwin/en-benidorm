@@ -41,8 +41,8 @@ export const HOME_QUERY = defineQuery(`{
     },
     "recommendations": recommendedBusinesses[]->${businessCardProjection},
     "seo": {
-      "title": coalesce(seo.metaTitle, title + " · enBenidorm"),
-      "description": coalesce(seo.metaDescription, intro),
+      "title": seo.metaTitle,
+      "description": seo.metaDescription,
       "noIndex": seo.noIndex,
       "image": seo.socialImage${imageProjection}
     }
@@ -149,5 +149,5 @@ export const COMPARISON_QUERY = defineQuery(`*[_type == "comparison" && language
 
 export const AUTHOR_QUERY = defineQuery(`*[_type == "author" && language == "es" && slug.current == $slug][0]{
   name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,
-  "seo": {"title": coalesce(seo.metaTitle, name + " · enBenidorm"), "description": coalesce(seo.metaDescription, bio), "noIndex": seo.noIndex, "image": seo.socialImage${imageProjection}}
+  "seo": {"title": seo.metaTitle, "description": seo.metaDescription, "noIndex": seo.noIndex, "image": seo.socialImage${imageProjection}}
 }`)

@@ -45,6 +45,9 @@ test('las migas salen del registro: el hub solo se enlaza si existe', () => {
 
 test('assertBreadcrumbs exige migas hasta la página actual salvo en el inicio', () => {
   assert.doesNotThrow(() => assertBreadcrumbs([], '/'))
+  assert.doesNotThrow(() => assertBreadcrumbs(undefined, '/'))
+  assert.throws(() => assertBreadcrumbs(undefined, '/x/'), /\/x\/: página indexable sin migas/)
+  assert.doesNotThrow(() => assertBreadcrumbs(undefined, '/x/', true))
   assert.throws(() => assertBreadcrumbs([{label: 'Inicio', href: '/'}], '/x/'))
   assert.throws(() => assertBreadcrumbs([{label: 'Inicio', href: '/'}, {label: 'X', href: '/x/'}], '/x/'))
   assert.doesNotThrow(() => assertBreadcrumbs([{label: 'Inicio', href: '/'}, {label: 'X'}], '/x/'))
