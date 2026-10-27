@@ -80,11 +80,14 @@ export async function getRestaurantBySlug(slug: string): Promise<BusinessDetail 
     return document ? localBusinessDetail(document) : null
   }
   assertSanityConfigured()
-  const business = await sanityClient.fetch<BusinessDetail | null>(RESTAURANT_QUERY, {slug})
-  if (!business) return null
+  const fetched = await sanityClient.fetch<(Omit<BusinessDetail, 'commercialRelationship'> & {commercialRelationship?: string | null}) | null>(RESTAURANT_QUERY, {slug})
+  if (!fetched) return null
+  // Solo el valor explícito activa el aviso; Sanity devuelve `null` si el campo no está marcado.
+  const {commercialRelationship, ...business} = fetched
 
   return {
     ...business,
+    ...(commercialRelationship === 'frappe-tech-client' ? {commercialRelationship} : {}),
     categories: business.categories ?? [],
     // Sanity devuelve `text: null` en bloques sin spans.
     description: (business.description ?? []).filter((block) => typeof block.text === 'string' && block.text.length > 0),

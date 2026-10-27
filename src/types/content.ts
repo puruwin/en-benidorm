@@ -100,7 +100,11 @@ export interface BusinessDetail extends BusinessSummary {
   sources: SourceItem[]
   seo: SeoData
   comparisons?: ComparisonLink[]
+  /** Marcado a mano en Sanity; solo muestra un aviso. No interviene en selección, gates ni indexación. */
+  commercialRelationship?: CommercialRelationship
 }
+
+export type CommercialRelationship = 'frappe-tech-client'
 
 export interface ComparisonLink {
   title: string

@@ -1,0 +1,10 @@
+---
+import type {CommercialRelationship} from '../types/content'
+import {PROJECT_LINKS} from '../lib/routes'
+interface Props { relationship?: CommercialRelationship | undefined }
+const {relationship} = Astro.props
+---
+
+{relationship === 'frappe-tech-client' && <aside data-commercial-relationship={relationship} aria-label="Relación comercial" class="mt-12 rounded-2xl border-l-4 border-coral bg-sand p-6 text-sm leading-relaxed">
+  <p><strong>Relación comercial:</strong> este negocio es cliente de <a class="font-bold text-sea-dark underline" href="https://creativefrappe.com" rel="noopener noreferrer">Frappé Tech</a>, la empresa que dirige David P. Aparecer en la guía no depende de ello ni cambia los criterios de selección o indexación. <a class="font-bold text-sea-dark underline" href={PROJECT_LINKS.method.href}>{PROJECT_LINKS.method.label}</a>.</p>
+</aside>}
