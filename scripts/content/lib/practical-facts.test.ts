@@ -193,3 +193,23 @@ test('una tarifa que exige fuente municipal solo se confirma con el Ayuntamiento
   const page2 = page('article-aparcar', 'article', {practicalFacts: [{...expectedSnapshot(strict([blog(0.5)])), value: '0.5'}]})
   assert.match(messages(validatePracticalFacts([page2], context([strict([blog(0.5)])]))), /no se publica la cifra/)
 })
+
+test('una resolución humana puede fijar un valor propio (p. ej. un rango) citando la fuente de un claim', () => {
+  const fact: PracticalFact = {
+    id: 'benidorm.aparcamientos.plazas', subject: 'aparcamientos', attribute: 'plazas', municipality: 'Benidorm', unit: 'texto',
+    claims: [
+      {value: 'Más de 8.000 plazas', source: source('official-location', 'https://www.ayuntamiento.example/nota')},
+      {value: '7.005 plazas', source: source('official-location', 'https://www.ayuntamiento.example/plano')},
+    ],
+  }
+  assert.equal(deriveFactStatus(fact), 'conflict')
+  const resolved = {...fact, resolution: {claimIndex: 1, value: 'De 7.000 a 8.000 plazas', reviewedBy: 'David', reviewedAt: '2026-10-27', reason: 'Dos cifras oficiales de 2023.'}}
+  const snapshot = expectedSnapshot(resolved)
+  assert.equal(snapshot.status, 'confirmed')
+  assert.equal(snapshot.value, 'De 7.000 a 8.000 plazas')
+  assert.equal(snapshot.sourceUrl, 'https://www.ayuntamiento.example/plano')
+  assert.deepEqual(validatePracticalFacts([], context([resolved])), [])
+  // El valor debe valer para la unidad del hecho.
+  const invalid = {...resolved, unit: 'EUR' as const, claims: resolved.claims.map((claim, index) => ({...claim, value: index + 1}))}
+  assert.ok(validatePracticalFacts([], context([invalid])).some((issue) => issue.path.endsWith('resolution.value')))
+})

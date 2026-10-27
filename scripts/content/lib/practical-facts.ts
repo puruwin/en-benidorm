@@ -32,9 +32,15 @@ export interface FactClaim {
   observationRef?: string
 }
 
-/** Decisión humana sobre un conflicto. Separada de la evidencia automática; nunca la escribe Claude. */
+/** Decisión humana sobre un conflicto. Separada de la evidencia automática; nunca la decide Claude. */
 export interface FactResolution {
+  /** Claim cuya fuente se cita en la página. */
   claimIndex: number
+  /**
+   * Valor que decide la persona cuando ningún claim basta solo, p. ej. un rango entre dos cifras
+   * oficiales. Sin él se publica el valor del claim elegido.
+   */
+  value?: FactValue
   reviewedBy: string
   reviewedAt: string
   reason: string
@@ -152,7 +158,8 @@ export function resolveFact(fact: PracticalFact): ResolvedFact {
   if (distinct.size > 1) {
     const chosen = effectiveResolution(fact)
     if (!chosen) return {status: 'conflict', claim: null}
-    return {status: confirms(fact, chosen) ? 'confirmed' : 'needs verification', claim: chosen}
+    const value = fact.resolution?.value
+    return {status: confirms(fact, chosen) ? 'confirmed' : 'needs verification', claim: value === undefined ? chosen : {...chosen, value}}
   }
   const best = bestClaim(fact.claims)
   return {status: confirms(fact, best) ? 'confirmed' : 'needs verification', claim: best}
@@ -273,18 +280,13 @@ function parseFact(raw: unknown, path: string, issue: (path: string, message: st
   }
   if (!Array.isArray(claims)) fail('claims', 'Debe ser un array (vacío si no hay fuente: el hecho queda «unknown»).')
   else for (const [index, claim] of claims.entries()) parseClaim(claim, unit, `claims[${index}]`, fail)
-  if (resolution !== undefined && resolution !== null) parseResolution(resolution, Array.isArray(claims) ? claims.length : 0, fail)
+  if (resolution !== undefined && resolution !== null) parseResolution(resolution, Array.isArray(claims) ? claims.length : 0, unit, fail)
   return failed ? null : raw as unknown as PracticalFact
 }
 
 function parseClaim(raw: unknown, unit: unknown, path: string, fail: (field: string, message: string) => void): void {
   if (!isRecord(raw)) return fail(path, 'Cada claim debe ser un objeto.')
-  const value = raw.value
-  const validValue = unit === 'booleano' ? typeof value === 'boolean'
-    : ['EUR', 'EUR/h', 'EUR/día', 'min', 'm', 'km'].includes(String(unit)) ? typeof value === 'number' && Number.isFinite(value) && value >= 0
-      : unit === 'hh:mm' ? typeof value === 'string' && /^([01]\d|2[0-3]):[0-5]\d(?:-([01]\d|2[0-3]):[0-5]\d)?$/.test(value)
-        : typeof value === 'string' && value.trim().length > 0
-  if (!validValue) fail(`${path}.value`, `Valor no válido para la unidad ${String(unit)}.`)
+  if (!isValidValue(raw.value, unit)) fail(`${path}.value`, `Valor no válido para la unidad ${String(unit)}.`)
   const source = raw.source
   if (!isRecord(source)) return fail(`${path}.source`, 'La fuente es obligatoria.')
   for (const field of ['key', 'provider', 'attribution'] as const) {
@@ -304,8 +306,16 @@ function parseClaim(raw: unknown, unit: unknown, path: string, fail: (field: str
   }
 }
 
-function parseResolution(raw: unknown, claimCount: number, fail: (field: string, message: string) => void): void {
+function isValidValue(value: unknown, unit: unknown): boolean {
+  return unit === 'booleano' ? typeof value === 'boolean'
+    : ['EUR', 'EUR/h', 'EUR/día', 'min', 'm', 'km'].includes(String(unit)) ? typeof value === 'number' && Number.isFinite(value) && value >= 0
+      : unit === 'hh:mm' ? typeof value === 'string' && /^([01]\d|2[0-3]):[0-5]\d(?:-([01]\d|2[0-3]):[0-5]\d)?$/.test(value)
+        : typeof value === 'string' && value.trim().length > 0
+}
+
+function parseResolution(raw: unknown, claimCount: number, unit: unknown, fail: (field: string, message: string) => void): void {
   if (!isRecord(raw)) return fail('resolution', 'Debe ser un objeto o null.')
+  if (raw.value !== undefined && !isValidValue(raw.value, unit)) fail('resolution.value', `Valor no válido para la unidad ${String(unit)}.`)
   if (typeof raw.claimIndex !== 'number' || !Number.isInteger(raw.claimIndex) || raw.claimIndex < 0 || raw.claimIndex >= claimCount) {
     fail('resolution.claimIndex', 'Debe señalar un claim existente.')
   }
