@@ -30,7 +30,11 @@ export async function runComparisonEnrichment(
   for (const {value} of await loadJsonDirectory<DiscoveredEntity>(resolve(root, 'content/discovered'))) {
     if (value.targetDocumentType === 'business' && !entities.has(value.id)) entities.set(value.id, enrichEntity(value))
   }
-  const manual = await new ManualJsonAdapter(resolve(root, `content/manual/comparisons/${candidates.topic}.json`)).load()
+  const manualPath = resolve(root, `content/manual/comparisons/${candidates.topic}.json`)
+  // A topic without a curated manual file simply has no manual facts; it never invents an empty one.
+  const manual = await exists(manualPath)
+    ? await new ManualJsonAdapter(manualPath).load()
+    : (console.log(`comparison-enrichment: sin fuente manual para ${candidates.topic}`), {topic: candidates.topic, sources: [], businesses: []})
   const manualObservations = await loadManualComparisonObservations(resolve(root, 'content/manual/comparison-observations'), enrichedEntities)
   const creatorObservations = await loadCreatorObservations(resolve(root, 'content/manual/creator-observations'), new Set(enrichedEntities.keys()))
   const existingEvidenceByBusiness = mergePlanningEvidence(manual.businesses, manualObservations.businesses)
