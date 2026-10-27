@@ -42,7 +42,9 @@ export async function getHomeContent(): Promise<HomeContent> {
   assertSanityConfigured()
   const result = await sanityClient.fetch<{page: Omit<HomeContent, 'recent'> | null; recent: GuideSummary[]}>(HOME_QUERY)
   if (!result.page) throw new Error('No existe el documento singleton homePage en Sanity.')
-  return {...result.page, recent: result.recent}
+  // Las tres listas son opcionales en el esquema: Sanity devuelve null si están vacías.
+  const {page} = result
+  return {...page, primaryLinks: page.primaryLinks ?? [], guides: page.guides ?? [], recommendations: page.recommendations ?? [], recent: result.recent}
 }
 
 export async function getDiningContent(): Promise<DiningPageContent> {
@@ -80,10 +82,11 @@ export async function getRestaurantBySlug(slug: string): Promise<BusinessDetail 
     return document ? localBusinessDetail(document) : null
   }
   assertSanityConfigured()
-  const fetched = await sanityClient.fetch<(Omit<BusinessDetail, 'commercialRelationship'> & {commercialRelationship?: string | null}) | null>(RESTAURANT_QUERY, {slug})
+  // La dirección puede venir parcial (sin calle) o null; la query proyecta `location` como `{lat: null, lng: null}` si no hay coordenadas.
+  const fetched = await sanityClient.fetch<(Omit<BusinessDetail, 'commercialRelationship' | 'address' | 'location' | 'sources'> & {commercialRelationship?: string | null; address?: Partial<Record<keyof BusinessDetail['address'], string | null>> | null; location?: {lat: number | null; lng: number | null} | null; sources?: unknown}) | null>(RESTAURANT_QUERY, {slug})
   if (!fetched) return null
   // Solo el valor explícito activa el aviso; Sanity devuelve `null` si el campo no está marcado.
-  const {commercialRelationship, ...business} = fetched
+  const {commercialRelationship, address, location, sources, ...business} = fetched
 
   return {
     ...business,
@@ -91,10 +94,12 @@ export async function getRestaurantBySlug(slug: string): Promise<BusinessDetail 
     categories: business.categories ?? [],
     // Sanity devuelve `text: null` en bloques sin spans.
     description: (business.description ?? []).filter((block) => typeof block.text === 'string' && block.text.length > 0),
+    address: businessAddress(address),
+    ...(typeof location?.lat === 'number' && typeof location.lng === 'number' ? {location: {lat: location.lat, lng: location.lng}} : {}),
     hours: business.hours ?? [],
     features: business.features ?? [],
     images: business.images ?? [],
-    sources: business.sources ?? [],
+    sources: localSources(sources),
     comparisons: business.comparisons ?? [],
   }
 }
@@ -111,9 +116,21 @@ export async function getComparisonBySlug(slug: string): Promise<ComparisonDetai
     return document ? localComparisonDetail(document) : null
   }
   assertSanityConfigured()
-  const comparison = await sanityClient.fetch<ComparisonDetail | null>(COMPARISON_QUERY, {slug})
+  // Sanity devuelve null en las listas vacías o sin rellenar y en `author` si falta la referencia.
+  const comparison = await sanityClient.fetch<(Omit<ComparisonDetail, 'author'> & {author: ComparisonDetail['author'] | null}) | null>(COMPARISON_QUERY, {slug})
   if (!comparison) return null
-  return {...comparison, choiceGuide: comparison.choiceGuide ?? [], entries: (comparison.entries ?? []).map((entry) => ({...entry, conditions: entry.conditions ?? [], limitations: entry.limitations ?? []})), criteria: comparison.criteria ?? [], sources: comparison.sources ?? []}
+  return {
+    ...comparison,
+    choiceGuide: comparison.choiceGuide ?? [],
+    entries: (comparison.entries ?? []).map((entry) => ({
+      ...entry,
+      strengths: stringList(entry.strengths), conditions: stringList(entry.conditions), limitations: stringList(entry.limitations),
+      bestFor: stringList(entry.bestFor), practicalNotes: stringList(entry.practicalNotes),
+    })),
+    criteria: stringList(comparison.criteria),
+    author: comparison.author ?? {name: 'David', slug: 'david'},
+    sources: localSources(comparison.sources),
+  }
 }
 
 export async function getBeachSlugs(): Promise<string[]> {
@@ -152,7 +169,11 @@ function normalizeBeach(beach: BeachDetail): BeachDetail {
     ...beach,
     // Sanity devuelve `text: null` en bloques sin spans.
     description: (beach.description ?? []).filter((block) => typeof block.text === 'string' && block.text.length > 0),
-    facts: beach.facts ?? [], contrasts: beach.contrasts ?? [], nearbyDining: beach.nearbyDining ?? [], sources: beach.sources ?? [],
+    // Mismo filtro que en demo: sin texto que justifique el enlace, no se muestra.
+    facts: (beach.facts ?? []).flatMap(localFact),
+    contrasts: (beach.contrasts ?? []).filter((contrast) => typeof contrast.reason === 'string'),
+    nearbyDining: (beach.nearbyDining ?? []).filter((dining) => typeof dining.note === 'string'),
+    sources: localSources(beach.sources),
   }
 }
 
@@ -195,7 +216,7 @@ function normalizeGuide(guide: GuideDetail): GuideDetail {
     ...rest,
     ...(updatedAt ? {updatedAt} : {}),
     description: (guide.description ?? []).filter((block) => typeof block.text === 'string' && block.text.length > 0),
-    facts: guide.facts ?? [], links: guide.links ?? [], sources: guide.sources ?? [],
+    facts: (guide.facts ?? []).flatMap(localFact), links: (guide.links ?? []).filter((link) => typeof link.note === 'string'), sources: localSources(guide.sources),
   }
 }
 
@@ -280,12 +301,11 @@ function localComparisonDetail(document: LocalDocument): ComparisonDetail {
 
 function localBusinessDetail(document: LocalDocument): BusinessDetail {
   const slug = slugValue(document.slug)!
-  const address = isRecord(document.address) ? document.address : {}
   const location = isRecord(document.location) && typeof document.location.lat === 'number' && typeof document.location.lng === 'number' ? {lat: document.location.lat, lng: document.location.lng} : undefined
   return {
     id: document._id, name: String(document.name), slug, href: `/restaurantes/${slug}/`, kind: String(document.businessKind), shortDescription: String(document.shortDescription),
     categories: [], description: portableTextBlocks(document.body),
-    address: {street: String(address.street ?? ''), postalCode: String(address.postalCode ?? ''), locality: String(address.locality ?? ''), province: String(address.province ?? ''), country: String(address.country ?? '')},
+    address: businessAddress(document.address),
     hours: [], features: [], images: [], sources: localSources(document.sources), ...(typeof document.phone === 'string' ? {phone: document.phone} : {}), ...(typeof document.website === 'string' ? {website: document.website} : {}),
     ...(location ? {location} : {}), ...(typeof document.lastVerified === 'string' ? {lastVerified: document.lastVerified} : {}),
     comparisons: localComparisonLinks().filter((comparison) => {
@@ -350,6 +370,13 @@ function localFact(value: unknown): PracticalFactView[] {
   if (status !== 'confirmed' && status !== 'unknown' && status !== 'needs verification' && status !== 'conflict') return []
   const text = (field: string) => typeof value[field] === 'string' ? value[field] as string : null
   return [{factId: value.factId, value: text('value'), unit: value.unit, status, sourceTitle: text('sourceTitle'), sourceUrl: text('sourceUrl'), sourceClass: text('sourceClass'), retrievedAt: text('retrievedAt')}]
+}
+
+/** Los cinco campos siempre como texto: `''` si faltan, son null o no hay dirección (una fuente oficial puede no publicar la calle). */
+function businessAddress(value: unknown): BusinessDetail['address'] {
+  const address = isRecord(value) ? value : {}
+  const text = (field: string) => typeof address[field] === 'string' ? address[field] as string : ''
+  return {street: text('street'), postalCode: text('postalCode'), locality: text('locality'), province: text('province'), country: text('country')}
 }
 
 function localSources(value: unknown): SourceItem[] {
