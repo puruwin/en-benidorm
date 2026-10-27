@@ -6,6 +6,7 @@ import {readJson, writeJsonAtomic} from '../content/lib/files'
 import {parseComparisonOptions} from './lib/cli'
 import {evaluateComparisonDataGate} from './lib/gate'
 import {buildComparisonArtifact, COMPARISON_EDITORIAL_INSTRUCTIONS} from './lib/generation'
+import {withoutCreatorObservations} from './lib/creator-observations'
 import {writeComparisonReport} from './lib/reporting'
 import type {ComparisonOptions, EnrichedComparisonArtifact} from './lib/types'
 
@@ -17,7 +18,8 @@ export async function runComparisonGeneration(
   const now = dependencies.now ?? new Date().toISOString()
   const destination = resolve(root, `content/generated/.staging/comparisons/${options.id}.json`)
   if (!options.force && await exists(destination)) { console.log(`comparison-generation: skipped=1 (${options.id}; usa --force para regenerar)`); return }
-  const enriched = await readJson<EnrichedComparisonArtifact>(resolve(root, `content/comparisons/enriched/${options.id}.json`))
+  // Las observaciones de creador se muestran atribuidas en la página; nunca son material de Generation.
+  const enriched = withoutCreatorObservations(await readJson<EnrichedComparisonArtifact>(resolve(root, `content/comparisons/enriched/${options.id}.json`)))
   const gate = evaluateComparisonDataGate(enriched)
   if (!gate.pass) throw new Error(`STOP: gate de datos no superado. ${gate.issues.map((issue) => `${issue.code}: ${issue.message}`).join(' ')}`)
   const provider = dependencies.provider ?? new OpenAIResponsesProvider()

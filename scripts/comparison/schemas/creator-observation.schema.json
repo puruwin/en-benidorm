@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enbenidorm.local/schemas/creator-observation.json",
+  "title": "Creator Observation",
+  "description": "Lo que una persona anotó, con sus palabras, tras ver el vídeo de un creador sobre un local. Evidencia de tercero: no confirma datos ni rellena dimensiones de Comparison. La validación completa está en src/lib/creator-observations.ts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind", "businessId", "sourceType", "urlVideo", "creador", "publicadoEl", "registradoPor", "registradoEl",
+    "resumen", "loQueSeMuestra", "colaboracionPagada", "permisoCreador"
+  ],
+  "properties": {
+    "kind": {"const": "creator-observation"},
+    "businessId": {"type": "string", "minLength": 1},
+    "sourceType": {"const": "third-party-creator-video"},
+    "urlVideo": {"type": "string", "format": "uri", "pattern": "^https://(www\\.)?(instagram\\.com|tiktok\\.com|youtube\\.com|youtu\\.be)/"},
+    "creador": {"type": "string", "pattern": "^@[A-Za-z0-9._]{1,30}$"},
+    "publicadoEl": {"type": "string", "format": "date"},
+    "registradoPor": {"type": "string", "minLength": 1, "description": "Persona que vio el vídeo. Nunca un asistente ni un modelo."},
+    "registradoEl": {"type": "string", "format": "date"},
+    "resumen": {"type": "string", "minLength": 1, "maxLength": 300, "description": "Resumen con palabras de quien vio el vídeo. No es una transcripción."},
+    "loQueSeMuestra": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "platos": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"type": "string", "minLength": 1, "maxLength": 80}},
+        "precios": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["concepto", "importe", "moneda", "unidad", "vistoEl"],
+            "properties": {
+              "concepto": {"type": "string", "minLength": 1, "maxLength": 80},
+              "importe": {"type": "number", "exclusiveMinimum": 0},
+              "moneda": {"const": "EUR"},
+              "unidad": {"enum": ["per-person", "per-portion", "per-unit", "ambiguous"]},
+              "vistoEl": {"type": "string", "format": "date"}
+            }
+          }
+        },
+        "ambiente": {"type": "string", "minLength": 1, "maxLength": 200},
+        "espera": {"type": "string", "minLength": 1, "maxLength": 200}
+      }
+    },
+    "colaboracionPagada": {"enum": ["sí", "no", "desconocido"]},
+    "permisoCreador": {"enum": ["sí", "no", "pendiente"]}
+  }
+}

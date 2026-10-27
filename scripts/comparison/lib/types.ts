@@ -179,6 +179,11 @@ export interface EnrichedComparisonBusiness {
   evidence: ComparisonEvidence
   sources: SourceProvenance[]
   operationalStatus?: OperationalStatusAssessment
+  /**
+   * Evidencia de tercero (vídeos de creadores), aparte de `evidence`: no puntúa, no confirma, no
+   * cuenta para el gate y no llega a Generation. Solo existe si el Business tiene observaciones.
+   */
+  creatorObservations?: import('./creator-observations').AttachedCreatorObservation[]
 }
 
 export interface ComparisonInvestigation {
