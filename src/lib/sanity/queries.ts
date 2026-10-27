@@ -152,3 +152,43 @@ export const AUTHOR_QUERY = defineQuery(`*[_type == "author" && language == "es"
   name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,
   "seo": {"title": seo.metaTitle, "description": seo.metaDescription, "noIndex": seo.noIndex, "image": seo.socialImage${imageProjection}}
 }`)
+
+const beachProjection = `{
+  "id": _id,
+  name,
+  "slug": slug.current,
+  "href": "/playas/" + slug.current + "/",
+  shortDescription,
+  choiceNote,
+  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},
+  "area": area->name,
+  municipality,
+  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},
+  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},
+  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},
+  sources[]{title, url, publisher, accessedAt},
+  "seo": {
+    "title": seo.metaTitle,
+    "description": seo.metaDescription,
+    "noIndex": seo.noIndex,
+    "image": seo.socialImage${imageProjection}
+  }
+}`
+
+export const BEACH_SLUGS_QUERY = defineQuery(`*[_type == "beach" && language == "es" && defined(slug.current)].slug.current`)
+
+export const BEACH_QUERY = defineQuery(`*[_type == "beach" && language == "es" && slug.current == $slug][0]${beachProjection}`)
+
+export const BEACHES_QUERY = defineQuery(`{
+  "page": *[_id == "site-settings" && _type == "siteSettings"][0].beachesPage{
+    title,
+    intro,
+    "seo": {
+      "title": seo.metaTitle,
+      "description": seo.metaDescription,
+      "noIndex": seo.noIndex,
+      "image": seo.socialImage${imageProjection}
+    }
+  },
+  "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) ${beachProjection}
+}`)

@@ -18,6 +18,11 @@ export const siteSettings = defineType({
       defineField({name: 'intro', title: 'Introducción', type: 'text', rows: 4, validation: (rule) => rule.required()}),
       defineField({name: 'seo', title: 'SEO', type: 'seo', validation: indexableSeoValidation}),
     ]}),
+    defineField({name: 'beachesPage', title: 'Página Playas', type: 'object', fields: [
+      defineField({name: 'title', title: 'Título', type: 'string', validation: (rule) => rule.required()}),
+      defineField({name: 'intro', title: 'Introducción', type: 'text', rows: 4, validation: (rule) => rule.required()}),
+      defineField({name: 'seo', title: 'SEO', type: 'seo', validation: indexableSeoValidation}),
+    ]}),
     defineField({name: 'defaultSeo', title: 'SEO por defecto', type: 'seo'}),
   ],
 })
