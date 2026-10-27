@@ -35,7 +35,7 @@ export const HOME_QUERY = defineQuery(`{
       title,
       "slug": slug.current,
       excerpt,
-      "href": select(section == "informationPractical" => "/informacion-practica/", "/guias/") + slug.current + "/",
+      "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",
       "kicker": categories[0]->title,
       "image": heroImage${imageProjection}
     },
@@ -51,7 +51,7 @@ export const HOME_QUERY = defineQuery(`{
     title,
     "slug": slug.current,
     excerpt,
-    "href": select(section == "informationPractical" => "/informacion-practica/", "/guias/") + slug.current + "/",
+    "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",
     "kicker": categories[0]->title,
     "image": heroImage${imageProjection}
   }
@@ -193,18 +193,18 @@ export const BEACHES_QUERY = defineQuery(`{
   "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) ${beachProjection}
 }`)
 
-// Destinos de contextLinks: guía de Información práctica o ficha de playa. Un destino sin publicar se omite.
+// Destinos de contextLinks: guía (Información práctica o Qué hacer) o ficha de playa. Un destino sin publicar se omite.
 const guideProjection = `{
   "id": _id,
   title,
   "slug": slug.current,
-  "href": "/informacion-practica/" + slug.current + "/",
+  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",
   excerpt,
   "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},
   "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},
   "links": contextLinks[defined(target->slug.current)]{
     "title": coalesce(target->title, target->name),
-    "href": select(target->_type == "beach" => "/playas/", "/informacion-practica/") + target->slug.current + "/",
+    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",
     note
   },
   "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},
@@ -219,9 +219,9 @@ const guideProjection = `{
   }
 }`
 
-export const INFORMATION_GUIDE_SLUGS_QUERY = defineQuery(`*[_type == "article" && section == "informationPractical" && language == "es" && defined(slug.current)].slug.current`)
+export const GUIDE_SLUGS_QUERY = defineQuery(`*[_type == "article" && section == $section && language == "es" && defined(slug.current)].slug.current`)
 
-export const INFORMATION_GUIDE_QUERY = defineQuery(`*[_type == "article" && section == "informationPractical" && language == "es" && slug.current == $slug][0]${guideProjection}`)
+export const GUIDE_QUERY = defineQuery(`*[_type == "article" && section == $section && language == "es" && slug.current == $slug][0]${guideProjection}`)
 
 export const INFORMATION_QUERY = defineQuery(`{
   "page": *[_id == "site-settings" && _type == "siteSettings"][0].informationPage{
@@ -235,4 +235,18 @@ export const INFORMATION_QUERY = defineQuery(`{
     }
   },
   "guides": *[_type == "article" && section == "informationPractical" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) ${guideProjection}
+}`)
+
+export const THINGS_TO_DO_QUERY = defineQuery(`{
+  "page": *[_id == "site-settings" && _type == "siteSettings"][0].thingsToDoPage{
+    title,
+    intro,
+    "seo": {
+      "title": seo.metaTitle,
+      "description": seo.metaDescription,
+      "noIndex": seo.noIndex,
+      "image": seo.socialImage${imageProjection}
+    }
+  },
+  "guides": *[_type == "article" && section == "thingsToDo" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) ${guideProjection}
 }`)
