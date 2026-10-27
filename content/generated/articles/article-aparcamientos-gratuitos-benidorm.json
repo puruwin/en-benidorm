@@ -61,7 +61,7 @@
         {
           "_type": "span",
           "_key": "p4-s",
-          "text": "En 2023 el Ayuntamiento ofrecía billete de autobús gratuito de ida y vuelta desde dos de estos aparcamientos; no hemos encontrado una confirmación posterior, así que no damos por hecho que siga. El autobús urbano tiene tarifa única en toda la concesión; sus precios y los del TRAM están más abajo, con su fuente. Las condiciones del transbordo no las damos: Turismo de Benidorm y la concesionaria no dicen lo mismo.",
+          "text": "En 2023 el Ayuntamiento ofrecía billete de autobús gratuito de ida y vuelta desde dos de estos aparcamientos; no hemos encontrado una confirmación posterior, así que no damos por hecho que siga. El autobús urbano tiene tarifa única en toda la concesión; sus precios y los del TRAM están más abajo, con su fuente.",
           "marks": []
         }
       ]
@@ -248,6 +248,19 @@
       "_type": "practicalFact",
       "factId": "benidorm.autobus-urbano.tarjeta-bus",
       "value": "1,50 € por viaje con la tarjeta BUS, un monedero que se recarga a bordo con 10 a 20 €; la tarjeta cuesta 2,00 € (4,00 € la personalizada)",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Avanza (concesionaria del autobús urbano): Tarifas y títulos de transporte 2026",
+      "sourceUrl": "https://alicante.avanzagrupo.com/es/billetes-y-bonos/tarifas",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-autobus-urbano-transbordo",
+      "_type": "practicalFact",
+      "factId": "benidorm.autobus-urbano.transbordo",
+      "value": "Con los títulos multiviaje, transbordo gratis si cambias a otra línea y vuelves a validar en menos de 90 minutos",
       "unit": "texto",
       "municipality": "Benidorm",
       "status": "confirmed",

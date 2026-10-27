@@ -860,7 +860,13 @@
           }
         }
       ],
-      "conditions": "Turismo de Benidorm (45 minutos, a una línea del mismo precio o inferior) y la concesionaria (gratis en menos de 90 minutos) no coinciden; pendiente de decisión humana."
+      "conditions": "Turismo de Benidorm daba 45 minutos; David decidió que, para el autobús urbano, manda la concesionaria (resolution).",
+      "resolution": {
+        "claimIndex": 1,
+        "reviewedBy": "David",
+        "reviewedAt": "2026-10-27",
+        "reason": "Para el autobús urbano, la concesionaria (Avanza) manda sobre Visit Benidorm."
+      }
     },
     {
       "id": "benidorm.autobus-urbano.tarifa",
