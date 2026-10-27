@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {indexableSeoValidation} from '../objects/seo'
 
 export const business = defineType({
   name: 'business', title: 'Negocio', type: 'document',
@@ -35,7 +36,7 @@ export const business = defineType({
     // El nombre se conserva por compatibilidad; el pipeline guarda aquí la fecha de consulta de las fuentes.
     defineField({name: 'lastVerified', title: 'Fecha de consulta de las fuentes', type: 'date', group: 'editorial', description: 'Fecha de consulta más reciente de las fuentes automáticas (OSM, web oficial). No es una revisión humana ni prueba que el local siga abierto.'}),
     defineField({name: 'sources', title: 'Fuentes', type: 'array', group: 'editorial', of: [{type: 'source'}]}),
-    defineField({name: 'seo', title: 'SEO', type: 'seo', group: 'seo'}),
+    defineField({name: 'seo', title: 'SEO', type: 'seo', group: 'seo', validation: indexableSeoValidation}),
   ],
   preview: {select: {title: 'name', subtitle: 'businessKind', media: 'images.0'}},
 })

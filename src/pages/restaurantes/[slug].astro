@@ -7,8 +7,8 @@ import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import {descriptionSections, provisionalNoIndex} from '../../lib/business-presentation'
 import {getRestaurantBySlug, getRestaurantSlugs, isDemoMode} from '../../lib/content-source'
-import {breadcrumbJsonLd, restaurantJsonLd} from '../../lib/jsonld'
-import type {BreadcrumbItem} from '../../types/content'
+import {restaurantJsonLd} from '../../lib/jsonld'
+import {breadcrumbTrail, getRouteRegistry} from '../../lib/routes'
 
 export async function getStaticPaths() {
   const slugs = await getRestaurantSlugs()
@@ -19,15 +19,13 @@ const {slug} = Astro.params
 const business = slug ? await getRestaurantBySlug(slug) : null
 if (!business) throw new Error(`No se encontró el restaurante estático: ${slug ?? 'sin slug'}`)
 const item = business
-const breadcrumbs: BreadcrumbItem[] = [
-  {label: 'Inicio', href: '/'}, {label: 'Dónde comer', href: '/donde-comer/'}, {label: item.name},
-]
+const breadcrumbs = breadcrumbTrail('dining', item.name, await getRouteRegistry())
 const sections = descriptionSections(item.description)
 const seo = provisionalNoIndex(item) ? {...item.seo, noIndex: true} : item.seo
 const site = Astro.site ?? new URL('https://enbenidorm.es')
 ---
 
-<BaseLayout seo={seo} jsonLd={[breadcrumbJsonLd(breadcrumbs, site), restaurantJsonLd(item, site)]} demo={isDemoMode}>
+<BaseLayout seo={seo} seoFallback={{title: item.name, description: item.shortDescription}} breadcrumbs={breadcrumbs} jsonLd={[restaurantJsonLd(item, site)]} demo={isDemoMode}>
   <article>
     <header class="bg-sand pb-12 pt-8 md:pb-16">
       <div class="container-site">

@@ -15,6 +15,7 @@ export type ErrorRule =
   | 'description-duplicate'
   | 'canonical-mismatch'
   | 'jsonld-invalid'
+  | 'breadcrumb-missing'
   | 'unreviewed-verified'
   | 'facts-without-sources'
 
@@ -47,6 +48,7 @@ export interface ParsedPage {
   h1Count: number
   links: ParsedLink[]
   jsonLdErrors: string[]
+  hasBreadcrumbList: boolean
   verifiedClaims: string[]
   hasHumanReview: boolean
   hasPrice: boolean
@@ -130,9 +132,12 @@ export function parsePage(source: SourcePage, origin: string): ParsedPage {
   }
 
   const jsonLdErrors: string[] = []
+  const jsonLdTypes: string[] = []
   byTag('script').filter((node) => (attr(node, 'type') ?? '').toLowerCase() === 'application/ld+json').forEach((node, index) => {
     try {
-      JSON.parse(textOf(node, false))
+      const data: unknown = JSON.parse(textOf(node, false))
+      jsonLdTypes.push(...jsonLdTypesOf(data))
+      for (const key of unique(forbiddenJsonLdKeys(data))) jsonLdErrors.push(`bloque ${index + 1}: «${key}» no permitido (nunca valoraciones agregadas ni reseñas)`)
     } catch (error) {
       jsonLdErrors.push(`bloque ${index + 1}: ${error instanceof Error ? error.message : String(error)}`)
     }
@@ -152,6 +157,7 @@ export function parsePage(source: SourcePage, origin: string): ParsedPage {
     h1Count: byTag('h1').length,
     links,
     jsonLdErrors,
+    hasBreadcrumbList: jsonLdTypes.includes('BreadcrumbList'),
     verifiedClaims,
     hasHumanReview: elements.some((node) => attr(node, 'data-human-review') !== null),
     hasPrice: PRICE.test(mainText),
@@ -210,6 +216,7 @@ export function auditSite(sources: readonly SourcePage[], options: {origin: stri
       if (page.canonical !== expected) push('canonical-mismatch', `canonical ${page.canonical ?? '(ausente)'}; esperado ${expected}`)
     }
     for (const error of page.jsonLdErrors) push('jsonld-invalid', error)
+    if (page.type === 'indexable' && page.route !== '/' && !page.hasBreadcrumbList) push('breadcrumb-missing', 'falta el JSON-LD BreadcrumbList')
     if (!page.hasHumanReview) for (const claim of unique(page.verifiedClaims)) push('unreviewed-verified', `«${claim}» sin [data-human-review]`)
     if ((page.hasPrice || page.hasHours) && !page.hasSources) {
       push('facts-without-sources', `${[page.hasPrice && 'precios', page.hasHours && 'horarios'].filter(Boolean).join(' y ')} sin el componente Sources`)
@@ -253,6 +260,22 @@ function duplicates(pages: readonly ParsedPage[], field: 'title' | 'description'
     for (const route of routes) findings.push({rule, route, detail: `«${value}» compartido con ${routes.filter((other) => other !== route).join(', ')}`})
   }
   return findings
+}
+
+const FORBIDDEN_JSONLD_KEYS = new Set(['aggregateRating', 'review', 'reviews', 'reviewRating'])
+
+function forbiddenJsonLdKeys(value: unknown): string[] {
+  if (Array.isArray(value)) return value.flatMap(forbiddenJsonLdKeys)
+  if (typeof value !== 'object' || value === null) return []
+  return Object.entries(value).flatMap(([key, child]) => [...(FORBIDDEN_JSONLD_KEYS.has(key) ? [key] : []), ...forbiddenJsonLdKeys(child)])
+}
+
+function jsonLdTypesOf(value: unknown): string[] {
+  if (Array.isArray(value)) return value.flatMap(jsonLdTypesOf)
+  if (typeof value !== 'object' || value === null) return []
+  const record = value as Record<string, unknown>
+  const own = typeof record['@type'] === 'string' ? [record['@type']] : []
+  return [...own, ...jsonLdTypesOf(record['@graph'])]
 }
 
 function normalizeInternal(href: string, route: string, origin: string): string | null {

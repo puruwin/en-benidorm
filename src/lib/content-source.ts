@@ -1,7 +1,7 @@
 import {sanityClient} from 'sanity:client'
 import {demoBusinesses, demoDining, demoHome, demoSettings} from '../data/demo/content'
 import {authors} from '../../content/seed/authors'
-import type {AuthorDetail, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideSummary, HomeContent, SiteSettingsData, SourceItem} from '../types/content'
+import type {AuthorDetail, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideSummary, HomeContent, SeoData, SiteSettingsData, SourceItem} from '../types/content'
 import {AUTHOR_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
 
 type LocalDocument = Record<string, unknown> & {_id: string; _type: string}
@@ -169,7 +169,7 @@ function localBusinessDetail(document: LocalDocument): BusinessDetail {
       const target = localComparisons.find((item) => slugValue(item.slug) === comparison.slug)
       return Array.isArray(target?.entries) && target.entries.some((entry) => isRecord(entry) && isRecord(entry.business) && entry.business._ref === document._id)
     }),
-    seo: seoValue(document.seo, String(document.name), String(document.shortDescription)),
+    seo: ownSeo(document.seo),
   }
 }
 
@@ -185,6 +185,15 @@ function portableTextBlocks(value: unknown): DescriptionBlock[] {
     const text = block.children.flatMap((child) => isRecord(child) && typeof child.text === 'string' ? [child.text] : []).join('')
     return text ? [{text, ...(typeof block.style === 'string' ? {style: block.style} : {}), ...(typeof block.listItem === 'string' ? {listItem: block.listItem} : {})}] : []
   }) : []
+}
+/** SEO tal como está en el documento, sin respaldo: `resolveSeo` decide si basta. */
+function ownSeo(value: unknown): SeoData {
+  if (!isRecord(value)) return {}
+  return {
+    ...(typeof value.metaTitle === 'string' ? {title: value.metaTitle} : {}),
+    ...(typeof value.metaDescription === 'string' ? {description: value.metaDescription} : {}),
+    ...(typeof value.noIndex === 'boolean' ? {noIndex: value.noIndex} : {}),
+  }
 }
 function seoValue(value: unknown, title: string, description: string) { return isRecord(value) ? {title: String(value.metaTitle ?? title), description: String(value.metaDescription ?? description), ...(typeof value.noIndex === 'boolean' ? {noIndex: value.noIndex} : {})} : {title, description} }
 function isRecord(value: unknown): value is Record<string, unknown> { return typeof value === 'object' && value !== null && !Array.isArray(value) }

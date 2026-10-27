@@ -13,6 +13,7 @@ interface PageOptions {
   canonical?: string | null
   robots?: string
   head?: string
+  breadcrumbs?: boolean
   main?: string
   nav?: string
   footer?: string
@@ -27,6 +28,7 @@ function page(route: string, options: PageOptions = {}): SourcePage {
     ${description === null ? '' : `<meta name="description" content="${description}">`}
     ${canonical === null ? '' : `<link rel="canonical" href="${canonical}">`}
     <meta name="robots" content="${options.robots ?? 'index,follow'}">${options.head ?? ''}
+    ${options.breadcrumbs === false ? '' : '<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[]}</script>'}
   </head><body>
     <header><nav>${options.nav ?? '<a href="/">Inicio</a> <a href="/a/">A</a> <a href="/b/">B</a>'}</nav></header>
     <main>${options.main ?? `<h1>Página ${route}</h1>`}</main>
@@ -59,11 +61,14 @@ test('reproduce los hallazgos de la auditoría de encalpe', async () => {
   assert.deepEqual(rules(result), [
     '/ broken-link:footer',
     '/ link-to-redirect:menu',
+    '/huerfana/ breadcrumb-missing',
     '/huerfana/ broken-link:footer',
     '/huerfana/ link-to-redirect:menu',
     '/huerfana/ orphan',
+    '/restaurantes/ficha/ breadcrumb-missing',
     '/restaurantes/ficha/ broken-link:footer',
     '/restaurantes/ficha/ link-to-redirect:menu',
+    '/sin-h1/ breadcrumb-missing',
     '/sin-h1/ broken-link:footer',
     '/sin-h1/ h1-missing',
     '/sin-h1/ link-to-redirect:menu',
@@ -121,6 +126,18 @@ test('detecta JSON-LD que no parsea', () => {
   const result = auditSite(cleanSite({'/a/': {head}}), {origin})
   assert.deepEqual(rules(result), ['/a/ jsonld-invalid'])
   assert.match(result.errors[0]?.detail ?? '', /^bloque 2:/)
+})
+
+test('JSON-LD con valoraciones agregadas o reseñas es un error', () => {
+  const head = '<script type="application/ld+json">{"@type":"Restaurant","name":"X","aggregateRating":{"@type":"AggregateRating","ratingValue":4.5},"review":[{"@type":"Review"}]}</script>'
+  const result = auditSite(cleanSite({'/a/': {head}}), {origin})
+  assert.deepEqual(rules(result), ['/a/ jsonld-invalid', '/a/ jsonld-invalid'])
+  assert.deepEqual(result.errors.map((error) => error.detail.match(/«(\w+)»/)?.[1]).sort(), ['aggregateRating', 'review'])
+})
+
+test('toda página indexable salvo la de inicio lleva BreadcrumbList', () => {
+  const result = auditSite(cleanSite({'/': {breadcrumbs: false}, '/a/': {breadcrumbs: false}, '/b/': {breadcrumbs: false, robots: 'noindex,follow'}}), {origin})
+  assert.deepEqual(rules(result), ['/a/ breadcrumb-missing'])
 })
 
 test('«verificada» solo se admite con revisión humana marcada', () => {
