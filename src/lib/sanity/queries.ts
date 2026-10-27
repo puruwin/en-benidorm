@@ -132,7 +132,7 @@ export const COMPARISON_QUERY = defineQuery(`*[_type == "comparison" && language
   quickVerdict,
   choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},
   entries[]{
-    verdict, strengths, limitations, bestFor, featuredItem, practicalNotes,
+    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,
     "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}
   },
   methodology,

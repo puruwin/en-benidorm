@@ -109,9 +109,10 @@ export interface ComparisonLink {
 export interface ComparisonEntryDetail {
   verdict: string
   strengths: string[]
+  conditions: string[]
   limitations: string[]
   bestFor: string[]
-  featuredItem?: {name: string; price?: number; currency?: 'EUR'; priceQualifier?: string; source: string; retrievedAt: string}
+  featuredItem?: {name: string; price?: number; currency?: 'EUR'; priceQualifier?: string; priceUnit?: 'per-person' | 'per-portion' | 'per-unit' | 'ambiguous'; source: string; retrievedAt: string}
   practicalNotes: string[]
   business: Pick<BusinessDetail, 'name' | 'slug' | 'href' | 'kind' | 'phone' | 'website'>
 }

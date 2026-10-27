@@ -91,7 +91,7 @@ export async function getComparisonBySlug(slug: string): Promise<ComparisonDetai
   assertSanityConfigured()
   const comparison = await sanityClient.fetch<ComparisonDetail | null>(COMPARISON_QUERY, {slug})
   if (!comparison) return null
-  return {...comparison, choiceGuide: comparison.choiceGuide ?? [], entries: comparison.entries ?? [], criteria: comparison.criteria ?? [], sources: comparison.sources ?? []}
+  return {...comparison, choiceGuide: comparison.choiceGuide ?? [], entries: (comparison.entries ?? []).map((entry) => ({...entry, conditions: entry.conditions ?? [], limitations: entry.limitations ?? []})), criteria: comparison.criteria ?? [], sources: comparison.sources ?? []}
 }
 
 export async function getAuthorBySlug(slug: string): Promise<AuthorDetail | null> {
@@ -140,10 +140,10 @@ function localComparisonDetail(document: LocalDocument): ComparisonDetail {
       if (!business) return []
       const businessSlug = slugValue(business.slug)!
       const featured = isRecord(entry.featuredItem) && typeof entry.featuredItem.name === 'string' && typeof entry.featuredItem.source === 'string' && typeof entry.featuredItem.retrievedAt === 'string'
-        ? {name: entry.featuredItem.name, ...(typeof entry.featuredItem.price === 'number' ? {price: entry.featuredItem.price, ...(entry.featuredItem.currency === 'EUR' ? {currency: 'EUR' as const} : {}), ...(typeof entry.featuredItem.priceQualifier === 'string' ? {priceQualifier: entry.featuredItem.priceQualifier} : {})} : {}), source: entry.featuredItem.source, retrievedAt: entry.featuredItem.retrievedAt}
+        ? {name: entry.featuredItem.name, ...(typeof entry.featuredItem.price === 'number' ? {price: entry.featuredItem.price, ...(entry.featuredItem.currency === 'EUR' ? {currency: 'EUR' as const} : {}), ...(typeof entry.featuredItem.priceQualifier === 'string' ? {priceQualifier: entry.featuredItem.priceQualifier} : {}), ...(isPriceUnit(entry.featuredItem.priceUnit) ? {priceUnit: entry.featuredItem.priceUnit} : {})} : {}), source: entry.featuredItem.source, retrievedAt: entry.featuredItem.retrievedAt}
         : undefined
       return [{
-        verdict: String(entry.verdict), strengths: stringList(entry.strengths), limitations: stringList(entry.limitations),
+        verdict: String(entry.verdict), strengths: stringList(entry.strengths), conditions: stringList(entry.conditions), limitations: stringList(entry.limitations),
         bestFor: stringList(entry.bestFor), ...(featured ? {featuredItem: featured} : {}), practicalNotes: stringList(entry.practicalNotes),
         business: {name: String(business.name), slug: businessSlug, href: `/restaurantes/${businessSlug}/`, kind: String(business.businessKind), ...(typeof business.phone === 'string' ? {phone: business.phone} : {}), ...(typeof business.website === 'string' ? {website: business.website} : {})},
       }]
@@ -178,6 +178,7 @@ function localSources(value: unknown): SourceItem[] {
 }
 function slugValue(value: unknown): string | undefined { return isRecord(value) && typeof value.current === 'string' ? value.current : undefined }
 function stringList(value: unknown): string[] { return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [] }
+function isPriceUnit(value: unknown): value is 'per-person' | 'per-portion' | 'per-unit' | 'ambiguous' { return value === 'per-person' || value === 'per-portion' || value === 'per-unit' || value === 'ambiguous' }
 function portableTextBlocks(value: unknown): DescriptionBlock[] {
   return Array.isArray(value) ? value.flatMap((block) => {
     if (!isRecord(block) || !Array.isArray(block.children)) return []
