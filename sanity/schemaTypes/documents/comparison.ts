@@ -58,7 +58,8 @@ export const comparison = defineType({
     defineField({name: 'criteria', title: 'Criterios', type: 'array', group: 'methodology', of: [{type: 'string'}], validation: (rule) => rule.required().min(3)}),
     defineField({name: 'author', title: 'Autor', type: 'reference', group: 'methodology', to: [{type: 'author'}], validation: (rule) => rule.required()}),
     defineField({name: 'sources', title: 'Fuentes', type: 'array', group: 'methodology', of: [{type: 'source'}], validation: (rule) => rule.required().min(1)}),
-    defineField({name: 'lastVerified', title: 'Última comprobación', type: 'date', group: 'methodology', validation: (rule) => rule.required()}),
+    // El nombre se conserva por compatibilidad; el pipeline guarda aquí la fecha de consulta de las fuentes.
+    defineField({name: 'lastVerified', title: 'Fecha de consulta de las fuentes', type: 'date', group: 'methodology', description: 'Fecha más reciente de consulta de las fuentes u observaciones usadas. No es una revisión humana.', validation: (rule) => rule.required()}),
     defineField({name: 'seo', title: 'SEO', type: 'seo', group: 'seo', validation: (rule) => rule.required()}),
   ],
   orderings: [{title: 'Tema', name: 'topicAsc', by: [{field: 'topic', direction: 'asc'}]}],
