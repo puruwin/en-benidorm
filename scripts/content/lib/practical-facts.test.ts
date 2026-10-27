@@ -55,7 +55,7 @@ test('el mismo hecho copiado con valores distintos en dos páginas es «conflict
   const good = expectedSnapshot(fact)
   const issues = validatePracticalFacts([
     page('article-aparcar', 'article', {practicalFacts: [good]}),
-    page('beach-levante', 'beach', {municipality: 'Benidorm', practicalFacts: [{...good, value: 2.2}]}),
+    page('beach-levante', 'beach', {municipality: 'Benidorm', practicalFacts: [{...good, value: '2.2'}]}),
   ], context([fact]))
 
   const conflicts = issues.filter((issue) => issue.message.includes('valores distintos entre páginas'))
@@ -67,12 +67,14 @@ test('el mismo valor citado en dos páginas es válido y queda «confirmed»', (
   const fact = zonaAzul([municipal(0.85), blog(0.85)])
   const snapshot = expectedSnapshot(fact)
   assert.equal(snapshot.status, 'confirmed')
-  assert.equal(snapshot.value, 0.85)
+  assert.equal(snapshot.value, '0.85')
   assert.equal(snapshot.sourceClass, 'official-location')
   assert.deepEqual(validatePracticalFacts([
     page('article-aparcar', 'article', {practicalFacts: [snapshot]}),
     page('beach-levante', 'beach', {municipality: 'Benidorm', practicalFacts: [snapshot]}),
   ], context([fact])), [])
+  const numeric = validatePracticalFacts([page('article-aparcar', 'article', {practicalFacts: [{...snapshot, value: 0.85}]})], context([fact]))
+  assert.match(messages(numeric), /Copia desactualizada.*value/)
 })
 
 test('una resolución humana cierra el conflicto y un claim posterior lo reabre', () => {
@@ -88,7 +90,7 @@ test('sin claims el hecho es «unknown»; solo con terceros es «needs verificat
   assert.equal(expectedSnapshot(fact).value, null)
 
   const issues = validatePracticalFacts([
-    page('article-aparcar', 'article', {practicalFacts: [{...expectedSnapshot(fact), value: 0.85}]}),
+    page('article-aparcar', 'article', {practicalFacts: [{...expectedSnapshot(fact), value: '0.85'}]}),
   ], context([fact]))
   assert.match(messages(issues), /«needs verification»: no se publica la cifra/)
 })

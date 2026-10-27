@@ -157,7 +157,8 @@ live once in `content/facts/<municipality>/<topic>.json` (`scripts/content/lib/p
   observed claim), `needs verification` (only open data / third party).
 - Official claims need a URL whose host David approved in `content/facts/official-sources.json`;
   observed claims need an `observationRef` to a file in `content/manual/` with the same date.
-- Pages cite facts in `practicalFacts[]` (a snapshot; `value` only when `confirmed`). `content:validate`
+- Pages cite facts in `practicalFacts[]` (a snapshot; `value` only when `confirmed`, as canonical
+  text because a Sanity field cannot hold mixed types). `content:validate`
   and `content:import` block a page that cites a fact in conflict, an out-of-date copy, or the same
   fact with different values elsewhere, and a page that includes a place outside Benidorm without a
   `travelNotes[]` entry for that municipality.

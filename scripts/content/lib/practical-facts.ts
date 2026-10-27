@@ -60,10 +60,14 @@ export interface OfficialSource {
   approvedAt: string
 }
 
-/** Lo que la página guarda del hecho. `value` solo va relleno si el hecho está `confirmed`. */
+/**
+ * Lo que la página guarda del hecho. `value` solo va relleno si el hecho está `confirmed`, y va como
+ * texto canónico (`factValueText`) porque un campo de Sanity no admite tipos mixtos; la página lo
+ * formatea según `unit`.
+ */
 export interface PracticalFactSnapshot {
   factId: string
-  value: FactValue | null
+  value: string | null
   unit: FactUnit
   municipality: Municipality
   status: FactStatus
@@ -111,6 +115,11 @@ const OFFICIAL_CLASSES: ReadonlySet<SourceClass> = new Set(['official-location',
 export function normalizeFactValue(value: FactValue): string {
   if (typeof value === 'string') return `string:${value.normalize('NFC').trim().replace(/\s+/g, ' ').toLowerCase()}`
   return `${typeof value}:${String(value)}`
+}
+
+/** Texto canónico de un valor en el snapshot: `0.85`, `true`, `domingo`. */
+export function factValueText(value: FactValue): string {
+  return typeof value === 'string' ? value : String(value)
 }
 
 /**
@@ -165,7 +174,7 @@ export function expectedSnapshot(fact: PracticalFact): PracticalFactSnapshot {
   const {status, claim} = resolveFact(fact)
   return {
     factId: fact.id,
-    value: status === 'confirmed' && claim ? claim.value : null,
+    value: status === 'confirmed' && claim ? factValueText(claim.value) : null,
     unit: fact.unit,
     municipality: fact.municipality,
     status,
@@ -420,7 +429,7 @@ export function validatePracticalFacts(documents: readonly FactDocument[], conte
 
   // Un mismo hecho citado con valores distintos en dos páginas es un conflicto que bloquea a todas.
   for (const [factId, list] of citations) {
-    const variants = new Set(list.map(({snapshot}) => `${normalizeFactValue(snapshotValue(snapshot.value))}|${String(snapshot.unit)}|${String(snapshot.status)}`))
+    const variants = new Set(list.map(({snapshot}) => `${typeof snapshot.value === 'string' ? normalizeFactValue(snapshot.value) : String(snapshot.value)}|${String(snapshot.unit)}|${String(snapshot.status)}`))
     if (variants.size < 2) continue
     const pages = list.map(({doc, snapshot}) => `${doc.document._id} = ${String(snapshot.value)} ${String(snapshot.unit)}`).join('; ')
     for (const {doc} of list) {
@@ -453,17 +462,10 @@ function validateTravelNotes(doc: FactDocument['document'], municipalities: Read
   }
 }
 
-function sameSnapshotValue(actual: unknown, expected: unknown): boolean {
+/** Todos los campos del snapshot son texto o null; un número donde va texto cuenta como copia distinta. */
+function sameSnapshotValue(actual: unknown, expected: string | null): boolean {
   if (expected === null) return actual === null || actual === undefined
-  if (typeof expected === 'string' || typeof expected === 'number' || typeof expected === 'boolean') {
-    return (typeof actual === 'string' || typeof actual === 'number' || typeof actual === 'boolean')
-      && normalizeFactValue(actual) === normalizeFactValue(expected)
-  }
-  return false
-}
-
-function snapshotValue(value: unknown): FactValue {
-  return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean' ? value : 'null'
+  return typeof actual === 'string' && normalizeFactValue(actual) === normalizeFactValue(expected)
 }
 
 // --- Utilidades ---------------------------------------------------------------------------------
