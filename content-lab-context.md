@@ -145,6 +145,24 @@ They preserve:
 
 They must not be used to manufacture missing dimensions.
 
+### Practical facts (place, beach, practical-information articles)
+
+Prices, hours, access and fees for places, beaches and practical guides (parking, transport, markets)
+live once in `content/facts/<municipality>/<topic>.json` (`scripts/content/lib/practical-facts.ts`).
+
+- Stable id `<municipality>.<subject>.<attribute>[.<qualifier>]`, a closed `unit` and `municipality`.
+- Each claim reuses `SourceProvenance`; `sourceClass` is the evidence hierarchy of the editorial principles.
+- Status is derived, never written: `unknown` (no claims), `conflict` (different values, unless a
+  human `resolution` dated on or after the newest claim), `confirmed` (an official or first-party
+  observed claim), `needs verification` (only open data / third party).
+- Official claims need a URL whose host David approved in `content/facts/official-sources.json`;
+  observed claims need an `observationRef` to a file in `content/manual/` with the same date.
+- Pages cite facts in `practicalFacts[]` (a snapshot; `value` only when `confirmed`). `content:validate`
+  and `content:import` block a page that cites a fact in conflict, an out-of-date copy, or the same
+  fact with different values elsewhere, and a page that includes a place outside Benidorm without a
+  `travelNotes[]` entry for that municipality.
+- Figures written in free text (`body`) are not checked here; that is the `verificador` agent's job.
+
 ---
 
 ## 5. Shared business catalog
