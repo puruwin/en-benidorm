@@ -2,7 +2,7 @@ import type {PracticalFactView} from '../types/content'
 import {factValue, type FactRow} from './beach-presentation'
 
 /**
- * Cómo se muestran los hechos prácticos de una guía de Información práctica. El valor y su procedencia
+ * Cómo se muestran los hechos prácticos de una guía (Información práctica, Qué hacer). El valor y su procedencia
  * vienen siempre del snapshot (content/facts/); aquí solo se deciden la etiqueta y el grupo. Los grupos
  * siguen el sujeto del hecho (`benidorm.zona-azul.horario` → zona-azul), en el orden en que la guía los cita.
  */
@@ -19,6 +19,9 @@ const SUBJECT_TITLES: Record<string, string> = {
   'autobus-urbano': 'Autobús y TRAM',
   tram: 'Autobús y TRAM',
   zbe: 'Zona de bajas emisiones',
+  'mercadillo-municipal': 'Mercadillo municipal',
+  'mercadillo-pueblo': 'Mercadillo Pueblo',
+  'mercado-el-cisne': 'Mercado El Cisne',
 }
 
 // Clave: el id sin el municipio (`zona-azul.horario.verano-visitantes`).
@@ -67,6 +70,25 @@ const LABELS: Record<string, string> = {
   'zbe.movilidad-reducida': 'Con tarjeta de movilidad reducida',
   'zbe.moratoria-sin-distintivo': 'Moratoria para coches sin distintivo',
   'zbe.sanciones': 'Desde cuándo se sanciona',
+  'mercadillo-municipal.dia': 'Día',
+  'mercadillo-municipal.horario': 'Horario',
+  'mercadillo-municipal.ubicacion': 'Dónde se pone',
+  'mercadillo-municipal.festivos': 'Si cae en festivo',
+  'mercadillo-municipal.traslado-verano': 'Traslado en verano',
+  'mercadillo-municipal.puestos': 'Puestos',
+  'mercadillo-municipal.ambiente': 'Qué se encuentra, afluencia y mejor hora',
+  'mercadillo-pueblo.dia': 'Días',
+  'mercadillo-pueblo.horario': 'Horario',
+  'mercadillo-pueblo.ubicacion': 'Dónde está',
+  'mercadillo-pueblo.excepciones': 'Festivos e invierno',
+  'mercadillo-pueblo.ambiente': 'Qué se encuentra, afluencia y mejor hora',
+  'mercado-el-cisne.dia': 'Días',
+  'mercado-el-cisne.horario': 'Horario',
+  'mercado-el-cisne.ubicacion': 'Dónde está',
+  'mercado-el-cisne.musica': 'Música',
+  'mercado-el-cisne.excepciones': 'Festivos e invierno',
+  'mercado-el-cisne.aparcamiento': 'Dónde aparcar',
+  'mercado-el-cisne.ambiente': 'Qué se encuentra, afluencia y mejor hora',
 }
 
 function key(factId: string): string {

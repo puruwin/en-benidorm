@@ -52,6 +52,11 @@ export function factValue(fact: PracticalFactView): string | null {
   if (fact.unit === 'm' || fact.unit === 'km' || fact.unit === 'min') return `${number.format(Number(fact.value))} ${fact.unit}`
   if (fact.unit === 'booleano') return fact.value === 'true' ? 'Sí' : 'No'
   if (fact.unit === 'EUR' || fact.unit === 'EUR/h' || fact.unit === 'EUR/día') return `${euros.format(Number(fact.value))}${fact.unit === 'EUR' ? '' : fact.unit.slice(3)}`
+  if (fact.unit === 'hh:mm') {
+    const [from, to] = fact.value.split('-')
+    return to ? `De ${from} a ${to}` : fact.value
+  }
+  if (fact.unit === 'día-semana') return fact.value.charAt(0).toUpperCase() + fact.value.slice(1)
   return fact.value
 }
 

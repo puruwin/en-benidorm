@@ -5,7 +5,7 @@ import {authors} from '../../content/seed/authors'
 import {settings as seedSettings} from '../../content/seed/settings'
 import type {AuthorDetail, BeachContrast, BeachDetail, BeachesPageContent, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideDetail, GuideLink, GuideSummary, HomeContent, InformationPageContent, NearbyDining, PracticalFactView, SeoData, SiteSettingsData, SourceItem} from '../types/content'
 import {type CreatorObservation, isCreatorObservationPath, isPublishable, parseCreatorObservation, sortCreatorObservations} from './creator-observations'
-import {AUTHOR_QUERY, BEACH_QUERY, BEACH_SLUGS_QUERY, BEACHES_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, INFORMATION_GUIDE_QUERY, INFORMATION_GUIDE_SLUGS_QUERY, INFORMATION_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
+import {AUTHOR_QUERY, BEACH_QUERY, BEACH_SLUGS_QUERY, BEACHES_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, GUIDE_QUERY, GUIDE_SLUGS_QUERY, INFORMATION_QUERY, THINGS_TO_DO_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
 
 type LocalDocument = Record<string, unknown> & {_id: string; _type: string}
 const localBusinessModules = import.meta.glob('../../content/generated/businesses/*.json', {eager: true, import: 'default'}) as Record<string, LocalDocument>
@@ -17,8 +17,12 @@ const creatorObservationModules = import.meta.glob('../../content/manual/creator
 const localBusinesses = Object.values(localBusinessModules)
 const localComparisons = Object.values(localComparisonModules)
 const localBeaches = Object.values(localBeachModules)
-// Guías de Información práctica: las únicas guías con ruta hoy (docs/arquitectura-seo.md §3).
-const localInformationGuides = Object.values(localArticleModules).filter((document) => document.section === 'informationPractical')
+// Guías con ruta (docs/arquitectura-seo.md §3): las de Información práctica y las de Qué hacer.
+export type GuideSection = 'informationPractical' | 'thingsToDo'
+const GUIDE_PATHS: Record<GuideSection, string> = {informationPractical: '/informacion-practica/', thingsToDo: '/que-hacer/'}
+const localGuides = Object.values(localArticleModules).filter((document) => typeof document.section === 'string' && document.section in GUIDE_PATHS)
+const localGuidesOf = (section: GuideSection) => localGuides.filter((document) => document.section === section)
+const guidePath = (document: LocalDocument) => GUIDE_PATHS[document.section as GuideSection]
 
 export const isDemoMode = import.meta.env.CONTENT_SOURCE !== 'sanity'
 
@@ -149,32 +153,35 @@ function normalizeBeach(beach: BeachDetail): BeachDetail {
   }
 }
 
-export async function getInformationGuideSlugs(): Promise<string[]> {
-  if (isDemoMode) return localInformationGuides.map((document) => slugValue(document.slug)).filter((slug): slug is string => Boolean(slug))
+export async function getGuideSlugs(section: GuideSection): Promise<string[]> {
+  if (isDemoMode) return localGuidesOf(section).map((document) => slugValue(document.slug)).filter((slug): slug is string => Boolean(slug))
   assertSanityConfigured()
-  return sanityClient.fetch<string[]>(INFORMATION_GUIDE_SLUGS_QUERY)
+  return sanityClient.fetch<string[]>(GUIDE_SLUGS_QUERY, {section})
 }
 
-export async function getInformationGuideBySlug(slug: string): Promise<GuideDetail | null> {
+export async function getGuideBySlug(section: GuideSection, slug: string): Promise<GuideDetail | null> {
   if (isDemoMode) {
-    const document = localInformationGuides.find((item) => slugValue(item.slug) === slug)
+    const document = localGuidesOf(section).find((item) => slugValue(item.slug) === slug)
     return document ? localGuideDetail(document) : null
   }
   assertSanityConfigured()
-  const guide = await sanityClient.fetch<GuideDetail | null>(INFORMATION_GUIDE_QUERY, {slug})
+  const guide = await sanityClient.fetch<GuideDetail | null>(GUIDE_QUERY, {section, slug})
   return guide ? normalizeGuide(guide) : null
 }
 
-/** Hub de Información práctica. En demo, la intro y el SEO salen del seed de siteSettings; las guías, del repositorio. */
-export async function getInformationContent(): Promise<InformationPageContent> {
+const GUIDE_HUB_PAGES = {informationPractical: 'informationPage', thingsToDo: 'thingsToDoPage'} as const
+
+/** Hub de guías. En demo, la intro y el SEO salen del seed de siteSettings; las guías, del repositorio. */
+export async function getGuideHubContent(section: GuideSection): Promise<InformationPageContent> {
+  const pageField = GUIDE_HUB_PAGES[section]
   if (isDemoMode) {
-    const page = seedSettings.informationPage
-    const guides = localInformationGuides.map(localGuideDetail).sort((a, b) => a.publishedAt.localeCompare(b.publishedAt) || a.title.localeCompare(b.title, 'es'))
+    const page = seedSettings[pageField]
+    const guides = localGuidesOf(section).map(localGuideDetail).sort((a, b) => a.publishedAt.localeCompare(b.publishedAt) || a.title.localeCompare(b.title, 'es'))
     return {title: page.title, intro: page.intro, seo: ownSeo(page.seo), guides}
   }
   assertSanityConfigured()
-  const result = await sanityClient.fetch<{page: Pick<InformationPageContent, 'title' | 'intro' | 'seo'> | null; guides: GuideDetail[]}>(INFORMATION_QUERY)
-  if (!result.page) throw new Error('Falta siteSettings.informationPage en Sanity.')
+  const result = await sanityClient.fetch<{page: Pick<InformationPageContent, 'title' | 'intro' | 'seo'> | null; guides: GuideDetail[]}>(section === 'thingsToDo' ? THINGS_TO_DO_QUERY : INFORMATION_QUERY)
+  if (!result.page) throw new Error(`Falta siteSettings.${pageField} en Sanity.`)
   return {...result.page, guides: result.guides.map(normalizeGuide)}
 }
 
@@ -315,18 +322,18 @@ function localGuideDetail(document: LocalDocument): GuideDetail {
   const authorReference = isRecord(document.author) ? document.author : undefined
   const author = authors.find((item) => item._id === authorReference?._ref)
   return {
-    id: document._id, title: String(document.title), slug, href: `/informacion-practica/${slug}/`, excerpt: String(document.excerpt),
+    id: document._id, title: String(document.title), slug, href: `${guidePath(document)}${slug}/`, excerpt: String(document.excerpt),
     description: portableTextBlocks(document.body),
     facts: Array.isArray(document.practicalFacts) ? document.practicalFacts.flatMap(localFact) : [],
     links: Array.isArray(document.contextLinks) ? document.contextLinks.flatMap((item): GuideLink[] => {
       if (!isRecord(item) || !isRecord(item.target) || typeof item.note !== 'string') return []
       const ref = item.target._ref
-      const guide = localInformationGuides.find((candidate) => candidate._id === ref)
+      const guide = localGuides.find((candidate) => candidate._id === ref)
       const beach = localBeaches.find((candidate) => candidate._id === ref)
       const target = guide ?? beach
       const targetSlug = target ? slugValue(target.slug) : undefined
       if (!target || !targetSlug) return []
-      return [{title: String(guide ? guide.title : beach!.name), href: guide ? `/informacion-practica/${targetSlug}/` : `/playas/${targetSlug}/`, note: item.note}]
+      return [{title: String(guide ? guide.title : beach!.name), href: guide ? `${guidePath(guide)}${targetSlug}/` : `/playas/${targetSlug}/`, note: item.note}]
     }) : [],
     author: {name: author?.name ?? 'David', slug: author?.slug.current ?? 'david'},
     publishedAt: String(document.publishedAt), ...(typeof document.updatedAt === 'string' ? {updatedAt: document.updatedAt} : {}),

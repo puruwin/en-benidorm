@@ -3,13 +3,13 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import {factValue, formatRetrievedAt, pendingText, unconfirmedSourceText} from '../../lib/beach-presentation'
-import {getInformationContent} from '../../lib/content-source'
+import {getGuideHubContent} from '../../lib/content-source'
 import {findGuideFact, guideFactLabel} from '../../lib/guide-presentation'
 import {structuralIndexability} from '../../lib/indexability'
 import {HUBS, breadcrumbTrail, getRouteRegistry, routes} from '../../lib/routes'
 import type {PracticalFactView, SourceItem} from '../../types/content'
 
-const content = await getInformationContent()
+const content = await getGuideHubContent('informationPractical')
 const registry = await getRouteRegistry()
 const breadcrumbs = breadcrumbTrail(null, HUBS.informationPractical.label, registry)
 

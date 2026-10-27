@@ -1,0 +1,71 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro'
+import Sources from '../../components/Sources.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import {factValue, formatRetrievedAt} from '../../lib/beach-presentation'
+import {getGuideHubContent} from '../../lib/content-source'
+import {findGuideFact} from '../../lib/guide-presentation'
+import {structuralIndexability} from '../../lib/indexability'
+import {HUBS, breadcrumbTrail, getRouteRegistry} from '../../lib/routes'
+import type {SourceItem} from '../../types/content'
+
+const content = await getGuideHubContent('thingsToDo')
+const registry = await getRouteRegistry()
+const breadcrumbs = breadcrumbTrail(null, HUBS.thingsToDo.label, registry)
+
+// Día de cada mercadillo, tal como lo cita su propia guía: hub y guía muestran el mismo valor.
+const DAY_FACTS: Record<string, string> = {
+  'mercadillo-municipal-benidorm': 'mercadillo-municipal.dia',
+  'mercadillo-pueblo-benidorm': 'mercadillo-pueblo.dia',
+  'mercado-el-cisne-benidorm': 'mercado-el-cisne.dia',
+}
+const overview = content.guides.find((guide) => guide.slug === 'mercadillos-de-benidorm')
+const markets = content.guides.filter((guide) => guide.slug in DAY_FACTS).map((guide) => ({guide, day: findGuideFact(guide.facts, DAY_FACTS[guide.slug]!)}))
+const others = content.guides.filter((guide) => guide !== overview && !(guide.slug in DAY_FACTS))
+
+const confirmed = content.guides.flatMap((guide) => guide.facts.filter((fact) => fact.status === 'confirmed' && fact.retrievedAt))
+const updated = confirmed.map((fact) => fact.retrievedAt!).sort().at(-1) ?? null
+const sources = [...new Map(content.guides.flatMap((guide) => guide.sources).map((source): [string, SourceItem] => [source.url, source])).values()]
+---
+
+<BaseLayout seo={content.seo} indexability={structuralIndexability({subject: HUBS.thingsToDo.label, h1: content.title, storedNoIndex: content.seo.noIndex, title: content.seo.title})} breadcrumbs={breadcrumbs}>
+  <header class="bg-sand py-10 md:py-16">
+    <div class="container-site">
+      <Breadcrumbs items={breadcrumbs} />
+      <p class="mt-12 text-xs font-black uppercase tracking-[.18em] text-coral">Mercadillos</p>
+      <h1 class="font-editorial mt-2 max-w-4xl text-5xl leading-[.98] tracking-[-.045em] md:text-7xl">{content.title}</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">{content.intro}</p>
+      {updated && <p class="mt-6 inline-flex rounded-full bg-sky px-4 py-2 text-xs font-bold text-sea-dark">Fuentes oficiales consultadas el&nbsp;<time datetime={updated.slice(0, 10)}>{formatRetrievedAt(updated)}</time></p>}
+    </div>
+  </header>
+
+  {overview && <section class="py-14 md:py-20" aria-labelledby="overview-title">
+    <div class="container-site">
+      <h2 id="overview-title" class="font-editorial text-3xl md:text-4xl"><a class="text-sea-dark underline" href={overview.href}>{overview.title.split(':')[0]}</a></h2>
+      <p class="mt-3 max-w-2xl text-ink/70">{overview.excerpt}</p>
+    </div>
+  </section>}
+
+  {markets.length > 0 && <section class="pb-14 md:pb-20" aria-labelledby="markets-title">
+    <div class="container-site">
+      <h2 id="markets-title" class="font-editorial text-3xl md:text-4xl">Cada mercadillo, por día</h2>
+      <ul class="mt-7 grid gap-4 md:grid-cols-3">{markets.map(({guide, day}) => <li class="rounded-2xl border border-ink/10 bg-white p-6 shadow-[0_12px_40px_rgba(16,47,59,.05)]">
+        <h3 class="font-editorial text-2xl"><a class="text-sea-dark underline" href={guide.href}>{guide.title.split(':')[0]}</a></h3>
+        {day && factValue(day) && <p class="mt-2 text-sm font-bold" data-fact-id={day.factId}>{factValue(day)}{day.sourceUrl && <a class="mt-1 block text-xs font-normal text-ink/50 underline" href={day.sourceUrl} rel="noopener noreferrer">{day.sourceTitle ?? 'Fuente'}</a>}</p>}
+        <p class="mt-3 text-sm leading-relaxed text-ink/80">{guide.excerpt}</p>
+      </li>)}</ul>
+    </div>
+  </section>}
+
+  {others.length > 0 && <section class="pb-14 md:pb-20" aria-labelledby="others-title">
+    <div class="container-site">
+      <h2 id="others-title" class="font-editorial text-3xl md:text-4xl">Más guías</h2>
+      <ul class="mt-7 grid gap-4 md:grid-cols-3">{others.map((guide) => <li class="rounded-2xl border border-ink/10 bg-white p-6">
+        <h3 class="font-editorial text-2xl"><a class="text-sea-dark underline" href={guide.href}>{guide.title.split(':')[0]}</a></h3>
+        <p class="mt-3 text-sm leading-relaxed text-ink/80">{guide.excerpt}</p>
+      </li>)}</ul>
+    </div>
+  </section>}
+
+  <div class="container-site pb-16"><Sources sources={sources} /></div>
+</BaseLayout>
