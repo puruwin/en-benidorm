@@ -1,8 +1,9 @@
 ---
+import {filterLinks, getRouteRegistry} from '../lib/routes'
 import type {SiteSettingsData} from '../types/content'
 interface Props { settings: SiteSettingsData }
 const {settings} = Astro.props
-const nav = settings.navigation
+const nav = filterLinks(settings.navigation, await getRouteRegistry(), 'siteSettings.navigation')
 ---
 
 <header class="relative z-20 border-b border-ink/10 bg-cream">
@@ -10,6 +11,7 @@ const nav = settings.navigation
     <a href="/" class="group inline-flex items-baseline text-2xl font-black tracking-[-.05em] no-underline" aria-label="enBenidorm, inicio">
       <span class="text-sea transition-colors group-hover:text-coral">en</span><span class="text-ink">{settings.siteName.replace(/^en/i, '')}</span><span class="ml-1 size-2 rounded-full bg-coral" aria-hidden="true"></span>
     </a>
+    {nav.length > 0 && <>
     <nav class="hidden md:block" aria-label="Navegación principal">
       <ul class="flex items-center gap-6 text-sm font-bold">
         {nav.map((item) => <li><a class="decoration-coral decoration-2 hover:underline" href={item.href}>{item.label}</a></li>)}
@@ -21,5 +23,6 @@ const nav = settings.navigation
         <ul>{nav.map((item) => <li><a class="block rounded-xl px-3 py-3 font-bold hover:bg-sand" href={item.href}>{item.label}</a></li>)}</ul>
       </nav>
     </details>
+    </>}
   </div>
 </header>
