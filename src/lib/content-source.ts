@@ -1,7 +1,7 @@
 import {sanityClient} from 'sanity:client'
 import {demoBusinesses, demoDining, demoHome, demoSettings} from '../data/demo/content'
 import {authors} from '../../content/seed/authors'
-import type {AuthorDetail, BusinessDetail, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideSummary, HomeContent, SiteSettingsData} from '../types/content'
+import type {AuthorDetail, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideSummary, HomeContent, SiteSettingsData, SourceItem} from '../types/content'
 import {AUTHOR_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
 
 type LocalDocument = Record<string, unknown> & {_id: string; _type: string}
@@ -67,7 +67,8 @@ export async function getRestaurantBySlug(slug: string): Promise<BusinessDetail 
   return {
     ...business,
     categories: business.categories ?? [],
-    description: business.description ?? [],
+    // Sanity devuelve `text: null` en bloques sin spans.
+    description: (business.description ?? []).filter((block) => typeof block.text === 'string' && block.text.length > 0),
     hours: business.hours ?? [],
     features: business.features ?? [],
     images: business.images ?? [],
@@ -149,7 +150,7 @@ function localComparisonDetail(document: LocalDocument): ComparisonDetail {
     }),
     methodology: String(document.methodology), criteria: stringList(document.criteria),
     author: {name: author?.name ?? 'David', slug: author?.slug.current ?? 'david', ...(author?.role ? {role: author.role} : {})},
-    sources: Array.isArray(document.sources) ? document.sources.flatMap((source) => isRecord(source) && typeof source.title === 'string' && typeof source.url === 'string' ? [{title: source.title, url: source.url, ...(typeof source.publisher === 'string' ? {publisher: source.publisher} : {}), ...(typeof source.accessedAt === 'string' ? {accessedAt: source.accessedAt} : {})}] : []) : [],
+    sources: localSources(document.sources),
     lastVerified: String(document.lastVerified), seo: seoValue(document.seo, String(document.title), String(document.intro)),
   }
 }
@@ -160,9 +161,9 @@ function localBusinessDetail(document: LocalDocument): BusinessDetail {
   const location = isRecord(document.location) && typeof document.location.lat === 'number' && typeof document.location.lng === 'number' ? {lat: document.location.lat, lng: document.location.lng} : undefined
   return {
     name: String(document.name), slug, href: `/restaurantes/${slug}/`, kind: String(document.businessKind), shortDescription: String(document.shortDescription),
-    categories: [], description: portableTextStrings(document.body),
+    categories: [], description: portableTextBlocks(document.body),
     address: {street: String(address.street ?? ''), postalCode: String(address.postalCode ?? ''), locality: String(address.locality ?? ''), province: String(address.province ?? ''), country: String(address.country ?? '')},
-    hours: [], features: [], images: [], sources: [], ...(typeof document.phone === 'string' ? {phone: document.phone} : {}), ...(typeof document.website === 'string' ? {website: document.website} : {}),
+    hours: [], features: [], images: [], sources: localSources(document.sources), ...(typeof document.phone === 'string' ? {phone: document.phone} : {}), ...(typeof document.website === 'string' ? {website: document.website} : {}),
     ...(location ? {location} : {}), ...(typeof document.lastVerified === 'string' ? {lastVerified: document.lastVerified} : {}),
     comparisons: localComparisonLinks().filter((comparison) => {
       const target = localComparisons.find((item) => slugValue(item.slug) === comparison.slug)
@@ -172,8 +173,17 @@ function localBusinessDetail(document: LocalDocument): BusinessDetail {
   }
 }
 
+function localSources(value: unknown): SourceItem[] {
+  return Array.isArray(value) ? value.flatMap((source) => isRecord(source) && typeof source.title === 'string' && typeof source.url === 'string' ? [{title: source.title, url: source.url, ...(typeof source.publisher === 'string' ? {publisher: source.publisher} : {}), ...(typeof source.accessedAt === 'string' ? {accessedAt: source.accessedAt} : {})}] : []) : []
+}
 function slugValue(value: unknown): string | undefined { return isRecord(value) && typeof value.current === 'string' ? value.current : undefined }
 function stringList(value: unknown): string[] { return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [] }
-function portableTextStrings(value: unknown): string[] { return Array.isArray(value) ? value.flatMap((block) => isRecord(block) && Array.isArray(block.children) ? [block.children.flatMap((child) => isRecord(child) && typeof child.text === 'string' ? [child.text] : []).join('')] : []).filter(Boolean) : [] }
+function portableTextBlocks(value: unknown): DescriptionBlock[] {
+  return Array.isArray(value) ? value.flatMap((block) => {
+    if (!isRecord(block) || !Array.isArray(block.children)) return []
+    const text = block.children.flatMap((child) => isRecord(child) && typeof child.text === 'string' ? [child.text] : []).join('')
+    return text ? [{text, ...(typeof block.style === 'string' ? {style: block.style} : {}), ...(typeof block.listItem === 'string' ? {listItem: block.listItem} : {})}] : []
+  }) : []
+}
 function seoValue(value: unknown, title: string, description: string) { return isRecord(value) ? {title: String(value.metaTitle ?? title), description: String(value.metaDescription ?? description), ...(typeof value.noIndex === 'boolean' ? {noIndex: value.noIndex} : {})} : {title, description} }
 function isRecord(value: unknown): value is Record<string, unknown> { return typeof value === 'object' && value !== null && !Array.isArray(value) }

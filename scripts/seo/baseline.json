@@ -7,29 +7,9 @@
       "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/"
     },
     {
-      "rule": "unreviewed-verified",
-      "route": "/donde-comer/arroces/",
-      "detail": "«Información verificada el» sin [data-human-review]"
-    },
-    {
-      "rule": "unreviewed-verified",
-      "route": "/donde-comer/italiano/",
-      "detail": "«Información verificada el» sin [data-human-review]"
-    },
-    {
-      "rule": "unreviewed-verified",
-      "route": "/restaurantes/arroz-y-brisa-demo/",
-      "detail": "«Información verificada el» sin [data-human-review]"
-    },
-    {
       "rule": "orphan",
       "route": "/restaurantes/cucina-italiana/",
       "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/italiano/"
-    },
-    {
-      "rule": "unreviewed-verified",
-      "route": "/restaurantes/cucina-italiana/",
-      "detail": "«Información verificada el» sin [data-human-review]"
     },
     {
       "rule": "orphan",
@@ -37,29 +17,14 @@
       "detail": "1 enlaces entrantes (mínimo 2): /donde-comer/italiano/"
     },
     {
-      "rule": "unreviewed-verified",
-      "route": "/restaurantes/essenza-italiana/",
-      "detail": "«Información verificada el» sin [data-human-review]"
-    },
-    {
       "rule": "facts-without-sources",
       "route": "/restaurantes/la-esquina-azul-demo/",
       "detail": "horarios sin el componente Sources"
     },
     {
-      "rule": "unreviewed-verified",
-      "route": "/restaurantes/la-esquina-azul-demo/",
-      "detail": "«Información verificada el» sin [data-human-review]"
-    },
-    {
       "rule": "facts-without-sources",
       "route": "/restaurantes/mercat-de-ponent-demo/",
       "detail": "horarios sin el componente Sources"
-    },
-    {
-      "rule": "unreviewed-verified",
-      "route": "/restaurantes/mercat-de-ponent-demo/",
-      "detail": "«Información verificada el» sin [data-human-review]"
     }
   ]
 }

@@ -33,16 +33,16 @@ test('ageInDays cuenta días naturales sin depender de la zona horaria', () => {
   assert.equal(ageInDays('2026-10-26', '2026-10-26'), 0)
 })
 
-test('extractPageDates lee las fuentes con «consultada» y el <time> de LastVerified', () => {
+test('extractPageDates lee las fuentes con «consultada» y el <time> de DataProvenance', () => {
   const html = `<html><body>
-    <p><span aria-hidden="true">✓</span> Información verificada el <time datetime="2026-06-01">1 de junio de 2026</time></p>
+    <p>Datos de OpenStreetMap consultados el <time datetime="2026-06-01">1 de junio de 2026</time></p>
     <ul>
       <li><a href="https://example.com/carta">Carta<span class="sr-only"> de Bar</span></a> · Bar · consultada 2026-05-02</li>
       <li><a href="https://example.com/">Web sin fecha</a></li>
     </ul>
   </body></html>`
   assert.deepEqual(extractPageDates('/restaurantes/bar/', html), [
-    {route: '/restaurantes/bar/', label: 'Información verificada', source: 'página', date: '2026-06-01', origin: 'página'},
+    {route: '/restaurantes/bar/', label: 'Fecha de consulta', source: 'página', date: '2026-06-01', origin: 'página'},
     {route: '/restaurantes/bar/', label: 'Carta', source: 'https://example.com/carta', date: '2026-05-02', origin: 'página'},
   ])
 })

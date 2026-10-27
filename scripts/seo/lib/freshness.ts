@@ -32,7 +32,7 @@ interface HtmlNode {
 
 /**
  * Fechas que el HTML publicado muestra al lector: `consultada AAAA-MM-DD` de `Sources.astro` y el
- * `<time datetime>` de `LastVerified.astro`.
+ * `<time datetime>` de `DataProvenance.astro`.
  */
 export function extractPageDates(route: string, html: string): DatedItem[] {
   const items: DatedItem[] = []
@@ -41,7 +41,7 @@ export function extractPageDates(route: string, html: string): DatedItem[] {
     const node = stack.pop()!
     if (node.tagName === 'time') {
       const date = attr(node, 'datetime')
-      if (date) items.push({route, label: 'Información verificada', source: 'página', date, origin: 'página'})
+      if (date) items.push({route, label: 'Fecha de consulta', source: 'página', date, origin: 'página'})
       continue
     }
     if (node.tagName === 'li') {

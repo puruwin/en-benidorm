@@ -16,7 +16,7 @@ Solo lectura salvo `dist/`. Umbral: `$ARGUMENTS` días si se indica; si no, 90.
 
    Junta dos orígenes (lógica en `scripts/seo/lib/freshness.ts`):
    - **página**: lo que el HTML publicado muestra al lector («consultada AAAA-MM-DD» en las fuentes
-     y la fecha de «Información verificada»);
+     y la fecha de consulta que muestra `DataProvenance`);
    - **artefacto (no visible)**: fechas de `content/generated/businesses` y
      `content/generated/comparisons` que la página no pinta, como `sources[].accessedAt` y la
      `retrievedAt` del precio destacado de cada comparativa.

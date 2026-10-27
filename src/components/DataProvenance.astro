@@ -1,0 +1,11 @@
+---
+import type {SourceItem} from '../types/content'
+import {provenanceLines} from '../lib/business-presentation'
+interface Props { sources: SourceItem[]; lastVerified?: string | undefined; class?: string }
+const {sources, lastVerified, class: className} = Astro.props
+const lines = provenanceLines(sources, lastVerified)
+const format = (date: string) => new Intl.DateTimeFormat('es-ES', {dateStyle: 'long'}).format(new Date(`${date}T12:00:00`))
+---
+{lines.length > 0 && <div class:list={['space-y-2', className]}>{lines.map((line) => <p class="inline-flex rounded-full bg-sky px-4 py-2 text-xs font-bold text-sea-dark">{line.label} {line.from === line.to
+  ? <>el <time datetime={line.to}>{format(line.to)}</time></>
+  : <>entre el <time datetime={line.from}>{format(line.from)}</time> y el <time datetime={line.to}>{format(line.to)}</time></>}</p>)}</div>}

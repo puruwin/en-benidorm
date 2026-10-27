@@ -32,7 +32,8 @@ export const business = defineType({
     defineField({name: 'sponsored', title: 'Patrocinado', type: 'boolean', group: 'editorial', initialValue: false}),
     defineField({name: 'featured', title: 'Destacado', type: 'boolean', group: 'editorial', initialValue: false}),
     defineField({name: 'language', title: 'Idioma', type: 'string', group: 'editorial', initialValue: 'es', readOnly: true}),
-    defineField({name: 'lastVerified', title: 'Última verificación', type: 'date', group: 'editorial'}),
+    // El nombre se conserva por compatibilidad; el pipeline guarda aquí la fecha de consulta de las fuentes.
+    defineField({name: 'lastVerified', title: 'Fecha de consulta de las fuentes', type: 'date', group: 'editorial', description: 'Fecha de consulta más reciente de las fuentes automáticas (OSM, web oficial). No es una revisión humana ni prueba que el local siga abierto.'}),
     defineField({name: 'sources', title: 'Fuentes', type: 'array', group: 'editorial', of: [{type: 'source'}]}),
     defineField({name: 'seo', title: 'SEO', type: 'seo', group: 'seo'}),
   ],

@@ -1,6 +1,6 @@
 ---
 import Breadcrumbs from '../../components/Breadcrumbs.astro'
-import LastVerified from '../../components/LastVerified.astro'
+import DataProvenance from '../../components/DataProvenance.astro'
 import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import {getComparisonBySlug, getComparisonSlugs} from '../../lib/content-source'
@@ -70,7 +70,7 @@ const euro = new Intl.NumberFormat('es-ES', {style: 'currency', currency: 'EUR'}
 
       <section class="mt-16" aria-labelledby="criteria-title"><h2 id="criteria-title" class="font-editorial text-3xl md:text-4xl">Qué hemos comparado</h2><ul class="mt-6 flex flex-wrap gap-3">{comparison.criteria.map((criterion) => <li class="rounded-full bg-sand px-4 py-2 text-sm font-bold text-sea-dark">{criterion}</li>)}</ul></section>
 
-      <section class="mt-16 grid gap-8 border-t border-ink/15 pt-10 lg:grid-cols-[minmax(0,1fr)_22rem]" aria-labelledby="methodology-title"><div><h2 id="methodology-title" class="font-editorial text-3xl md:text-4xl">Cómo hacemos esta guía</h2><p class="mt-5 max-w-3xl leading-relaxed text-ink/75">{comparison.methodology}</p></div><aside class="h-fit rounded-2xl bg-sand p-6"><LastVerified date={comparison.lastVerified} /><p class="mt-6 text-xs font-black uppercase tracking-[.13em] text-ink/50">Autor</p><p class="mt-2 font-bold"><a class="text-sea-dark underline" href={`/sobre-${comparison.author.slug}/`}>{comparison.author.name}</a></p>{comparison.author.role && <p class="mt-1 text-sm text-ink/65">{comparison.author.role}</p>}<p class="mt-6 text-sm"><a class="font-bold text-sea-dark underline" href="/donde-comer/">Volver a Dónde comer</a></p></aside></section>
+      <section class="mt-16 grid gap-8 border-t border-ink/15 pt-10 lg:grid-cols-[minmax(0,1fr)_22rem]" aria-labelledby="methodology-title"><div><h2 id="methodology-title" class="font-editorial text-3xl md:text-4xl">Cómo hacemos esta guía</h2><p class="mt-5 max-w-3xl leading-relaxed text-ink/75">{comparison.methodology}</p></div><aside class="h-fit rounded-2xl bg-sand p-6"><DataProvenance sources={comparison.sources} lastVerified={comparison.lastVerified} /><p class="mt-6 text-xs font-black uppercase tracking-[.13em] text-ink/50">Autor</p><p class="mt-2 font-bold"><a class="text-sea-dark underline" href={`/sobre-${comparison.author.slug}/`}>{comparison.author.name}</a></p>{comparison.author.role && <p class="mt-1 text-sm text-ink/65">{comparison.author.role}</p>}<p class="mt-6 text-sm"><a class="font-bold text-sea-dark underline" href="/donde-comer/">Volver a Dónde comer</a></p></aside></section>
 
       <Sources sources={comparison.sources} grouped={true} />
     </div>
