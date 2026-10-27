@@ -1,8 +1,10 @@
 import {createHash} from 'node:crypto'
+import {existsSync} from 'node:fs'
 import {readdir, readFile} from 'node:fs/promises'
 import {relative, resolve, sep} from 'node:path'
 import {PRICE_UNITS} from './comparison/lib/public-facts'
-import {EMPTY_PRACTICAL_FACTS_CONTEXT, type PracticalFactsContext, validatePracticalFacts} from './content/lib/practical-facts'
+import {EMPTY_PRACTICAL_FACTS_CONTEXT, type PracticalFactsContext, type VisitEvidence, validatePracticalFacts} from './content/lib/practical-facts'
+import {isVisitPath, parseSiteVisit} from './content/lib/site-visits'
 
 export type ContentDocument = Record<string, unknown> & {_id: string; _type: string}
 
@@ -206,8 +208,10 @@ export function validateContent(
 
 /**
  * Lee el registro de hechos prácticos (`content/facts/<municipio>/*.json`), los hosts oficiales
- * aprobados (`content/facts/official-sources.json`) y el `observedAt` de cada observación de
- * `content/manual/`. Solo lee; toda la validación está en `validatePracticalFacts`.
+ * aprobados (`content/facts/official-sources.json`), el `observedAt` de cada observación de
+ * `content/manual/` y las visitas de campo de `content/manual/visits/` (las rotas se reportan aquí).
+ * Los archivos que empiezan por `_` son plantillas y no cuentan como observación. Solo lee; la
+ * validación de los hechos está en `validatePracticalFacts`.
  */
 export async function loadPracticalFactsContext(root = process.cwd()): Promise<{context: PracticalFactsContext; issues: ValidationIssue[]}> {
   const issues: ValidationIssue[] = []
@@ -229,17 +233,27 @@ export async function loadPracticalFactsContext(root = process.cwd()): Promise<{
 
   const manualRoot = resolve(root, 'content/manual')
   const observations = new Map<string, string | null>()
+  const visits = new Map<string, VisitEvidence>()
   for (const path of await listJsonFiles(manualRoot)) {
+    if (path.split('/').some((segment) => segment.startsWith('_'))) continue
+    let value: unknown
     try {
-      const value: unknown = JSON.parse(await readFile(resolve(manualRoot, path), 'utf8'))
-      observations.set(path, isRecord(value) && typeof value.observedAt === 'string' ? value.observedAt : null)
-    } catch {
+      value = JSON.parse(await readFile(resolve(manualRoot, path), 'utf8'))
+    } catch (error) {
       // Un JSON manual roto se reporta donde se consume; aquí solo se registra que existe sin fecha.
       observations.set(path, null)
+      if (isVisitPath(path)) issues.push({source: `content/manual/${path}`, path: '', message: `JSON no válido: ${errorMessage(error)}`})
+      continue
+    }
+    observations.set(path, isRecord(value) && typeof value.observedAt === 'string' ? value.observedAt : null)
+    if (isVisitPath(path)) {
+      const parsed = parseSiteVisit(value, `content/manual/${path}`, (photo) => existsSync(resolve(manualRoot, photo)))
+      issues.push(...parsed.issues)
+      if (parsed.visit) visits.set(path, parsed.visit)
     }
   }
 
-  return {context: {factFiles, officialSources, observations}, issues}
+  return {context: {factFiles, officialSources, observations, visits}, issues}
 }
 
 /** Rutas relativas (con `/`) de los .json bajo `directory`; vacío si no existe. */

@@ -90,7 +90,17 @@ export interface PracticalFactsContext {
   officialSources: unknown
   /** Ruta relativa a `content/manual/` → `observedAt` del archivo (null si no lo declara). */
   observations: ReadonlyMap<string, string | null>
+  /** Visitas de campo válidas (`content/manual/visits/`), por la misma ruta relativa. */
+  visits?: ReadonlyMap<string, VisitEvidence>
 }
+
+/** Lo que el registro necesita de una visita de campo (`site-visits.ts`) para aceptar un claim observado. */
+export interface VisitEvidence {
+  observedAt: string
+  checks: ReadonlyArray<{factId?: string; value?: FactValue; quote: string}>
+}
+
+export const VISITS_DIRECTORY = 'visits/'
 
 export const EMPTY_PRACTICAL_FACTS_CONTEXT: PracticalFactsContext = {factFiles: [], officialSources: [], observations: new Map()}
 
@@ -196,6 +206,7 @@ export function buildFactRegistry(
   files: PracticalFactsContext['factFiles'],
   officialSources: readonly OfficialSource[],
   observations: PracticalFactsContext['observations'],
+  visits: NonNullable<PracticalFactsContext['visits']> = new Map(),
 ): {facts: Map<string, PracticalFact>; issues: FactIssue[]} {
   const facts = new Map<string, PracticalFact>()
   const origin = new Map<string, string>()
@@ -214,7 +225,7 @@ export function buildFactRegistry(
         issue(`facts[${index}].id`, `Id duplicado "${fact.id}"; también aparece en ${previous}.`)
         continue
       }
-      validateClaimSources(fact, `facts[${index}]`, officialSources, observations, issue)
+      validateClaimSources(fact, `facts[${index}]`, officialSources, observations, visits, issue)
       origin.set(fact.id, file.source)
       facts.set(fact.id, fact)
     }
@@ -296,6 +307,7 @@ function validateClaimSources(
   path: string,
   officialSources: readonly OfficialSource[],
   observations: PracticalFactsContext['observations'],
+  visits: NonNullable<PracticalFactsContext['visits']>,
   issue: (path: string, message: string) => void,
 ): void {
   for (const [index, claim] of fact.claims.entries()) {
@@ -320,10 +332,58 @@ function validateClaimSources(
       if (observedAt !== claim.source.retrievedAt.slice(0, 10)) {
         issue(`${claimPath}.source.retrievedAt`, `No coincide con el observedAt de la observación (${observedAt ?? 'sin fecha'}).`)
       }
+      if (claim.observationRef.startsWith(VISITS_DIRECTORY)) validateVisitClaim(fact, claim, claimPath, visits, issue)
     } else if (!url) {
       issue(`${claimPath}.source.url`, 'Los datos abiertos y las fuentes de terceros necesitan URL consultable.')
     }
   }
+}
+
+/**
+ * Un claim que cita una visita de campo solo vale si la visita registra una comprobación de ese hecho,
+ * con el mismo valor y escrito literalmente en la cita. Así no entra nada que David no anotara.
+ */
+function validateVisitClaim(
+  fact: PracticalFact,
+  claim: FactClaim,
+  claimPath: string,
+  visits: NonNullable<PracticalFactsContext['visits']>,
+  issue: (path: string, message: string) => void,
+): void {
+  const ref = claim.observationRef!
+  const visit = visits.get(ref)
+  if (!visit) return issue(`${claimPath}.observationRef`, `La visita content/manual/${ref} no supera la validación de visitas de campo.`)
+  const checks = visit.checks.filter((check) => check.factId === fact.id)
+  if (checks.length === 0) return issue(`${claimPath}.observationRef`, `La visita content/manual/${ref} no registra ninguna comprobación de "${fact.id}".`)
+  const backing = checks.find((check) => check.value !== undefined && normalizeFactValue(check.value) === normalizeFactValue(claim.value))
+  if (!backing) return issue(`${claimPath}.value`, `No coincide con el valor anotado en la visita content/manual/${ref} para "${fact.id}".`)
+  if (!valueAppearsLiterally(backing.value!, fact.unit, backing.quote)) {
+    issue(`${claimPath}.value`, `El valor ${factValueText(backing.value!)} no está escrito literalmente en la cita de la visita: «${backing.quote}».`)
+  }
+}
+
+/**
+ * ¿Está el valor escrito tal cual en la cita? Los números admiten coma o punto decimal y dos decimales
+ * (`0.85` → «0,85», `2` → «2» o «2,00»); las horas admiten el cero inicial omitido (`09:00` → «9:00»);
+ * el texto se compara sin mayúsculas. Un booleano nunca está escrito literalmente: es la lectura que
+ * David hace de la cita, así que se acepta y `/procesar-visita` se lo muestra para que lo confirme.
+ */
+export function valueAppearsLiterally(value: FactValue, unit: FactUnit, quote: string): boolean {
+  const text = quote.normalize('NFC').replace(/\s+/g, ' ')
+  if (typeof value === 'boolean') return unit === 'booleano'
+  if (typeof value === 'number') {
+    const forms = new Set([String(value), value.toFixed(2)].flatMap((form) => [form, form.replace('.', ',')]))
+    return [...forms].some((form) => new RegExp(`(?<![\\d.,])${escapeRegExp(form)}(?![\\d]|[.,]\\d)`).test(text))
+  }
+  if (unit === 'hh:mm') {
+    return value.split('-').every((time) => [time, time.replace(/^0(\d)/, '$1')]
+      .some((form) => new RegExp(`(?<!\\d)${escapeRegExp(form)}(?!\\d)`).test(text)))
+  }
+  return text.toLowerCase().includes(value.normalize('NFC').replace(/\s+/g, ' ').trim().toLowerCase())
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 export function isApprovedOfficialUrl(url: string, municipality: Municipality, officialSources: readonly OfficialSource[]): boolean {
@@ -366,7 +426,7 @@ export function parseOfficialSources(raw: unknown, source: string): {sources: Of
  */
 export function validatePracticalFacts(documents: readonly FactDocument[], context: PracticalFactsContext): FactIssue[] {
   const official = parseOfficialSources(context.officialSources, 'content/facts/official-sources.json')
-  const registry = buildFactRegistry(context.factFiles, official.sources, context.observations)
+  const registry = buildFactRegistry(context.factFiles, official.sources, context.observations, context.visits)
   const issues: FactIssue[] = [...official.issues, ...registry.issues]
   const citations = new Map<string, Array<{doc: FactDocument; snapshot: Record<string, unknown>}>>()
 
