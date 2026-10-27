@@ -47,6 +47,13 @@ export interface PracticalFact {
   municipality: Municipality
   unit: FactUnit
   conditions?: string
+  /**
+   * Solo lo confirma una fuente oficial del propio municipio (`official-location` con un host aprobado
+   * para ese municipio, no uno de alcance `*`). Ni una observación propia ni una fuente de marca bastan:
+   * sin esa fuente el hecho queda «needs verification» y la página no muestra la cifra. Es la regla de
+   * las tarifas de zona regulada (#17).
+   */
+  requiresMunicipalSource?: boolean
   claims: FactClaim[]
   resolution?: FactResolution | null
 }
@@ -145,10 +152,16 @@ export function resolveFact(fact: PracticalFact): ResolvedFact {
   if (distinct.size > 1) {
     const chosen = effectiveResolution(fact)
     if (!chosen) return {status: 'conflict', claim: null}
-    return {status: CONFIRMING_CLASSES.has(classOf(chosen)) ? 'confirmed' : 'needs verification', claim: chosen}
+    return {status: confirms(fact, chosen) ? 'confirmed' : 'needs verification', claim: chosen}
   }
   const best = bestClaim(fact.claims)
-  return {status: CONFIRMING_CLASSES.has(classOf(best)) ? 'confirmed' : 'needs verification', claim: best}
+  return {status: confirms(fact, best) ? 'confirmed' : 'needs verification', claim: best}
+}
+
+/** ¿Basta este claim para confirmar el hecho? El host municipal lo comprueba `validateClaimSources`. */
+function confirms(fact: PracticalFact, claim: FactClaim): boolean {
+  if (fact.requiresMunicipalSource === true) return classOf(claim) === 'official-location'
+  return CONFIRMING_CLASSES.has(classOf(claim))
 }
 
 export function deriveFactStatus(fact: PracticalFact): FactStatus {
@@ -243,12 +256,13 @@ function parseFact(raw: unknown, path: string, issue: (path: string, message: st
     failed = true
     issue(`${path}.${field}`, message)
   }
-  const {id, subject, attribute, municipality, unit, conditions, claims, resolution} = raw
+  const {id, subject, attribute, municipality, unit, conditions, requiresMunicipalSource, claims, resolution} = raw
   if (typeof subject !== 'string' || !ID_SEGMENT.test(subject)) fail('subject', 'Debe ser un slug (a-z, 0-9, guiones).')
   if (typeof attribute !== 'string' || !ID_SEGMENT.test(attribute)) fail('attribute', 'Debe ser un slug (a-z, 0-9, guiones).')
   if (!MUNICIPALITIES.includes(municipality as Municipality)) fail('municipality', `Municipio no admitido; usa uno de: ${MUNICIPALITIES.join(', ')}.`)
   if (!FACT_UNITS.includes(unit as FactUnit)) fail('unit', `Unidad no admitida; usa una de: ${FACT_UNITS.join(', ')}.`)
   if (conditions !== undefined && (typeof conditions !== 'string' || !conditions.trim())) fail('conditions', 'Si existe, debe ser una cadena no vacía.')
+  if (requiresMunicipalSource !== undefined && typeof requiresMunicipalSource !== 'boolean') fail('requiresMunicipalSource', 'Si existe, debe ser true o false.')
   if (typeof id !== 'string') fail('id', 'Campo obligatorio.')
   else if (typeof subject === 'string' && typeof attribute === 'string' && typeof municipality === 'string') {
     const prefix = `${municipalitySlug(municipality)}.${subject}.${attribute}`
@@ -318,6 +332,8 @@ function validateClaimSources(
       if (!url) issue(`${claimPath}.source.url`, 'Un hecho de fuente oficial necesita la URL oficial.')
       else if (!isApprovedOfficialUrl(url, fact.municipality, officialSources)) {
         issue(`${claimPath}.source.url`, `El host de ${url} no está aprobado como oficial para ${fact.municipality} en content/facts/official-sources.json.`)
+      } else if (fact.requiresMunicipalSource === true && !isApprovedOfficialUrl(url, fact.municipality, officialSources.filter((item) => item.municipality === fact.municipality))) {
+        issue(`${claimPath}.source.url`, `El hecho exige fuente municipal: ${url} está aprobado solo como fuente supramunicipal, no del Ayuntamiento de ${fact.municipality}.`)
       }
     } else if (sourceClass === 'manual-first-party') {
       if (!claim.observationRef) {

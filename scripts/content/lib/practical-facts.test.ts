@@ -168,3 +168,28 @@ test('validateContent bloquea la página en conflicto y, sin registro cargado, c
   assert.match(messages(withRegistry), /«conflict»/)
   assert.match(messages(validateContent(input).issues), /no existe en content\/facts/)
 })
+
+test('una tarifa que exige fuente municipal solo se confirma con el Ayuntamiento; sin él queda «needs verification» y sin cifra', () => {
+  const generalitat: OfficialSource = {host: 'generalitat.example', municipality: '*', publisher: 'Generalitat (ficticia)', approvedBy: 'David', approvedAt: '2026-10-01'}
+  const strict = (claims: FactClaim[]) => zonaAzul(claims, {requiresMunicipalSource: true})
+  const visit: FactClaim = {value: 0.5, source: source('manual-first-party', null, '2026-10-20T00:00:00.000Z'), observationRef: 'parquimetro.json'}
+  const brand: FactClaim = {value: 0.5, source: source('official-brand', 'https://www.ayuntamiento.example/marca')}
+
+  assert.equal(deriveFactStatus(strict([municipal(0.5)])), 'confirmed')
+  for (const claims of [[blog(0.5)], [visit], [brand]]) {
+    const fact = strict(claims)
+    assert.equal(deriveFactStatus(fact), 'needs verification')
+    assert.equal(expectedSnapshot(fact).value, null)
+  }
+  // Sin la marca, la misma observación propia sí confirma: la regla no cambia otros hechos.
+  assert.equal(deriveFactStatus(zonaAzul([visit])), 'confirmed')
+
+  // Un host oficial de alcance `*` (Generalitat) no es fuente municipal.
+  const fact = strict([{value: 0.5, source: source('official-location', 'https://dogv.generalitat.example/tarifas')}])
+  const issues = validatePracticalFacts([], {...context([fact]), officialSources: [...OFFICIAL, generalitat]})
+  assert.match(messages(issues), /exige fuente municipal/)
+  assert.deepEqual(validatePracticalFacts([], {...context([strict([municipal(0.5)])]), officialSources: [...OFFICIAL, generalitat]}), [])
+
+  const page2 = page('article-aparcar', 'article', {practicalFacts: [{...expectedSnapshot(strict([blog(0.5)])), value: '0.5'}]})
+  assert.match(messages(validatePracticalFacts([page2], context([strict([blog(0.5)])]))), /no se publica la cifra/)
+})
