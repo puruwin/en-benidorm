@@ -27,7 +27,7 @@ export const demoBusinesses: BusinessDetail[] = [
     name: 'La Esquina Azul · DEMO', slug: 'la-esquina-azul-demo', href: routes.restaurant('la-esquina-azul-demo'),
     kind: 'Bar de tapas', area: 'Centro', priceRange: '€',
     shortDescription: 'Tapas sencillas, barra animada y una ubicación práctica para una parada informal en el centro.',
-    categories: ['Tapas', 'Informal'], recommended: true, sponsored: false,
+    categories: ['Tapas', 'Informal'], recommended: true, sponsored: false, commercialRelationship: 'frappe-tech-client',
     description: [{text: 'Negocio ficticio creado para demostrar el portal. No representa un establecimiento real.'}],
     address: {street: 'Plaça de Mostra, 4', postalCode: '03501', locality: 'Benidorm', province: 'Alicante', country: 'ES'},
     googleMapsUrl: 'https://maps.google.com/?q=Benidorm', hours: [{day: 'Todos los días', value: '11:00–00:00'}],

@@ -1,19 +1,52 @@
 ---
+// Texto versionado aquí, no en Sanity: cada dato biográfico lo ha confirmado David (#22).
+// No añadas datos personales que él no haya dado.
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import {getAuthorBySlug} from '../lib/content-source'
 import {structuralIndexability} from '../lib/indexability'
-import {breadcrumbTrail, getRouteRegistry} from '../lib/routes'
+import {PROJECT_LINKS, breadcrumbTrail, getRouteRegistry} from '../lib/routes'
 
-const author = await getAuthorBySlug('david')
-if (!author) throw new Error('No se encontró el autor David.')
-const breadcrumbs = breadcrumbTrail(null, `Sobre ${author.name}`, await getRouteRegistry())
+const name = 'David P.'
+const h1 = `Sobre ${name}`
+const seo = {
+  title: `Sobre ${name}, quién hace enBenidorm`,
+  description: `${name} vive en la Marina Baixa, va a Benidorm cada semana y dirige Frappé Tech. Qué parte de la guía sale de visitas y qué relación comercial hay.`,
+}
+const zones = ['Levante', 'Poniente', 'el casco antiguo', 'el Rincón de Loix']
+const breadcrumbs = breadcrumbTrail(null, h1, await getRouteRegistry())
 ---
 
-<BaseLayout seo={author.seo} indexability={structuralIndexability({subject: author.name, h1: `Sobre ${author.name}`, storedNoIndex: author.seo.noIndex, title: author.seo.title})} seoFallback={{title: author.name, description: author.bio}} breadcrumbs={breadcrumbs}>
+<BaseLayout seo={seo} indexability={structuralIndexability({subject: name, h1, title: seo.title})} breadcrumbs={breadcrumbs}>
   <article class="container-site py-10 md:py-16">
     <Breadcrumbs items={breadcrumbs} />
-    <header class="mt-12 max-w-3xl"><p class="text-xs font-black uppercase tracking-[.18em] text-coral">Quién firma la guía</p><h1 class="font-editorial mt-2 text-5xl md:text-7xl">Sobre {author.name}</h1><p class="mt-6 text-xl leading-relaxed text-ink/75">{author.bio}</p></header>
-    <section class="mt-14 max-w-3xl" aria-labelledby="method-title"><h2 id="method-title" class="font-editorial text-3xl">Metodología editorial</h2><ul class="mt-6 space-y-4">{author.methodology.map((item) => <li class="border-l-2 border-coral pl-5 leading-relaxed">{item}</li>)}</ul><p class="mt-8 rounded-2xl bg-sand p-6 leading-relaxed">{author.personalVisitDisclosure}</p></section>
+    <header class="mt-12 max-w-3xl">
+      <p class="text-xs font-black uppercase tracking-[.18em] text-coral">Quién está detrás de la guía</p>
+      <h1 class="font-editorial mt-2 text-5xl md:text-7xl">{h1}</h1>
+      <p class="mt-6 text-xl leading-relaxed text-ink/75">Soy {name}. Vivo en la Marina Baixa y voy a Benidorm cada semana. Las zonas que conozco de primera mano son {zones.slice(0, -1).join(', ')} y {zones.at(-1)}.</p>
+    </header>
+
+    <div class="mt-14 max-w-3xl space-y-12">
+      <section aria-labelledby="visits-title">
+        <h2 id="visits-title" class="font-editorial text-3xl">Qué he visto en persona y qué no</h2>
+        <p class="mt-4 leading-relaxed">He visitado en persona algunos de los sitios de la guía, no todos. Cuando un dato sale de una visita mía, la página lo indica. Si no lo indica, el dato viene de fuentes públicas (webs oficiales, OpenStreetMap y otras fuentes citadas) y no lo he comprobado en el sitio.</p>
+        <p class="mt-4 leading-relaxed">Los textos de fichas y comparativas los redacta un modelo de IA a partir de esas fuentes, y los reviso antes de publicarlos. Lo explico con detalle en <a class="font-bold text-sea-dark underline" href={PROJECT_LINKS.method.href}>{PROJECT_LINKS.method.label.toLowerCase()}</a>.</p>
+      </section>
+
+      <section aria-labelledby="business-title">
+        <h2 id="business-title" class="font-editorial text-3xl">Mi trabajo: Frappé Tech</h2>
+        <p class="mt-4 leading-relaxed">Dirijo <a class="font-bold text-sea-dark underline" href="https://creativefrappe.com" rel="noopener noreferrer">Frappé Tech</a>, una agencia que ofrece soluciones tecnológicas a los problemas de los negocios. Trabaja con hostelería, comercio local y alojamiento, y también con empresas de fuera de la zona.</p>
+        <p class="mt-4 leading-relaxed">Eso significa que puedo ofrecer servicios a negocios que aparecen en esta guía. Por eso lo cuento aquí:</p>
+        <ul class="mt-4 space-y-3">
+          <li class="border-l-2 border-coral pl-5 leading-relaxed">enBenidorm no tiene afiliación, no publica publicidad y no acepta pagos de establecimientos.</li>
+          <li class="border-l-2 border-coral pl-5 leading-relaxed">Aparecer en la guía no depende de ser cliente de Frappé Tech ni de contratar nada, y serlo no cambia los criterios de selección ni de indexación.</li>
+          <li class="border-l-2 border-coral pl-5 leading-relaxed">Si un negocio de la guía es cliente de Frappé Tech, su ficha lo indica con un aviso junto a las fuentes.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="contact-title" class="rounded-2xl bg-sand p-6">
+        <h2 id="contact-title" class="font-editorial text-2xl">¿Ves un error?</h2>
+        <p class="mt-3 leading-relaxed">Escríbeme a <a class="font-bold text-sea-dark underline" href="mailto:hola@creativefrappe.com">hola@creativefrappe.com</a> con la página y el dato. Cómo se revisa cada corrección está en <a class="font-bold text-sea-dark underline" href={`${PROJECT_LINKS.method.href}#correcciones`}>{PROJECT_LINKS.method.label.toLowerCase()}</a>.</p>
+      </section>
+    </div>
   </article>
 </BaseLayout>

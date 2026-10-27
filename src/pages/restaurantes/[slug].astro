@@ -6,6 +6,7 @@ import MapLink from '../../components/MapLink.astro'
 import Sources from '../../components/Sources.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import CreatorObservations from '../../components/CreatorObservations.astro'
+import CommercialDisclosure from '../../components/CommercialDisclosure.astro'
 import {descriptionSections} from '../../lib/business-presentation'
 import {getCreatorObservations, getRestaurantBySlug, getRestaurantSlugs, isDemoBusiness, isDemoMode} from '../../lib/content-source'
 import {restaurantIndexability} from '../../lib/indexability'
@@ -54,6 +55,7 @@ const site = Astro.site ?? new URL('https://enbenidorm.es')
         {sections.length > 0 && <div class="prose-editorial mt-8">{sections.map((section) => <><h2>{section.title}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{section.items.length > 0 && <ul>{section.items.map((entry) => <li>{entry}</li>)}</ul>}</>)}</div>}
         {item.features.length > 0 && <section class="mt-10" aria-labelledby="features-title"><h2 id="features-title" class="font-editorial text-3xl">Características</h2><ul class="mt-5 flex flex-wrap gap-2">{item.features.map((feature) => <li class="rounded-full bg-sky px-4 py-2 text-sm font-bold text-sea-dark">{feature}</li>)}</ul></section>}
         <CreatorObservations groups={[{observations: getCreatorObservations(item.id)}]} />
+        <CommercialDisclosure relationship={item.commercialRelationship} />
         <Sources sources={item.sources} />
         {item.comparisons && item.comparisons.length > 0 && <section class="mt-10" aria-labelledby="comparisons-title"><h2 id="comparisons-title" class="font-editorial text-3xl">Aparece en estas comparativas</h2><ul class="mt-4 space-y-2">{item.comparisons.map((comparison) => <li><a class="font-bold text-sea-dark underline" href={comparison.href}>{comparison.title}</a></li>)}</ul></section>}
       </div>

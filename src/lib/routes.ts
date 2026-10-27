@@ -14,6 +14,7 @@ export const routes = {
   informationPractical: () => '/informacion-practica/',
   informationGuide: (slug: string) => `/informacion-practica/${slug}/`,
   author: () => '/sobre-david/',
+  method: () => '/como-trabajamos/',
   events: () => '/eventos/',
   information: () => '/informacion/',
   guides: () => '/guias/',
@@ -23,7 +24,7 @@ export const routes = {
 export const MIN_INDEXABLE_CATEGORY_ITEMS = 3
 
 // Páginas sin parámetros de src/pages. Añade aquí cada página estática nueva.
-const STATIC_ROUTES = [routes.home(), routes.dining(), routes.author()] as const
+const STATIC_ROUTES = [routes.home(), routes.dining(), routes.author(), routes.method()] as const
 
 export interface NavLink { label: string; href: string }
 
@@ -39,13 +40,18 @@ export const HUBS = {
 
 export type HubKey = keyof typeof HUBS
 
-const FOOTER_LINKS: readonly NavLink[] = [{label: 'Sobre David', href: routes.author()}]
+export const PROJECT_LINKS = {
+  method: {label: 'Cómo trabajamos', href: routes.method()},
+  author: {label: 'Sobre David P.', href: routes.author()},
+} as const satisfies Record<string, NavLink>
+
+const FOOTER_LINKS: readonly NavLink[] = [PROJECT_LINKS.author, PROJECT_LINKS.method]
 
 /** Menú y pie: solo los hubs y páginas que genera el build. Un hub sin contenido no sale. */
-export async function getNavigation(): Promise<{menu: NavLink[]; footer: NavLink[]}> {
+export async function getNavigation(): Promise<{menu: NavLink[]; footer: NavLink[]; project: NavLink[]}> {
   const existing = await getRouteRegistry()
   const menu = Object.values(HUBS).filter((hub) => existing.has(hub.href))
-  return {menu, footer: [...menu, ...FOOTER_LINKS.filter((link) => existing.has(link.href))]}
+  return {menu, footer: menu, project: FOOTER_LINKS.filter((link) => existing.has(link.href))}
 }
 
 /** Migas Inicio → hub → página actual. El hub solo se enlaza si existe en el registro. */

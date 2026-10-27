@@ -32,6 +32,8 @@ export const business = defineType({
     defineField({name: 'recommended', title: 'Recomendado', type: 'boolean', group: 'editorial', initialValue: false}),
     defineField({name: 'sponsored', title: 'Patrocinado', type: 'boolean', group: 'editorial', initialValue: false}),
     defineField({name: 'featured', title: 'Destacado', type: 'boolean', group: 'editorial', initialValue: false}),
+    // Solo se marca a mano: nunca lo rellena la pipeline ni interviene en selección, gates ni indexación.
+    defineField({name: 'commercialRelationship', title: 'Relación comercial', type: 'string', group: 'editorial', description: 'Márcalo a mano si el negocio es cliente de Frappé Tech. La ficha muestra un aviso; no cambia selección, gates ni indexación.', options: {list: [{title: 'Cliente de Frappé Tech', value: 'frappe-tech-client'}]}}),
     defineField({name: 'language', title: 'Idioma', type: 'string', group: 'editorial', initialValue: 'es', readOnly: true}),
     // El nombre se conserva por compatibilidad; el pipeline guarda aquí la fecha de consulta de las fuentes.
     defineField({name: 'lastVerified', title: 'Fecha de consulta de las fuentes', type: 'date', group: 'editorial', description: 'Fecha de consulta más reciente de las fuentes automáticas (OSM, web oficial). No es una revisión humana ni prueba que el local siga abierto.'}),

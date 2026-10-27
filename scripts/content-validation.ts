@@ -352,6 +352,8 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
     requiredString('shortDescription')
     optionalString('shortDescription', 240)
     enumValue('priceRange', PRICE_RANGES)
+    // La relación comercial solo se marca a mano en Studio; la pipeline nunca la infiere ni la importa.
+    if ('commercialRelationship' in doc) issue(input, 'commercialRelationship', 'La relación comercial se marca a mano en Studio; no puede venir de contenido local o generado.')
     language()
   } else if (doc._type === 'place') {
     requiredString('name')
