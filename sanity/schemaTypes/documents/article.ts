@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {indexableSeoValidation} from '../objects/seo'
 
 export const article = defineType({
   name: 'article', title: 'Artículo o guía', type: 'document',
@@ -23,7 +24,7 @@ export const article = defineType({
     defineField({name: 'language', title: 'Idioma', type: 'string', initialValue: 'es', readOnly: true}),
     defineField({name: 'lastVerified', title: 'Última verificación', type: 'date'}),
     defineField({name: 'sources', title: 'Fuentes', type: 'array', of: [{type: 'source'}]}),
-    defineField({name: 'seo', title: 'SEO', type: 'seo'}),
+    defineField({name: 'seo', title: 'SEO', type: 'seo', validation: indexableSeoValidation}),
   ],
   preview: {select: {title: 'title', subtitle: 'section', media: 'heroImage'}},
 })

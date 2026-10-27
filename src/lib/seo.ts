@@ -22,8 +22,12 @@ export function resolveSeo(seo: SeoData, fallback: SeoFallback | undefined, cano
   return {...seo, title: filled(seo.title) ? seo.title : fallback?.title ?? '', description: filled(seo.description) ? seo.description : fallback?.description ?? ''}
 }
 
-/** Toda página salvo la de inicio lleva migas que acaban en la página actual. */
-export function assertBreadcrumbs(items: readonly BreadcrumbItem[], route: string): void {
+/** Toda página indexable salvo la de inicio lleva migas que acaban en la página actual. Una noindex puede ir sin ellas. */
+export function assertBreadcrumbs(items: readonly BreadcrumbItem[] | undefined, route: string, noIndex = false): void {
   if (route === '/') return
+  if (!items) {
+    if (noIndex) return
+    throw new Error(`[seo] ${route}: página indexable sin migas. Pasa \`breadcrumbs\` al layout (breadcrumbTrail en src/lib/routes.ts).`)
+  }
   if (items.length < 2 || items.at(-1)?.href) throw new Error(`[seo] ${route}: las migas deben ir de Inicio a la página actual (sin enlace en el último elemento).`)
 }

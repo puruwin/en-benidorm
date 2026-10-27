@@ -2,16 +2,14 @@
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import {getAuthorBySlug} from '../lib/content-source'
-import {breadcrumbJsonLd} from '../lib/jsonld'
-import type {BreadcrumbItem} from '../types/content'
+import {breadcrumbTrail, getRouteRegistry} from '../lib/routes'
 
 const author = await getAuthorBySlug('david')
 if (!author) throw new Error('No se encontró el autor David.')
-const breadcrumbs: BreadcrumbItem[] = [{label: 'Inicio', href: '/'}, {label: 'Sobre David'}]
-const site = Astro.site ?? new URL('https://enbenidorm.es')
+const breadcrumbs = breadcrumbTrail(null, `Sobre ${author.name}`, await getRouteRegistry())
 ---
 
-<BaseLayout seo={author.seo} jsonLd={[breadcrumbJsonLd(breadcrumbs, site)]}>
+<BaseLayout seo={author.seo} seoFallback={{title: author.name, description: author.bio}} breadcrumbs={breadcrumbs}>
   <article class="container-site py-10 md:py-16">
     <Breadcrumbs items={breadcrumbs} />
     <header class="mt-12 max-w-3xl"><p class="text-xs font-black uppercase tracking-[.18em] text-coral">Quién firma la guía</p><h1 class="font-editorial mt-2 text-5xl md:text-7xl">Sobre {author.name}</h1><p class="mt-6 text-xl leading-relaxed text-ink/75">{author.bio}</p></header>

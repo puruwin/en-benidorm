@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {indexableSeoValidation} from '../objects/seo'
 
 export const homePage = defineType({
   name: 'homePage', title: 'Portada', type: 'document',
@@ -16,6 +17,6 @@ export const homePage = defineType({
     defineField({name: 'featuredGuides', title: 'Guías destacadas', type: 'array', of: [{type: 'reference', to: [{type: 'article'}]}]}),
     defineField({name: 'recommendedBusinesses', title: 'Negocios recomendados', type: 'array', of: [{type: 'reference', to: [{type: 'business'}]}]}),
     defineField({name: 'featuredPlaces', title: 'Lugares destacados', type: 'array', of: [{type: 'reference', to: [{type: 'place'}, {type: 'beach'}]}]}),
-    defineField({name: 'seo', title: 'SEO', type: 'seo'}),
+    defineField({name: 'seo', title: 'SEO', type: 'seo', validation: indexableSeoValidation}),
   ],
 })

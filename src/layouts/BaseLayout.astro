@@ -8,12 +8,12 @@ import {assertBreadcrumbs, type SeoFallback} from '../lib/seo'
 import type {BreadcrumbItem, SeoData} from '../types/content'
 import '../styles/global.css'
 
-// `breadcrumbs` genera el BreadcrumbList; las páginas que aún no lo pasan añaden el suyo en `jsonLd`.
+// `breadcrumbs` genera el BreadcrumbList: obligatorio en toda página indexable salvo la de inicio.
 interface Props { seo: SeoData; seoFallback?: SeoFallback; breadcrumbs?: BreadcrumbItem[]; jsonLd?: unknown[]; demo?: boolean }
 const {seo, seoFallback, breadcrumbs, jsonLd = [], demo = false} = Astro.props
 const site = Astro.site ?? new URL('https://enbenidorm.es')
 const canonical = new URL(Astro.url.pathname, site)
-if (breadcrumbs) assertBreadcrumbs(breadcrumbs, Astro.url.pathname)
+assertBreadcrumbs(breadcrumbs, Astro.url.pathname, seo.noIndex === true)
 const structuredData = breadcrumbs ? [breadcrumbJsonLd(breadcrumbs, site), ...jsonLd] : jsonLd
 const settings = await getSiteSettings()
 ---
