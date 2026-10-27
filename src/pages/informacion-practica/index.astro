@@ -17,7 +17,7 @@ const breadcrumbs = breadcrumbTrail(null, HUBS.informationPractical.label, regis
 // por la propia guía, así que hub y guía muestran siempre el mismo valor y el mismo estado.
 const OVERVIEW: Record<string, string[]> = {
   'zona-azul-benidorm': ['zona-azul.horario.verano-visitantes', 'zona-azul.horario.invierno-visitantes', 'zona-azul.estancia-maxima', 'zona-azul.tarifa'],
-  'aparcamientos-gratuitos-benidorm': ['aparcamientos-disuasorios.mapa', 'aparcamientos-disuasorios.mayores', 'aparcamiento-beniarda.plazas', 'aparcamientos-disuasorios.autobus', 'aparcamientos-disuasorios.autobus-vigencia'],
+  'aparcamientos-gratuitos-benidorm': ['aparcamientos-disuasorios.plazas', 'aparcamientos-disuasorios.mayores', 'aparcamiento-beniarda.plazas', 'aparcamientos-disuasorios.autobus', 'aparcamientos-disuasorios.autobus-vigencia'],
   'zona-bajas-emisiones-benidorm': ['zbe.acceso-libre', 'zbe.hoteles', 'zbe.matricula-extranjera', 'zbe.moratoria-sin-distintivo'],
 }
 const overview = content.guides.map((guide) => ({
@@ -77,7 +77,7 @@ const value = (fact: PracticalFactView) => factValue(fact)
   {transit.length > 0 && transitGuide && <section class="pb-14 md:pb-20" aria-labelledby="transit-title">
     <div class="container-site">
       <h2 id="transit-title" class="font-editorial text-3xl md:text-4xl">Moverse sin coche</h2>
-      <p class="mt-3 max-w-2xl text-ink/70">Desde los aparcamientos gratuitos se puede seguir a pie o en el autobús urbano. De sus precios y de los del TRAM aún no tenemos una fuente oficial aprobada, así que no los damos.</p>
+      <p class="mt-3 max-w-2xl text-ink/70">Desde los aparcamientos gratuitos se puede seguir a pie o en el autobús urbano. Lo que no tiene fuente oficial queda pendiente y sin cifra.</p>
       <dl class="mt-6 max-w-3xl divide-y divide-ink/10 border-y border-ink/10 text-sm">{transit.map((fact) => <div class="grid gap-1 py-4 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-6" data-fact-id={fact.factId}>
         <dt class="font-black text-ink/60">{guideFactLabel(fact)}</dt>
         <dd>{value(fact) ? <span class="font-bold">{value(fact)}</span> : <span class="font-bold text-coral">{pendingText(fact)}</span>}{fact.status === 'confirmed' && fact.sourceUrl ? <a class="mt-1 block text-xs text-ink/50 underline" href={fact.sourceUrl} rel="noopener noreferrer">{fact.sourceTitle ?? 'Fuente'}</a> : unconfirmedSourceText(fact) && <span class="mt-1 block text-xs text-ink/50">{unconfirmedSourceText(fact)}</span>}</dd>

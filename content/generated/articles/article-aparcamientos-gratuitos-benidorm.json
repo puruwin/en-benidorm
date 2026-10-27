@@ -47,7 +47,7 @@
         {
           "_type": "span",
           "_key": "p3-s",
-          "text": "Mira la fecha de cada dato: el plano es de septiembre de 2023. El plano da 1.004 plazas en la avenida Beniardà; la nota de julio de 2026 da más de 360 en el aparcamiento reabierto y cerca de mil sumando El Moralet, y no sabemos si el plano contaba los dos juntos. No damos un total de plazas porque las dos fuentes municipales de ese año no coinciden. De Bernat de Sarrià no hemos encontrado una nota posterior a abril de 2023. Las plazas interiores de Poniente, según la nota de abril de 2026, abrían gratis hasta después del puente de octubre, y no sabemos si se cumplió el calendario.",
+          "text": "Mira la fecha de cada dato: el plano es de septiembre de 2023. El plano da 1.004 plazas en la avenida Beniardà; la nota de julio de 2026 da más de 360 en el aparcamiento reabierto y cerca de mil sumando El Moralet, y no sabemos si el plano contaba los dos juntos. Las dos fuentes municipales de ese año no dan el mismo total de plazas, así que damos el rango entre ambas. De Bernat de Sarrià no hemos encontrado una nota posterior a abril de 2023. Las plazas interiores de Poniente, según la nota de abril de 2026, abrían gratis hasta después del puente de octubre, y no sabemos si se cumplió el calendario.",
           "marks": []
         }
       ]
@@ -61,7 +61,7 @@
         {
           "_type": "span",
           "_key": "p4-s",
-          "text": "En 2023 el Ayuntamiento ofrecía billete de autobús gratuito de ida y vuelta desde dos de estos aparcamientos; no hemos encontrado una confirmación posterior, así que no damos por hecho que siga. Las tarifas del autobús y del TRAM tampoco las publicamos: aún no tenemos una fuente oficial aprobada que las dé.",
+          "text": "En 2023 el Ayuntamiento ofrecía billete de autobús gratuito de ida y vuelta desde dos de estos aparcamientos; no hemos encontrado una confirmación posterior, así que no damos por hecho que siga. El precio del autobús urbano no lo publicamos porque no tenemos una fuente oficial que lo dé; el del TRAM sí, con el periodo en que vale.",
           "marks": []
         }
       ]
@@ -87,6 +87,19 @@
   },
   "publishedAt": "2026-10-27T12:00:00.000Z",
   "practicalFacts": [
+    {
+      "_key": "benidorm-aparcamientos-disuasorios-plazas",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamientos-disuasorios.plazas",
+      "value": "De 7.000 a 8.000 plazas gratuitas, según dos fuentes municipales de 2023: el plano de septiembre y la nota de abril",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Movilidad: plano de los aparcamientos disuasorios (septiembre de 2023)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
     {
       "_key": "benidorm-aparcamientos-disuasorios-mapa",
       "_type": "practicalFact",
@@ -247,13 +260,13 @@
       "_key": "benidorm-tram-tarifa-sencillo",
       "_type": "practicalFact",
       "factId": "benidorm.tram.tarifa-sencillo",
-      "value": null,
+      "value": "Del 1 de octubre al 31 de diciembre de 2026: 2,00 € una zona, 2,90 € dos zonas y 4,00 € tres zonas",
       "unit": "texto",
       "municipality": "Benidorm",
-      "status": "needs verification",
-      "sourceTitle": "TRAM d'Alacant (FGV): Nuestras tarifas",
-      "sourceUrl": "https://www.tramalacant.es/es/tarifas/",
-      "sourceClass": "third-party",
+      "status": "confirmed",
+      "sourceTitle": "TRAM d'Alacant (FGV): Tarifas temporales",
+      "sourceUrl": "https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
+      "sourceClass": "official-location",
       "retrievedAt": "2026-10-27T12:00:00.000Z"
     }
   ],
@@ -333,6 +346,14 @@
       "publisher": "Visit Benidorm (turismo municipal)",
       "title": "Tarifas y bonos del transporte urbano",
       "url": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-6",
+      "_type": "source",
+      "publisher": "TRAM d'Alacant (FGV)",
+      "title": "Tarifas temporales",
+      "url": "https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
       "accessedAt": "2026-10-27"
     }
   ],

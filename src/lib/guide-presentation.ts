@@ -35,7 +35,7 @@ const LABELS: Record<string, string> = {
   'zona-verde.acceso': 'Zona verde',
   'zona-naranja.acceso': 'Zona naranja',
   'zona-roja.acceso': 'Zona roja',
-  'aparcamientos-disuasorios.plazas': 'Tamaño de la red',
+  'aparcamientos-disuasorios.plazas': 'Plazas de la red',
   'aparcamientos-disuasorios.mapa': 'Dónde están',
   'aparcamientos-disuasorios.mayores': 'Los de más plazas',
   'aparcamientos-disuasorios.ocupacion': 'Cuánto se llenan en temporada alta',

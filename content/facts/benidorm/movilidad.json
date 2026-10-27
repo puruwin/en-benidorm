@@ -293,7 +293,7 @@
       "attribute": "plazas",
       "municipality": "Benidorm",
       "unit": "texto",
-      "conditions": "Dos fuentes municipales de 2023 dan totales distintos (nota de abril y plano de septiembre); pendiente de revisión humana.",
+      "conditions": "Dos fuentes municipales de 2023 dan totales distintos; David decidió publicar el rango (resolution).",
       "claims": [
         {
           "value": "Más de 8.000 plazas gratuitas en casi 40 aparcamientos disuasorios (nota municipal de abril de 2023)",
@@ -323,7 +323,14 @@
             "claimScope": "establishment"
           }
         }
-      ]
+      ],
+      "resolution": {
+        "claimIndex": 1,
+        "value": "De 7.000 a 8.000 plazas gratuitas, según dos fuentes municipales de 2023: el plano de septiembre y la nota de abril",
+        "reviewedBy": "David",
+        "reviewedAt": "2026-10-27",
+        "reason": "El plano de septiembre de 2023 da 7.005 y la nota de abril de 2023 «más de 8.000»; se publica el rango entre las dos cifras oficiales."
+      }
     },
     {
       "id": "benidorm.aparcamientos-disuasorios.mapa",
@@ -855,19 +862,19 @@
       "attribute": "tarifa-sencillo",
       "municipality": "Benidorm",
       "unit": "texto",
-      "conditions": "Dato de tramalacant.es (FGV); ese host no está aprobado todavía como fuente oficial.",
+      "conditions": "Tarifas temporales del 1 de octubre al 31 de diciembre de 2026 (Orden 8/2026, DOGV). Cita siempre esta página: la portada de tramalacant.es redirige a Metrovalencia.",
       "claims": [
         {
-          "value": "Billete sencillo desde el 1 de octubre de 2026: 2,00 € una zona, 2,90 € dos zonas y 4,00 € tres zonas",
+          "value": "Del 1 de octubre al 31 de diciembre de 2026: 2,00 € una zona, 2,90 € dos zonas y 4,00 € tres zonas",
           "source": {
-            "key": "third-party:https://www.tramalacant.es/es/tarifas/",
+            "key": "official-location:https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
             "provider": "www.tramalacant.es",
-            "identifier": "https://www.tramalacant.es/es/tarifas/",
-            "url": "https://www.tramalacant.es/es/tarifas/",
+            "identifier": "https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
+            "url": "https://www.tramalacant.es/es/tarifas/tarifas-temporales/",
             "retrievedAt": "2026-10-27T12:00:00.000Z",
-            "attribution": "TRAM d'Alacant (FGV): Nuestras tarifas",
+            "attribution": "TRAM d'Alacant (FGV): Tarifas temporales",
             "licenseUrl": null,
-            "sourceClass": "third-party",
+            "sourceClass": "official-location",
             "claimScope": "establishment"
           }
         }
