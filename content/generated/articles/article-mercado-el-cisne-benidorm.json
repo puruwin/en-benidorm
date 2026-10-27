@@ -1,0 +1,213 @@
+{
+  "_id": "article-mercado-el-cisne-benidorm",
+  "_type": "article",
+  "language": "es",
+  "title": "Mercado El Cisne de Benidorm: días, horario y ubicación",
+  "slug": {
+    "_type": "slug",
+    "current": "mercado-el-cisne-benidorm"
+  },
+  "section": "thingsToDo",
+  "excerpt": "Qué días y a qué hora abre el mercado El Cisne, en la N-332 junto al Camping Benisol, según la guía oficial de Visit Benidorm, y lo que aún no está confirmado.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "p1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p1-s",
+          "text": "El Cisne aparece en la guía de compras de Visit Benidorm, la fundación municipal de turismo, junto al mercadillo municipal y Pueblo; no tiene ficha del Ayuntamiento y esa guía no lleva fecha.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p2-s",
+          "text": "Es el único de los tres mercadillos semanales de Benidorm con fuente oficial que abre en sábado. Visit Benidorm menciona además música de jazz en directo, sin decir qué días ni a qué hora.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p3-s",
+          "text": "Está en la carretera N-332. Ninguna fuente oficial dice dónde aparcar ni cómo llegar en autobús, y no lo hemos comprobado en persona: queda pendiente.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p4",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p4-s",
+          "text": "La fuente tampoco dice si abre en festivos ni si cambia en invierno. Qué se encuentra en los puestos, cuánta gente hay y a qué hora conviene ir piden una visita que aún no hemos hecho.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "author": {
+    "_type": "reference",
+    "_ref": "author-david"
+  },
+  "publishedAt": "2026-10-27T12:00:00.000Z",
+  "practicalFacts": [
+    {
+      "_key": "benidorm-mercado-el-cisne-dia",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercado-el-cisne.dia",
+      "value": "sábados y domingos",
+      "unit": "día-semana",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm: De compras en Benidorm (página sin fecha)",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/1175/de-compras-en-benidorm-shopping.html",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercado-el-cisne-horario",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercado-el-cisne.horario",
+      "value": "08:00-13:30",
+      "unit": "hh:mm",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm: De compras en Benidorm (página sin fecha)",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/1175/de-compras-en-benidorm-shopping.html",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercado-el-cisne-ubicacion",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercado-el-cisne.ubicacion",
+      "value": "Carretera N-332, km 124, junto al Camping Benisol",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm: De compras en Benidorm (página sin fecha)",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/1175/de-compras-en-benidorm-shopping.html",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercado-el-cisne-musica",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercado-el-cisne.musica",
+      "value": "Música de jazz en directo",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm: De compras en Benidorm (página sin fecha)",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/1175/de-compras-en-benidorm-shopping.html",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-mercado-el-cisne-aparcamiento",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercado-el-cisne.aparcamiento",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-mercado-el-cisne-excepciones",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercado-el-cisne.excepciones",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-mercado-el-cisne-ambiente",
+      "_type": "practicalFact",
+      "factId": "benidorm.mercado-el-cisne.ambiente",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    }
+  ],
+  "contextLinks": [
+    {
+      "_key": "link-0",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-mercadillos-de-benidorm",
+        "_weak": true
+      },
+      "note": "Los tres mercadillos semanales, comparados por día, horario y ubicación."
+    },
+    {
+      "_key": "link-1",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-mercadillo-pueblo-benidorm",
+        "_weak": true
+      },
+      "note": "Si prefieres domingo: Pueblo, con un aparcamiento gratuito anunciado en 2023 en su avenida."
+    },
+    {
+      "_key": "link-2",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-mercadillo-municipal-benidorm",
+        "_weak": true
+      },
+      "note": "Si estás entre semana: el mercadillo del Ayuntamiento, con regla publicada para festivos."
+    }
+  ],
+  "sources": [
+    {
+      "_key": "source-0",
+      "_type": "source",
+      "publisher": "Visit Benidorm",
+      "title": "De compras en Benidorm (página sin fecha)",
+      "url": "https://www.visitbenidorm.es/ver/1175/de-compras-en-benidorm-shopping.html",
+      "accessedAt": "2026-10-27"
+    }
+  ],
+  "seo": {
+    "_type": "seo",
+    "metaTitle": "Mercado El Cisne de Benidorm: días, horario y ubicación",
+    "metaDescription": "Días, horario y ubicación del mercado El Cisne de Benidorm, en la N-332, según Visit Benidorm, y lo que falta por confirmar antes de ir.",
+    "noIndex": true
+  }
+}
