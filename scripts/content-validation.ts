@@ -1,6 +1,7 @@
 import {createHash} from 'node:crypto'
 import {readdir, readFile} from 'node:fs/promises'
 import {resolve} from 'node:path'
+import {PRICE_UNITS} from './comparison/lib/public-facts'
 
 export type ContentDocument = Record<string, unknown> & {_id: string; _type: string}
 
@@ -321,6 +322,7 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
         else if (businesses.has(entry.business._ref)) issue(input, `entries[${index}].business`, 'Un Business no puede repetirse.')
         else businesses.add(entry.business._ref)
         for (const field of ['verdict'] as const) if (typeof entry[field] !== 'string' || !entry[field].trim()) issue(input, `entries[${index}].${field}`, 'Campo obligatorio.')
+        if (entry.conditions !== undefined && (!Array.isArray(entry.conditions) || entry.conditions.some((item) => typeof item !== 'string' || !item.trim()))) issue(input, `entries[${index}].conditions`, 'Debe ser un array de textos.')
         for (const field of ['strengths', 'limitations', 'bestFor', 'practicalNotes'] as const) if (!Array.isArray(entry[field]) || (entry[field] as unknown[]).some((item) => typeof item !== 'string' || !item.trim())) issue(input, `entries[${index}].${field}`, 'Debe ser un array de textos.')
         if (entry.featuredItem !== undefined) {
           if (!isRecord(entry.featuredItem)) issue(input, `entries[${index}].featuredItem`, 'Debe ser un plato destacado normalizado.')
@@ -329,6 +331,7 @@ function validateDocument(input: ContentInput, issue: (input: ContentInput, path
             if (entry.featuredItem.price !== undefined && (typeof entry.featuredItem.price !== 'number' || entry.featuredItem.price < 0)) issue(input, `entries[${index}].featuredItem.price`, 'El precio debe ser positivo.')
             if (entry.featuredItem.currency !== undefined && entry.featuredItem.currency !== 'EUR') issue(input, `entries[${index}].featuredItem.currency`, 'La moneda admitida es EUR.')
             if (entry.featuredItem.priceQualifier !== undefined && (typeof entry.featuredItem.priceQualifier !== 'string' || !entry.featuredItem.priceQualifier.trim())) issue(input, `entries[${index}].featuredItem.priceQualifier`, 'El contexto del precio debe ser texto no vacío.')
+            if (entry.featuredItem.priceUnit !== undefined && !(PRICE_UNITS as readonly unknown[]).includes(entry.featuredItem.priceUnit)) issue(input, `entries[${index}].featuredItem.priceUnit`, `La unidad del precio debe ser una de: ${PRICE_UNITS.join(', ')}.`)
             if (typeof entry.featuredItem.source !== 'string' || !entry.featuredItem.source) issue(input, `entries[${index}].featuredItem.source`, 'La procedencia es obligatoria.')
             if (typeof entry.featuredItem.retrievedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(entry.featuredItem.retrievedAt)) issue(input, `entries[${index}].featuredItem.retrievedAt`, 'La fecha de comprobación debe usar YYYY-MM-DD.')
           }

@@ -36,7 +36,8 @@ export const comparison = defineType({
           defineField({name: 'business', title: 'Negocio', type: 'reference', to: [{type: 'business'}], validation: (rule) => rule.required()}),
           defineField({name: 'verdict', title: 'Veredicto', type: 'text', rows: 3, validation: (rule) => rule.required()}),
           defineField({name: 'strengths', title: 'Puntos fuertes', type: 'array', of: [{type: 'string'}], validation: (rule) => rule.required().min(1)}),
-          defineField({name: 'limitations', title: 'Limitaciones verificadas', type: 'array', of: [{type: 'string'}]}),
+          defineField({name: 'conditions', title: 'Condiciones publicadas', type: 'array', of: [{type: 'string'}], description: 'Condiciones que la fuente sí publica: mínimo de comensales, encargo previo, menú de grupos…'}),
+          defineField({name: 'limitations', title: 'Lo que no pudimos comprobar', type: 'array', of: [{type: 'string'}], description: 'Solo datos ausentes o en conflicto en las fuentes.'}),
           defineField({name: 'bestFor', title: 'Adecuado para', type: 'array', of: [{type: 'string'}], validation: (rule) => rule.required().min(1)}),
           defineField({
             name: 'featuredItem', title: 'Plato destacado', type: 'object',
@@ -45,6 +46,12 @@ export const comparison = defineType({
               defineField({name: 'price', title: 'Precio', type: 'number', validation: (rule) => rule.min(0)}),
               defineField({name: 'currency', title: 'Moneda', type: 'string', options: {list: ['EUR']}}),
               defineField({name: 'priceQualifier', title: 'Contexto del precio', type: 'string', description: 'Por persona, por ración, mínimo de comensales u otra condición publicada.'}),
+              defineField({name: 'priceUnit', title: 'Unidad del precio', type: 'string', options: {list: [
+                {title: 'Por persona', value: 'per-person'},
+                {title: 'Por ración', value: 'per-portion'},
+                {title: 'Por unidad', value: 'per-unit'},
+                {title: 'No indicada en la carta', value: 'ambiguous'},
+              ]}}),
               defineField({name: 'source', title: 'Clave de fuente', type: 'string', readOnly: true, validation: (rule) => rule.required()}),
               defineField({name: 'retrievedAt', title: 'Comprobado el', type: 'date', validation: (rule) => rule.required()}),
             ],

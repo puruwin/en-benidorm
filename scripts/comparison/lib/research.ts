@@ -8,6 +8,7 @@ import {matchingTopicTerms, normalizedPhraseMatch} from './scoring'
 import {topicConfig, type ComparisonTopicConfig} from './topic-config'
 import {coverageAfterResearch, planBusinessResearch, type BusinessResearchPlan} from './research-planner'
 import {researchFingerprint, type ResearchResultCache} from './research-cache'
+import {normalizePriceUnit} from './public-facts'
 import {COMMERCIAL_EXTRACTOR_VERSION, type CommercialExtractionSummary} from '../../content/lib/commercial-extractor'
 import {
   EVIDENCE_CATEGORIES, type CandidateEvidence, type ComparisonCandidateArtifact,
@@ -312,6 +313,7 @@ function addCommercialItems(
           ...(item.price ? {
             price: item.price.amount, currency: item.price.currency,
             ...(item.price.priceQualifier === 'from' ? {priceQualifier: 'desde'} : {}),
+            priceUnit: normalizePriceUnit(item.price.priceQualifier === 'from' ? 'desde' : undefined),
           } : {}),
           source: item.sourceKey,
           retrievedAt: item.observedAt,

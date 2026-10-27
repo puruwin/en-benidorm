@@ -1,5 +1,6 @@
 import type {ContentDocument} from '../../content-validation'
-import type {EnrichedComparisonArtifact, GeneratedComparisonArtifact, GeneratedComparisonEditorial} from './types'
+import {canonicalSourceKey, classifyLimitation, isLanguageVariant, normalizePriceUnit, sourceDomain} from './public-facts'
+import type {ComparisonEvidenceFact, EnrichedComparisonArtifact, GeneratedComparisonArtifact, GeneratedComparisonEditorial} from './types'
 
 export const COMPARISON_EDITORIAL_INSTRUCTIONS = [
   'Responde a la intención de búsqueda declarada ayudando a elegir, no enumerando negocios.',
@@ -18,6 +19,7 @@ export const COMPARISON_EDITORIAL_INSTRUCTIONS = [
   'Las observaciones manuales son soporte interno: no menciones al observador, sourceStage, IDs internos ni que una persona concreta visitó el local.',
   'Conserva source y retrievedAt de cada featuredItem; los precios deben llevar fecha de comprobación.',
   'No inventes inconvenientes; limitations debe quedar vacío sin evidence explícita y usar lenguaje humano como “No encontramos precios publicados”.',
+  'limitations sólo recoge datos ausentes o en conflicto; las condiciones que la fuente sí publica (mínimo de personas, encargo previo, menú de grupos) son condiciones publicadas, no limitaciones.',
 ]
 
 export const PUBLIC_COMPARISON_CRITERIA = [
@@ -45,7 +47,7 @@ export function validateComparisonEditorial(editorial: GeneratedComparisonEditor
     const wanted = expected[index]!
     if (entry.businessId !== wanted) errors.push(`entries[${index}] debe conservar businessId=${wanted}.`)
     if (!textBetween(entry.verdict, 30, 300)) errors.push(`entries[${index}].verdict no es válido.`)
-    if (!stringArray(entry.strengths, 2, 3) || !stringArray(entry.limitations, 0, 3) || !stringArray(entry.bestFor, 1, 3) || !stringArray(entry.practicalNotes, 0, 3)) errors.push(`entries[${index}] contiene arrays no válidos.`)
+    if (!stringArray(entry.strengths, 2, 3) || !stringArray(entry.limitations, 0, 3) || (entry.conditions !== undefined && !stringArray(entry.conditions, 0, 3)) || !stringArray(entry.bestFor, 1, 3) || !stringArray(entry.practicalNotes, 0, 3)) errors.push(`entries[${index}] contiene arrays no válidos.`)
     if (entry.featuredItem !== null && !validFeaturedItem(entry.featuredItem)) errors.push(`entries[${index}].featuredItem no es válido.`)
   }
   if (!textBetween(editorial.methodology, 100, 900)) errors.push('methodology debe tener 100-900 caracteres.')
@@ -79,6 +81,7 @@ export function buildComparisonArtifact(enriched: EnrichedComparisonArtifact, ed
       business: {_type: 'reference', _ref: entry.businessId},
       verdict: entry.verdict,
       strengths: entry.strengths,
+      conditions: entry.conditions ?? [],
       limitations: entry.limitations,
       bestFor: entry.bestFor,
       ...(entry.featuredItem ? {featuredItem: {
@@ -87,6 +90,7 @@ export function buildComparisonArtifact(enriched: EnrichedComparisonArtifact, ed
           price: entry.featuredItem.price,
           currency: entry.featuredItem.currency,
           ...(entry.featuredItem.priceQualifier ? {priceQualifier: entry.featuredItem.priceQualifier} : {}),
+          priceUnit: featuredPriceUnit(entry.featuredItem, enriched.businesses.find((business) => business.businessId === entry.businessId)?.evidence.featuredItems ?? []),
         } : {}),
         source: entry.featuredItem.source, retrievedAt: entry.featuredItem.retrievedAt,
       }} : {}),
@@ -166,7 +170,8 @@ export function completeClaimBindings(editorial: GeneratedComparisonEditorial, e
       if (claim) claim.claim = attributedValue
       return attributedValue
     })
-    const conciseVerdict = removeSentencesRepeatedAsLimitations(entry.verdict, entry.limitations)
+    splitPublishedConditions(editorial, entry, allFacts, (enriched.sourceConflicts ?? []).filter((conflict) => conflict.businessId === entry.businessId))
+    const conciseVerdict = removeSentencesRepeatedAsLimitations(entry.verdict, [...(entry.conditions ?? []), ...entry.limitations])
     if (conciseVerdict !== entry.verdict) {
       entry.verdict = conciseVerdict
       const verdictClaim = editorial.claims.find((candidate) => candidate.path === `entries.${entry.businessId}.verdict`)
@@ -175,7 +180,7 @@ export function completeClaimBindings(editorial: GeneratedComparisonEditorial, e
     const localFactIds = new Set(allFacts.map(({fact}) => fact.id))
     for (const claim of editorial.claims.filter((candidate) => candidate.path.startsWith(`entries.${entry.businessId}.`))) {
       if (claim.supportedBy.some((id) => !localFactIds.has(id))) {
-        const candidates = claim.path.includes('.limitations.') ? allFacts.filter(({category}) => category === 'limitations') : allFacts
+        const candidates = /\.(?:limitations|conditions)\./.test(claim.path) ? allFacts.filter(({category}) => category === 'limitations') : allFacts
         const matches = matchingFacts(claim.claim, candidates)
         if (matches.length) claim.supportedBy = matches.slice(0, 6).map(({fact}) => fact.id)
       }
@@ -188,6 +193,7 @@ export function completeClaimBindings(editorial: GeneratedComparisonEditorial, e
     const leaves: Array<{path: string; value: string; categories?: string[]}> = [
       {path: `entries.${entry.businessId}.verdict`, value: entry.verdict},
       ...entry.strengths.map((value, index) => ({path: `entries.${entry.businessId}.strengths.${index}`, value})),
+      ...(entry.conditions ?? []).map((value, index) => ({path: `entries.${entry.businessId}.conditions.${index}`, value, categories: ['limitations']})),
       ...entry.limitations.map((value, index) => ({path: `entries.${entry.businessId}.limitations.${index}`, value, categories: ['limitations']})),
       ...entry.bestFor.map((value, index) => ({path: `entries.${entry.businessId}.bestFor.${index}`, value, categories: bestForCategories(value)})),
       ...entry.practicalNotes.map((value, index) => ({path: `entries.${entry.businessId}.practicalNotes.${index}`, value})),
@@ -227,18 +233,76 @@ function publicMethodology(_enriched: EnrichedComparisonArtifact): string {
   return 'Comparamos cartas, especialidades, precios publicados, horarios, reservas, ubicación y servicios a partir de webs oficiales, cartas públicas y OpenStreetMap. No todos los establecimientos han sido visitados personalmente y los precios pueden cambiar.'
 }
 
-function publicSources(enriched: EnrichedComparisonArtifact): Array<Record<string, unknown>> {
+/**
+ * One public source per page: http/https, `www`, trailing slashes and language variants
+ * (`/en/`, `?lang=`, `/ChangeLang/ru`) of the same page collapse into one entry, grouped by domain.
+ */
+export function publicSources(enriched: EnrichedComparisonArtifact): Array<Record<string, unknown>> {
   return enriched.businesses.flatMap((business) => {
-    const byUrl = new Map<string, (typeof business.sources)[number]>()
+    const byPage = new Map<string, {url: string; title: string; accessedAt: string}>()
     for (const source of business.sources) if (source.url) {
-      const previous = byUrl.get(source.url)
-      if (!previous || sourceLabelPriority(publicSourceLabel(source)) > sourceLabelPriority(publicSourceLabel(previous))) byUrl.set(source.url, source)
+      const key = canonicalSourceKey(source.url)
+      const candidate = {url: source.url, title: publicSourceLabel(source), accessedAt: source.retrievedAt.slice(0, 10)}
+      const previous = byPage.get(key)
+      if (!previous) { byPage.set(key, candidate); continue }
+      byPage.set(key, {
+        url: preferredSourceUrl(previous.url, candidate.url),
+        title: sourceLabelPriority(candidate.title) > sourceLabelPriority(previous.title) ? candidate.title : previous.title,
+        accessedAt: candidate.accessedAt > previous.accessedAt ? candidate.accessedAt : previous.accessedAt,
+      })
     }
-    return [...byUrl.values()].map((source) => ({
-      _type: 'source', title: publicSourceLabel(source), publisher: business.name,
-      url: source.url, accessedAt: source.retrievedAt.slice(0, 10),
-    }))
+    const domainOrder = [...new Set([...byPage.values()].map((source) => sourceDomain(source.url)))]
+    return [...byPage.values()]
+      .map((source, index) => ({source, index, domain: domainOrder.indexOf(sourceDomain(source.url))}))
+      .sort((left, right) => left.domain - right.domain || left.index - right.index)
+      .map(({source}) => ({_type: 'source', title: source.title, publisher: business.name, url: source.url, accessedAt: source.accessedAt}))
   })
+}
+
+function preferredSourceUrl(current: string, candidate: string): string {
+  const rank = (url: string) => (isLanguageVariant(url) ? 0 : 2) + (url.startsWith('https:') ? 1 : 0)
+  return rank(candidate) > rank(current) ? candidate : current
+}
+
+/** Moves limitations that the source does publish into `conditions`, keeping their claims bound. */
+function splitPublishedConditions(
+  editorial: GeneratedComparisonEditorial,
+  entry: GeneratedComparisonEditorial['entries'][number],
+  allFacts: Array<{category: string; fact: ComparisonEvidenceFact}>,
+  conflicts: NonNullable<EnrichedComparisonArtifact['sourceConflicts']>,
+): void {
+  const limitationFacts = allFacts.filter(({category}) => category === 'limitations')
+  const base = `entries.${entry.businessId}`
+  const conditions = [...(entry.conditions ?? [])]
+  const limitations: string[] = []
+  const renamed = new Map<string, string>()
+  for (const [index, value] of entry.limitations.entries()) {
+    const path = `${base}.limitations.${index}`
+    const declared = editorial.claims.filter((claim) => claim.path === path).flatMap((claim) => claim.supportedBy)
+    const bound = limitationFacts.filter(({fact}) => declared.includes(fact.id))
+    const supporting = (bound.length ? bound : matchingFacts(value, limitationFacts)).map(({fact}) => fact)
+    if (classifyLimitation(value, supporting, conflicts) === 'condition') {
+      renamed.set(path, `${base}.conditions.${conditions.length}`)
+      conditions.push(value)
+    } else {
+      renamed.set(path, `${base}.limitations.${limitations.length}`)
+      limitations.push(value)
+    }
+  }
+  for (const claim of editorial.claims) claim.path = renamed.get(claim.path) ?? claim.path
+  entry.conditions = conditions
+  entry.limitations = limitations
+}
+
+/** The unit comes from the evidence fact behind the featured item, never from generated text. */
+function featuredPriceUnit(
+  item: NonNullable<GeneratedComparisonEditorial['entries'][number]['featuredItem']>,
+  facts: readonly ComparisonEvidenceFact[],
+): ReturnType<typeof normalizePriceUnit> {
+  const fact = facts.find(({value}) => typeof value === 'object' && 'name' in value
+    && normalize(value.name) === normalize(item.name) && value.source === item.source && (value.price ?? null) === (item.price ?? null))
+  const value = fact && typeof fact.value === 'object' && 'name' in fact.value ? fact.value : item
+  return normalizePriceUnit(value.priceQualifier)
 }
 
 function sourceLabelPriority(label: string): number {

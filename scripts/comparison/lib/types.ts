@@ -1,5 +1,6 @@
 import type {ContentDocument} from '../../content-validation'
 import type {QualityTier, SourceProvenance} from '../../content/lib/types'
+import type {PriceUnit} from './public-facts'
 
 export type ComparisonTopic = string
 export type EvidenceNature = 'factual' | 'self_claim' | 'external_observation' | 'first_party_observation'
@@ -124,6 +125,7 @@ export interface ComparisonPrice {
   value: number
   currency: 'EUR'
   priceQualifier?: string
+  priceUnit?: PriceUnit
   retrievedAt: string
 }
 
@@ -132,6 +134,7 @@ export interface ComparisonFeaturedItem {
   price?: number | null
   currency?: 'EUR' | null
   priceQualifier?: string | null
+  priceUnit?: PriceUnit | null
   source: string
   retrievedAt: string
 }
@@ -270,6 +273,9 @@ export interface ComparisonEntryEditorial {
   businessId: string
   verdict: string
   strengths: string[]
+  /** Conditions the source does publish (minimums, pre-orders…): «Condiciones publicadas». */
+  conditions?: string[]
+  /** Only data that is missing or in conflict: «Lo que no pudimos comprobar». */
   limitations: string[]
   bestFor: string[]
   featuredItem: ComparisonFeaturedItem | null
