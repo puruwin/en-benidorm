@@ -56,12 +56,25 @@ Después de la tabla:
 - **Unidades de precio.** «Por persona», «por ración», «por unidad» y «mínimo 2» no son
   equivalentes. Si la página dice «14 €» y la fuente «14 € por persona, mínimo 2», el estado no es
   `confirmed`: es `needs verification` y va a discrepancias hasta que la página copie la unidad.
+  La pipeline guarda `featuredItem.priceUnit` (`per-person`, `per-portion`, `per-unit` o `ambiguous`)
+  a partir del texto de la carta; «mínimo N personas» es una condición, no una unidad. Si la carta no
+  la aclara, debe salir `ambiguous` («unidad no indicada en la carta»), nunca una unidad elegida.
+  Caso arroces: Ulia «Arroz senyoret 17,90 €» sin unidad → ambiguo; Marisquería Córdoba «10 € por
+  ración, mínimo 2 personas» → por ración, no por persona.
 - **Una fuente, varios idiomas.** Varias URLs del mismo dominio en distintos idiomas (`/es/`, `/en/`,
   `?lang=`) son una sola fuente. No cuentan como corroboración mutua; si se contradicen entre sí, es
-  `conflict` dentro de la misma fuente.
+  `conflict` dentro de la misma fuente. Lo mismo con `http`/`https` o con y sin `www`. Caso arroces:
+  `restauranteulia.es/Base/ChangeLang/{es,en,ru,fr}` son la portada de Ulia, y
+  `http://` y `https://www.marisqueriacordoba.com/la-carta.html` son la misma carta. Agrupa por
+  dominio y, si la página aún las lista por separado, va a discrepancias (QA:
+  `DUPLICATE_SOURCE_VARIANT`).
 - **«Lo que no pudimos comprobar».** No puede contener datos que la fuente sí publica. Antes de
   entregar, revisa cada línea de esa lista contra las fuentes de la tabla; si la página tiene una
-  sección con ese título, contrasta también la suya.
+  sección con ese título, contrasta también la suya. Lo publicado va a «Condiciones publicadas»
+  (`entries[].conditions`); en «Lo que no pudimos comprobar» solo quedan ausencias o conflictos. Caso
+  arroces: «mínimo de 2 personas» y «el arroz con bogavante requiere encargo» (Ongi Etorri) o «menú de
+  grupos mínimo 8» (La Bahía) son condiciones publicadas; «la carta no publica precios de los
+  arroces» (Jardín Mediterráneo) sí es algo no comprobado (QA: `PUBLISHED_CONDITION_AS_UNVERIFIED`).
 - **La fecha es la de la evidencia.** Si reutilizas una fuente guardada, la fecha es su `accessedAt`
   o la de la observación, no la de hoy.
 - **Carta sin fecha.** Un PDF o una foto de carta sin fecha no da `confirmed` a un precio, aunque sea
