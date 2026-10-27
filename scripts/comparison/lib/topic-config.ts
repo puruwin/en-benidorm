@@ -83,6 +83,28 @@ const TOPICS: Readonly<Record<string, ComparisonTopicConfigInput>> = {
     maxResearchPages: 6,
     maxPotentialCandidates: 25,
   },
+  'menu-del-dia': {
+    topic: 'menu-del-dia',
+    displayName: 'Menú del día',
+    searchIntent: 'elegir dónde comer menú del día en Benidorm',
+    directEvidence: [
+      'menú del día', 'menú diario', 'menú de mediodía', 'menu of the day', 'daily menu', 'set menu',
+    ],
+    researchHints: ['menú del día', 'menu del dia', 'menú diario', 'daily menu', 'menu', 'menú', 'carta'],
+    researchEvidenceCategory: 'services',
+    supportingEvidenceCategory: 'featuredItems',
+    maxPotentialCandidates: 25,
+  },
+  buffet: {
+    topic: 'buffet',
+    displayName: 'Buffet',
+    searchIntent: 'elegir buffet libre en Benidorm',
+    directEvidence: ['buffet', 'buffets', 'bufé', 'bufés', 'buffet libre', 'all you can eat'],
+    researchHints: ['buffet', 'bufé', 'precios', 'prices', 'menu', 'menú'],
+    researchEvidenceCategory: 'services',
+    supportingEvidenceCategory: 'featuredItems',
+    maxPotentialCandidates: 25,
+  },
 }
 
 export function normalizeTopicConfig(input: ComparisonTopicConfigInput): ComparisonTopicConfig {
