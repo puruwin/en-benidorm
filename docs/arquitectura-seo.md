@@ -59,6 +59,12 @@ Frontera Qué ver / Qué hacer: un **lugar** que se visita va en Qué ver; una *
 va en Qué hacer. Si una actividad ocurre en un lugar con ficha, la guía de Qué hacer enlaza a esa
 ficha de Qué ver.
 
+Mercadillos (issue #18): cada mercadillo es una guía de Qué hacer (`article`, `section: thingsToDo`)
+en `/que-hacer/{mercadillo}/`, con una guía panorámica `/que-hacer/mercadillos-de-benidorm/` que los
+compara. No se modelan como `event`, que sigue sin ruta propia. El día, el horario y la ubicación solo
+se publican con fuente municipal o con la agenda oficial de Visit Benidorm enlazada; las excepciones
+(festivos, traslados de temporada) se dan solo si la fuente las da.
+
 ## 3. Inventario de páginas
 
 Estado: **E** existe y está publicada, **P** está prevista.
@@ -76,8 +82,8 @@ Estado: **E** existe y está publicada, **P** está prevista.
 | `/playas/` | P | — | Elegir playa | Sí, cuando se genere | Fichas de playas, guías | Inicio, menú, migas |
 | `/playas/{playa}/` | P | Playas | Servicios, accesibilidad, parking y accesos de una playa | Sí, con evidencia propia | Hub, playas cercanas, restaurantes de la zona si aportan | Hub, guías, playas vecinas |
 | `/playas/{guía}/` | P | Playas | Comparar playas o calas para un uso (familias, calas cercanas…) | Sí, si pasa auditar-pagina | Hub, fichas de playas | Hub y otra página distinta |
-| `/que-hacer/` | P | — | Elegir actividad | Sí, cuando se genere | Guías | Inicio, menú, migas |
-| `/que-hacer/{guía}/` | P | Qué hacer | Planificar una actividad o un evento recurrente (fechas, precio, reserva) | Sí, si pasa auditar-pagina | Hub, fichas de Qué ver o Playas implicadas, Información práctica si toca transporte | Hub y otra página distinta |
+| `/que-hacer/` | E | — | Elegir actividad | Sí, cuando se genere | Guías | Inicio, menú, migas |
+| `/que-hacer/{guía}/` | E | Qué hacer | Planificar una actividad o un evento recurrente (fechas, precio, reserva) | Sí, si pasa auditar-pagina | Hub, fichas de Qué ver o Playas implicadas, Información práctica si toca transporte | Hub y otra página distinta |
 | `/informacion-practica/` | E | — | Organizar la visita | Sí, cuando se genere | Guías | Inicio, menú, migas, guías de otros hubs |
 | `/informacion-practica/{guía}/` | E | Información práctica | Resolver una duda logística (aeropuerto, TRAM, aparcar…) | Sí, si pasa auditar-pagina | Hub, guías de otros hubs que dependen del dato | Hub y guías que la necesitan |
 | `/donde-dormir/` | P | — | Elegir dónde alojarse | Sí, cuando se genere | Guías por zona o uso | Inicio, menú, migas |
