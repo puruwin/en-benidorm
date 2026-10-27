@@ -1,0 +1,345 @@
+{
+  "_id": "article-aparcamientos-gratuitos-benidorm",
+  "_type": "article",
+  "language": "es",
+  "title": "Aparcamientos gratuitos en Benidorm: la red disuasoria municipal, con fecha",
+  "slug": {
+    "_type": "slug",
+    "current": "aparcamientos-gratuitos-benidorm"
+  },
+  "section": "informationPractical",
+  "excerpt": "Dónde dejar el coche gratis en Benidorm según el Ayuntamiento: el plano municipal, los aparcamientos con más plazas y la fecha de cada dato, porque varios son de 2023.",
+  "body": [
+    {
+      "_type": "block",
+      "_key": "p1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p1-s",
+          "text": "La forma de aparcar sin pagar en Benidorm es la red de aparcamientos disuasorios del Ayuntamiento. Están pensados para dejar el coche y seguir a pie o en autobús.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p2-s",
+          "text": "Para encontrar el más cercano a donde vas, lo más útil es el plano municipal: numera cada aparcamiento con su dirección, sus plazas y la parada de autobús más cercana. Aquí destacamos los de más plazas según ese plano y los que tienen una nota del Ayuntamiento propia: Beniardá, reabierto en julio de 2026, en Foietes; Bernat de Sarrià, cerca del Rincón de Loix; y Poniente, en la avenida Puerto Rico, que según la nota municipal no abre todas sus plazas todo el año.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p3-s",
+          "text": "Mira la fecha de cada dato: el plano es de septiembre de 2023. El plano da 1.004 plazas en la avenida Beniardà; la nota de julio de 2026 da más de 360 en el aparcamiento reabierto y cerca de mil sumando El Moralet, y no sabemos si el plano contaba los dos juntos. No damos un total de plazas porque las dos fuentes municipales de ese año no coinciden. De Bernat de Sarrià no hemos encontrado una nota posterior a abril de 2023. Las plazas interiores de Poniente, según la nota de abril de 2026, abrían gratis hasta después del puente de octubre, y no sabemos si se cumplió el calendario.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p4",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p4-s",
+          "text": "En 2023 el Ayuntamiento ofrecía billete de autobús gratuito de ida y vuelta desde dos de estos aparcamientos; no hemos encontrado una confirmación posterior, así que no damos por hecho que siga. Las tarifas del autobús y del TRAM tampoco las publicamos: aún no tenemos una fuente oficial aprobada que las dé.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "p5",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "p5-s",
+          "text": "No hemos comprobado en persona cuánto se llenan en temporada alta.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "author": {
+    "_type": "reference",
+    "_ref": "author-david"
+  },
+  "publishedAt": "2026-10-27T12:00:00.000Z",
+  "practicalFacts": [
+    {
+      "_key": "benidorm-aparcamientos-disuasorios-mapa",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamientos-disuasorios.mapa",
+      "value": "Plano municipal con 36 aparcamientos disuasorios numerados, con su dirección, sus plazas y la parada de autobús más cercana (septiembre de 2023)",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Movilidad: plano de los aparcamientos disuasorios (septiembre de 2023)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-aparcamientos-disuasorios-mayores",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamientos-disuasorios.mayores",
+      "value": "Según el plano de septiembre de 2023, los de más plazas: avenida Beniardà (1.004), avenida Comunidad Europea (680), avenida de Cuba (510), avenida de Inglaterra, en el recinto ferial (467), y Parc de Foietes (440)",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm, Concejalía de Movilidad: plano de los aparcamientos disuasorios (septiembre de 2023)",
+      "sourceUrl": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-aparcamiento-beniarda-plazas",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamiento-beniarda.plazas",
+      "value": "Más de 360 plazas en la avenida de Beniardá (Foietes-Colonia Madrid), reabierto en julio de 2026; con el aparcamiento contiguo de El Moralet suman cerca de mil plazas gratuitas",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: nota del 1 de julio de 2026 sobre el aparcamiento de la avenida de Beniardá",
+      "sourceUrl": "https://benidorm.org/es/noticias/benidorm-reabre-tras-su-acondicionamiento-el-parking-de-la-avenida-de-beniarda-con-capacidad-para-mas-de-360-vehiculos",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-aparcamiento-bernat-de-sarria-plazas",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamiento-bernat-de-sarria.plazas",
+      "value": "Casi 700 plazas públicas y gratuitas en la avenida Bernat de Sarrià, cerca del Rincón de Loix (nota municipal de abril de 2023)",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: nota del 20 de abril de 2023 sobre el aparcamiento disuasorio de Bernat de Sarrià",
+      "sourceUrl": "https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-aparcamiento-bernat-de-sarria-vigencia",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamiento-bernat-de-sarria.vigencia",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-playa-poniente-aparcamiento-cercano",
+      "_type": "practicalFact",
+      "factId": "benidorm.playa-poniente.aparcamiento-cercano",
+      "value": "Aparcamiento de Poniente, en la avenida Puerto Rico. Según la nota municipal de abril de 2026: 151 plazas en cubierta, gratuitas todo el año; las 246 interiores abrieron gratis en la Semana Santa de 2026 y la nota anunciaba su reapertura gratuita de principios de julio a después del puente de octubre",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: nota del 2 de abril de 2026 sobre el aparcamiento de Poniente",
+      "sourceUrl": "https://benidorm.org/es/noticias/benidorm-pone-en-servicio-el-aparcamiento-de-poniente-durante-toda-la-semana-santa",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-aparcamientos-disuasorios-ocupacion",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamientos-disuasorios.ocupacion",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-aparcamientos-disuasorios-autobus",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamientos-disuasorios.autobus",
+      "value": "En febrero de 2023, quien aparcaba en Francisco Llorca Antón (Estación de Autobuses) o en la avenida de Cuba (Vía Parque) podía sacar un billete de autobús gratuito de ida y vuelta al centro o al Rincón de Loix, con autobuses cada unos quince minutos",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Ayuntamiento de Benidorm: nota del 10 de febrero de 2023 «¿Cómo aparcar gratis en Benidorm desde el ordenador o el móvil?»",
+      "sourceUrl": "https://benidorm.org/es/comunicacion/noticias/como-aparcar-gratis-en-benidorm-desde-el-ordenador-o-el-movil",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-aparcamientos-disuasorios-autobus-vigencia",
+      "_type": "practicalFact",
+      "factId": "benidorm.aparcamientos-disuasorios.autobus-vigencia",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-autobus-urbano-billetes",
+      "_type": "practicalFact",
+      "factId": "benidorm.autobus-urbano.billetes",
+      "value": "Billete sencillo (se compra a bordo), TarjetaBus recargable y compartible, tarjetas turísticas de 24 y 72 horas con viajes ilimitados y Tarjeta Eco de 30 días",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm (turismo municipal): Tarifas y bonos del transporte urbano",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-autobus-urbano-transbordo",
+      "_type": "practicalFact",
+      "factId": "benidorm.autobus-urbano.transbordo",
+      "value": "Con la TarjetaBus, transbordo en 45 minutos a una línea del mismo precio o inferior",
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "confirmed",
+      "sourceTitle": "Visit Benidorm (turismo municipal): Tarifas y bonos del transporte urbano",
+      "sourceUrl": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+      "sourceClass": "official-location",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    },
+    {
+      "_key": "benidorm-autobus-urbano-tarifa",
+      "_type": "practicalFact",
+      "factId": "benidorm.autobus-urbano.tarifa",
+      "value": null,
+      "unit": "EUR",
+      "municipality": "Benidorm",
+      "status": "unknown",
+      "sourceTitle": null,
+      "sourceUrl": null,
+      "sourceClass": null,
+      "retrievedAt": null
+    },
+    {
+      "_key": "benidorm-tram-tarifa-sencillo",
+      "_type": "practicalFact",
+      "factId": "benidorm.tram.tarifa-sencillo",
+      "value": null,
+      "unit": "texto",
+      "municipality": "Benidorm",
+      "status": "needs verification",
+      "sourceTitle": "TRAM d'Alacant (FGV): Nuestras tarifas",
+      "sourceUrl": "https://www.tramalacant.es/es/tarifas/",
+      "sourceClass": "third-party",
+      "retrievedAt": "2026-10-27T12:00:00.000Z"
+    }
+  ],
+  "contextLinks": [
+    {
+      "_key": "link-0",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-zona-azul-benidorm",
+        "_weak": true
+      },
+      "note": "Si necesitas aparcar en el centro: qué colores puedes usar y el horario que te aplica como visitante."
+    },
+    {
+      "_key": "link-1",
+      "target": {
+        "_type": "reference",
+        "_ref": "beach-playa-poniente",
+        "_weak": true
+      },
+      "note": "La ficha de la playa, con el aparcamiento de Poniente y las plazas reservadas de su punto accesible."
+    },
+    {
+      "_key": "link-2",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-zona-bajas-emisiones-benidorm",
+        "_weak": true
+      },
+      "note": "Si piensas entrar en coche al centro, Levante o Poniente: qué hace tu hotel y qué pasa con una matrícula extranjera."
+    }
+  ],
+  "sources": [
+    {
+      "_key": "source-0",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm, Concejalía de Movilidad",
+      "title": "plano de los aparcamientos disuasorios (septiembre de 2023)",
+      "url": "https://contenidos.benidorm.org/sites/default/files/descargas/2023-09/pl%C3%A0nol-aparcaments-dissuassoris-ok_0.pdf",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-1",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "nota del 1 de julio de 2026 sobre el aparcamiento de la avenida de Beniardá",
+      "url": "https://benidorm.org/es/noticias/benidorm-reabre-tras-su-acondicionamiento-el-parking-de-la-avenida-de-beniarda-con-capacidad-para-mas-de-360-vehiculos",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-2",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "nota del 20 de abril de 2023 sobre el aparcamiento disuasorio de Bernat de Sarrià",
+      "url": "https://benidorm.org/es/noticias/benidorm-crea-un-nuevo-aparcamiento-disuasorio-en-bernat-de-sarria-de-casi-700-plazas-y-una-rotonda-en-la-confluencia-con-ciudad-real",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-3",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "nota del 2 de abril de 2026 sobre el aparcamiento de Poniente",
+      "url": "https://benidorm.org/es/noticias/benidorm-pone-en-servicio-el-aparcamiento-de-poniente-durante-toda-la-semana-santa",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-4",
+      "_type": "source",
+      "publisher": "Ayuntamiento de Benidorm",
+      "title": "nota del 10 de febrero de 2023 «¿Cómo aparcar gratis en Benidorm desde el ordenador o el móvil?»",
+      "url": "https://benidorm.org/es/comunicacion/noticias/como-aparcar-gratis-en-benidorm-desde-el-ordenador-o-el-movil",
+      "accessedAt": "2026-10-27"
+    },
+    {
+      "_key": "source-5",
+      "_type": "source",
+      "publisher": "Visit Benidorm (turismo municipal)",
+      "title": "Tarifas y bonos del transporte urbano",
+      "url": "https://www.visitbenidorm.es/ver/202/tarifas-y-bonos-transporte-urbano-benidorm.html/",
+      "accessedAt": "2026-10-27"
+    }
+  ],
+  "seo": {
+    "_type": "seo",
+    "metaTitle": "Aparcamientos gratuitos en Benidorm: la red municipal",
+    "metaDescription": "Aparcamientos disuasorios gratuitos de Benidorm según el Ayuntamiento: plano municipal, los de más plazas, Beniardá, Bernat de Sarrià y Poniente, con fecha.",
+    "noIndex": false
+  }
+}

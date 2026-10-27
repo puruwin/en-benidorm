@@ -29,6 +29,15 @@ export const settings = {
       noIndex: false,
     },
   },
+  informationPage: {
+    title: 'Información práctica de Benidorm: aparcar y moverse',
+    intro: 'Zona azul, aparcamientos gratuitos y zona de bajas emisiones, con datos del Ayuntamiento de Benidorm. Cada dato enlaza a su fuente; lo que solo dan webs de terceros, como la tarifa de la zona azul, queda pendiente de verificar y sin cifra.',
+    seo: {
+      metaTitle: 'Información práctica de Benidorm: aparcar y moverse',
+      metaDescription: 'Zona azul, aparcamientos gratuitos, zona de bajas emisiones y autobús en Benidorm, con datos municipales enlazados y lo que falta por confirmar.',
+      noIndex: false,
+    },
+  },
   defaultSeo: {
     metaTitle: 'enBenidorm · Guía local y turística de Benidorm',
     metaDescription: 'Guía de Benidorm con playas, restaurantes, lugares, actividades e información práctica.',
