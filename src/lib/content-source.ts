@@ -151,7 +151,7 @@ function localComparisonDetail(document: LocalDocument): ComparisonDetail {
     methodology: String(document.methodology), criteria: stringList(document.criteria),
     author: {name: author?.name ?? 'David', slug: author?.slug.current ?? 'david', ...(author?.role ? {role: author.role} : {})},
     sources: localSources(document.sources),
-    lastVerified: String(document.lastVerified), seo: seoValue(document.seo, String(document.title), String(document.intro)),
+    lastVerified: String(document.lastVerified), seo: ownSeo(document.seo),
   }
 }
 
@@ -195,5 +195,4 @@ function ownSeo(value: unknown): SeoData {
     ...(typeof value.noIndex === 'boolean' ? {noIndex: value.noIndex} : {}),
   }
 }
-function seoValue(value: unknown, title: string, description: string) { return isRecord(value) ? {title: String(value.metaTitle ?? title), description: String(value.metaDescription ?? description), ...(typeof value.noIndex === 'boolean' ? {noIndex: value.noIndex} : {})} : {title, description} }
 function isRecord(value: unknown): value is Record<string, unknown> { return typeof value === 'object' && value !== null && !Array.isArray(value) }

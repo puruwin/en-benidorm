@@ -140,8 +140,8 @@ export const COMPARISON_QUERY = defineQuery(`*[_type == "comparison" && language
   sources[]{title, url, publisher, accessedAt},
   lastVerified,
   "seo": {
-    "title": coalesce(seo.metaTitle, title + " · enBenidorm"),
-    "description": coalesce(seo.metaDescription, intro),
+    "title": seo.metaTitle,
+    "description": seo.metaDescription,
     "noIndex": seo.noIndex,
     "image": seo.socialImage${imageProjection}
   }
