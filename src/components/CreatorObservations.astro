@@ -1,0 +1,62 @@
+---
+import {type CreatorObservation, collaborationNotice, formatObservationDate, priceSeenText, videoPlatform} from '../lib/creator-observations'
+
+/**
+ * «Lo que han contado creadores locales»: notas de una persona que vio el vídeo, atribuidas al creador
+ * y enlazadas como texto. Es evidencia de tercero: nunca se presenta como comprobada por enBenidorm.
+ *
+ * Sin script ni iframe de la plataforma: las páginas editoriales no cargan JavaScript. Si algún día se
+ * inserta el vídeo, debe ser con una fachada estática (enlace con texto, sin miniatura descargada) que
+ * no cargue nada de terceros hasta que el lector haga clic.
+ */
+interface Group {
+  /** En la comparativa, el local al que se refieren; en la ficha se omite. */
+  business?: {name: string; href: string}
+  observations: CreatorObservation[]
+}
+
+interface Props {
+  groups: Group[]
+  headingLevel?: 'h2' | 'h3'
+}
+
+const {groups, headingLevel = 'h2'} = Astro.props
+const visible = groups.filter((group) => group.observations.length > 0)
+const Heading = headingLevel
+const SubHeading = headingLevel === 'h2' ? 'h3' : 'h4'
+---
+
+{visible.length > 0 && (
+  <section class="mt-10 rounded-[1.5rem] border border-ink/10 bg-sand p-6 md:p-8" aria-labelledby="creator-observations-title">
+    <Heading id="creator-observations-title" class="font-editorial text-3xl">Lo que han contado creadores locales</Heading>
+    <p class="mt-3 max-w-3xl text-sm leading-relaxed text-ink/70">Resúmenes de vídeos publicados por creadores. Es lo que ellos enseñan y cuentan, no una comprobación de enBenidorm; los precios son los que se ven en el vídeo en su fecha y pueden haber cambiado.</p>
+    {visible.map((group) => (
+      <div class="mt-6">
+        {group.business && <SubHeading class="font-bold"><a class="text-sea-dark underline" href={group.business.href}>{group.business.name}</a></SubHeading>}
+        <ul class="mt-3 space-y-5">
+          {group.observations.map((observation) => {
+            const notice = collaborationNotice(observation.colaboracionPagada)
+            const shown = observation.loQueSeMuestra
+            return (
+              <li class="rounded-2xl bg-white p-5">
+                <p class="text-sm font-bold text-sea-dark">En su vídeo del {formatObservationDate(observation.publicadoEl)}, {observation.creador}:</p>
+                <p class="mt-2 leading-relaxed">{observation.resumen}</p>
+                {(shown.platos || shown.precios || shown.ambiente || shown.espera) && (
+                  <dl class="mt-3 space-y-1 text-sm text-ink/75">
+                    {shown.platos && <div><dt class="inline font-bold">Platos que aparecen: </dt><dd class="inline">{shown.platos.join(', ')}</dd></div>}
+                    {shown.precios && <div><dt class="inline font-bold">Precio visto: </dt><dd class="inline">{shown.precios.map(priceSeenText).join(' · ')}</dd></div>}
+                    {shown.ambiente && <div><dt class="inline font-bold">Ambiente: </dt><dd class="inline">{shown.ambiente}</dd></div>}
+                    {shown.espera && <div><dt class="inline font-bold">Espera: </dt><dd class="inline">{shown.espera}</dd></div>}
+                  </dl>
+                )}
+                {notice && <p class="mt-3 text-sm font-bold text-coral">{notice}</p>}
+                <p class="mt-3 text-xs text-ink/55">Resumen de {observation.registradoPor}, que vio el vídeo el {formatObservationDate(observation.registradoEl)}.</p>
+                <p class="mt-2 text-sm"><a class="font-bold text-sea-dark underline" href={observation.urlVideo} rel="noopener noreferrer">Ver el vídeo de {observation.creador} en {videoPlatform(observation.urlVideo)} ↗</a></p>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    ))}
+  </section>
+)}

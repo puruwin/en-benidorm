@@ -90,6 +90,7 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "site-settings" && _type == 
 export const RESTAURANT_SLUGS_QUERY = defineQuery(`*[_type == "business" && language == "es" && businessKind == "restaurant" && defined(slug.current)].slug.current`)
 
 export const RESTAURANT_QUERY = defineQuery(`*[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{
+  "id": _id,
   "name": name,
   "slug": slug.current,
   shortDescription,
@@ -132,7 +133,7 @@ export const COMPARISON_QUERY = defineQuery(`*[_type == "comparison" && language
   choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},
   entries[]{
     verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,
-    "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}
+    "business": business->{"id": _id, name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}
   },
   methodology,
   criteria,

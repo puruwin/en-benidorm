@@ -2,11 +2,14 @@ import {sanityClient} from 'sanity:client'
 import {demoBusinesses, demoDining, demoHome, demoSettings} from '../data/demo/content'
 import {authors} from '../../content/seed/authors'
 import type {AuthorDetail, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideSummary, HomeContent, SeoData, SiteSettingsData, SourceItem} from '../types/content'
+import {type CreatorObservation, isCreatorObservationPath, isPublishable, parseCreatorObservation, sortCreatorObservations} from './creator-observations'
 import {AUTHOR_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
 
 type LocalDocument = Record<string, unknown> & {_id: string; _type: string}
 const localBusinessModules = import.meta.glob('../../content/generated/businesses/*.json', {eager: true, import: 'default'}) as Record<string, LocalDocument>
 const localComparisonModules = import.meta.glob('../../content/generated/comparisons/*.json', {eager: true, import: 'default'}) as Record<string, LocalDocument>
+// Notas de personas que vieron el vídeo de un creador; se leen del repositorio en cualquier CONTENT_SOURCE.
+const creatorObservationModules = import.meta.glob('../../content/manual/creator-observations/*.json', {eager: true, import: 'default'}) as Record<string, unknown>
 const localBusinesses = Object.values(localBusinessModules)
 const localComparisons = Object.values(localComparisonModules)
 
@@ -105,6 +108,24 @@ export async function getAuthorBySlug(slug: string): Promise<AuthorDetail | null
   return await sanityClient.fetch<AuthorDetail | null>(AUTHOR_QUERY, {slug}) ?? localAuthor(slug)
 }
 
+let creatorObservations: CreatorObservation[] | undefined
+
+/**
+ * Observaciones de creador publicables de un Business, más recientes primero. Una observación no
+ * válida rompe el build: no se publica nada a medias. Las que tienen `permisoCreador: "no"` no se muestran.
+ */
+export function getCreatorObservations(businessId: string | undefined): CreatorObservation[] {
+  if (!businessId) return []
+  creatorObservations ??= Object.entries(creatorObservationModules).flatMap(([path, value]) => {
+    const ref = path.replace(/^.*\/content\/manual\//, '')
+    if (!isCreatorObservationPath(ref)) return []
+    const {observation, issues} = parseCreatorObservation(value, `content/manual/${ref}`)
+    if (!observation) throw new Error(`Observación de creador no válida: ${issues.map((issue) => `${issue.source} · ${issue.path}: ${issue.message}`).join(' ')}`)
+    return isPublishable(observation) ? [observation] : []
+  })
+  return sortCreatorObservations(creatorObservations.filter((observation) => observation.businessId === businessId))
+}
+
 function localAuthor(slug: string): AuthorDetail | null {
   const author = authors.find((item) => item.slug.current === slug)
   if (!author) return null
@@ -150,7 +171,7 @@ function localComparisonDetail(document: LocalDocument): ComparisonDetail {
       return [{
         verdict: String(entry.verdict), strengths: stringList(entry.strengths), conditions: stringList(entry.conditions), limitations: stringList(entry.limitations),
         bestFor: stringList(entry.bestFor), ...(featured ? {featuredItem: featured} : {}), practicalNotes: stringList(entry.practicalNotes),
-        business: {name: String(business.name), slug: businessSlug, href: `/restaurantes/${businessSlug}/`, kind: String(business.businessKind), ...(typeof business.phone === 'string' ? {phone: business.phone} : {}), ...(typeof business.website === 'string' ? {website: business.website} : {})},
+        business: {id: business._id, name: String(business.name), slug: businessSlug, href: `/restaurantes/${businessSlug}/`, kind: String(business.businessKind), ...(typeof business.phone === 'string' ? {phone: business.phone} : {}), ...(typeof business.website === 'string' ? {website: business.website} : {})},
       }]
     }),
     methodology: String(document.methodology), criteria: stringList(document.criteria),
@@ -165,7 +186,7 @@ function localBusinessDetail(document: LocalDocument): BusinessDetail {
   const address = isRecord(document.address) ? document.address : {}
   const location = isRecord(document.location) && typeof document.location.lat === 'number' && typeof document.location.lng === 'number' ? {lat: document.location.lat, lng: document.location.lng} : undefined
   return {
-    name: String(document.name), slug, href: `/restaurantes/${slug}/`, kind: String(document.businessKind), shortDescription: String(document.shortDescription),
+    id: document._id, name: String(document.name), slug, href: `/restaurantes/${slug}/`, kind: String(document.businessKind), shortDescription: String(document.shortDescription),
     categories: [], description: portableTextBlocks(document.body),
     address: {street: String(address.street ?? ''), postalCode: String(address.postalCode ?? ''), locality: String(address.locality ?? ''), province: String(address.province ?? ''), country: String(address.country ?? '')},
     hours: [], features: [], images: [], sources: localSources(document.sources), ...(typeof document.phone === 'string' ? {phone: document.phone} : {}), ...(typeof document.website === 'string' ? {website: document.website} : {}),
