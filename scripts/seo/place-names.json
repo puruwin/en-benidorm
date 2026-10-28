@@ -1,0 +1,28 @@
+{
+  "description": "Topónimos que seo:audit busca en el alt y el pie de las imágenes con placeVerified = false (#23). El H1 de cada ficha del rastreo se añade solo; aquí van los lugares sin página propia. Sin palabras sueltas ambiguas como «Levante» o «Poniente».",
+  "places": [
+    "Benidorm",
+    "Playa de Levante",
+    "Playa de Poniente",
+    "Playa del Mal Pas",
+    "Cala del Tío Ximo",
+    "Racó de l'Oix",
+    "Rincón de Loix",
+    "Casco Antiguo de Benidorm",
+    "Balcón del Mediterráneo",
+    "Mirador del Castillo",
+    "Isla de Benidorm",
+    "Serra Gelada",
+    "Sierra Helada",
+    "Castell de Guadalest",
+    "Guadalest",
+    "Puig Campana",
+    "Altea",
+    "L'Alfàs del Pi",
+    "La Vila Joiosa",
+    "Villajoyosa",
+    "Finestrat",
+    "Polop",
+    "Fonts de l'Algar"
+  ]
+}

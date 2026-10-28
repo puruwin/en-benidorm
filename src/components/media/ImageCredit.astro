@@ -1,0 +1,12 @@
+---
+import type {EditorialImage} from '../../types/content'
+import {imageCredit} from '../../lib/image-credit'
+
+interface Props { image?: EditorialImage | null | undefined; class?: string }
+const {image, class: className} = Astro.props
+const credit = imageCredit(image)
+---
+
+{credit && <span class={className} data-image-credit>{credit.parts.map((part) => part.href
+  ? <a class="underline decoration-current/40 underline-offset-2" href={part.href} rel={part.license ? 'license noopener noreferrer' : 'noopener noreferrer'}>{part.label}</a>
+  : part.label)}</span>}

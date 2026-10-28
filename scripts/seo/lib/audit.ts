@@ -23,8 +23,12 @@ export type ErrorRule =
   | 'facts-without-sources'
   | 'indexability-missing'
   | 'indexability-mismatch'
+  | 'image-origin-missing'
+  | 'image-stock-incomplete'
+  | 'image-stock-business'
+  | 'image-place-unverified'
 
-export type WarningRule = 'img-missing-alt' | 'title-too-long'
+export type WarningRule = 'img-missing-alt' | 'title-too-long' | 'image-no-own-photo'
 
 export interface Finding<Rule extends string = ErrorRule | WarningRule> {
   rule: Rule
@@ -63,6 +67,22 @@ export interface ParsedPage {
   hasHours: boolean
   hasSources: boolean
   imagesWithoutAlt: string[]
+  /** Procedencia que `ResponsiveImage` deja en cada `<img>` (#23). */
+  images: ParsedImage[]
+}
+
+export interface ParsedImage {
+  src: string
+  alt: string
+  /** Pie (`[data-image-caption]` del `<figure>` de la imagen), sin el crédito. */
+  caption: string
+  origin: string | null
+  provider: string | null
+  license: string | null
+  author: string | null
+  source: string | null
+  placeVerified: boolean
+  subject: string | null
 }
 
 export interface PageGraphEntry {
@@ -179,12 +199,72 @@ export function parsePage(source: SourcePage, origin: string): ParsedPage {
     hasHours: TIME_RANGE.test(mainText) || mainElements.some((node) => HEADINGS.has(node.tagName ?? '') && HOURS_HEADING.test(collapse(textOf(node, true)))),
     hasSources: elements.some((node) => attr(node, 'data-seo-sources') !== null || (node.tagName === 'section' && attr(node, 'aria-labelledby') === 'sources-title')),
     imagesWithoutAlt: byTag('img').filter((node) => attr(node, 'alt') === null).map((node) => attr(node, 'src') ?? '(sin src)'),
+    images: byTag('img').map(parseImage),
   }
 }
 
-export function auditSite(sources: readonly SourcePage[], options: {origin: string}): AuditResult {
+function parseImage(node: HtmlNode): ParsedImage {
+  let figure: HtmlNode | undefined
+  for (let current = node.parentNode; current && !figure; current = current.parentNode) if (current.tagName === 'figure') figure = current
+  const captions = figure ? descendants(figure).filter((child) => attr(child, 'data-image-caption') !== null) : []
+  return {
+    src: attr(node, 'src') ?? '(sin src)',
+    alt: attr(node, 'alt') ?? '',
+    caption: collapse(captions.map((child) => textOf(child, true)).join(' ')),
+    origin: attr(node, 'data-image-origin'),
+    provider: attr(node, 'data-image-provider'),
+    license: attr(node, 'data-image-license'),
+    author: attr(node, 'data-image-author'),
+    source: attr(node, 'data-image-source'),
+    placeVerified: attr(node, 'data-place-verified') === 'true',
+    subject: attr(node, 'data-image-subject'),
+  }
+}
+
+/** Minúsculas y sin tildes, para buscar topónimos en alt y pie. */
+function foldText(text: string): string {
+  return collapse(text).normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
+}
+
+/** Topónimos que aparecen en `text` como palabras completas. */
+export function namedPlaces(text: string, places: readonly string[]): string[] {
+  const folded = ` ${foldText(text).replace(/[^\p{L}\p{N}]+/gu, ' ')} `
+  return places.filter((place) => {
+    const needle = foldText(place).replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+    return needle.length > 0 && folded.includes(` ${needle} `)
+  })
+}
+
+function imageFindings(page: ParsedPage, places: readonly string[]): Array<{rule: ErrorRule; detail: string}> {
+  const findings: Array<{rule: ErrorRule; detail: string}> = []
+  const seen = new Set<string>()
+  // La misma imagen puede salir dos veces (tarjeta y galería): se informa una.
+  for (const image of page.images) {
+    const key = JSON.stringify(image)
+    if (seen.has(key)) continue
+    seen.add(key)
+    if (!image.origin) {
+      findings.push({rule: 'image-origin-missing', detail: image.src})
+      continue
+    }
+    if (image.origin === 'stock') {
+      const missing = [!image.license && 'licencia', !image.author && 'autor', !image.source && 'URL de origen'].filter(Boolean)
+      if (missing.length) findings.push({rule: 'image-stock-incomplete', detail: `${image.src}: falta ${missing.join(', ')}`})
+      if (image.subject === 'business') findings.push({rule: 'image-stock-business', detail: `${image.src}: imagen de stock en un negocio`})
+    }
+    if (!image.placeVerified) {
+      const named = namedPlaces(`${image.alt} ${image.caption}`, places)
+      if (named.length) findings.push({rule: 'image-place-unverified', detail: `${image.src}: nombra ${named.map((place) => `«${place}»`).join(', ')} sin lugar verificado`})
+    }
+  }
+  return findings
+}
+
+export function auditSite(sources: readonly SourcePage[], options: {origin: string; placeNames?: readonly string[]}): AuditResult {
   const origin = new URL(options.origin).origin
   const pages = [...sources].sort((a, b) => compare(a.route, b.route)).map((source) => parsePage(source, origin))
+  // Nomenclátor para `image-place-unverified`: el H1 de cada ficha del rastreo más los topónimos sin página.
+  const places = unique([...(options.placeNames ?? []), ...pages.filter((page) => page.indexability?.kind === 'ficha' && page.h1).map((page) => page.h1 as string)])
   const byRoute = new Map(pages.map((page) => [page.route, page]))
   const resolve = (target: string) => byRoute.get(target) ?? (target.endsWith('/') ? byRoute.get(`${target.slice(0, -1)}.html`) : undefined)
 
@@ -257,6 +337,11 @@ export function auditSite(sources: readonly SourcePage[], options: {origin: stri
     if (!page.hasHumanReview) for (const claim of unique(page.verifiedClaims)) push('unreviewed-verified', `«${claim}» sin [data-human-review]`)
     if ((page.hasPrice || page.hasHours) && !page.hasSources) {
       push('facts-without-sources', `${[page.hasPrice && 'precios', page.hasHours && 'horarios'].filter(Boolean).join(' y ')} sin el componente Sources`)
+    }
+
+    for (const finding of imageFindings(page, places)) push(finding.rule, finding.detail)
+    if (page.type === 'indexable' && page.indexability && page.indexability.kind !== 'structural' && !page.images.some((image) => image.origin === 'propia')) {
+      warnings.push({rule: 'image-no-own-photo', route: page.route, detail: 'página indexable sin ninguna foto propia'})
     }
 
     for (const src of unique(page.imagesWithoutAlt)) warnings.push({rule: 'img-missing-alt', route: page.route, detail: src})

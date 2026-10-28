@@ -3,10 +3,23 @@ import type {SanityImageSource} from '@sanity/image-url'
 
 export type LocalizedLanguage = 'es'
 
+export type ImageOrigin = 'propia' | 'stock'
+export type ImageProvider = 'commons' | 'pixabay' | 'pexels'
+
+/** Procedencia en `sanity/schemaTypes/objects/imageWithAlt.ts`; el crédito se calcula en `src/lib/image-credit.ts`. */
 export interface EditorialImage {
   alt: string
   caption?: string
-  credit?: string
+  origin?: ImageOrigin
+  provider?: ImageProvider
+  sourceUrl?: string
+  author?: string
+  authorUrl?: string
+  license?: {id: string; url?: string}
+  takenAt?: string
+  placeVerified?: boolean
+  /** `business` si la imagen pertenece a un negocio: ahí solo valen fotos propias. */
+  subjectType?: 'business'
   local?: ImageMetadata
   url?: string
   sanity?: SanityImageSource
@@ -157,7 +170,7 @@ export interface HomeContent {
   eyebrow: string
   title: string
   intro: string
-  heroImage: EditorialImage
+  heroImage?: EditorialImage
   primaryLinks: Array<LinkItem & {description: string; accent: string}>
   guides: GuideSummary[]
   recommendations: BusinessSummary[]

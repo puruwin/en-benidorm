@@ -3,7 +3,7 @@ import {demoBusinesses, demoDining, demoHome, demoSettings} from '../data/demo/c
 import {areas} from '../../content/seed/areas'
 import {authors} from '../../content/seed/authors'
 import {settings as seedSettings} from '../../content/seed/settings'
-import type {AuthorDetail, BeachContrast, BeachDetail, BeachesPageContent, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideDetail, GuideLink, GuideSummary, HomeContent, InformationPageContent, NearbyDining, PracticalFactView, SeoData, SiteSettingsData, SourceItem} from '../types/content'
+import type {AuthorDetail, BeachContrast, EditorialImage, BeachDetail, BeachesPageContent, BusinessDetail, DescriptionBlock, BusinessSummary, CategorySummary, ComparisonDetail, ComparisonLink, DiningPageContent, GuideDetail, GuideLink, GuideSummary, HomeContent, InformationPageContent, NearbyDining, PracticalFactView, SeoData, SiteSettingsData, SourceItem} from '../types/content'
 import {type CreatorObservation, isCreatorObservationPath, isPublishable, parseCreatorObservation, sortCreatorObservations} from './creator-observations'
 import {AUTHOR_QUERY, BEACH_QUERY, BEACH_SLUGS_QUERY, BEACHES_QUERY, COMPARISON_QUERY, COMPARISON_SLUGS_QUERY, DINING_QUERY, HOME_QUERY, GUIDE_QUERY, GUIDE_SLUGS_QUERY, INFORMATION_QUERY, THINGS_TO_DO_QUERY, RESTAURANT_QUERY, RESTAURANT_SLUGS_QUERY, SETTINGS_QUERY} from './sanity/queries'
 
@@ -44,7 +44,15 @@ export async function getHomeContent(): Promise<HomeContent> {
   if (!result.page) throw new Error('No existe el documento singleton homePage en Sanity.')
   // Las tres listas son opcionales en el esquema: Sanity devuelve null si están vacías.
   const {page} = result
-  return {...page, primaryLinks: page.primaryLinks ?? [], guides: page.guides ?? [], recommendations: page.recommendations ?? [], recent: result.recent}
+  const heroImage = editorialImage(page.heroImage)
+  return {
+    ...page,
+    ...(heroImage ? {heroImage} : {}),
+    primaryLinks: page.primaryLinks ?? [],
+    guides: (page.guides ?? []).map(withImage),
+    recommendations: (page.recommendations ?? []).map(businessSummary),
+    recent: (result.recent ?? []).map(withImage),
+  }
 }
 
 export async function getDiningContent(): Promise<DiningPageContent> {
@@ -54,7 +62,7 @@ export async function getDiningContent(): Promise<DiningPageContent> {
   if (!result.page) throw new Error('Falta siteSettings.diningPage en Sanity.')
   return {
     ...result.page,
-    businesses: result.businesses,
+    businesses: (result.businesses ?? []).map(businessSummary),
     categories: result.categories,
     comparisons: result.comparisons,
   }
@@ -98,7 +106,7 @@ export async function getRestaurantBySlug(slug: string): Promise<BusinessDetail 
     ...(typeof location?.lat === 'number' && typeof location.lng === 'number' ? {location: {lat: location.lat, lng: location.lng}} : {}),
     hours: business.hours ?? [],
     features: business.features ?? [],
-    images: business.images ?? [],
+    images: (business.images ?? []).flatMap((image) => editorialImage(image, 'business') ?? []),
     sources: localSources(sources),
     comparisons: business.comparisons ?? [],
   }
@@ -401,4 +409,38 @@ function ownSeo(value: unknown): SeoData {
     ...(typeof value.noIndex === 'boolean' ? {noIndex: value.noIndex} : {}),
   }
 }
+
+const IMAGE_TEXT_FIELDS = ['caption', 'sourceUrl', 'author', 'authorUrl', 'takenAt'] as const
+
+/**
+ * Imagen de Sanity sin los `null` que proyecta GROQ. `subjectType: 'business'` marca las de un negocio
+ * para que seo:audit compruebe que son propias. `undefined` si no hay imagen que pintar.
+ */
+function editorialImage(value: unknown, subjectType?: 'business'): EditorialImage | undefined {
+  if (!isRecord(value) || typeof value.url !== 'string') return undefined
+  const image: EditorialImage = {alt: typeof value.alt === 'string' ? value.alt : '', url: value.url}
+  if (value.sanity !== undefined && value.sanity !== null) image.sanity = value.sanity as NonNullable<EditorialImage['sanity']>
+  if (typeof value.width === 'number') image.width = value.width
+  if (typeof value.height === 'number') image.height = value.height
+  for (const field of IMAGE_TEXT_FIELDS) if (typeof value[field] === 'string') image[field] = value[field]
+  if (value.origin === 'propia' || value.origin === 'stock') image.origin = value.origin
+  if (value.provider === 'commons' || value.provider === 'pixabay' || value.provider === 'pexels') image.provider = value.provider
+  if (isRecord(value.license) && typeof value.license.id === 'string') image.license = {id: value.license.id, ...(typeof value.license.url === 'string' ? {url: value.license.url} : {})}
+  if (typeof value.placeVerified === 'boolean') image.placeVerified = value.placeVerified
+  if (subjectType) image.subjectType = subjectType
+  return image
+}
+
+function withImage<T extends {image?: EditorialImage}>(item: T): T {
+  const {image, ...rest} = item
+  const normalized = editorialImage(image)
+  return (normalized ? {...rest, image: normalized} : rest) as T
+}
+
+function businessSummary(business: BusinessSummary): BusinessSummary {
+  const {image, ...rest} = business
+  const normalized = editorialImage(image, 'business')
+  return normalized ? {...rest, image: normalized} : rest
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> { return typeof value === 'object' && value !== null && !Array.isArray(value) }

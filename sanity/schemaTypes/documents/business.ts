@@ -28,7 +28,13 @@ export const business = defineType({
     defineField({name: 'googleMapsUrl', title: 'Enlace de Google Maps', type: 'url', group: 'contact'}),
     defineField({name: 'openingHours', title: 'Horarios', type: 'array', group: 'contact', of: [{type: 'openingHours'}]}),
     defineField({name: 'priceRange', title: 'Rango de precios', type: 'string', group: 'editorial', options: {list: ['€', '€€', '€€€', '€€€€']}}),
-    defineField({name: 'images', title: 'Imágenes', type: 'array', group: 'editorial', of: [{type: 'imageWithAlt'}]}),
+    // Stock nunca en fichas de negocio (#23): una foto genérica sugiere que es de ese local.
+    defineField({
+      name: 'images', title: 'Imágenes', type: 'array', group: 'editorial', of: [{type: 'imageWithAlt'}],
+      description: 'Solo fotos propias.',
+      validation: (rule) => rule.custom((images?: Array<{origin?: string}>) =>
+        images?.some((image) => image.origin !== 'propia') ? 'Una ficha de negocio solo admite fotos propias.' : true),
+    }),
     defineField({name: 'recommended', title: 'Recomendado', type: 'boolean', group: 'editorial', initialValue: false}),
     defineField({name: 'sponsored', title: 'Patrocinado', type: 'boolean', group: 'editorial', initialValue: false}),
     defineField({name: 'featured', title: 'Destacado', type: 'boolean', group: 'editorial', initialValue: false}),
