@@ -26,7 +26,8 @@ const pages = await readDistPages(dist)
 if (pages.length === 0) throw new Error(`No hay páginas HTML en ${values.dist}. Ejecuta antes npm run build.`)
 
 // La auditoría es de sitio completo: las huérfanas y los enlaces rotos dependen de las demás páginas.
-const result = auditSite(pages, {origin})
+const {places} = await readJsonIfExists<{places: string[]}>(resolve('scripts/seo/place-names.json'), {places: []})
+const result = auditSite(pages, {origin, placeNames: places})
 const entry = result.pages[route]
 if (!entry) {
   console.error(`La ruta ${route} no existe en ${values.dist}. ¿Has ejecutado npm run build?`)
