@@ -226,3 +226,48 @@ test('la línea base solo deja pasar los errores ya conocidos', async () => {
   const fresh = newFindings(result.errors, baseline)
   assert.deepEqual(fresh.map(findingKey), ['orphan|/huerfana/||0 enlaces contextuales entrantes (mínimo 2)'])
 })
+
+const sitemapOf = (routes: readonly string[]) => routes.map((route) => `${origin}${route}`)
+
+test('un sitemap con exactamente las páginas indexables no produce errores', () => {
+  const site = [...cleanSite(), page('/borrador/', {robots: 'noindex,follow'}), page('/404.html', {robots: 'noindex'})]
+  const result = auditSite(site, {origin, sitemap: sitemapOf(['/', '/a/', '/b/'])})
+  assert.deepEqual(result.errors, [])
+})
+
+test('sin la opción sitemap no se compara con el sitemap', () => {
+  const result = auditSite([...cleanSite(), page('/borrador/', {robots: 'noindex,follow'})], {origin})
+  assert.deepEqual(result.errors, [])
+})
+
+test('sitemap-noindex: el sitemap lista una página noindex, una redirección, la 404 o una ruta sin HTML', () => {
+  const ficha = {...structuralIndexability({subject: 'Casa', h1: 'Casa', title: 'Casa'}), kind: 'ficha' as const}
+  const site = [
+    ...cleanSite(),
+    page('/ficha/', {robots: 'noindex,follow', indexability: ficha, title: 'Casa', main: '<h1>Casa</h1>'}),
+    page('/antigua/', {head: '<meta http-equiv="refresh" content="0;url=/a/">'}),
+    page('/404.html', {robots: 'noindex'}),
+  ]
+  const result = auditSite(site, {origin, sitemap: sitemapOf(['/', '/a/', '/b/', '/ficha/', '/antigua/', '/404.html', '/no-existe/'])})
+  assert.deepEqual(result.errors.map((error) => `${error.route} ${error.rule} ${error.detail}`), [
+    '/404.html sitemap-noindex 404: página de error',
+    '/antigua/ sitemap-noindex redirect → /a/',
+    '/ficha/ sitemap-noindex noindex (no-evidence, no-address, no-contribution, few-links)',
+    '/no-existe/ sitemap-noindex 404: no hay HTML en el build',
+  ])
+})
+
+test('sitemap-noindex: una URL de otro origen no cuenta como listada', () => {
+  const result = auditSite(cleanSite(), {origin, sitemap: [...sitemapOf(['/', '/b/']), 'https://otro.test/a/']})
+  assert.deepEqual(rules(result), ['/a/ sitemap-missing-indexable', '/a/ sitemap-noindex'])
+})
+
+test('sitemap-missing-indexable: falta una página indexable; una noindex ausente no es error', () => {
+  const result = auditSite([...cleanSite(), page('/borrador/', {robots: 'noindex,follow'})], {origin, sitemap: sitemapOf(['/', '/a/'])})
+  assert.deepEqual(rules(result), ['/b/ sitemap-missing-indexable'])
+})
+
+test('un sitemap vacío deja fuera todas las indexables', () => {
+  const result = auditSite(cleanSite(), {origin, sitemap: []})
+  assert.deepEqual(rules(result), ['/ sitemap-missing-indexable', '/a/ sitemap-missing-indexable', '/b/ sitemap-missing-indexable'])
+})

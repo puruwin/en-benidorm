@@ -2,7 +2,7 @@ import {resolve} from 'node:path'
 import {parseArgs} from 'node:util'
 import {readJsonIfExists, writeJsonAtomic} from '../content/lib/files'
 import {auditSite, findingKey, newFindings, type Finding} from './lib/audit'
-import {readDistPages, readSitemapOrigin} from './lib/dist'
+import {readDistPages, readSitemapOrigin, readSitemapUrls} from './lib/dist'
 
 interface Baseline {
   description: string
@@ -29,7 +29,7 @@ const pages = await readDistPages(dist)
 if (pages.length === 0) throw new Error(`No hay páginas HTML en ${values.dist}. Ejecuta antes npm run build.`)
 
 const {places} = await readJsonIfExists<{places: string[]}>(resolve('scripts/seo/place-names.json'), {places: []})
-const result = auditSite(pages, {origin, placeNames: places})
+const result = auditSite(pages, {origin, placeNames: places, sitemap: await readSitemapUrls(dist)})
 const baselinePath = values.baseline ? resolve(values.baseline) : null
 const baseline = baselinePath ? await readJsonIfExists<Baseline>(baselinePath, {description: '', accepted: []}) : null
 const fresh = baseline ? newFindings(result.errors, baseline.accepted) : result.errors
