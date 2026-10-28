@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict'
-import {existsSync} from 'node:fs'
 import {readFile} from 'node:fs/promises'
 import {resolve} from 'node:path'
 import test from 'node:test'
@@ -13,15 +12,10 @@ import type {ComparisonEvidenceFact, EnrichedComparisonArtifact, GeneratedCompar
 
 // Regression for issue #10, built from the arroces comparison (content/manual/comparisons/arroces.json).
 
-// Los dos replays leen artefactos persistidos que Git ignora (enriched y .staging). En un checkout
-// limpio (servidor de build, clon nuevo) no existen: se omiten con motivo en vez de fallar con ENOENT.
-const ARROCES_ARTIFACTS = [
-  'content/comparisons/enriched/comparison-arroces.json',
-  'content/generated/.staging/comparisons/comparison-arroces.json',
-]
-const arrocesReplaySkip = ARROCES_ARTIFACTS.every((path) => existsSync(resolve(process.cwd(), path)))
-  ? false
-  : 'faltan los artefactos persistidos de arroces (ignorados por Git); el replay solo corre donde está el catálogo'
+// Copia congelada de los artefactos persistidos de arroces (enriched y .staging, ignorados por Git),
+// para que el replay corra igual en cualquier checkout. Actualízalos solo a propósito.
+const ARROCES_ENRICHED = resolve(import.meta.dirname, '__fixtures__/comparison-arroces.enriched.json')
+const ARROCES_STAGING = resolve(import.meta.dirname, '__fixtures__/comparison-arroces.staging.json')
 
 function fact(id: string, value: string, nature: ComparisonEvidenceFact['nature'] = 'factual'): ComparisonEvidenceFact {
   return {id, value, nature, sourceKeys: ['official-website:https://example.com/carta']}
@@ -84,10 +78,9 @@ test('arroces: la página agrupa fuentes heredadas sin repetir variantes', () =>
   assert.deepEqual(groups.map((group) => group.sources.length), [1, 1])
 })
 
-test('arroces: replay del artefacto persistido separa condiciones, deduplica fuentes y fija la unidad', {skip: arrocesReplaySkip}, async () => {
-  const root = process.cwd()
-  const enriched = JSON.parse(await readFile(resolve(root, 'content/comparisons/enriched/comparison-arroces.json'), 'utf8')) as EnrichedComparisonArtifact
-  const legacy = JSON.parse(await readFile(resolve(root, 'content/generated/.staging/comparisons/comparison-arroces.json'), 'utf8')) as GeneratedComparisonArtifact
+test('arroces: replay del artefacto persistido separa condiciones, deduplica fuentes y fija la unidad', async () => {
+  const enriched = JSON.parse(await readFile(ARROCES_ENRICHED, 'utf8')) as EnrichedComparisonArtifact
+  const legacy = JSON.parse(await readFile(ARROCES_STAGING, 'utf8')) as GeneratedComparisonArtifact
   const businesses = new Map<string, ContentDocument>(enriched.businesses.map((business) => [business.businessId, {_id: business.businessId, _type: 'business'}]))
 
   // The artifact generated before the fix shows the three defects in QA.
@@ -125,10 +118,9 @@ test('arroces: replay del artefacto persistido separa condiciones, deduplica fue
   assert.deepEqual(validateContent([{document: rebuilt.document, source: 'test', expectedType: 'comparison'}], {allowUnresolvedReferences: true}).issues, [])
 })
 
-test('QA marca una unidad de precio que no sale de la carta', {skip: arrocesReplaySkip}, async () => {
-  const root = process.cwd()
-  const enriched = JSON.parse(await readFile(resolve(root, 'content/comparisons/enriched/comparison-arroces.json'), 'utf8')) as EnrichedComparisonArtifact
-  const legacy = JSON.parse(await readFile(resolve(root, 'content/generated/.staging/comparisons/comparison-arroces.json'), 'utf8')) as GeneratedComparisonArtifact
+test('QA marca una unidad de precio que no sale de la carta', async () => {
+  const enriched = JSON.parse(await readFile(ARROCES_ENRICHED, 'utf8')) as EnrichedComparisonArtifact
+  const legacy = JSON.parse(await readFile(ARROCES_STAGING, 'utf8')) as GeneratedComparisonArtifact
   const rebuilt = buildComparisonArtifact(enriched, legacy.editorial, legacy.generatedAt)
   const ulia = (rebuilt.document.entries as Array<{business: {_ref: string}; featuredItem?: {priceUnit?: string}}>).find((entry) => entry.business._ref === 'business-ulia')!
   ulia.featuredItem!.priceUnit = 'per-person'

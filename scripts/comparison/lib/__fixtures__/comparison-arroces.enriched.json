@@ -1,0 +1,2455 @@
+{
+  "schemaVersion": 1,
+  "id": "comparison-arroces",
+  "topic": "arroces",
+  "searchIntent": "elegir dónde comer arroz en Benidorm",
+  "slug": "arroces",
+  "enrichedAt": "2026-10-07T11:20:43.133Z",
+  "businesses": [
+    {
+      "businessId": "business-ongi-etorri",
+      "name": "Ongi Etorri",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=arroces"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 5,
+        "distinctiveValue": 4,
+        "practicalUsefulness": 5,
+        "total": 24
+      },
+      "evidence": {
+        "cuisine": [
+          {
+            "id": "business-ongi-etorri:cuisine:business-0",
+            "value": "regional",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406771698",
+              "official-website:https://ongietorribenidorm.com/",
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:cuisine:business-1",
+            "value": "española",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406771698",
+              "official-website:https://ongietorribenidorm.com/",
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:cuisine:business-2",
+            "value": "arroces",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406771698",
+              "official-website:https://ongietorribenidorm.com/",
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:cuisine:business-3",
+            "value": "mediterránea",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406771698",
+              "official-website:https://ongietorribenidorm.com/",
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:cuisine:business-4",
+            "value": "mariscos",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406771698",
+              "official-website:https://ongietorribenidorm.com/",
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/"
+            ]
+          }
+        ],
+        "specialties": [
+          {
+            "id": "ongi:specialty:arroz-a-banda",
+            "value": "Arroz a banda",
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "ongi:specialty:arroz-caldoso-bogavante",
+            "value": "Arroz caldoso con bogavante",
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "ongi:specialty:paella-marisco",
+            "value": "Paella de marisco",
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/"
+            ]
+          }
+        ],
+        "featuredItems": [
+          {
+            "id": "ongi:item:arroz-a-banda",
+            "value": {
+              "name": "Arroz a banda",
+              "price": 16.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:item:arroz-caldoso-bogavante",
+            "value": {
+              "name": "Arroz caldoso con bogavante",
+              "price": 29.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas; por encargo",
+              "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:item:arroz-negro",
+            "value": {
+              "name": "Arroz negro",
+              "price": 16.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:item:paella-marisco",
+            "value": {
+              "name": "Paella de marisco",
+              "price": 19.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:item:fideua-marisco",
+            "value": {
+              "name": "Fideuá de marisco",
+              "price": 19.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          }
+        ],
+        "prices": [
+          {
+            "id": "ongi:price:arroz-a-banda",
+            "value": {
+              "item": "Arroz a banda",
+              "value": 16.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:price:arroz-caldoso-bogavante",
+            "value": {
+              "item": "Arroz caldoso con bogavante",
+              "value": 29.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas; por encargo",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:price:arroz-negro",
+            "value": {
+              "item": "Arroz negro",
+              "value": 16.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:price:paella-marisco",
+            "value": {
+              "item": "Paella de marisco",
+              "value": 19.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:price:fideua-marisco",
+            "value": {
+              "item": "Fideuá de marisco",
+              "value": 19.5,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          }
+        ],
+        "services": [
+          {
+            "id": "business-ongi-etorri:services:business-0",
+            "value": "desayuno",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:services:business-1",
+            "value": "Acepta reservas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:services:business-2",
+            "value": "Servicio para llevar",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:services:business-3",
+            "value": "Terraza",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406771698"
+            ]
+          },
+          {
+            "id": "ongi:service:encargo",
+            "value": "Arroz caldoso con bogavante por encargo",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          }
+        ],
+        "location": [
+          {
+            "id": "business-ongi-etorri:location:business-0",
+            "value": "playa de Poniente",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/",
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/"
+            ]
+          },
+          {
+            "id": "business-ongi-etorri:location:business-1",
+            "value": "cocina abierta",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/",
+              "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+              "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+              "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/"
+            ]
+          }
+        ],
+        "practical": [],
+        "limitations": [
+          {
+            "id": "ongi:limitation:minimo-dos",
+            "value": "Los arroces y paellas exigen un mínimo de 2 personas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          },
+          {
+            "id": "ongi:limitation:bogavante-encargo",
+            "value": "El arroz caldoso con bogavante requiere encargo",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/"
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "key": "openstreetmap:node/4406771698",
+          "provider": "openstreetmap",
+          "identifier": "node/4406771698",
+          "url": "https://www.openstreetmap.org/node/4406771698",
+          "retrievedAt": "2026-10-07T11:08:43.471Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "key": "official-website:https://ongietorribenidorm.com/",
+          "provider": "official-website",
+          "identifier": "https://ongietorribenidorm.com/",
+          "url": "https://ongietorribenidorm.com/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+          "provider": "official-website",
+          "identifier": "https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+          "url": "https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+          "provider": "official-website",
+          "identifier": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+          "url": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+          "provider": "official-website",
+          "identifier": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+          "url": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+          "provider": "official-website",
+          "identifier": "https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+          "url": "https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+          "licenseUrl": null
+        }
+      ]
+    },
+    {
+      "businessId": "business-cafeteria-la-bahia",
+      "name": "Cafetería La Bahía",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=arroces"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 5,
+        "distinctiveValue": 3,
+        "practicalUsefulness": 5,
+        "total": 23
+      },
+      "evidence": {
+        "cuisine": [
+          {
+            "id": "business-cafeteria-la-bahia:cuisine:business-0",
+            "value": "regional",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406717526",
+              "official-website:https://www.restaurante-labahia.com/",
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          },
+          {
+            "id": "business-cafeteria-la-bahia:cuisine:business-1",
+            "value": "arroces",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406717526",
+              "official-website:https://www.restaurante-labahia.com/",
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          },
+          {
+            "id": "business-cafeteria-la-bahia:cuisine:business-2",
+            "value": "mediterránea",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4406717526",
+              "official-website:https://www.restaurante-labahia.com/",
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          }
+        ],
+        "specialties": [],
+        "featuredItems": [
+          {
+            "id": "la-bahia:item:arroz-a-banda",
+            "value": {
+              "name": "Arroz a banda (según su web)",
+              "source": "official-website:https://www.restaurante-labahia.com/carta",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          },
+          {
+            "id": "la-bahia:item:paella-mixta",
+            "value": {
+              "name": "Paella mixta (según su web)",
+              "source": "official-website:https://www.restaurante-labahia.com/carta",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          }
+        ],
+        "prices": [
+          {
+            "id": "la-bahia:price:menu-diario",
+            "value": {
+              "item": "Menú diario",
+              "value": 18.75,
+              "currency": "EUR",
+              "priceQualifier": "desde; 19,75 € los domingos",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          },
+          {
+            "id": "la-bahia:price:menu-grupo-1",
+            "value": {
+              "item": "Menú 1 para grupos",
+              "value": 34.75,
+              "currency": "EUR",
+              "priceQualifier": "por persona; mínimo 8 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          }
+        ],
+        "services": [
+          {
+            "id": "business-cafeteria-la-bahia:services:business-0",
+            "value": "cena",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/restaurante",
+              "official-website:https://www.restaurante-labahia.com/eventos"
+            ]
+          },
+          {
+            "id": "business-cafeteria-la-bahia:services:business-1",
+            "value": "Acepta reservas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/",
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          },
+          {
+            "id": "business-cafeteria-la-bahia:services:business-2",
+            "value": "Terraza",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/",
+              "official-website:https://www.restaurante-labahia.com/restaurante"
+            ]
+          },
+          {
+            "id": "la-bahia:service:menu-diario",
+            "value": "Menú diario",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          },
+          {
+            "id": "la-bahia:service:menu-grupos-reserva",
+            "value": "Menús para grupos con reserva",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          }
+        ],
+        "location": [
+          {
+            "id": "business-cafeteria-la-bahia:location:business-0",
+            "value": "primera línea de playa, playa de Levante",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/",
+              "official-website:https://www.restaurante-labahia.com/restaurante",
+              "official-website:https://www.restaurante-labahia.com/eventos"
+            ]
+          },
+          {
+            "id": "business-cafeteria-la-bahia:location:business-1",
+            "value": "vistas al mar",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/"
+            ]
+          }
+        ],
+        "practical": [],
+        "limitations": [
+          {
+            "id": "la-bahia:limitation:menu-temporada",
+            "value": "El menú diario varía según temporada",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          },
+          {
+            "id": "la-bahia:limitation:menu-grupos-minimo",
+            "value": "El menú para grupos exige un mínimo de 8 personas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.restaurante-labahia.com/carta"
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "key": "openstreetmap:node/4406717526",
+          "provider": "openstreetmap",
+          "identifier": "node/4406717526",
+          "url": "https://www.openstreetmap.org/node/4406717526",
+          "retrievedAt": "2026-10-06T11:53:45.905Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "key": "official-website:https://www.restaurante-labahia.com/",
+          "provider": "official-website",
+          "identifier": "https://www.restaurante-labahia.com/",
+          "url": "https://www.restaurante-labahia.com/",
+          "retrievedAt": "2026-10-06T16:43:31.106Z",
+          "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.restaurante-labahia.com/carta",
+          "provider": "official-website",
+          "identifier": "https://www.restaurante-labahia.com/carta",
+          "url": "https://www.restaurante-labahia.com/carta",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.restaurante-labahia.com/restaurante",
+          "provider": "official-website",
+          "identifier": "https://www.restaurante-labahia.com/restaurante",
+          "url": "https://www.restaurante-labahia.com/restaurante",
+          "retrievedAt": "2026-10-06T16:43:31.106Z",
+          "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.restaurante-labahia.com/eventos",
+          "provider": "official-website",
+          "identifier": "https://www.restaurante-labahia.com/eventos",
+          "url": "https://www.restaurante-labahia.com/eventos",
+          "retrievedAt": "2026-10-06T16:43:31.106Z",
+          "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+          "licenseUrl": null
+        }
+      ]
+    },
+    {
+      "businessId": "business-la-cava-aragonesa",
+      "name": "La Cava Aragonesa",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=arroces"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 5,
+        "distinctiveValue": 2,
+        "practicalUsefulness": 5,
+        "total": 22
+      },
+      "evidence": {
+        "cuisine": [
+          {
+            "id": "business-la-cava-aragonesa:cuisine:business-0",
+            "value": "regional",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343358694",
+              "official-website:https://www.lacavaaragonesa.es/",
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "business-la-cava-aragonesa:cuisine:business-1",
+            "value": "mariscos",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343358694",
+              "official-website:https://www.lacavaaragonesa.es/",
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "business-la-cava-aragonesa:cuisine:business-2",
+            "value": "americana",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343358694",
+              "official-website:https://www.lacavaaragonesa.es/",
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "business-la-cava-aragonesa:cuisine:business-3",
+            "value": "arroces",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343358694",
+              "official-website:https://www.lacavaaragonesa.es/",
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          }
+        ],
+        "specialties": [],
+        "featuredItems": [
+          {
+            "id": "cava:item:arroz-a-banda",
+            "value": {
+              "name": "Arroz a banda",
+              "price": 19.3,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:item:arroz-bogavante",
+            "value": {
+              "name": "Arroz con bogavante",
+              "price": 24.6,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:item:arroz-kokotxas",
+            "value": {
+              "name": "Arroz con kokotxas de bacalao y zamburiñas",
+              "price": 22,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:item:arroz-negro",
+            "value": {
+              "name": "Arroz negro",
+              "price": 19.3,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:item:paella-marisco",
+            "value": {
+              "name": "Paella de marisco",
+              "price": 20.5,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          }
+        ],
+        "prices": [
+          {
+            "id": "cava:price:arroz-a-banda",
+            "value": {
+              "item": "Arroz a banda",
+              "value": 19.3,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:price:arroz-bogavante",
+            "value": {
+              "item": "Arroz con bogavante",
+              "value": 24.6,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:price:arroz-kokotxas",
+            "value": {
+              "item": "Arroz con kokotxas de bacalao y zamburiñas",
+              "value": 22,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:price:arroz-negro",
+            "value": {
+              "item": "Arroz negro",
+              "value": 19.3,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          },
+          {
+            "id": "cava:price:paella-marisco",
+            "value": {
+              "item": "Paella de marisco",
+              "value": 20.5,
+              "currency": "EUR",
+              "priceQualifier": "cada unidad",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/"
+            ]
+          }
+        ],
+        "services": [
+          {
+            "id": "business-la-cava-aragonesa:services:business-0",
+            "value": "cena",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/"
+            ]
+          },
+          {
+            "id": "business-la-cava-aragonesa:services:business-1",
+            "value": "Acepta reservas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/",
+              "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+              "official-website:https://www.lacavaaragonesa.es/menu-la-cava/",
+              "official-website:https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+              "official-website:https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/"
+            ]
+          },
+          {
+            "id": "business-la-cava-aragonesa:services:business-2",
+            "value": "Terraza",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/"
+            ]
+          }
+        ],
+        "location": [
+          {
+            "id": "business-la-cava-aragonesa:location:business-0",
+            "value": "centro de Benidorm",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/"
+            ]
+          }
+        ],
+        "practical": [],
+        "limitations": []
+      },
+      "sources": [
+        {
+          "key": "openstreetmap:node/4343358694",
+          "provider": "openstreetmap",
+          "identifier": "node/4343358694",
+          "url": "https://www.openstreetmap.org/node/4343358694",
+          "retrievedAt": "2026-10-07T11:08:43.471Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "key": "official-website:https://www.lacavaaragonesa.es/",
+          "provider": "official-website",
+          "identifier": "https://www.lacavaaragonesa.es/",
+          "url": "https://www.lacavaaragonesa.es/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+          "provider": "official-website",
+          "identifier": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+          "url": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.lacavaaragonesa.es/menu-la-cava/",
+          "provider": "official-website",
+          "identifier": "https://www.lacavaaragonesa.es/menu-la-cava/",
+          "url": "https://www.lacavaaragonesa.es/menu-la-cava/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+          "provider": "official-website",
+          "identifier": "https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+          "url": "https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+          "provider": "official-website",
+          "identifier": "https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+          "url": "https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+          "licenseUrl": null
+        }
+      ]
+    },
+    {
+      "businessId": "business-jardin-mediterraneo",
+      "name": "Jardín Mediterráneo",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=arroces"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 4,
+        "distinctiveValue": 3,
+        "practicalUsefulness": 4,
+        "total": 21
+      },
+      "evidence": {
+        "cuisine": [
+          {
+            "id": "business-jardin-mediterraneo:cuisine:business-0",
+            "value": "regional",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343227072",
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/",
+              "official-website:https://www.jardinmediterraneo.com/menu/",
+              "official-website:https://www.jardinmediterraneo.com/reservas/"
+            ]
+          },
+          {
+            "id": "business-jardin-mediterraneo:cuisine:business-1",
+            "value": "mediterránea",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343227072",
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/",
+              "official-website:https://www.jardinmediterraneo.com/menu/",
+              "official-website:https://www.jardinmediterraneo.com/reservas/"
+            ]
+          },
+          {
+            "id": "business-jardin-mediterraneo:cuisine:business-2",
+            "value": "americana",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343227072",
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/",
+              "official-website:https://www.jardinmediterraneo.com/menu/",
+              "official-website:https://www.jardinmediterraneo.com/reservas/"
+            ]
+          },
+          {
+            "id": "business-jardin-mediterraneo:cuisine:business-3",
+            "value": "mariscos",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343227072",
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/",
+              "official-website:https://www.jardinmediterraneo.com/menu/",
+              "official-website:https://www.jardinmediterraneo.com/reservas/"
+            ]
+          },
+          {
+            "id": "business-jardin-mediterraneo:cuisine:business-4",
+            "value": "arroces",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4343227072",
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/",
+              "official-website:https://www.jardinmediterraneo.com/menu/",
+              "official-website:https://www.jardinmediterraneo.com/reservas/"
+            ]
+          }
+        ],
+        "specialties": [],
+        "featuredItems": [
+          {
+            "id": "jardin:item:arroz-a-banda",
+            "value": {
+              "name": "Arroz a banda (según su web)",
+              "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          },
+          {
+            "id": "jardin:item:paella-valenciana",
+            "value": {
+              "name": "Paella valenciana (según su web)",
+              "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          },
+          {
+            "id": "jardin:item:arroz-negro",
+            "value": {
+              "name": "Arroz negro (según su web)",
+              "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          },
+          {
+            "id": "jardin:item:arroz-caldoso-bogavante",
+            "value": {
+              "name": "Arroz caldoso de bogavante (según su web)",
+              "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          },
+          {
+            "id": "jardin:item:arroz-meloso-rape",
+            "value": {
+              "name": "Arroz meloso de rape y almejas (según su web)",
+              "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          },
+          {
+            "id": "jardin:item:fideua-marisco",
+            "value": {
+              "name": "Fideuá de marisco (según su web)",
+              "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          }
+        ],
+        "prices": [],
+        "services": [
+          {
+            "id": "business-jardin-mediterraneo:services:business-0",
+            "value": "desayuno",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/"
+            ]
+          },
+          {
+            "id": "business-jardin-mediterraneo:services:business-1",
+            "value": "Acepta reservas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/",
+              "official-website:https://www.jardinmediterraneo.com/menu/",
+              "official-website:https://www.jardinmediterraneo.com/reservas/"
+            ]
+          },
+          {
+            "id": "business-jardin-mediterraneo:services:business-2",
+            "value": "Servicio para llevar",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/"
+            ]
+          },
+          {
+            "id": "business-jardin-mediterraneo:services:business-3",
+            "value": "Terraza",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          },
+          {
+            "id": "jardin:service:menus-diarios",
+            "value": "Menús turísticos diarios",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/menu/"
+            ]
+          },
+          {
+            "id": "jardin:service:menus-grupos",
+            "value": "Menús especiales y personalizables para grupos y eventos",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/menu/"
+            ]
+          }
+        ],
+        "location": [
+          {
+            "id": "business-jardin-mediterraneo:location:business-0",
+            "value": "playa de Levante",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/",
+              "official-website:https://www.jardinmediterraneo.com/restaurante/",
+              "official-website:https://www.jardinmediterraneo.com/carta/",
+              "official-website:https://www.jardinmediterraneo.com/menu/"
+            ]
+          }
+        ],
+        "practical": [],
+        "limitations": [
+          {
+            "id": "jardin:limitation:carta-actualizacion",
+            "value": "La carta digital está en actualización y no publica precios de los arroces",
+            "nature": "external_observation",
+            "sourceKeys": [
+              "official-website:https://www.jardinmediterraneo.com/carta/"
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "key": "openstreetmap:node/4343227072",
+          "provider": "openstreetmap",
+          "identifier": "node/4343227072",
+          "url": "https://www.openstreetmap.org/node/4343227072",
+          "retrievedAt": "2026-10-07T11:08:43.471Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "key": "official-website:https://www.jardinmediterraneo.com/",
+          "provider": "official-website",
+          "identifier": "https://www.jardinmediterraneo.com/",
+          "url": "https://www.jardinmediterraneo.com/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.jardinmediterraneo.com/restaurante/",
+          "provider": "official-website",
+          "identifier": "https://www.jardinmediterraneo.com/restaurante/",
+          "url": "https://www.jardinmediterraneo.com/restaurante/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.jardinmediterraneo.com/carta/",
+          "provider": "official-website",
+          "identifier": "https://www.jardinmediterraneo.com/carta/",
+          "url": "https://www.jardinmediterraneo.com/carta/",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.jardinmediterraneo.com/menu/",
+          "provider": "official-website",
+          "identifier": "https://www.jardinmediterraneo.com/menu/",
+          "url": "https://www.jardinmediterraneo.com/menu/",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.jardinmediterraneo.com/reservas/",
+          "provider": "official-website",
+          "identifier": "https://www.jardinmediterraneo.com/reservas/",
+          "url": "https://www.jardinmediterraneo.com/reservas/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+          "licenseUrl": null
+        }
+      ]
+    },
+    {
+      "businessId": "business-marisqueria-cordoba",
+      "name": "Marisquería Córdoba",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=arroces"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 4,
+        "distinctiveValue": 3,
+        "practicalUsefulness": 3,
+        "total": 20
+      },
+      "evidence": {
+        "cuisine": [
+          {
+            "id": "business-marisqueria-cordoba:cuisine:business-0",
+            "value": "seafood",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/5020741321",
+              "official-website:http://www.marisqueriacordoba.com/",
+              "official-website:http://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "business-marisqueria-cordoba:cuisine:business-1",
+            "value": "mariscos",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/5020741321",
+              "official-website:http://www.marisqueriacordoba.com/",
+              "official-website:http://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "business-marisqueria-cordoba:cuisine:business-2",
+            "value": "arroces",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/5020741321",
+              "official-website:http://www.marisqueriacordoba.com/",
+              "official-website:http://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "business-marisqueria-cordoba:cuisine:business-3",
+            "value": "española",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/5020741321",
+              "official-website:http://www.marisqueriacordoba.com/",
+              "official-website:http://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          }
+        ],
+        "specialties": [],
+        "featuredItems": [
+          {
+            "id": "cordoba:item:paella-mariscos",
+            "value": {
+              "name": "Paella de mariscos",
+              "price": 10,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "source": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "cordoba:item:arroz-bogavante",
+            "value": {
+              "name": "Arroz con bogavante y mariscos",
+              "price": 16,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "source": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "cordoba:item:arroz-a-banda",
+            "value": {
+              "name": "Arroz a banda",
+              "price": 10,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "source": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "cordoba:item:fideua-mariscos",
+            "value": {
+              "name": "Fideuá de mariscos",
+              "price": 10,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "source": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          }
+        ],
+        "prices": [
+          {
+            "id": "cordoba:price:paella-mariscos",
+            "value": {
+              "item": "Paella de mariscos",
+              "value": 10,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "cordoba:price:arroz-bogavante",
+            "value": {
+              "item": "Arroz con bogavante y mariscos",
+              "value": 16,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "cordoba:price:arroz-a-banda",
+            "value": {
+              "item": "Arroz a banda",
+              "value": 10,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          },
+          {
+            "id": "cordoba:price:fideua-mariscos",
+            "value": {
+              "item": "Fideuá de mariscos",
+              "value": 10,
+              "currency": "EUR",
+              "priceQualifier": "por ración; mínimo 2 personas",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          }
+        ],
+        "services": [
+          {
+            "id": "business-marisqueria-cordoba:services:business-0",
+            "value": "Terraza",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/5020741321"
+            ]
+          }
+        ],
+        "location": [
+          {
+            "id": "business-marisqueria-cordoba:location:business-0",
+            "value": "centro de Benidorm",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:http://www.marisqueriacordoba.com/"
+            ]
+          },
+          {
+            "id": "business-marisqueria-cordoba:location:business-1",
+            "value": "cocina abierta",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:http://www.marisqueriacordoba.com/"
+            ]
+          }
+        ],
+        "practical": [],
+        "limitations": [
+          {
+            "id": "cordoba:limitation:minimo-dos",
+            "value": "Los arroces y la fideuá exigen un mínimo de 2 personas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://www.marisqueriacordoba.com/la-carta.html"
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "key": "openstreetmap:node/5020741321",
+          "provider": "openstreetmap",
+          "identifier": "node/5020741321",
+          "url": "https://www.openstreetmap.org/node/5020741321",
+          "retrievedAt": "2026-10-07T11:08:43.471Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "key": "official-website:http://www.marisqueriacordoba.com/",
+          "provider": "official-website",
+          "identifier": "http://www.marisqueriacordoba.com/",
+          "url": "http://www.marisqueriacordoba.com/",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.marisqueriacordoba.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:http://www.marisqueriacordoba.com/la-carta.html",
+          "provider": "official-website",
+          "identifier": "http://www.marisqueriacordoba.com/la-carta.html",
+          "url": "http://www.marisqueriacordoba.com/la-carta.html",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (www.marisqueriacordoba.com)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+          "provider": "official-website",
+          "identifier": "https://www.marisqueriacordoba.com/la-carta.html",
+          "url": "https://www.marisqueriacordoba.com/la-carta.html",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (www.marisqueriacordoba.com)",
+          "licenseUrl": null
+        }
+      ]
+    },
+    {
+      "businessId": "business-restaurante-trasto-bar",
+      "name": "Restaurante Trasto bar",
+      "qualityTier": "rich",
+      "topicEvidence": [
+        "cuisine=Paella"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 4,
+        "comparisonCoverage": 4,
+        "distinctiveValue": 2,
+        "practicalUsefulness": 5,
+        "total": 20
+      },
+      "evidence": {
+        "cuisine": [
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-0",
+            "value": "Pasteles",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-1",
+            "value": "Tarta de queso",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-2",
+            "value": "Creps",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-3",
+            "value": "Helado",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-4",
+            "value": "Tortitas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-5",
+            "value": "Tiramisú",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-6",
+            "value": "Gofres",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-7",
+            "value": "Alcohol",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-8",
+            "value": "Cerveza",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-9",
+            "value": "Cócteles",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-10",
+            "value": "Café",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-11",
+            "value": "Zumo natural",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-12",
+            "value": "Refrigerios",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-13",
+            "value": "Té",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-14",
+            "value": "Vino",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-15",
+            "value": "Hamburguesa",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-16",
+            "value": "Patatas fritas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-17",
+            "value": "Paella",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-18",
+            "value": "Sándwich",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:cuisine:business-19",
+            "value": "Tapas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          }
+        ],
+        "specialties": [],
+        "featuredItems": [
+          {
+            "id": "trasto:item:paella-menu-dia",
+            "value": {
+              "name": "Paella del menú del día (según su web)",
+              "source": "official-website:https://trastobar.eatbu.com/?lang=es",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          }
+        ],
+        "prices": [
+          {
+            "id": "trasto:price:menu-dia",
+            "value": {
+              "item": "Menú del día",
+              "value": 5.5,
+              "currency": "EUR",
+              "priceQualifier": "incluye entrante, plato principal, pan y bebida",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          }
+        ],
+        "services": [
+          {
+            "id": "business-restaurante-trasto-bar:services:business-0",
+            "value": "menú del día",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:services:business-1",
+            "value": "Acepta reservas",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:services:business-2",
+            "value": "Servicio para llevar",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:services:business-3",
+            "value": "Terraza",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          }
+        ],
+        "location": [],
+        "practical": [
+          {
+            "id": "business-restaurante-trasto-bar:practical:business-0",
+            "value": "Monday: 06:30-22:00",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:practical:business-2",
+            "value": "Wednesday: 06:30-22:00",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:practical:business-4",
+            "value": "Thursday: 06:30-22:00",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:practical:business-6",
+            "value": "Friday: 06:30-22:00",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:practical:business-8",
+            "value": "Saturday: 06:30-22:00",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          },
+          {
+            "id": "business-restaurante-trasto-bar:practical:business-10",
+            "value": "Sunday: 06:30-22:00",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          }
+        ],
+        "limitations": [
+          {
+            "id": "trasto:limitation:paella-disponibilidad",
+            "value": "La web no indica qué días incluye paella el menú del día",
+            "nature": "external_observation",
+            "sourceKeys": [
+              "official-website:https://trastobar.eatbu.com/?lang=es"
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "key": "official-website:https://trastobar.eatbu.com/?lang=es",
+          "provider": "official-website",
+          "identifier": "https://trastobar.eatbu.com/?lang=es",
+          "url": "https://trastobar.eatbu.com/?lang=es",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial de Trasto Bar (eatbu.com)",
+          "licenseUrl": null
+        }
+      ]
+    },
+    {
+      "businessId": "business-ulia",
+      "name": "Ulia",
+      "qualityTier": "basic",
+      "topicEvidence": [
+        "cuisine=arroces"
+      ],
+      "scores": {
+        "topicRelevance": 5,
+        "specificity": 5,
+        "comparisonCoverage": 3,
+        "distinctiveValue": 3,
+        "practicalUsefulness": 4,
+        "total": 20
+      },
+      "evidence": {
+        "cuisine": [
+          {
+            "id": "business-ulia:cuisine:business-0",
+            "value": "regional",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4405971162",
+              "official-website:https://restauranteulia.es/",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/es",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/en",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/ru",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/fr"
+            ]
+          },
+          {
+            "id": "business-ulia:cuisine:business-1",
+            "value": "española",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4405971162",
+              "official-website:https://restauranteulia.es/",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/es",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/en",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/ru",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/fr"
+            ]
+          },
+          {
+            "id": "business-ulia:cuisine:business-2",
+            "value": "mariscos",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4405971162",
+              "official-website:https://restauranteulia.es/",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/es",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/en",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/ru",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/fr"
+            ]
+          },
+          {
+            "id": "business-ulia:cuisine:business-3",
+            "value": "arroces",
+            "nature": "factual",
+            "sourceKeys": [
+              "openstreetmap:node/4405971162",
+              "official-website:https://restauranteulia.es/",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/es",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/en",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/ru",
+              "official-website:https://restauranteulia.es/Base/ChangeLang/fr"
+            ]
+          }
+        ],
+        "specialties": [
+          {
+            "id": "ulia:specialty:arroces",
+            "value": "Arroces",
+            "nature": "self_claim",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/"
+            ]
+          }
+        ],
+        "featuredItems": [
+          {
+            "id": "ulia:item:arroz-senyoret",
+            "value": {
+              "name": "Arroz senyoret",
+              "price": 17.9,
+              "currency": "EUR",
+              "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:item:arroz-a-banda",
+            "value": {
+              "name": "Arroz a banda",
+              "price": 15.4,
+              "currency": "EUR",
+              "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:item:arroz-negro",
+            "value": {
+              "name": "Arroz negro",
+              "price": 16.5,
+              "currency": "EUR",
+              "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:item:arroz-bogavante",
+            "value": {
+              "name": "Arroz con bogavante",
+              "price": 21.9,
+              "currency": "EUR",
+              "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:item:arroz-langosta",
+            "value": {
+              "name": "Arroz con langosta de la Bahía",
+              "price": 35,
+              "currency": "EUR",
+              "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          }
+        ],
+        "prices": [
+          {
+            "id": "ulia:price:arroz-senyoret",
+            "value": {
+              "item": "Arroz senyoret",
+              "value": 17.9,
+              "currency": "EUR",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:price:arroz-a-banda",
+            "value": {
+              "item": "Arroz a banda",
+              "value": 15.4,
+              "currency": "EUR",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:price:arroz-negro",
+            "value": {
+              "item": "Arroz negro",
+              "value": 16.5,
+              "currency": "EUR",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:price:arroz-bogavante",
+            "value": {
+              "item": "Arroz con bogavante",
+              "value": 21.9,
+              "currency": "EUR",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          },
+          {
+            "id": "ulia:price:arroz-langosta",
+            "value": {
+              "item": "Arroz con langosta de la Bahía",
+              "value": 35,
+              "currency": "EUR",
+              "retrievedAt": "2026-10-07"
+            },
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/carta/Platos/7"
+            ]
+          }
+        ],
+        "services": [
+          {
+            "id": "business-ulia:services:business-0",
+            "value": "almuerzo",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/"
+            ]
+          },
+          {
+            "id": "business-ulia:services:business-1",
+            "value": "Servicio para llevar",
+            "nature": "factual",
+            "sourceKeys": [
+              "official-website:https://restauranteulia.es/"
+            ]
+          }
+        ],
+        "location": [],
+        "practical": [],
+        "limitations": []
+      },
+      "sources": [
+        {
+          "key": "openstreetmap:node/4405971162",
+          "provider": "openstreetmap",
+          "identifier": "node/4405971162",
+          "url": "https://www.openstreetmap.org/node/4405971162",
+          "retrievedAt": "2026-10-07T11:08:43.471Z",
+          "attribution": "© OpenStreetMap contributors",
+          "licenseUrl": "https://www.openstreetmap.org/copyright"
+        },
+        {
+          "key": "official-website:https://restauranteulia.es/",
+          "provider": "official-website",
+          "identifier": "https://restauranteulia.es/",
+          "url": "https://restauranteulia.es/",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (restauranteulia.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://restauranteulia.es/Base/ChangeLang/es",
+          "provider": "official-website",
+          "identifier": "https://restauranteulia.es/Base/ChangeLang/es",
+          "url": "https://restauranteulia.es/Base/ChangeLang/es",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (restauranteulia.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://restauranteulia.es/Base/ChangeLang/en",
+          "provider": "official-website",
+          "identifier": "https://restauranteulia.es/Base/ChangeLang/en",
+          "url": "https://restauranteulia.es/Base/ChangeLang/en",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (restauranteulia.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://restauranteulia.es/Base/ChangeLang/ru",
+          "provider": "official-website",
+          "identifier": "https://restauranteulia.es/Base/ChangeLang/ru",
+          "url": "https://restauranteulia.es/Base/ChangeLang/ru",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (restauranteulia.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://restauranteulia.es/Base/ChangeLang/fr",
+          "provider": "official-website",
+          "identifier": "https://restauranteulia.es/Base/ChangeLang/fr",
+          "url": "https://restauranteulia.es/Base/ChangeLang/fr",
+          "retrievedAt": "2026-10-07T11:09:26.577Z",
+          "attribution": "Sitio web oficial (restauranteulia.es)",
+          "licenseUrl": null
+        },
+        {
+          "key": "official-website:https://restauranteulia.es/carta/Platos/7",
+          "provider": "official-website",
+          "identifier": "https://restauranteulia.es/carta/Platos/7",
+          "url": "https://restauranteulia.es/carta/Platos/7",
+          "retrievedAt": "2026-10-07T00:00:00.000Z",
+          "attribution": "Sitio web oficial (restauranteulia.es)",
+          "licenseUrl": null
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "key": "openstreetmap:node/4406771698",
+      "provider": "openstreetmap",
+      "identifier": "node/4406771698",
+      "url": "https://www.openstreetmap.org/node/4406771698",
+      "retrievedAt": "2026-10-07T11:08:43.471Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://ongietorribenidorm.com/",
+      "provider": "official-website",
+      "identifier": "https://ongietorribenidorm.com/",
+      "url": "https://ongietorribenidorm.com/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+      "provider": "official-website",
+      "identifier": "https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+      "url": "https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "provider": "official-website",
+      "identifier": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "url": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "provider": "official-website",
+      "identifier": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "url": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+      "provider": "official-website",
+      "identifier": "https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+      "url": "https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (ongietorribenidorm.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "openstreetmap:node/4406717526",
+      "provider": "openstreetmap",
+      "identifier": "node/4406717526",
+      "url": "https://www.openstreetmap.org/node/4406717526",
+      "retrievedAt": "2026-10-06T11:53:45.905Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://www.restaurante-labahia.com/",
+      "provider": "official-website",
+      "identifier": "https://www.restaurante-labahia.com/",
+      "url": "https://www.restaurante-labahia.com/",
+      "retrievedAt": "2026-10-06T16:43:31.106Z",
+      "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.restaurante-labahia.com/carta",
+      "provider": "official-website",
+      "identifier": "https://www.restaurante-labahia.com/carta",
+      "url": "https://www.restaurante-labahia.com/carta",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.restaurante-labahia.com/restaurante",
+      "provider": "official-website",
+      "identifier": "https://www.restaurante-labahia.com/restaurante",
+      "url": "https://www.restaurante-labahia.com/restaurante",
+      "retrievedAt": "2026-10-06T16:43:31.106Z",
+      "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.restaurante-labahia.com/eventos",
+      "provider": "official-website",
+      "identifier": "https://www.restaurante-labahia.com/eventos",
+      "url": "https://www.restaurante-labahia.com/eventos",
+      "retrievedAt": "2026-10-06T16:43:31.106Z",
+      "attribution": "Sitio web oficial (www.restaurante-labahia.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "openstreetmap:node/4343358694",
+      "provider": "openstreetmap",
+      "identifier": "node/4343358694",
+      "url": "https://www.openstreetmap.org/node/4343358694",
+      "retrievedAt": "2026-10-07T11:08:43.471Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://www.lacavaaragonesa.es/",
+      "provider": "official-website",
+      "identifier": "https://www.lacavaaragonesa.es/",
+      "url": "https://www.lacavaaragonesa.es/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "provider": "official-website",
+      "identifier": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "url": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.lacavaaragonesa.es/menu-la-cava/",
+      "provider": "official-website",
+      "identifier": "https://www.lacavaaragonesa.es/menu-la-cava/",
+      "url": "https://www.lacavaaragonesa.es/menu-la-cava/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+      "provider": "official-website",
+      "identifier": "https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+      "url": "https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+      "provider": "official-website",
+      "identifier": "https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+      "url": "https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.lacavaaragonesa.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "openstreetmap:node/4343227072",
+      "provider": "openstreetmap",
+      "identifier": "node/4343227072",
+      "url": "https://www.openstreetmap.org/node/4343227072",
+      "retrievedAt": "2026-10-07T11:08:43.471Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://www.jardinmediterraneo.com/",
+      "provider": "official-website",
+      "identifier": "https://www.jardinmediterraneo.com/",
+      "url": "https://www.jardinmediterraneo.com/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.jardinmediterraneo.com/restaurante/",
+      "provider": "official-website",
+      "identifier": "https://www.jardinmediterraneo.com/restaurante/",
+      "url": "https://www.jardinmediterraneo.com/restaurante/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.jardinmediterraneo.com/carta/",
+      "provider": "official-website",
+      "identifier": "https://www.jardinmediterraneo.com/carta/",
+      "url": "https://www.jardinmediterraneo.com/carta/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.jardinmediterraneo.com/menu/",
+      "provider": "official-website",
+      "identifier": "https://www.jardinmediterraneo.com/menu/",
+      "url": "https://www.jardinmediterraneo.com/menu/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.jardinmediterraneo.com/reservas/",
+      "provider": "official-website",
+      "identifier": "https://www.jardinmediterraneo.com/reservas/",
+      "url": "https://www.jardinmediterraneo.com/reservas/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.jardinmediterraneo.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "openstreetmap:node/5020741321",
+      "provider": "openstreetmap",
+      "identifier": "node/5020741321",
+      "url": "https://www.openstreetmap.org/node/5020741321",
+      "retrievedAt": "2026-10-07T11:08:43.471Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:http://www.marisqueriacordoba.com/",
+      "provider": "official-website",
+      "identifier": "http://www.marisqueriacordoba.com/",
+      "url": "http://www.marisqueriacordoba.com/",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.marisqueriacordoba.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:http://www.marisqueriacordoba.com/la-carta.html",
+      "provider": "official-website",
+      "identifier": "http://www.marisqueriacordoba.com/la-carta.html",
+      "url": "http://www.marisqueriacordoba.com/la-carta.html",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (www.marisqueriacordoba.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+      "provider": "official-website",
+      "identifier": "https://www.marisqueriacordoba.com/la-carta.html",
+      "url": "https://www.marisqueriacordoba.com/la-carta.html",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (www.marisqueriacordoba.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://trastobar.eatbu.com/?lang=es",
+      "provider": "official-website",
+      "identifier": "https://trastobar.eatbu.com/?lang=es",
+      "url": "https://trastobar.eatbu.com/?lang=es",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial de Trasto Bar (eatbu.com)",
+      "licenseUrl": null
+    },
+    {
+      "key": "openstreetmap:node/4405971162",
+      "provider": "openstreetmap",
+      "identifier": "node/4405971162",
+      "url": "https://www.openstreetmap.org/node/4405971162",
+      "retrievedAt": "2026-10-07T11:08:43.471Z",
+      "attribution": "© OpenStreetMap contributors",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/",
+      "url": "https://restauranteulia.es/",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/Base/ChangeLang/es",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/Base/ChangeLang/es",
+      "url": "https://restauranteulia.es/Base/ChangeLang/es",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/Base/ChangeLang/en",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/Base/ChangeLang/en",
+      "url": "https://restauranteulia.es/Base/ChangeLang/en",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/Base/ChangeLang/ru",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/Base/ChangeLang/ru",
+      "url": "https://restauranteulia.es/Base/ChangeLang/ru",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/Base/ChangeLang/fr",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/Base/ChangeLang/fr",
+      "url": "https://restauranteulia.es/Base/ChangeLang/fr",
+      "retrievedAt": "2026-10-07T11:09:26.577Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    },
+    {
+      "key": "official-website:https://restauranteulia.es/carta/Platos/7",
+      "provider": "official-website",
+      "identifier": "https://restauranteulia.es/carta/Platos/7",
+      "url": "https://restauranteulia.es/carta/Platos/7",
+      "retrievedAt": "2026-10-07T00:00:00.000Z",
+      "attribution": "Sitio web oficial (restauranteulia.es)",
+      "licenseUrl": null
+    }
+  ],
+  "sourceConflicts": []
+}
