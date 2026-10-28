@@ -1,0 +1,1636 @@
+{
+  "schemaVersion": 1,
+  "id": "comparison-arroces",
+  "topic": "arroces",
+  "searchIntent": "elegir dónde comer arroz en Benidorm",
+  "indexability": "index",
+  "generatedAt": "2026-10-07T11:30:20.493Z",
+  "editorial": {
+    "title": "Dónde comer arroz en Benidorm: cartas, estilos y precios",
+    "intro": "La oferta de arroces en Benidorm reúne cartas centradas en preparaciones marineras, propuestas mediterráneas y formatos de menú. Esta comparación sirve para distinguir entre restaurantes con varios arroces a la carta, opciones vinculadas a menús diarios y locales donde la carta digital no muestra precios, además de tener en cuenta condiciones como el mínimo de comensales o el encargo previo.",
+    "quickVerdict": "Mientras Ongi Etorri concentra varias preparaciones de arroz por persona, Cafetería La Bahía combina arroces con un menú diario y una propuesta frente al mar.",
+    "choiceGuide": [
+      {
+        "businessId": "business-ongi-etorri",
+        "label": "Para compartir varios arroces y elegir entre preparaciones marineras",
+        "reason": "La carta incluye arroz a banda, arroz negro, paella de marisco y arroz caldoso con bogavante; además, acepta reservas y ofrece servicio para llevar (según su web)."
+      },
+      {
+        "businessId": "business-cafeteria-la-bahia",
+        "label": "Si buscas unir arroz y menú diario junto a la playa",
+        "reason": "La propuesta combina arroces con menú diario, terraza y vistas al mar; la carta menciona arroz a banda y paella mixta según su web."
+      },
+      {
+        "businessId": "business-la-cava-aragonesa",
+        "label": "Para explorar arroces con mariscos y combinaciones menos habituales",
+        "reason": "La carta incluye arroz con kokotxas de bacalao y zamburiñas, además de arroz con bogavante, arroz negro y paella de marisco."
+      },
+      {
+        "businessId": "business-jardin-mediterraneo",
+        "label": "Si prefieres una carta amplia de arroces mediterráneos",
+        "reason": "Según su web, incluye paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco."
+      },
+      {
+        "businessId": "business-marisqueria-cordoba",
+        "label": "Para combinar arroces y mariscos en el centro",
+        "reason": "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos; también dispone de terraza."
+      },
+      {
+        "businessId": "business-restaurante-trasto-bar",
+        "label": "Si buscas una paella dentro de un menú del día",
+        "reason": "Su web incluye paella del menú del día y ofrece menú del día, reservas, servicio para llevar y terraza; conviene comprobar cuándo aparece la paella."
+      },
+      {
+        "businessId": "business-ulia",
+        "label": "Para comparar varios arroces de marisco en una carta específica",
+        "reason": "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía; también ofrece servicio para llevar."
+      }
+    ],
+    "entries": [
+      {
+        "businessId": "business-ongi-etorri",
+        "verdict": "Ongi Etorri presenta una carta de arroces variada, con alternativas de marisco y preparaciones caldosas, y permite comparar varias opciones por persona.",
+        "strengths": [
+          "La carta incluye arroz a banda, arroz negro, paella de marisco y fideuá de marisco (según su web).",
+          "Según su web, sus especialidades incluyen arroz a banda, arroz caldoso con bogavante y paella de marisco.",
+          "También ofrece reservas, servicio para llevar y terraza."
+        ],
+        "limitations": [
+          "Los arroces y paellas exigen un mínimo de 2 personas.",
+          "El arroz caldoso con bogavante requiere encargo."
+        ],
+        "bestFor": [
+          "Arroces de marisco",
+          "Arroz caldoso con bogavante"
+        ],
+        "featuredItem": {
+          "name": "Arroz a banda",
+          "price": 16.5,
+          "currency": "EUR",
+          "priceQualifier": "por persona; mínimo 2 personas",
+          "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: playa de Poniente",
+          "Reservas: sí",
+          "Servicio: para llevar"
+        ]
+      },
+      {
+        "businessId": "business-cafeteria-la-bahia",
+        "verdict": "Cafetería La Bahía combina una propuesta de arroces con menú diario, terraza y vistas al mar, de modo que el formato de comida pesa tanto como la elección del arroz.",
+        "strengths": [
+          "La carta incluye arroz a banda y paella mixta según su web.",
+          "Ofrece menú diario, terraza y menús para grupos con reserva.",
+          "El negocio indica una ubicación en primera línea de playa, playa de Levante, con vistas al mar."
+        ],
+        "limitations": [
+          "El menú diario varía según temporada.",
+          "El menú para grupos exige un mínimo de 8 personas."
+        ],
+        "bestFor": [
+          "Arroz a banda según su web",
+          "Menú diario"
+        ],
+        "featuredItem": {
+          "name": "Arroz a banda (según su web)",
+          "price": null,
+          "currency": null,
+          "priceQualifier": null,
+          "source": "official-website:https://www.restaurante-labahia.com/carta",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: primera línea de playa, playa de Levante",
+          "Reservas: sí",
+          "Menú: diario"
+        ]
+      },
+      {
+        "businessId": "business-la-cava-aragonesa",
+        "verdict": "La Cava Aragonesa se diferencia por una carta de arroces con mariscos y combinaciones concretas, junto con una propuesta que incluye opciones regionales y americanas.",
+        "strengths": [
+          "La carta incluye arroz a banda, arroz con bogavante, arroz con kokotxas de bacalao y zamburiñas, arroz negro y paella de marisco.",
+          "Ofrece reservas y terraza.",
+          "Se encuentra en el centro de Benidorm."
+        ],
+        "limitations": [],
+        "bestFor": [
+          "Arroz con kokotxas de bacalao y zamburiñas",
+          "Arroces con mariscos"
+        ],
+        "featuredItem": {
+          "name": "Arroz a banda",
+          "price": 19.3,
+          "currency": "EUR",
+          "priceQualifier": "cada unidad",
+          "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: centro de Benidorm",
+          "Reservas: sí"
+        ]
+      },
+      {
+        "businessId": "business-jardin-mediterraneo",
+        "verdict": "Jardín Mediterráneo ofrece una selección amplia de arroces y fideuá según su web.",
+        "strengths": [
+          "Según su web, la carta incluye arroz a banda, paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco.",
+          "Ofrece menús turísticos diarios y menús especiales y personalizables para grupos y eventos.",
+          "También dispone de reservas, servicio para llevar y terraza."
+        ],
+        "limitations": [
+          "La carta digital está en actualización y no publica precios de los arroces."
+        ],
+        "bestFor": [
+          "Arroces mediterráneos",
+          "Arroz meloso de rape y almejas según su web"
+        ],
+        "featuredItem": {
+          "name": "Arroz a banda (según su web)",
+          "price": null,
+          "currency": null,
+          "priceQualifier": null,
+          "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: playa de Levante",
+          "Reservas: sí",
+          "Menús: turísticos diarios"
+        ]
+      },
+      {
+        "businessId": "business-marisqueria-cordoba",
+        "verdict": "Marisquería Córdoba vincula los arroces con una carta de mariscos y ofrece varias preparaciones en raciones, con terraza en el centro de Benidorm.",
+        "strengths": [
+          "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos.",
+          "La propuesta combina mariscos, arroces y cocina española.",
+          "Dispone de terraza y cocina abierta."
+        ],
+        "limitations": [
+          "Los arroces y la fideuá exigen un mínimo de 2 personas."
+        ],
+        "bestFor": [
+          "Paella de mariscos",
+          "Arroz con bogavante y mariscos"
+        ],
+        "featuredItem": {
+          "name": "Paella de mariscos",
+          "price": 10,
+          "currency": "EUR",
+          "priceQualifier": "por ración; mínimo 2 personas",
+          "source": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: centro de Benidorm",
+          "Servicio: terraza"
+        ]
+      },
+      {
+        "businessId": "business-restaurante-trasto-bar",
+        "verdict": "Restaurante Trasto bar plantea la paella como parte de un menú del día, junto con una oferta de bar y servicios prácticos, en lugar de una carta extensa de arroces.",
+        "strengths": [
+          "Su web incluye paella del menú del día.",
+          "Ofrece menú del día, reservas, servicio para llevar y terraza.",
+          "La carta también incluye tapas, hamburguesa y sándwich."
+        ],
+        "limitations": [
+          "La web no indica qué días incluye paella el menú del día."
+        ],
+        "bestFor": [
+          "Paella del menú del día",
+          "menú del día"
+        ],
+        "featuredItem": {
+          "name": "Paella del menú del día (según su web)",
+          "price": null,
+          "currency": null,
+          "priceQualifier": null,
+          "source": "official-website:https://trastobar.eatbu.com/?lang=es",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Lu, Mi–Do: 06:30–22:00",
+          "Reservas: sí",
+          "Servicio: para llevar"
+        ]
+      },
+      {
+        "businessId": "business-ulia",
+        "verdict": "Ulia reúne una carta específica de arroces con distintas preparaciones de marisco, desde arroz a banda y arroz negro hasta opciones con bogavante o langosta (según su web).",
+        "strengths": [
+          "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía.",
+          "Según su web, el negocio presenta los arroces como especialidad.",
+          "Ofrece almuerzo y servicio para llevar."
+        ],
+        "limitations": [],
+        "bestFor": [
+          "Arroz senyoret",
+          "Arroz con langosta de la Bahía"
+        ],
+        "featuredItem": {
+          "name": "Arroz senyoret",
+          "price": 17.9,
+          "currency": "EUR",
+          "priceQualifier": null,
+          "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Servicio: almuerzo y para llevar"
+        ]
+      }
+    ],
+    "methodology": "Comparamos cartas, especialidades, precios publicados, horarios, reservas, ubicación y servicios a partir de webs oficiales, cartas públicas y OpenStreetMap. No todos los establecimientos han sido visitados personalmente y los precios pueden cambiar.",
+    "criteria": [
+      "Carta y especialidades",
+      "Platos y precios publicados",
+      "Horarios y reservas",
+      "Ubicación y servicios",
+      "Diferencias útiles para elegir"
+    ],
+    "seo": {
+      "metaTitle": "Dónde comer arroz en Benidorm: comparación de restaurantes",
+      "metaDescription": "Compara restaurantes de Benidorm para comer arroz según sus cartas, especialidades, precios publicados, menús y condiciones."
+    },
+    "claims": [
+      {
+        "path": "intro",
+        "claim": "La oferta de arroces en Benidorm reúne cartas centradas en preparaciones marineras, propuestas mediterráneas y formatos de menú.",
+        "supportedBy": [
+          "business-ongi-etorri:cuisine:business-2",
+          "business-cafeteria-la-bahia:cuisine:business-2",
+          "business-restaurante-trasto-bar:services:business-0"
+        ]
+      },
+      {
+        "path": "intro",
+        "claim": "Hay restaurantes con varios arroces a la carta, opciones vinculadas a menús diarios y un caso en el que la carta digital no muestra precios de los arroces.",
+        "supportedBy": [
+          "ongi:item:arroz-a-banda",
+          "business-restaurante-trasto-bar:services:business-0",
+          "jardin:limitation:carta-actualizacion"
+        ]
+      },
+      {
+        "path": "quickVerdict",
+        "claim": "Ongi Etorri concentra varias preparaciones de arroz por persona.",
+        "supportedBy": [
+          "business-ongi-etorri:cuisine:business-2",
+          "ongi:price:arroz-a-banda"
+        ]
+      },
+      {
+        "path": "quickVerdict",
+        "claim": "Cafetería La Bahía combina arroces con un menú diario y una propuesta frente al mar.",
+        "supportedBy": [
+          "business-cafeteria-la-bahia:cuisine:business-1",
+          "la-bahia:service:menu-diario",
+          "business-cafeteria-la-bahia:location:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.verdict",
+        "claim": "Ongi Etorri presenta una carta de arroces variada, con alternativas de marisco y preparaciones caldosas, y permite comparar varias opciones por persona.",
+        "supportedBy": [
+          "business-ongi-etorri:cuisine:business-2",
+          "business-ongi-etorri:cuisine:business-4",
+          "ongi:specialty:arroz-caldoso-bogavante"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.strengths.0",
+        "claim": "La carta incluye arroz a banda, arroz negro, paella de marisco y fideuá de marisco (según su web).",
+        "supportedBy": [
+          "ongi:item:arroz-a-banda",
+          "ongi:item:arroz-negro",
+          "ongi:item:paella-marisco",
+          "ongi:item:fideua-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.strengths.1",
+        "claim": "Según su web, sus especialidades incluyen arroz a banda, arroz caldoso con bogavante y paella de marisco.",
+        "supportedBy": [
+          "ongi:specialty:arroz-a-banda",
+          "ongi:specialty:arroz-caldoso-bogavante",
+          "ongi:specialty:paella-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.strengths.2",
+        "claim": "También ofrece reservas, servicio para llevar y terraza.",
+        "supportedBy": [
+          "business-ongi-etorri:services:business-1",
+          "business-ongi-etorri:services:business-2",
+          "business-ongi-etorri:services:business-3"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.limitations.0",
+        "claim": "Los arroces y paellas exigen un mínimo de 2 personas.",
+        "supportedBy": [
+          "ongi:limitation:minimo-dos"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.limitations.1",
+        "claim": "El arroz caldoso con bogavante requiere encargo.",
+        "supportedBy": [
+          "ongi:limitation:bogavante-encargo"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.featuredItem",
+        "claim": "Arroz a banda 16.5 EUR por persona; mínimo 2 personas",
+        "supportedBy": [
+          "ongi:item:arroz-a-banda",
+          "ongi:item:arroz-caldoso-bogavante",
+          "ongi:item:arroz-negro",
+          "ongi:item:paella-marisco",
+          "ongi:item:fideua-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.verdict",
+        "claim": "Cafetería La Bahía combina una propuesta de arroces con menú diario, terraza y vistas al mar, de modo que el formato de comida pesa tanto como la elección del arroz.",
+        "supportedBy": [
+          "business-cafeteria-la-bahia:cuisine:business-1",
+          "la-bahia:service:menu-diario",
+          "business-cafeteria-la-bahia:services:business-2",
+          "business-cafeteria-la-bahia:location:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.strengths.0",
+        "claim": "La carta incluye arroz a banda y paella mixta según su web.",
+        "supportedBy": [
+          "la-bahia:item:arroz-a-banda",
+          "la-bahia:item:paella-mixta"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.strengths.1",
+        "claim": "Ofrece menú diario, terraza y menús para grupos con reserva.",
+        "supportedBy": [
+          "la-bahia:service:menu-diario",
+          "business-cafeteria-la-bahia:services:business-2",
+          "la-bahia:service:menu-grupos-reserva"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.strengths.2",
+        "claim": "El negocio indica una ubicación en primera línea de playa, playa de Levante, con vistas al mar.",
+        "supportedBy": [
+          "business-cafeteria-la-bahia:location:business-0",
+          "business-cafeteria-la-bahia:location:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.limitations.0",
+        "claim": "El menú diario varía según temporada.",
+        "supportedBy": [
+          "la-bahia:limitation:menu-temporada"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.limitations.1",
+        "claim": "El menú para grupos exige un mínimo de 8 personas.",
+        "supportedBy": [
+          "la-bahia:limitation:menu-grupos-minimo"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.featuredItem",
+        "claim": "Arroz a banda (según su web)",
+        "supportedBy": [
+          "la-bahia:item:arroz-a-banda",
+          "la-bahia:item:paella-mixta"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.verdict",
+        "claim": "La Cava Aragonesa se diferencia por una carta de arroces con mariscos y combinaciones concretas, junto con una propuesta que incluye opciones regionales y americanas.",
+        "supportedBy": [
+          "business-la-cava-aragonesa:cuisine:business-1",
+          "cava:item:arroz-kokotxas",
+          "cava:item:arroz-bogavante"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.strengths.0",
+        "claim": "La carta incluye arroz a banda, arroz con bogavante, arroz con kokotxas de bacalao y zamburiñas, arroz negro y paella de marisco.",
+        "supportedBy": [
+          "cava:item:arroz-a-banda",
+          "cava:item:arroz-bogavante",
+          "cava:item:arroz-kokotxas",
+          "cava:item:arroz-negro",
+          "cava:item:paella-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.strengths.1",
+        "claim": "Ofrece reservas y terraza.",
+        "supportedBy": [
+          "business-la-cava-aragonesa:services:business-1",
+          "business-la-cava-aragonesa:services:business-2"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.strengths.2",
+        "claim": "Se encuentra en el centro de Benidorm.",
+        "supportedBy": [
+          "business-la-cava-aragonesa:location:business-0"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.featuredItem",
+        "claim": "Arroz a banda 19.3 EUR cada unidad",
+        "supportedBy": [
+          "cava:item:arroz-a-banda",
+          "cava:item:arroz-bogavante",
+          "cava:item:arroz-kokotxas",
+          "cava:item:arroz-negro",
+          "cava:item:paella-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.verdict",
+        "claim": "Jardín Mediterráneo ofrece una selección amplia de arroces y fideuá según su web.",
+        "supportedBy": [
+          "jardin:item:arroz-a-banda",
+          "jardin:item:paella-valenciana",
+          "jardin:item:arroz-negro",
+          "jardin:item:arroz-caldoso-bogavante",
+          "jardin:item:arroz-meloso-rape",
+          "jardin:item:fideua-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.strengths.0",
+        "claim": "Según su web, la carta incluye arroz a banda, paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco.",
+        "supportedBy": [
+          "jardin:item:arroz-a-banda",
+          "jardin:item:paella-valenciana",
+          "jardin:item:arroz-negro",
+          "jardin:item:arroz-caldoso-bogavante",
+          "jardin:item:arroz-meloso-rape",
+          "jardin:item:fideua-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.strengths.1",
+        "claim": "Ofrece menús turísticos diarios y menús especiales y personalizables para grupos y eventos.",
+        "supportedBy": [
+          "jardin:service:menus-diarios",
+          "jardin:service:menus-grupos"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.strengths.2",
+        "claim": "También dispone de reservas, servicio para llevar y terraza.",
+        "supportedBy": [
+          "business-jardin-mediterraneo:services:business-1",
+          "business-jardin-mediterraneo:services:business-2",
+          "business-jardin-mediterraneo:services:business-3"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.limitations.0",
+        "claim": "La carta digital está en actualización y no publica precios de los arroces.",
+        "supportedBy": [
+          "jardin:limitation:carta-actualizacion"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.featuredItem",
+        "claim": "Arroz a banda (según su web)",
+        "supportedBy": [
+          "jardin:item:arroz-a-banda",
+          "jardin:item:paella-valenciana",
+          "jardin:item:arroz-negro",
+          "jardin:item:arroz-caldoso-bogavante",
+          "jardin:item:arroz-meloso-rape",
+          "jardin:item:fideua-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.verdict",
+        "claim": "Marisquería Córdoba vincula los arroces con una carta de mariscos y ofrece varias preparaciones en raciones, con terraza en el centro de Benidorm.",
+        "supportedBy": [
+          "business-marisqueria-cordoba:cuisine:business-1",
+          "business-marisqueria-cordoba:cuisine:business-2",
+          "cordoba:item:paella-mariscos",
+          "cordoba:item:arroz-a-banda"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.strengths.0",
+        "claim": "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos.",
+        "supportedBy": [
+          "cordoba:item:paella-mariscos",
+          "cordoba:item:arroz-bogavante",
+          "cordoba:item:arroz-a-banda",
+          "cordoba:item:fideua-mariscos"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.strengths.1",
+        "claim": "La propuesta combina mariscos, arroces y cocina española.",
+        "supportedBy": [
+          "business-marisqueria-cordoba:cuisine:business-1",
+          "business-marisqueria-cordoba:cuisine:business-2",
+          "business-marisqueria-cordoba:cuisine:business-3"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.strengths.2",
+        "claim": "Dispone de terraza y cocina abierta.",
+        "supportedBy": [
+          "business-marisqueria-cordoba:services:business-0",
+          "business-marisqueria-cordoba:location:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.limitations.0",
+        "claim": "Los arroces y la fideuá exigen un mínimo de 2 personas.",
+        "supportedBy": [
+          "cordoba:limitation:minimo-dos"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.featuredItem",
+        "claim": "Paella de mariscos 10 EUR por ración; mínimo 2 personas",
+        "supportedBy": [
+          "cordoba:item:paella-mariscos",
+          "cordoba:item:arroz-bogavante",
+          "cordoba:item:arroz-a-banda",
+          "cordoba:item:fideua-mariscos"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.verdict",
+        "claim": "Restaurante Trasto bar plantea la paella como parte de un menú del día, junto con una oferta de bar y servicios prácticos, en lugar de una carta extensa de arroces.",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:cuisine:business-17",
+          "business-restaurante-trasto-bar:services:business-0",
+          "business-restaurante-trasto-bar:services:business-2"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.strengths.0",
+        "claim": "Su web incluye paella del menú del día.",
+        "supportedBy": [
+          "trasto:item:paella-menu-dia"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.strengths.1",
+        "claim": "Ofrece menú del día, reservas, servicio para llevar y terraza.",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:services:business-0",
+          "business-restaurante-trasto-bar:services:business-1",
+          "business-restaurante-trasto-bar:services:business-2",
+          "business-restaurante-trasto-bar:services:business-3"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.strengths.2",
+        "claim": "La carta también incluye tapas, hamburguesa y sándwich.",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:cuisine:business-19",
+          "business-restaurante-trasto-bar:cuisine:business-15",
+          "business-restaurante-trasto-bar:cuisine:business-18"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.limitations.0",
+        "claim": "La web no indica qué días incluye paella el menú del día.",
+        "supportedBy": [
+          "trasto:limitation:paella-disponibilidad"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.featuredItem",
+        "claim": "Paella del menú del día (según su web)",
+        "supportedBy": [
+          "trasto:item:paella-menu-dia"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.verdict",
+        "claim": "Ulia reúne una carta específica de arroces con distintas preparaciones de marisco, desde arroz a banda y arroz negro hasta opciones con bogavante o langosta (según su web).",
+        "supportedBy": [
+          "business-ulia:cuisine:business-2",
+          "business-ulia:cuisine:business-3",
+          "ulia:item:arroz-senyoret",
+          "ulia:item:arroz-bogavante",
+          "ulia:item:arroz-langosta"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.strengths.0",
+        "claim": "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía.",
+        "supportedBy": [
+          "ulia:item:arroz-senyoret",
+          "ulia:item:arroz-a-banda",
+          "ulia:item:arroz-negro",
+          "ulia:item:arroz-bogavante",
+          "ulia:item:arroz-langosta"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.strengths.1",
+        "claim": "Según su web, el negocio presenta los arroces como especialidad.",
+        "supportedBy": [
+          "ulia:specialty:arroces"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.strengths.2",
+        "claim": "Ofrece almuerzo y servicio para llevar.",
+        "supportedBy": [
+          "business-ulia:services:business-0",
+          "business-ulia:services:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.featuredItem",
+        "claim": "Arroz senyoret 17.9 EUR",
+        "supportedBy": [
+          "ulia:item:arroz-senyoret",
+          "ulia:item:arroz-a-banda",
+          "ulia:item:arroz-negro",
+          "ulia:item:arroz-bogavante",
+          "ulia:item:arroz-langosta"
+        ]
+      },
+      {
+        "path": "choiceGuide.business-ongi-etorri.reason",
+        "claim": "La carta incluye arroz a banda, arroz negro, paella de marisco y arroz caldoso con bogavante; además, acepta reservas y ofrece servicio para llevar (según su web).",
+        "supportedBy": [
+          "business-ongi-etorri:cuisine:business-4",
+          "ongi:specialty:arroz-a-banda",
+          "ongi:specialty:arroz-caldoso-bogavante",
+          "ongi:specialty:paella-marisco",
+          "ongi:item:arroz-a-banda",
+          "ongi:item:arroz-caldoso-bogavante"
+        ]
+      },
+      {
+        "path": "choiceGuide.business-cafeteria-la-bahia.reason",
+        "claim": "La propuesta combina arroces con menú diario, terraza y vistas al mar; la carta menciona arroz a banda y paella mixta según su web.",
+        "supportedBy": [
+          "business-cafeteria-la-bahia:cuisine:business-1",
+          "la-bahia:item:arroz-a-banda",
+          "la-bahia:item:paella-mixta",
+          "la-bahia:price:menu-diario",
+          "la-bahia:price:menu-grupo-1",
+          "business-cafeteria-la-bahia:services:business-2"
+        ]
+      },
+      {
+        "path": "choiceGuide.business-la-cava-aragonesa.reason",
+        "claim": "La carta incluye arroz con kokotxas de bacalao y zamburiñas, además de arroz con bogavante, arroz negro y paella de marisco.",
+        "supportedBy": [
+          "business-la-cava-aragonesa:cuisine:business-1",
+          "cava:item:arroz-a-banda",
+          "cava:item:arroz-bogavante",
+          "cava:item:arroz-kokotxas",
+          "cava:item:arroz-negro",
+          "cava:item:paella-marisco"
+        ]
+      },
+      {
+        "path": "choiceGuide.business-jardin-mediterraneo.reason",
+        "claim": "Según su web, incluye paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco.",
+        "supportedBy": [
+          "business-jardin-mediterraneo:cuisine:business-3",
+          "jardin:item:arroz-a-banda",
+          "jardin:item:paella-valenciana",
+          "jardin:item:arroz-negro",
+          "jardin:item:arroz-caldoso-bogavante",
+          "jardin:item:arroz-meloso-rape"
+        ]
+      },
+      {
+        "path": "choiceGuide.business-marisqueria-cordoba.reason",
+        "claim": "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos; también dispone de terraza.",
+        "supportedBy": [
+          "business-marisqueria-cordoba:cuisine:business-1",
+          "cordoba:item:paella-mariscos",
+          "cordoba:item:arroz-bogavante",
+          "cordoba:item:arroz-a-banda",
+          "cordoba:item:fideua-mariscos",
+          "cordoba:price:paella-mariscos"
+        ]
+      },
+      {
+        "path": "choiceGuide.business-restaurante-trasto-bar.reason",
+        "claim": "Su web incluye paella del menú del día y ofrece menú del día, reservas, servicio para llevar y terraza; conviene comprobar cuándo aparece la paella.",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:cuisine:business-17",
+          "trasto:item:paella-menu-dia",
+          "trasto:price:menu-dia",
+          "business-restaurante-trasto-bar:services:business-0",
+          "business-restaurante-trasto-bar:services:business-1",
+          "business-restaurante-trasto-bar:services:business-2"
+        ]
+      },
+      {
+        "path": "choiceGuide.business-ulia.reason",
+        "claim": "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía; también ofrece servicio para llevar.",
+        "supportedBy": [
+          "ulia:item:arroz-senyoret",
+          "ulia:item:arroz-a-banda",
+          "ulia:item:arroz-negro",
+          "ulia:item:arroz-bogavante",
+          "ulia:item:arroz-langosta",
+          "ulia:price:arroz-senyoret"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.bestFor.0",
+        "claim": "Arroces de marisco",
+        "supportedBy": [
+          "business-ongi-etorri:cuisine:business-2",
+          "business-ongi-etorri:cuisine:business-4",
+          "ongi:specialty:paella-marisco",
+          "ongi:item:paella-marisco",
+          "ongi:item:fideua-marisco",
+          "ongi:price:paella-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.bestFor.1",
+        "claim": "Arroz caldoso con bogavante",
+        "supportedBy": [
+          "ongi:specialty:arroz-a-banda",
+          "ongi:specialty:arroz-caldoso-bogavante",
+          "ongi:item:arroz-a-banda",
+          "ongi:item:arroz-caldoso-bogavante",
+          "ongi:item:arroz-negro",
+          "ongi:price:arroz-a-banda"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.practicalNotes.0",
+        "claim": "Zona: playa de Poniente",
+        "supportedBy": [
+          "business-ongi-etorri:location:business-0"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.practicalNotes.1",
+        "claim": "Reservas: sí",
+        "supportedBy": [
+          "business-ongi-etorri:services:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-ongi-etorri.practicalNotes.2",
+        "claim": "Servicio: para llevar",
+        "supportedBy": [
+          "business-ongi-etorri:services:business-2"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.bestFor.0",
+        "claim": "Arroz a banda según su web",
+        "supportedBy": [
+          "la-bahia:item:arroz-a-banda",
+          "la-bahia:item:paella-mixta",
+          "la-bahia:limitation:menu-temporada"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.bestFor.1",
+        "claim": "Menú diario",
+        "supportedBy": [
+          "la-bahia:price:menu-diario",
+          "la-bahia:price:menu-grupo-1",
+          "la-bahia:service:menu-diario",
+          "la-bahia:service:menu-grupos-reserva",
+          "la-bahia:limitation:menu-temporada",
+          "la-bahia:limitation:menu-grupos-minimo"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.practicalNotes.0",
+        "claim": "Zona: primera línea de playa, playa de Levante",
+        "supportedBy": [
+          "business-cafeteria-la-bahia:location:business-0"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.practicalNotes.1",
+        "claim": "Reservas: sí",
+        "supportedBy": [
+          "business-cafeteria-la-bahia:services:business-1",
+          "la-bahia:service:menu-grupos-reserva"
+        ]
+      },
+      {
+        "path": "entries.business-cafeteria-la-bahia.practicalNotes.2",
+        "claim": "Menú: diario",
+        "supportedBy": [
+          "la-bahia:price:menu-diario",
+          "la-bahia:price:menu-grupo-1",
+          "la-bahia:service:menu-diario",
+          "la-bahia:service:menu-grupos-reserva",
+          "la-bahia:limitation:menu-temporada",
+          "la-bahia:limitation:menu-grupos-minimo"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.bestFor.0",
+        "claim": "Arroz con kokotxas de bacalao y zamburiñas",
+        "supportedBy": [
+          "cava:item:arroz-a-banda",
+          "cava:item:arroz-bogavante",
+          "cava:item:arroz-kokotxas",
+          "cava:item:arroz-negro",
+          "cava:price:arroz-a-banda",
+          "cava:price:arroz-bogavante"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.bestFor.1",
+        "claim": "Arroces con mariscos",
+        "supportedBy": [
+          "business-la-cava-aragonesa:cuisine:business-1",
+          "business-la-cava-aragonesa:cuisine:business-3",
+          "cava:item:arroz-bogavante",
+          "cava:item:arroz-kokotxas",
+          "cava:item:paella-marisco",
+          "cava:price:arroz-bogavante"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.practicalNotes.0",
+        "claim": "Zona: centro de Benidorm",
+        "supportedBy": [
+          "business-la-cava-aragonesa:location:business-0"
+        ]
+      },
+      {
+        "path": "entries.business-la-cava-aragonesa.practicalNotes.1",
+        "claim": "Reservas: sí",
+        "supportedBy": [
+          "business-la-cava-aragonesa:services:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.bestFor.0",
+        "claim": "Arroces mediterráneos",
+        "supportedBy": [
+          "business-jardin-mediterraneo:cuisine:business-4",
+          "jardin:limitation:carta-actualizacion"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.bestFor.1",
+        "claim": "Arroz meloso de rape y almejas según su web",
+        "supportedBy": [
+          "jardin:item:arroz-a-banda",
+          "jardin:item:paella-valenciana",
+          "jardin:item:arroz-negro",
+          "jardin:item:arroz-caldoso-bogavante",
+          "jardin:item:arroz-meloso-rape",
+          "jardin:item:fideua-marisco"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.practicalNotes.0",
+        "claim": "Zona: playa de Levante",
+        "supportedBy": [
+          "business-jardin-mediterraneo:location:business-0"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.practicalNotes.1",
+        "claim": "Reservas: sí",
+        "supportedBy": [
+          "business-jardin-mediterraneo:services:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-jardin-mediterraneo.practicalNotes.2",
+        "claim": "Menús: turísticos diarios",
+        "supportedBy": [
+          "jardin:service:menus-diarios",
+          "jardin:service:menus-grupos"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.bestFor.0",
+        "claim": "Paella de mariscos",
+        "supportedBy": [
+          "business-marisqueria-cordoba:cuisine:business-1",
+          "cordoba:item:paella-mariscos",
+          "cordoba:item:arroz-bogavante",
+          "cordoba:item:fideua-mariscos",
+          "cordoba:price:paella-mariscos",
+          "cordoba:price:arroz-bogavante"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.bestFor.1",
+        "claim": "Arroz con bogavante y mariscos",
+        "supportedBy": [
+          "business-marisqueria-cordoba:cuisine:business-1",
+          "cordoba:item:paella-mariscos",
+          "cordoba:item:arroz-bogavante",
+          "cordoba:item:arroz-a-banda",
+          "cordoba:item:fideua-mariscos",
+          "cordoba:price:paella-mariscos"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.practicalNotes.0",
+        "claim": "Zona: centro de Benidorm",
+        "supportedBy": [
+          "business-marisqueria-cordoba:location:business-0"
+        ]
+      },
+      {
+        "path": "entries.business-marisqueria-cordoba.practicalNotes.1",
+        "claim": "Servicio: terraza",
+        "supportedBy": [
+          "business-marisqueria-cordoba:services:business-0"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.bestFor.0",
+        "claim": "Paella del menú del día",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:cuisine:business-17",
+          "trasto:item:paella-menu-dia",
+          "trasto:price:menu-dia",
+          "business-restaurante-trasto-bar:services:business-0",
+          "trasto:limitation:paella-disponibilidad"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.bestFor.1",
+        "claim": "menú del día",
+        "supportedBy": [
+          "trasto:item:paella-menu-dia",
+          "trasto:price:menu-dia",
+          "business-restaurante-trasto-bar:services:business-0",
+          "trasto:limitation:paella-disponibilidad"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.practicalNotes.0",
+        "claim": "Lu, Mi–Do: 06:30–22:00",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:practical:business-0",
+          "business-restaurante-trasto-bar:practical:business-2",
+          "business-restaurante-trasto-bar:practical:business-4",
+          "business-restaurante-trasto-bar:practical:business-6",
+          "business-restaurante-trasto-bar:practical:business-8",
+          "business-restaurante-trasto-bar:practical:business-10"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.practicalNotes.1",
+        "claim": "Reservas: sí",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:services:business-1"
+        ]
+      },
+      {
+        "path": "entries.business-restaurante-trasto-bar.practicalNotes.2",
+        "claim": "Servicio: para llevar",
+        "supportedBy": [
+          "business-restaurante-trasto-bar:services:business-2"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.bestFor.0",
+        "claim": "Arroz senyoret",
+        "supportedBy": [
+          "ulia:item:arroz-senyoret",
+          "ulia:item:arroz-a-banda",
+          "ulia:item:arroz-negro",
+          "ulia:item:arroz-bogavante",
+          "ulia:item:arroz-langosta",
+          "ulia:price:arroz-senyoret"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.bestFor.1",
+        "claim": "Arroz con langosta de la Bahía",
+        "supportedBy": [
+          "ulia:item:arroz-senyoret",
+          "ulia:item:arroz-a-banda",
+          "ulia:item:arroz-negro",
+          "ulia:item:arroz-bogavante",
+          "ulia:item:arroz-langosta",
+          "ulia:price:arroz-senyoret"
+        ]
+      },
+      {
+        "path": "entries.business-ulia.practicalNotes.0",
+        "claim": "Servicio: almuerzo y para llevar",
+        "supportedBy": [
+          "business-ulia:services:business-0",
+          "business-ulia:services:business-1"
+        ]
+      },
+      {
+        "path": "quickVerdict",
+        "claim": "Mientras Ongi Etorri concentra varias preparaciones de arroz por persona, Cafetería La Bahía combina arroces con un menú diario y una propuesta frente al mar.",
+        "supportedBy": [
+          "business-ongi-etorri:cuisine:business-2",
+          "business-ongi-etorri:cuisine:business-4",
+          "business-cafeteria-la-bahia:cuisine:business-1",
+          "la-bahia:item:arroz-a-banda",
+          "business-la-cava-aragonesa:cuisine:business-1",
+          "business-la-cava-aragonesa:cuisine:business-3",
+          "business-jardin-mediterraneo:cuisine:business-3",
+          "business-jardin-mediterraneo:cuisine:business-4",
+          "business-marisqueria-cordoba:cuisine:business-1",
+          "business-marisqueria-cordoba:cuisine:business-2",
+          "business-restaurante-trasto-bar:cuisine:business-10",
+          "trasto:item:paella-menu-dia",
+          "business-ulia:cuisine:business-2",
+          "business-ulia:cuisine:business-3"
+        ]
+      }
+    ]
+  },
+  "document": {
+    "_id": "comparison-arroces",
+    "_type": "comparison",
+    "title": "Dónde comer arroz en Benidorm: cartas, estilos y precios",
+    "slug": {
+      "_type": "slug",
+      "current": "arroces"
+    },
+    "language": "es",
+    "topic": "arroces",
+    "category": "donde-comer",
+    "intro": "La oferta de arroces en Benidorm reúne cartas centradas en preparaciones marineras, propuestas mediterráneas y formatos de menú. Esta comparación sirve para distinguir entre restaurantes con varios arroces a la carta, opciones vinculadas a menús diarios y locales donde la carta digital no muestra precios, además de tener en cuenta condiciones como el mínimo de comensales o el encargo previo.",
+    "quickVerdict": "Mientras Ongi Etorri concentra varias preparaciones de arroz por persona, Cafetería La Bahía combina arroces con un menú diario y una propuesta frente al mar.",
+    "choiceGuide": [
+      {
+        "_type": "comparisonChoice",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-ongi-etorri"
+        },
+        "label": "Para compartir varios arroces y elegir entre preparaciones marineras",
+        "reason": "La carta incluye arroz a banda, arroz negro, paella de marisco y arroz caldoso con bogavante; además, acepta reservas y ofrece servicio para llevar (según su web)."
+      },
+      {
+        "_type": "comparisonChoice",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-cafeteria-la-bahia"
+        },
+        "label": "Si buscas unir arroz y menú diario junto a la playa",
+        "reason": "La propuesta combina arroces con menú diario, terraza y vistas al mar; la carta menciona arroz a banda y paella mixta según su web."
+      },
+      {
+        "_type": "comparisonChoice",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-la-cava-aragonesa"
+        },
+        "label": "Para explorar arroces con mariscos y combinaciones menos habituales",
+        "reason": "La carta incluye arroz con kokotxas de bacalao y zamburiñas, además de arroz con bogavante, arroz negro y paella de marisco."
+      },
+      {
+        "_type": "comparisonChoice",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-jardin-mediterraneo"
+        },
+        "label": "Si prefieres una carta amplia de arroces mediterráneos",
+        "reason": "Según su web, incluye paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco."
+      },
+      {
+        "_type": "comparisonChoice",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-marisqueria-cordoba"
+        },
+        "label": "Para combinar arroces y mariscos en el centro",
+        "reason": "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos; también dispone de terraza."
+      },
+      {
+        "_type": "comparisonChoice",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-restaurante-trasto-bar"
+        },
+        "label": "Si buscas una paella dentro de un menú del día",
+        "reason": "Su web incluye paella del menú del día y ofrece menú del día, reservas, servicio para llevar y terraza; conviene comprobar cuándo aparece la paella."
+      },
+      {
+        "_type": "comparisonChoice",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-ulia"
+        },
+        "label": "Para comparar varios arroces de marisco en una carta específica",
+        "reason": "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía; también ofrece servicio para llevar."
+      }
+    ],
+    "entries": [
+      {
+        "_type": "comparisonEntry",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-ongi-etorri"
+        },
+        "verdict": "Ongi Etorri presenta una carta de arroces variada, con alternativas de marisco y preparaciones caldosas, y permite comparar varias opciones por persona.",
+        "strengths": [
+          "La carta incluye arroz a banda, arroz negro, paella de marisco y fideuá de marisco (según su web).",
+          "Según su web, sus especialidades incluyen arroz a banda, arroz caldoso con bogavante y paella de marisco.",
+          "También ofrece reservas, servicio para llevar y terraza."
+        ],
+        "limitations": [
+          "Los arroces y paellas exigen un mínimo de 2 personas.",
+          "El arroz caldoso con bogavante requiere encargo."
+        ],
+        "bestFor": [
+          "Arroces de marisco",
+          "Arroz caldoso con bogavante"
+        ],
+        "featuredItem": {
+          "_type": "comparisonFeaturedItem",
+          "name": "Arroz a banda",
+          "price": 16.5,
+          "currency": "EUR",
+          "priceQualifier": "por persona; mínimo 2 personas",
+          "source": "official-website:https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: playa de Poniente",
+          "Reservas: sí",
+          "Servicio: para llevar"
+        ]
+      },
+      {
+        "_type": "comparisonEntry",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-cafeteria-la-bahia"
+        },
+        "verdict": "Cafetería La Bahía combina una propuesta de arroces con menú diario, terraza y vistas al mar, de modo que el formato de comida pesa tanto como la elección del arroz.",
+        "strengths": [
+          "La carta incluye arroz a banda y paella mixta según su web.",
+          "Ofrece menú diario, terraza y menús para grupos con reserva.",
+          "El negocio indica una ubicación en primera línea de playa, playa de Levante, con vistas al mar."
+        ],
+        "limitations": [
+          "El menú diario varía según temporada.",
+          "El menú para grupos exige un mínimo de 8 personas."
+        ],
+        "bestFor": [
+          "Arroz a banda según su web",
+          "Menú diario"
+        ],
+        "featuredItem": {
+          "_type": "comparisonFeaturedItem",
+          "name": "Arroz a banda (según su web)",
+          "source": "official-website:https://www.restaurante-labahia.com/carta",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: primera línea de playa, playa de Levante",
+          "Reservas: sí",
+          "Menú: diario"
+        ]
+      },
+      {
+        "_type": "comparisonEntry",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-la-cava-aragonesa"
+        },
+        "verdict": "La Cava Aragonesa se diferencia por una carta de arroces con mariscos y combinaciones concretas, junto con una propuesta que incluye opciones regionales y americanas.",
+        "strengths": [
+          "La carta incluye arroz a banda, arroz con bogavante, arroz con kokotxas de bacalao y zamburiñas, arroz negro y paella de marisco.",
+          "Ofrece reservas y terraza.",
+          "Se encuentra en el centro de Benidorm."
+        ],
+        "limitations": [],
+        "bestFor": [
+          "Arroz con kokotxas de bacalao y zamburiñas",
+          "Arroces con mariscos"
+        ],
+        "featuredItem": {
+          "_type": "comparisonFeaturedItem",
+          "name": "Arroz a banda",
+          "price": 19.3,
+          "currency": "EUR",
+          "priceQualifier": "cada unidad",
+          "source": "official-website:https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: centro de Benidorm",
+          "Reservas: sí"
+        ]
+      },
+      {
+        "_type": "comparisonEntry",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-jardin-mediterraneo"
+        },
+        "verdict": "Jardín Mediterráneo ofrece una selección amplia de arroces y fideuá según su web.",
+        "strengths": [
+          "Según su web, la carta incluye arroz a banda, paella valenciana, arroz negro, arroz caldoso de bogavante, arroz meloso de rape y almejas y fideuá de marisco.",
+          "Ofrece menús turísticos diarios y menús especiales y personalizables para grupos y eventos.",
+          "También dispone de reservas, servicio para llevar y terraza."
+        ],
+        "limitations": [
+          "La carta digital está en actualización y no publica precios de los arroces."
+        ],
+        "bestFor": [
+          "Arroces mediterráneos",
+          "Arroz meloso de rape y almejas según su web"
+        ],
+        "featuredItem": {
+          "_type": "comparisonFeaturedItem",
+          "name": "Arroz a banda (según su web)",
+          "source": "official-website:https://www.jardinmediterraneo.com/carta/",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: playa de Levante",
+          "Reservas: sí",
+          "Menús: turísticos diarios"
+        ]
+      },
+      {
+        "_type": "comparisonEntry",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-marisqueria-cordoba"
+        },
+        "verdict": "Marisquería Córdoba vincula los arroces con una carta de mariscos y ofrece varias preparaciones en raciones, con terraza en el centro de Benidorm.",
+        "strengths": [
+          "La carta incluye paella de mariscos, arroz con bogavante y mariscos, arroz a banda y fideuá de mariscos.",
+          "La propuesta combina mariscos, arroces y cocina española.",
+          "Dispone de terraza y cocina abierta."
+        ],
+        "limitations": [
+          "Los arroces y la fideuá exigen un mínimo de 2 personas."
+        ],
+        "bestFor": [
+          "Paella de mariscos",
+          "Arroz con bogavante y mariscos"
+        ],
+        "featuredItem": {
+          "_type": "comparisonFeaturedItem",
+          "name": "Paella de mariscos",
+          "price": 10,
+          "currency": "EUR",
+          "priceQualifier": "por ración; mínimo 2 personas",
+          "source": "official-website:https://www.marisqueriacordoba.com/la-carta.html",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Zona: centro de Benidorm",
+          "Servicio: terraza"
+        ]
+      },
+      {
+        "_type": "comparisonEntry",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-restaurante-trasto-bar"
+        },
+        "verdict": "Restaurante Trasto bar plantea la paella como parte de un menú del día, junto con una oferta de bar y servicios prácticos, en lugar de una carta extensa de arroces.",
+        "strengths": [
+          "Su web incluye paella del menú del día.",
+          "Ofrece menú del día, reservas, servicio para llevar y terraza.",
+          "La carta también incluye tapas, hamburguesa y sándwich."
+        ],
+        "limitations": [
+          "La web no indica qué días incluye paella el menú del día."
+        ],
+        "bestFor": [
+          "Paella del menú del día",
+          "menú del día"
+        ],
+        "featuredItem": {
+          "_type": "comparisonFeaturedItem",
+          "name": "Paella del menú del día (según su web)",
+          "source": "official-website:https://trastobar.eatbu.com/?lang=es",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Lu, Mi–Do: 06:30–22:00",
+          "Reservas: sí",
+          "Servicio: para llevar"
+        ]
+      },
+      {
+        "_type": "comparisonEntry",
+        "business": {
+          "_type": "reference",
+          "_ref": "business-ulia"
+        },
+        "verdict": "Ulia reúne una carta específica de arroces con distintas preparaciones de marisco, desde arroz a banda y arroz negro hasta opciones con bogavante o langosta (según su web).",
+        "strengths": [
+          "La carta incluye arroz senyoret, arroz a banda, arroz negro, arroz con bogavante y arroz con langosta de la Bahía.",
+          "Según su web, el negocio presenta los arroces como especialidad.",
+          "Ofrece almuerzo y servicio para llevar."
+        ],
+        "limitations": [],
+        "bestFor": [
+          "Arroz senyoret",
+          "Arroz con langosta de la Bahía"
+        ],
+        "featuredItem": {
+          "_type": "comparisonFeaturedItem",
+          "name": "Arroz senyoret",
+          "price": 17.9,
+          "currency": "EUR",
+          "source": "official-website:https://restauranteulia.es/carta/Platos/7",
+          "retrievedAt": "2026-10-07"
+        },
+        "practicalNotes": [
+          "Servicio: almuerzo y para llevar"
+        ]
+      }
+    ],
+    "methodology": "Comparamos cartas, especialidades, precios publicados, horarios, reservas, ubicación y servicios a partir de webs oficiales, cartas públicas y OpenStreetMap. No todos los establecimientos han sido visitados personalmente y los precios pueden cambiar.",
+    "criteria": [
+      "Carta y especialidades",
+      "Platos y precios publicados",
+      "Horarios y reservas",
+      "Ubicación y servicios",
+      "Diferencias útiles para elegir"
+    ],
+    "author": {
+      "_type": "reference",
+      "_ref": "author-david"
+    },
+    "sources": [
+      {
+        "_type": "source",
+        "title": "OpenStreetMap",
+        "publisher": "Ongi Etorri",
+        "url": "https://www.openstreetmap.org/node/4406771698",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ongi Etorri",
+        "url": "https://ongietorribenidorm.com/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ongi Etorri",
+        "url": "https://ongietorribenidorm.com/historia-del-restaurante-ongi-etorri/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Carta",
+        "publisher": "Ongi Etorri",
+        "url": "https://ongietorribenidorm.com/carta-de-restaurante-en-benidorm/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ongi Etorri",
+        "url": "https://ongietorribenidorm.com/especialidades-del-restaurante-ongi-etorri/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ongi Etorri",
+        "url": "https://ongietorribenidorm.com/contactar-con-restaurante-ongi-etorri/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "OpenStreetMap",
+        "publisher": "Cafetería La Bahía",
+        "url": "https://www.openstreetmap.org/node/4406717526",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Cafetería La Bahía",
+        "url": "https://www.restaurante-labahia.com/",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "Carta",
+        "publisher": "Cafetería La Bahía",
+        "url": "https://www.restaurante-labahia.com/carta",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Cafetería La Bahía",
+        "url": "https://www.restaurante-labahia.com/restaurante",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Cafetería La Bahía",
+        "url": "https://www.restaurante-labahia.com/eventos",
+        "accessedAt": "2026-10-06"
+      },
+      {
+        "_type": "source",
+        "title": "OpenStreetMap",
+        "publisher": "La Cava Aragonesa",
+        "url": "https://www.openstreetmap.org/node/4343358694",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "La Cava Aragonesa",
+        "url": "https://www.lacavaaragonesa.es/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Carta",
+        "publisher": "La Cava Aragonesa",
+        "url": "https://www.lacavaaragonesa.es/carta-restaurante-la-cava/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Menú",
+        "publisher": "La Cava Aragonesa",
+        "url": "https://www.lacavaaragonesa.es/menu-la-cava/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Reservas",
+        "publisher": "La Cava Aragonesa",
+        "url": "https://www.lacavaaragonesa.es/reservar-en-la-cava-aragonesa/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "La Cava Aragonesa",
+        "url": "https://www.lacavaaragonesa.es/contactar-con-la-cava-aragonesa/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "OpenStreetMap",
+        "publisher": "Jardín Mediterráneo",
+        "url": "https://www.openstreetmap.org/node/4343227072",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Jardín Mediterráneo",
+        "url": "https://www.jardinmediterraneo.com/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Jardín Mediterráneo",
+        "url": "https://www.jardinmediterraneo.com/restaurante/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Carta",
+        "publisher": "Jardín Mediterráneo",
+        "url": "https://www.jardinmediterraneo.com/carta/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Menú",
+        "publisher": "Jardín Mediterráneo",
+        "url": "https://www.jardinmediterraneo.com/menu/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Reservas",
+        "publisher": "Jardín Mediterráneo",
+        "url": "https://www.jardinmediterraneo.com/reservas/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "OpenStreetMap",
+        "publisher": "Marisquería Córdoba",
+        "url": "https://www.openstreetmap.org/node/5020741321",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Marisquería Córdoba",
+        "url": "http://www.marisqueriacordoba.com/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Carta",
+        "publisher": "Marisquería Córdoba",
+        "url": "http://www.marisqueriacordoba.com/la-carta.html",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Carta",
+        "publisher": "Marisquería Córdoba",
+        "url": "https://www.marisqueriacordoba.com/la-carta.html",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Restaurante Trasto bar",
+        "url": "https://trastobar.eatbu.com/?lang=es",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "OpenStreetMap",
+        "publisher": "Ulia",
+        "url": "https://www.openstreetmap.org/node/4405971162",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ulia",
+        "url": "https://restauranteulia.es/",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ulia",
+        "url": "https://restauranteulia.es/Base/ChangeLang/es",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ulia",
+        "url": "https://restauranteulia.es/Base/ChangeLang/en",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ulia",
+        "url": "https://restauranteulia.es/Base/ChangeLang/ru",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Web oficial",
+        "publisher": "Ulia",
+        "url": "https://restauranteulia.es/Base/ChangeLang/fr",
+        "accessedAt": "2026-10-07"
+      },
+      {
+        "_type": "source",
+        "title": "Carta",
+        "publisher": "Ulia",
+        "url": "https://restauranteulia.es/carta/Platos/7",
+        "accessedAt": "2026-10-07"
+      }
+    ],
+    "lastVerified": "2026-10-07",
+    "seo": {
+      "metaTitle": "Dónde comer arroz en Benidorm: comparación de restaurantes",
+      "metaDescription": "Compara restaurantes de Benidorm para comer arroz según sus cartas, especialidades, precios publicados, menús y condiciones.",
+      "noIndex": false
+    }
+  }
+}
