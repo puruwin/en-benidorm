@@ -54,6 +54,10 @@ Do not promote:
 - a candidate URL to an official URL,
 - a reachable website to proof that a business is open.
 
+### Editorial independence
+
+Frappé Tech's commercial interest must never influence which businesses are included, recommended, ranked or excluded. See principle 13 in `enbenidorm-editorial-principles.md`.
+
 ### Human decisions
 
 Human reviews must remain separate from automatic evidence.

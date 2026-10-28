@@ -225,3 +225,22 @@ The project should prefer:
 over bulk generation.
 
 Manual indexing should focus on pages that meet the quality bar.
+
+---
+
+## 13. Editorial independence from Frappé Tech
+
+Frappé Tech's commercial interest must never affect editorial decisions.
+
+Do not include, recommend or rank a business because:
+
+- it looks like a good prospect,
+- it lacks a website,
+- it might buy services,
+- Frappé Tech has contacted it or works with it.
+
+Do not exclude a business, or describe it negatively, for the opposite reasons. A missing website is not a quality signal for the reader.
+
+Commercial prospecting, if it is ever resumed, must live outside the editorial pipeline and must not read from or write to Selection, Comparison gates, ranking or Generation.
+
+Editorial exclusion says nothing about a business as a commercial prospect. The two evaluations are independent.
