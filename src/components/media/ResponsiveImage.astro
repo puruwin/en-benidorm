@@ -4,7 +4,7 @@ import type {EditorialImage} from '../../types/content'
 import {urlFor} from '../../lib/sanity/image'
 
 interface Props {
-  image?: EditorialImage | null
+  image?: EditorialImage | null | undefined
   class?: string
   priority?: boolean
   sizes?: string
@@ -19,10 +19,20 @@ const srcset = sanityBuilder
   : image?.url?.includes('cdn.sanity.io')
     ? widths.map((width) => `${image.url}?auto=format&fit=max&w=${width} ${width}w`).join(', ')
     : undefined
+// Procedencia como atributos inertes: seo:audit comprueba origen, licencia, lugar y fichas de negocio (#23).
+const provenance = {
+  'data-image-origin': image?.origin,
+  'data-image-provider': image?.provider,
+  'data-image-license': image?.license?.id,
+  'data-image-author': image?.author,
+  'data-image-source': image?.sourceUrl,
+  'data-place-verified': image?.origin ? String(image.placeVerified === true) : undefined,
+  'data-image-subject': image?.subjectType,
+}
 ---
 
 {image?.local ? (
-  <Image src={image.local} alt={image.alt} class={className} layout="full-width" priority={priority} />
+  <Image src={image.local} alt={image.alt} class={className} layout="full-width" priority={priority} {...provenance} />
 ) : image?.url ? (
   <img
     src={sanityUrl ?? image.url}
@@ -35,5 +45,6 @@ const srcset = sanityBuilder
     loading={priority ? 'eager' : 'lazy'}
     decoding="async"
     fetchpriority={priority ? 'high' : 'auto'}
+    {...provenance}
   />
 ) : null}

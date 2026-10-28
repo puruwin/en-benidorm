@@ -1,5 +1,6 @@
 ---
 import type {GuideSummary} from '../types/content'
+import ImageCredit from './media/ImageCredit.astro'
 import ResponsiveImage from './media/ResponsiveImage.astro'
 interface Props { guide: GuideSummary; featured?: boolean }
 const {guide, featured = false} = Astro.props
@@ -12,5 +13,6 @@ const {guide, featured = false} = Astro.props
     {guide.kicker && <p class="text-xs font-black uppercase tracking-[.18em] text-[#8ce3df]">{guide.kicker}</p>}
     <h3 class="mt-2 font-editorial text-3xl leading-tight"><a class="after:absolute after:inset-0" href={guide.href}>{guide.title}</a></h3>
     <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-white/75">{guide.excerpt}</p>
+    <ImageCredit image={guide.image} class="relative z-10 mt-3 block text-[.68rem] text-white/60" />
   </div>
 </article>

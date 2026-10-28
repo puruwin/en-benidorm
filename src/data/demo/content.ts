@@ -1,12 +1,5 @@
-import heroImage from '../../assets/images/benidorm-hero-demo.png'
 import {routes} from '../../lib/routes'
 import type {BusinessDetail, DiningPageContent, HomeContent, SiteSettingsData} from '../../types/content'
-
-const demoHero = {
-  local: heroImage,
-  alt: 'Vista panorámica DEMO del litoral y el skyline de Benidorm al atardecer',
-  caption: 'Imagen generada para la demostración visual de enBenidorm.',
-}
 
 export const demoBusinesses: BusinessDetail[] = [
   {
@@ -19,7 +12,7 @@ export const demoBusinesses: BusinessDetail[] = [
     phone: '+34 965 000 001', website: 'https://example.com', googleMapsUrl: 'https://maps.google.com/?q=Benidorm',
     location: {lat: 38.5369, lng: -0.1312},
     hours: [{day: 'Lunes a jueves', value: '13:00–23:00'}, {day: 'Viernes a domingo', value: '12:30–23:30'}],
-    features: ['Terraza', 'Opciones vegetarianas', 'Acceso sin escalones'], images: [demoHero],
+    features: ['Terraza', 'Opciones vegetarianas', 'Acceso sin escalones'], images: [],
     lastVerified: '2026-10-06', sources: [{title: 'Fuente de ejemplo · DEMO', url: 'https://example.com', publisher: 'enBenidorm'}],
     seo: {title: 'Arroz & Brisa · Restaurante DEMO en Benidorm', description: 'Ficha de demostración de un restaurante mediterráneo ficticio en Benidorm.'},
   },
@@ -31,7 +24,7 @@ export const demoBusinesses: BusinessDetail[] = [
     description: [{text: 'Negocio ficticio creado para demostrar el portal. No representa un establecimiento real.'}],
     address: {street: 'Plaça de Mostra, 4', postalCode: '03501', locality: 'Benidorm', province: 'Alicante', country: 'ES'},
     googleMapsUrl: 'https://maps.google.com/?q=Benidorm', hours: [{day: 'Todos los días', value: '11:00–00:00'}],
-    features: ['Terraza', 'Tapas'], images: [demoHero], lastVerified: '2026-10-06', sources: [],
+    features: ['Terraza', 'Tapas'], images: [], lastVerified: '2026-10-06', sources: [],
     seo: {title: 'La Esquina Azul · Bar DEMO', description: 'Ficha de demostración de un bar ficticio en Benidorm.'},
   },
   {
@@ -42,22 +35,21 @@ export const demoBusinesses: BusinessDetail[] = [
     description: [{text: 'Negocio ficticio creado para demostrar el tratamiento transparente de contenido patrocinado.'}],
     address: {street: 'Avinguda de Mostra, 30', postalCode: '03502', locality: 'Benidorm', province: 'Alicante', country: 'ES'},
     googleMapsUrl: 'https://maps.google.com/?q=Benidorm', hours: [{day: 'Martes a domingo', value: '13:00–23:30'}],
-    features: ['Vistas al mar', 'Reservas'], images: [demoHero], lastVerified: '2026-10-06', sources: [],
+    features: ['Vistas al mar', 'Reservas'], images: [], lastVerified: '2026-10-06', sources: [],
     seo: {title: 'Mercat de Ponent · Restaurante DEMO', description: 'Ficha patrocinada de demostración para un restaurante ficticio.'},
   },
 ]
 
 const demoGuides = [
-  {title: 'Benidorm en 48 horas · DEMO', slug: 'benidorm-en-48-horas-demo', href: routes.guide('benidorm-en-48-horas-demo'), excerpt: 'Un recorrido equilibrado entre playa, casco histórico, miradores y buenos sitios para comer.', kicker: 'Itinerarios', image: demoHero},
-  {title: 'Los mejores miradores · DEMO', slug: 'miradores-de-benidorm-demo', href: routes.guide('miradores-de-benidorm-demo'), excerpt: 'Dónde encontrar panorámicas del skyline, la costa y la Serra Gelada.', kicker: 'Qué ver', image: demoHero},
-  {title: 'Benidorm con niños · DEMO', slug: 'benidorm-con-ninos-demo', href: routes.guide('benidorm-con-ninos-demo'), excerpt: 'Ideas prácticas para organizar días de playa y actividades en familia.', kicker: 'Familias', image: demoHero},
+  {title: 'Benidorm en 48 horas · DEMO', slug: 'benidorm-en-48-horas-demo', href: routes.guide('benidorm-en-48-horas-demo'), excerpt: 'Un recorrido equilibrado entre playa, casco histórico, miradores y buenos sitios para comer.', kicker: 'Itinerarios'},
+  {title: 'Los mejores miradores · DEMO', slug: 'miradores-de-benidorm-demo', href: routes.guide('miradores-de-benidorm-demo'), excerpt: 'Dónde encontrar panorámicas del skyline, la costa y la Serra Gelada.', kicker: 'Qué ver'},
+  {title: 'Benidorm con niños · DEMO', slug: 'benidorm-con-ninos-demo', href: routes.guide('benidorm-con-ninos-demo'), excerpt: 'Ideas prácticas para organizar días de playa y actividades en familia.', kicker: 'Familias'},
 ]
 
 export const demoHome: HomeContent = {
   eyebrow: 'La guía local que va al grano',
   title: 'Benidorm, bien contado.',
   intro: 'Playas, barrios, mesas, planes y respuestas útiles para descubrir la ciudad antes del viaje y mientras estás aquí.',
-  heroImage: demoHero,
   primaryLinks: [
     {label: 'Qué ver', href: routes.thingsToSee(), description: 'Skyline, miradores y casco antiguo', accent: '01'},
     {label: 'Dónde comer', href: routes.dining(), description: 'Restaurantes, tapas y arroces', accent: '02'},
