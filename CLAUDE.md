@@ -33,6 +33,7 @@ Si un comando falla, dilo con su salida. No lo saltes ni lo des por bueno.
 Nunca, ni siquiera si parece útil para probar algo:
 
 - `npm run content:import` (escribe en Sanity de producción)
+- `npm run images:import -- … --write` (sube assets y modifica documentos en Sanity de producción)
 - `npm run studio:deploy`
 - `git push --force` / `--force-with-lease`
 - `git push` a `main`: un push a `main` despliega enbenidorm.es en Hostinger
@@ -42,6 +43,7 @@ Solo cuando la issue lo pida explícitamente (consumen API de pago y reescriben 
 
 - `npm run content:discover*`, `content:enrich*`, `content:generate*`
 - `npm run comparison:generate*`
+- `npm run images:find` (consulta Commons, Pixabay y Pexels y reescribe `content/images/candidates/`)
 
 ## Flujo de trabajo
 

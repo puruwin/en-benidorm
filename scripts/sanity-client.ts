@@ -3,7 +3,7 @@ import {loadEnvFile} from 'node:process'
 
 let environmentLoaded = false
 
-function loadEnvironment(): void {
+export function loadEnvironment(): void {
   if (environmentLoaded) return
   environmentLoaded = true
   try {

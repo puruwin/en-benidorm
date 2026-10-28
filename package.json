@@ -18,6 +18,8 @@
     "content:qa": "node --import tsx scripts/content/qa.ts",
     "content:compare-quality": "node --import tsx scripts/content/quality-tier-comparison.ts",
     "seo:audit": "node --import tsx scripts/seo/audit-site.ts",
+    "images:find": "node --import tsx scripts/images/find-candidates.ts",
+    "images:import": "node --import tsx scripts/images/import-approved.ts",
     "comparison:select": "node --import tsx scripts/comparison/select.ts",
     "comparison:enrich": "node --import tsx scripts/comparison/enrich.ts",
     "comparison:generate": "node --import tsx scripts/comparison/generate.ts",
@@ -37,7 +39,7 @@
     "content:validate": "node --import tsx scripts/validate-content.ts",
     "visit:process": "node --import tsx scripts/content/process-visit.ts",
     "creator:process": "node --import tsx scripts/comparison/process-creator.ts",
-    "test": "node --import tsx --test scripts/seo/*.test.ts scripts/content/*.test.ts scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
+    "test": "node --import tsx --test scripts/seo/*.test.ts scripts/images/*.test.ts scripts/content/*.test.ts scripts/content/**/*.test.ts scripts/comparison/**/*.test.ts tools/content-lab/api/src/*.test.ts tools/content-lab/api/src/**/*.test.ts",
     "sanity:schema:validate": "sanity schema validate",
     "sanity:schema:extract": "sanity schema extract --path schema.json --force",
     "typegen": "npm run sanity:schema:extract && sanity typegen generate"
@@ -52,6 +54,7 @@
     "groq": "latest",
     "parse5": "^8.0.1",
     "pdfjs-dist": "^6.4.299",
+    "sharp": "^0.35.5",
     "tailwindcss": "latest"
   },
   "devDependencies": {
