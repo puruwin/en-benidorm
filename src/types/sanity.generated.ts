@@ -21,6 +21,21 @@ type ArrayOf<T> = Array<
 >;
 
 // Source: schema.json
+export type License = {
+  id?:
+    | "cc0"
+    | "public-domain"
+    | "cc-by-2.0"
+    | "cc-by-3.0"
+    | "cc-by-4.0"
+    | "cc-by-sa-2.0"
+    | "cc-by-sa-3.0"
+    | "cc-by-sa-4.0"
+    | "pixabay"
+    | "pexels";
+  url?: string;
+};
+
 export type SiteSettings = {
   _id: string;
   _type: "siteSettings";
@@ -141,6 +156,16 @@ export type ImageWithAlt = {
   crop?: SanityImageCrop;
   alt?: string;
   caption?: string;
+  origin?: "propia" | "stock";
+  provider?: "commons" | "pixabay" | "pexels";
+  sourceUrl?: string;
+  author?: string;
+  authorUrl?: string;
+  license?: License;
+  takenAt?: string;
+  retrievedAt?: string;
+  placeVerified?: boolean;
+  approvedBy?: string;
   credit?: string;
 };
 
@@ -831,6 +856,7 @@ export type SanityImageAsset = {
 };
 
 export type AllSanitySchemaTypes =
+  | License
   | SiteSettings
   | Seo
   | ArticleReference
@@ -877,7 +903,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/lib/sanity/queries.ts
 // Variable: HOME_QUERY
-// Query: {  "page": *[_id == "homepage" && _type == "homePage"][0]{    eyebrow,    title,    intro,    primaryLinks[]{label, description, href, accent},    "heroImage": heroImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height},    "guides": featuredGuides[]->{      title,      "slug": slug.current,      excerpt,      "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",      "kicker": categories[0]->title,      "image": heroImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    },    "recommendations": recommendedBusinesses[]->{  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  "image": images[0]{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}},    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "recent": *[_type == "article" && language == "es"] | order(publishedAt desc)[0...3]{    title,    "slug": slug.current,    excerpt,    "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",    "kicker": categories[0]->title,    "image": heroImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+// Query: {  "page": *[_id == "homepage" && _type == "homePage"][0]{    eyebrow,    title,    intro,    primaryLinks[]{label, description, href, accent},    "heroImage": heroImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height},    "guides": featuredGuides[]->{      title,      "slug": slug.current,      excerpt,      "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",      "kicker": categories[0]->title,      "image": heroImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    },    "recommendations": recommendedBusinesses[]->{  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  "image": images[0]{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}},    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "recent": *[_type == "article" && language == "es"] | order(publishedAt desc)[0...3]{    title,    "slug": slug.current,    excerpt,    "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",    "kicker": categories[0]->title,    "image": heroImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
 export type HOME_QUERY_RESULT = {
   page: {
     eyebrow: string | null;
@@ -892,7 +918,14 @@ export type HOME_QUERY_RESULT = {
     heroImage: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -911,7 +944,14 @@ export type HOME_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -949,7 +989,14 @@ export type HOME_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -967,7 +1014,14 @@ export type HOME_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -988,7 +1042,14 @@ export type HOME_QUERY_RESULT = {
     image: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -1003,7 +1064,7 @@ export type HOME_QUERY_RESULT = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: DINING_QUERY
-// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].diningPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "businesses": *[_type == "business" && language == "es" && businessKind in ["restaurant", "bar", "pub", "cafe"]] | order(recommended desc, name asc) {  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  "image": images[0]{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}},  "categories": *[_type == "category" && language == "es" && indexable == true && group in ["businessType", "cuisine"]]{    title,    "slug": slug.current,    description,    "href": "/donde-comer/#restaurantes",    "count": count(*[_type == "business" && references(^._id)])  }[count >= 3] | order(title asc),  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer" && seo.noIndex != true] | order(title asc){    title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"  }}
+// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].diningPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "businesses": *[_type == "business" && language == "es" && businessKind in ["restaurant", "bar", "pub", "cafe"]] | order(recommended desc, name asc) {  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  "image": images[0]{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}},  "categories": *[_type == "category" && language == "es" && indexable == true && group in ["businessType", "cuisine"]]{    title,    "slug": slug.current,    description,    "href": "/donde-comer/#restaurantes",    "count": count(*[_type == "business" && references(^._id)])  }[count >= 3] | order(title asc),  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer" && seo.noIndex != true] | order(title asc){    title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"  }}
 export type DINING_QUERY_RESULT = {
   page: {
     title: string | null;
@@ -1015,7 +1076,14 @@ export type DINING_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -1054,7 +1122,14 @@ export type DINING_QUERY_RESULT = {
     image: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -1095,7 +1170,7 @@ export type RESTAURANT_SLUGS_QUERY_RESULT = Array<string | null>;
 
 // Source: src/lib/sanity/queries.ts
 // Variable: RESTAURANT_QUERY
-// Query: *[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{  "id": _id,  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  commercialRelationship,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  address,  phone,  website,  googleMapsUrl,  "location": {"lat": location.lat, "lng": location.lng},  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "–" + closes)},  "features": features[]->title,  "images": images[]{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height},  lastVerified,  sources[]{title, url, publisher, accessedAt},  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+// Query: *[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{  "id": _id,  "name": name,  "slug": slug.current,  shortDescription,  "href": "/restaurantes/" + slug.current + "/",  "kind": businessKind,  "area": area->name,  priceRange,  "categories": categories[]->title,  recommended,  sponsored,  commercialRelationship,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  address,  phone,  website,  googleMapsUrl,  "location": {"lat": location.lat, "lng": location.lng},  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "–" + closes)},  "features": features[]->title,  "images": images[]{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height},  lastVerified,  sources[]{title, url, publisher, accessedAt},  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
 export type RESTAURANT_QUERY_RESULT = {
   id: string;
   name: string | null;
@@ -1144,7 +1219,14 @@ export type RESTAURANT_QUERY_RESULT = {
   images: Array<{
     alt: string | null;
     caption: string | null;
-    credit: string | null;
+    origin: "propia" | "stock" | null;
+    provider: "commons" | "pexels" | "pixabay" | null;
+    sourceUrl: string | null;
+    author: string | null;
+    authorUrl: string | null;
+    license: License | null;
+    takenAt: string | null;
+    placeVerified: boolean | null;
     url: string | null;
     sanity: {
       asset: SanityImageAssetReference | null;
@@ -1173,7 +1255,14 @@ export type RESTAURANT_QUERY_RESULT = {
     image: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -1193,7 +1282,7 @@ export type COMPARISON_SLUGS_QUERY_RESULT = Array<string | null>;
 
 // Source: src/lib/sanity/queries.ts
 // Variable: COMPARISON_QUERY
-// Query: *[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{  title,  "slug": slug.current,  "href": "/donde-comer/" + slug.current + "/",  topic,  intro,  quickVerdict,  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},  entries[]{    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,    "business": business->{"id": _id, name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}  },  methodology,  criteria,  "author": author->{name, "slug": slug.current, role},  sources[]{title, url, publisher, accessedAt},  lastVerified,  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+// Query: *[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{  title,  "slug": slug.current,  "href": "/donde-comer/" + slug.current + "/",  topic,  intro,  quickVerdict,  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},  entries[]{    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,    "business": business->{"id": _id, name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}  },  methodology,  criteria,  "author": author->{name, "slug": slug.current, role},  sources[]{title, url, publisher, accessedAt},  lastVerified,  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
 export type COMPARISON_QUERY_RESULT = {
   title: string | null;
   slug: string | null;
@@ -1265,7 +1354,14 @@ export type COMPARISON_QUERY_RESULT = {
     image: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -1280,7 +1376,7 @@ export type COMPARISON_QUERY_RESULT = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: AUTHOR_QUERY
-// Query: *[_type == "author" && language == "es" && slug.current == $slug][0]{  name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,  "seo": {"title": seo.metaTitle, "description": seo.metaDescription, "noIndex": seo.noIndex, "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}}}
+// Query: *[_type == "author" && language == "es" && slug.current == $slug][0]{  name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,  "seo": {"title": seo.metaTitle, "description": seo.metaDescription, "noIndex": seo.noIndex, "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}}}
 export type AUTHOR_QUERY_RESULT = {
   name: string | null;
   slug: string | null;
@@ -1295,7 +1391,14 @@ export type AUTHOR_QUERY_RESULT = {
     image: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -1315,7 +1418,7 @@ export type BEACH_SLUGS_QUERY_RESULT = Array<string | null>;
 
 // Source: src/lib/sanity/queries.ts
 // Variable: BEACH_QUERY
-// Query: *[_type == "beach" && language == "es" && slug.current == $slug][0]{  "id": _id,  name,  "slug": slug.current,  "href": "/playas/" + slug.current + "/",  shortDescription,  choiceNote,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "area": area->name,  municipality,  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+// Query: *[_type == "beach" && language == "es" && slug.current == $slug][0]{  "id": _id,  name,  "slug": slug.current,  "href": "/playas/" + slug.current + "/",  shortDescription,  choiceNote,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "area": area->name,  municipality,  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
 export type BEACH_QUERY_RESULT = {
   id: string;
   name: string | null;
@@ -1389,7 +1492,14 @@ export type BEACH_QUERY_RESULT = {
     image: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -1404,7 +1514,7 @@ export type BEACH_QUERY_RESULT = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: BEACHES_QUERY
-// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].beachesPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) {  "id": _id,  name,  "slug": slug.current,  "href": "/playas/" + slug.current + "/",  shortDescription,  choiceNote,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "area": area->name,  municipality,  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}}
+// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].beachesPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) {  "id": _id,  name,  "slug": slug.current,  "href": "/playas/" + slug.current + "/",  shortDescription,  choiceNote,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "area": area->name,  municipality,  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}}
 export type BEACHES_QUERY_RESULT = {
   page: {
     title: string | null;
@@ -1416,7 +1526,14 @@ export type BEACHES_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -1502,7 +1619,14 @@ export type BEACHES_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -1523,7 +1647,7 @@ export type GUIDE_SLUGS_QUERY_RESULT = Array<string | null>;
 
 // Source: src/lib/sanity/queries.ts
 // Variable: GUIDE_QUERY
-// Query: *[_type == "article" && section == $section && language == "es" && slug.current == $slug][0]{  "id": _id,  title,  "slug": slug.current,  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",  excerpt,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "links": contextLinks[defined(target->slug.current)]{    "title": coalesce(target->title, target->name),    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",    note  },  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},  publishedAt,  updatedAt,  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
+// Query: *[_type == "article" && section == $section && language == "es" && slug.current == $slug][0]{  "id": _id,  title,  "slug": slug.current,  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",  excerpt,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "links": contextLinks[defined(target->slug.current)]{    "title": coalesce(target->title, target->name),    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",    note  },  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},  publishedAt,  updatedAt,  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}
 export type GUIDE_QUERY_RESULT = {
   id: string;
   title: string | null;
@@ -1586,7 +1710,14 @@ export type GUIDE_QUERY_RESULT = {
     image: {
       alt: string | null;
       caption: string | null;
-      credit: string | null;
+      origin: "propia" | "stock" | null;
+      provider: "commons" | "pexels" | "pixabay" | null;
+      sourceUrl: string | null;
+      author: string | null;
+      authorUrl: string | null;
+      license: License | null;
+      takenAt: string | null;
+      placeVerified: boolean | null;
       url: string | null;
       sanity: {
         asset: SanityImageAssetReference | null;
@@ -1601,7 +1732,7 @@ export type GUIDE_QUERY_RESULT = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: INFORMATION_QUERY
-// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].informationPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "guides": *[_type == "article" && section == "informationPractical" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {  "id": _id,  title,  "slug": slug.current,  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",  excerpt,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "links": contextLinks[defined(target->slug.current)]{    "title": coalesce(target->title, target->name),    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",    note  },  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},  publishedAt,  updatedAt,  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}}
+// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].informationPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "guides": *[_type == "article" && section == "informationPractical" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {  "id": _id,  title,  "slug": slug.current,  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",  excerpt,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "links": contextLinks[defined(target->slug.current)]{    "title": coalesce(target->title, target->name),    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",    note  },  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},  publishedAt,  updatedAt,  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}}
 export type INFORMATION_QUERY_RESULT = {
   page: {
     title: string | null;
@@ -1613,7 +1744,14 @@ export type INFORMATION_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -1688,7 +1826,14 @@ export type INFORMATION_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -1704,7 +1849,7 @@ export type INFORMATION_QUERY_RESULT = {
 
 // Source: src/lib/sanity/queries.ts
 // Variable: THINGS_TO_DO_QUERY
-// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].thingsToDoPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "guides": *[_type == "article" && section == "thingsToDo" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {  "id": _id,  title,  "slug": slug.current,  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",  excerpt,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "links": contextLinks[defined(target->slug.current)]{    "title": coalesce(target->title, target->name),    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",    note  },  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},  publishedAt,  updatedAt,  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  credit,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}}
+// Query: {  "page": *[_id == "site-settings" && _type == "siteSettings"][0].thingsToDoPage{    title,    intro,    "seo": {      "title": seo.metaTitle,      "description": seo.metaDescription,      "noIndex": seo.noIndex,      "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}    }  },  "guides": *[_type == "article" && section == "thingsToDo" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {  "id": _id,  title,  "slug": slug.current,  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",  excerpt,  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},  "links": contextLinks[defined(target->slug.current)]{    "title": coalesce(target->title, target->name),    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",    note  },  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},  publishedAt,  updatedAt,  sources[]{title, url, publisher, accessedAt},  "seo": {    "title": seo.metaTitle,    "description": seo.metaDescription,    "noIndex": seo.noIndex,    "image": seo.socialImage{  alt,  caption,  origin,  provider,  sourceUrl,  author,  authorUrl,  license,  takenAt,  placeVerified,  "url": asset->url,  "sanity": {asset, crop, hotspot},  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height}  }}}
 export type THINGS_TO_DO_QUERY_RESULT = {
   page: {
     title: string | null;
@@ -1716,7 +1861,14 @@ export type THINGS_TO_DO_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -1791,7 +1943,14 @@ export type THINGS_TO_DO_QUERY_RESULT = {
       image: {
         alt: string | null;
         caption: string | null;
-        credit: string | null;
+        origin: "propia" | "stock" | null;
+        provider: "commons" | "pexels" | "pixabay" | null;
+        sourceUrl: string | null;
+        author: string | null;
+        authorUrl: string | null;
+        license: License | null;
+        takenAt: string | null;
+        placeVerified: boolean | null;
         url: string | null;
         sanity: {
           asset: SanityImageAssetReference | null;
@@ -1808,21 +1967,21 @@ export type THINGS_TO_DO_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '{\n  "page": *[_id == "homepage" && _type == "homePage"][0]{\n    eyebrow,\n    title,\n    intro,\n    primaryLinks[]{label, description, href, accent},\n    "heroImage": heroImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n},\n    "guides": featuredGuides[]->{\n      title,\n      "slug": slug.current,\n      excerpt,\n      "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",\n      "kicker": categories[0]->title,\n      "image": heroImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    },\n    "recommendations": recommendedBusinesses[]->{\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  "image": images[0]{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n},\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "recent": *[_type == "article" && language == "es"] | order(publishedAt desc)[0...3]{\n    title,\n    "slug": slug.current,\n    excerpt,\n    "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",\n    "kicker": categories[0]->title,\n    "image": heroImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': HOME_QUERY_RESULT;
-    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].diningPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "businesses": *[_type == "business" && language == "es" && businessKind in ["restaurant", "bar", "pub", "cafe"]] | order(recommended desc, name asc) {\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  "image": images[0]{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n},\n  "categories": *[_type == "category" && language == "es" && indexable == true && group in ["businessType", "cuisine"]]{\n    title,\n    "slug": slug.current,\n    description,\n    "href": "/donde-comer/#restaurantes",\n    "count": count(*[_type == "business" && references(^._id)])\n  }[count >= 3] | order(title asc),\n  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer" && seo.noIndex != true] | order(title asc){\n    title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"\n  }\n}': DINING_QUERY_RESULT;
+    '{\n  "page": *[_id == "homepage" && _type == "homePage"][0]{\n    eyebrow,\n    title,\n    intro,\n    primaryLinks[]{label, description, href, accent},\n    "heroImage": heroImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n},\n    "guides": featuredGuides[]->{\n      title,\n      "slug": slug.current,\n      excerpt,\n      "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",\n      "kicker": categories[0]->title,\n      "image": heroImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    },\n    "recommendations": recommendedBusinesses[]->{\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  "image": images[0]{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n},\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "recent": *[_type == "article" && language == "es"] | order(publishedAt desc)[0...3]{\n    title,\n    "slug": slug.current,\n    excerpt,\n    "href": select(section == "informationPractical" => "/informacion-practica/", section == "thingsToDo" => "/que-hacer/", "/guias/") + slug.current + "/",\n    "kicker": categories[0]->title,\n    "image": heroImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': HOME_QUERY_RESULT;
+    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].diningPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "businesses": *[_type == "business" && language == "es" && businessKind in ["restaurant", "bar", "pub", "cafe"]] | order(recommended desc, name asc) {\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  "image": images[0]{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n},\n  "categories": *[_type == "category" && language == "es" && indexable == true && group in ["businessType", "cuisine"]]{\n    title,\n    "slug": slug.current,\n    description,\n    "href": "/donde-comer/#restaurantes",\n    "count": count(*[_type == "business" && references(^._id)])\n  }[count >= 3] | order(title asc),\n  "comparisons": *[_type == "comparison" && language == "es" && category == "donde-comer" && seo.noIndex != true] | order(title asc){\n    title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"\n  }\n}': DINING_QUERY_RESULT;
     '*[_id == "site-settings" && _type == "siteSettings"][0]{\n  siteName,\n  tagline,\n  footerText\n}': SETTINGS_QUERY_RESULT;
     '*[_type == "business" && language == "es" && businessKind == "restaurant" && defined(slug.current)].slug.current': RESTAURANT_SLUGS_QUERY_RESULT;
-    '*[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{\n  "id": _id,\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  commercialRelationship,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  address,\n  phone,\n  website,\n  googleMapsUrl,\n  "location": {"lat": location.lat, "lng": location.lng},\n  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "\u2013" + closes)},\n  "features": features[]->title,\n  "images": images[]{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n},\n  lastVerified,\n  sources[]{title, url, publisher, accessedAt},\n  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': RESTAURANT_QUERY_RESULT;
+    '*[_type == "business" && language == "es" && businessKind == "restaurant" && slug.current == $slug][0]{\n  "id": _id,\n  "name": name,\n  "slug": slug.current,\n  shortDescription,\n  "href": "/restaurantes/" + slug.current + "/",\n  "kind": businessKind,\n  "area": area->name,\n  priceRange,\n  "categories": categories[]->title,\n  recommended,\n  sponsored,\n  commercialRelationship,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  address,\n  phone,\n  website,\n  googleMapsUrl,\n  "location": {"lat": location.lat, "lng": location.lng},\n  "hours": openingHours[]{"day": day, "value": select(closed == true => "Cerrado", opens + "\u2013" + closes)},\n  "features": features[]->title,\n  "images": images[]{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n},\n  lastVerified,\n  sources[]{title, url, publisher, accessedAt},\n  "comparisons": *[_type == "comparison" && references(^._id)]{title, "slug": slug.current, "href": "/donde-comer/" + slug.current + "/"},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': RESTAURANT_QUERY_RESULT;
     '*[_type == "comparison" && language == "es" && category == "donde-comer" && defined(slug.current)].slug.current': COMPARISON_SLUGS_QUERY_RESULT;
-    '*[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  "href": "/donde-comer/" + slug.current + "/",\n  topic,\n  intro,\n  quickVerdict,\n  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},\n  entries[]{\n    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,\n    "business": business->{"id": _id, name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}\n  },\n  methodology,\n  criteria,\n  "author": author->{name, "slug": slug.current, role},\n  sources[]{title, url, publisher, accessedAt},\n  lastVerified,\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': COMPARISON_QUERY_RESULT;
-    '*[_type == "author" && language == "es" && slug.current == $slug][0]{\n  name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,\n  "seo": {"title": seo.metaTitle, "description": seo.metaDescription, "noIndex": seo.noIndex, "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}}\n}': AUTHOR_QUERY_RESULT;
+    '*[_type == "comparison" && language == "es" && category == "donde-comer" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  "href": "/donde-comer/" + slug.current + "/",\n  topic,\n  intro,\n  quickVerdict,\n  choiceGuide[]{label, reason, "business": business->{name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/"}},\n  entries[]{\n    verdict, strengths, conditions, limitations, bestFor, featuredItem, practicalNotes,\n    "business": business->{"id": _id, name, "slug": slug.current, "href": "/restaurantes/" + slug.current + "/", "kind": businessKind, phone, website}\n  },\n  methodology,\n  criteria,\n  "author": author->{name, "slug": slug.current, role},\n  sources[]{title, url, publisher, accessedAt},\n  lastVerified,\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': COMPARISON_QUERY_RESULT;
+    '*[_type == "author" && language == "es" && slug.current == $slug][0]{\n  name, "slug": slug.current, role, bio, methodology, personalVisitDisclosure,\n  "seo": {"title": seo.metaTitle, "description": seo.metaDescription, "noIndex": seo.noIndex, "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}}\n}': AUTHOR_QUERY_RESULT;
     '*[_type == "beach" && language == "es" && defined(slug.current)].slug.current': BEACH_SLUGS_QUERY_RESULT;
-    '*[_type == "beach" && language == "es" && slug.current == $slug][0]{\n  "id": _id,\n  name,\n  "slug": slug.current,\n  "href": "/playas/" + slug.current + "/",\n  shortDescription,\n  choiceNote,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "area": area->name,\n  municipality,\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},\n  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': BEACH_QUERY_RESULT;
-    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].beachesPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) {\n  "id": _id,\n  name,\n  "slug": slug.current,\n  "href": "/playas/" + slug.current + "/",\n  shortDescription,\n  choiceNote,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "area": area->name,\n  municipality,\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},\n  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}\n}': BEACHES_QUERY_RESULT;
+    '*[_type == "beach" && language == "es" && slug.current == $slug][0]{\n  "id": _id,\n  name,\n  "slug": slug.current,\n  "href": "/playas/" + slug.current + "/",\n  shortDescription,\n  choiceNote,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "area": area->name,\n  municipality,\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},\n  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': BEACH_QUERY_RESULT;
+    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].beachesPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "beaches": *[_type == "beach" && language == "es" && defined(slug.current)] | order(name asc) {\n  "id": _id,\n  name,\n  "slug": slug.current,\n  "href": "/playas/" + slug.current + "/",\n  shortDescription,\n  choiceNote,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "area": area->name,\n  municipality,\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "contrasts": profileContrasts[defined(beach->slug.current)]{"name": beach->name, "href": "/playas/" + beach->slug.current + "/", reason},\n  "nearbyDining": nearbyDining[defined(comparison->slug.current)]{"title": comparison->title, "href": "/donde-comer/" + comparison->slug.current + "/", note},\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}\n}': BEACHES_QUERY_RESULT;
     '*[_type == "article" && section == $section && language == "es" && defined(slug.current)].slug.current': GUIDE_SLUGS_QUERY_RESULT;
-    '*[_type == "article" && section == $section && language == "es" && slug.current == $slug][0]{\n  "id": _id,\n  title,\n  "slug": slug.current,\n  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",\n  excerpt,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "links": contextLinks[defined(target->slug.current)]{\n    "title": coalesce(target->title, target->name),\n    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",\n    note\n  },\n  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},\n  publishedAt,\n  updatedAt,\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': GUIDE_QUERY_RESULT;
-    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].informationPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "guides": *[_type == "article" && section == "informationPractical" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {\n  "id": _id,\n  title,\n  "slug": slug.current,\n  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",\n  excerpt,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "links": contextLinks[defined(target->slug.current)]{\n    "title": coalesce(target->title, target->name),\n    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",\n    note\n  },\n  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},\n  publishedAt,\n  updatedAt,\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}\n}': INFORMATION_QUERY_RESULT;
-    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].thingsToDoPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "guides": *[_type == "article" && section == "thingsToDo" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {\n  "id": _id,\n  title,\n  "slug": slug.current,\n  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",\n  excerpt,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "links": contextLinks[defined(target->slug.current)]{\n    "title": coalesce(target->title, target->name),\n    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",\n    note\n  },\n  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},\n  publishedAt,\n  updatedAt,\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  credit,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}\n}': THINGS_TO_DO_QUERY_RESULT;
+    '*[_type == "article" && section == $section && language == "es" && slug.current == $slug][0]{\n  "id": _id,\n  title,\n  "slug": slug.current,\n  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",\n  excerpt,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "links": contextLinks[defined(target->slug.current)]{\n    "title": coalesce(target->title, target->name),\n    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",\n    note\n  },\n  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},\n  publishedAt,\n  updatedAt,\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}': GUIDE_QUERY_RESULT;
+    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].informationPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "guides": *[_type == "article" && section == "informationPractical" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {\n  "id": _id,\n  title,\n  "slug": slug.current,\n  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",\n  excerpt,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "links": contextLinks[defined(target->slug.current)]{\n    "title": coalesce(target->title, target->name),\n    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",\n    note\n  },\n  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},\n  publishedAt,\n  updatedAt,\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}\n}': INFORMATION_QUERY_RESULT;
+    '{\n  "page": *[_id == "site-settings" && _type == "siteSettings"][0].thingsToDoPage{\n    title,\n    intro,\n    "seo": {\n      "title": seo.metaTitle,\n      "description": seo.metaDescription,\n      "noIndex": seo.noIndex,\n      "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n    }\n  },\n  "guides": *[_type == "article" && section == "thingsToDo" && language == "es" && defined(slug.current)] | order(publishedAt asc, title asc) {\n  "id": _id,\n  title,\n  "slug": slug.current,\n  "href": select(section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + slug.current + "/",\n  excerpt,\n  "description": body[_type == "block"]{"text": array::join(children[].text, ""), style, listItem},\n  "facts": practicalFacts[]{factId, value, unit, status, sourceTitle, sourceUrl, sourceClass, retrievedAt},\n  "links": contextLinks[defined(target->slug.current)]{\n    "title": coalesce(target->title, target->name),\n    "href": select(target->_type == "beach" => "/playas/", target->section == "thingsToDo" => "/que-hacer/", "/informacion-practica/") + target->slug.current + "/",\n    note\n  },\n  "author": {"name": coalesce(author->name, "David"), "slug": coalesce(author->slug.current, "david")},\n  publishedAt,\n  updatedAt,\n  sources[]{title, url, publisher, accessedAt},\n  "seo": {\n    "title": seo.metaTitle,\n    "description": seo.metaDescription,\n    "noIndex": seo.noIndex,\n    "image": seo.socialImage{\n  alt,\n  caption,\n  origin,\n  provider,\n  sourceUrl,\n  author,\n  authorUrl,\n  license,\n  takenAt,\n  placeVerified,\n  "url": asset->url,\n  "sanity": {asset, crop, hotspot},\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height\n}\n  }\n}\n}': THINGS_TO_DO_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too
