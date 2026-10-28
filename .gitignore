@@ -27,3 +27,6 @@ schema.json
 
 # Private Content Lab deployment configuration.
 /deploy/content-lab/*.env
+
+# Caché de 24 h de las API de imágenes (scripts/images/lib/cache.ts).
+/content/images/.cache/
