@@ -193,7 +193,7 @@ test('precios u horarios exigen el componente Sources en la misma página', () =
 
 test('imágenes sin alt y title largo son avisos, no errores', () => {
   const longTitle = 'Un título demasiado largo para la página de resultados de búsqueda'
-  const result = auditSite(cleanSite({'/a/': {title: longTitle, main: '<h1>A</h1><img src="/x.jpg"><img src="/y.jpg" alt="">'}}), {origin})
+  const result = auditSite(cleanSite({'/a/': {title: longTitle, main: '<h1>A</h1><img src="/x.jpg" data-image-origin="propia"><img src="/y.jpg" alt="" data-image-origin="propia">'}}), {origin})
   assert.deepEqual(result.errors, [])
   assert.deepEqual(result.warnings.map((warning) => `${warning.rule} ${warning.detail}`), [
     'img-missing-alt /x.jpg',

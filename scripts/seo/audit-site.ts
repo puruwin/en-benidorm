@@ -28,7 +28,8 @@ if (!origin) throw new Error(`No se pudo deducir el origen del sitio desde ${val
 const pages = await readDistPages(dist)
 if (pages.length === 0) throw new Error(`No hay páginas HTML en ${values.dist}. Ejecuta antes npm run build.`)
 
-const result = auditSite(pages, {origin})
+const {places} = await readJsonIfExists<{places: string[]}>(resolve('scripts/seo/place-names.json'), {places: []})
+const result = auditSite(pages, {origin, placeNames: places})
 const baselinePath = values.baseline ? resolve(values.baseline) : null
 const baseline = baselinePath ? await readJsonIfExists<Baseline>(baselinePath, {description: '', accepted: []}) : null
 const fresh = baseline ? newFindings(result.errors, baseline.accepted) : result.errors
