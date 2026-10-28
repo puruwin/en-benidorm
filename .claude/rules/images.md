@@ -1,0 +1,59 @@
+---
+paths:
+  - "scripts/images/**"
+  - "content/images/**"
+  - "sanity/schemaTypes/objects/imageWithAlt.ts"
+  - "src/lib/image-credit.ts"
+  - "src/components/media/**"
+  - "src/components/ImageGallery.astro"
+  - "src/components/Hero.astro"
+---
+
+# Imágenes (#23)
+
+Cada imagen tiene origen y licencia trazables. Ninguna imagen de stock se presenta como propia ni
+como foto de un establecimiento concreto.
+
+## Flujo
+
+1. **Buscar** (solo si la issue lo pide): `npm run images:find -- --doc <tipo>:<slug>` o
+   `--term "<término>"`. Deja `content/images/candidates/<slug>.json`.
+   - Commons primero: geosearch (500 m) y categoría. `--category` es una categoría confirmada por
+     David y cuenta como base de lugar; sin ella, la categoría propuesta solo da candidatas ambientales.
+   - Pixabay y Pexels solo si Commons no deja ninguna válida, y siempre como `use: 'ambiental'`.
+   - Unsplash está fuera: su API obliga al hotlinking y a notificar cada descarga.
+2. **Aprobar**: David añade entradas a `approvals` (`candidateId`, `approvedBy`, `approvedAt`,
+   `alt`, `caption?`, `placeVerified`, `field?`, `document?`). Fotos propias: aprobación en
+   `content/images/own/<visita>.json` sobre una visita de `content/manual/visits/` (#14).
+3. **Importar**: `npm run images:import -- <fichero>` simula. Con `--write` descarga, quita EXIF
+   (sharp sin `withMetadata`), sube el asset y asigna el campo. Lo ejecuta David.
+
+## Licencias
+
+Lista cerrada en `src/lib/image-credit.ts` (`IMAGE_LICENSES`), que usan el esquema, el crédito y los
+scripts: CC0, dominio público, CC BY y CC BY-SA (2.0–4.0), Pixabay Content License y Pexels License.
+
+- Fuera **NC**: la web tiene uso comercial.
+- Fuera **ND**: Sanity recorta con el hotspot, y recortar es una obra derivada.
+- Fuera GFDL sin CC, «fair use» y cualquier fichero sin licencia o sin autor.
+
+## Reglas
+
+- **Origen obligatorio** (`propia` | `stock`). El crédito lo calcula `imageCredit()`: nunca se
+  escribe a mano. El campo `credit` es obsoleto y solo existe para no perder datos antiguos.
+- **Stock nunca en negocios.** Ni en la ficha ni en su tarjeta: solo fotos propias o ninguna.
+  `business.images` lo valida en el Studio, `images:find`/`images:import` rechazan `business` y
+  `seo:audit` da `image-stock-business`.
+- **Lugar verificado.** Si el alt o el pie nombran un lugar, `placeVerified` tiene que ser `true`
+  (categoría de Commons confirmada, coordenadas o comprobación de David). Si no, la imagen es
+  ambiental y no nombra el lugar. Topónimos sin ficha: `scripts/seo/place-names.json`.
+- **Alt propio.** Describe lo que se ve. No copia la descripción de la fuente.
+
+## Lo que Claude no hace
+
+- No escribe ni edita `approvals` ni los ficheros de `content/images/own/`: aprobar es de David.
+- No propone un alt como si fuera de David. Si se lo pide, lo deja como sugerencia en el chat.
+- No ejecuta `images:import --write` ni `images:find` salvo que la issue lo pida (ver `CLAUDE.md`).
+- No mete stock en un negocio ni marca `placeVerified` para que el audit pase.
+- Si una página necesita imagen y no la hay, se queda sin imagen. El aviso `image-no-own-photo`
+  solo lo quita una foto propia.

@@ -51,5 +51,9 @@ David lo pide, y nunca para errores de la página que estás tocando.
   producción: dilo en el PR en lugar de darlo por resuelto.
 - **Una redirección que «funciona» sigue siendo un error.** `link-to-redirect` no se acepta porque
   el navegador llegue al destino.
+- **Imágenes.** El auditor ve la procedencia, no la foto. Comprueba a mano que el alt describe lo
+  que se ve (no copia la fuente) y que una imagen ambiental no se presenta como del lugar de la
+  página. Una de stock en un negocio no se arregla con un pie: se quita. Reglas en
+  `.claude/rules/images.md`.
 - **Errores en plantillas compartidas.** Un `broken-link:menu` o `:footer` aparece en todas las
   páginas. Corrígelo una vez en `Header.astro` / `Footer.astro`, no página a página.

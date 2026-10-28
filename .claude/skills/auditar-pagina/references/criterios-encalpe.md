@@ -52,5 +52,10 @@ modificada debe pasar los cuatro.
 | `jsonld-invalid` | error | cada bloque JSON-LD parsea |
 | `unreviewed-verified` | error | «verificada» solo dentro de `[data-human-review]` |
 | `facts-without-sources` | error | precios u horarios en `<main>` exigen el componente `Sources` |
+| `image-origin-missing` | error | toda `<img>` con `data-image-origin` (pásala por `ResponsiveImage` con `origin` relleno) |
+| `image-stock-incomplete` | error | stock con licencia, autor y URL de origen |
+| `image-stock-business` | error | nada de stock en negocios (ficha ni tarjeta): solo fotos propias o ninguna |
+| `image-place-unverified` | error | alt o pie que nombran un lugar (H1 de una ficha o `scripts/seo/place-names.json`) exigen `placeVerified` |
+| `image-no-own-photo` | aviso | página indexable no estructural con al menos una foto propia |
 | `img-missing-alt` | aviso | toda `<img>` con `alt` (vacío si es decorativa) |
 | `title-too-long` | aviso | `<title>` de 60 caracteres como máximo |
