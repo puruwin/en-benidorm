@@ -69,6 +69,10 @@ for (const id of new Set(plan.imports.map((item) => item.document.id))) {
 for (const issue of plan.issues) console.log(`ERROR ${issue}`)
 for (const skipped of plan.skipped) console.log(`OMITIDA ${skipped}`)
 for (const item of plan.imports) console.log(`${values.write ? 'IMPORTA' : 'PLAN'} ${item.key} → ${item.document.type}:${item.document.slug}.${item.field} · ${item.credit}`)
+if (plan.imports.length === 0 && plan.issues.length === 0) {
+  console.log(plan.skipped.length ? '\nNo hay nada nuevo que importar.' : '\nNo hay aprobaciones: añade entradas a «approvals» (o al fichero de --own) antes de importar.')
+  process.exit(0)
+}
 if (plan.issues.length) {
   console.log('\nCorrige las aprobaciones antes de importar. No se ha escrito nada.')
   process.exit(1)
