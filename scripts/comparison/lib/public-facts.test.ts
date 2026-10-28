@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import {existsSync} from 'node:fs'
 import {readFile} from 'node:fs/promises'
 import {resolve} from 'node:path'
 import test from 'node:test'
@@ -11,6 +12,16 @@ import {inspectComparison} from './qa'
 import type {ComparisonEvidenceFact, EnrichedComparisonArtifact, GeneratedComparisonArtifact} from './types'
 
 // Regression for issue #10, built from the arroces comparison (content/manual/comparisons/arroces.json).
+
+// Los dos replays leen artefactos persistidos que Git ignora (enriched y .staging). En un checkout
+// limpio (servidor de build, clon nuevo) no existen: se omiten con motivo en vez de fallar con ENOENT.
+const ARROCES_ARTIFACTS = [
+  'content/comparisons/enriched/comparison-arroces.json',
+  'content/generated/.staging/comparisons/comparison-arroces.json',
+]
+const arrocesReplaySkip = ARROCES_ARTIFACTS.every((path) => existsSync(resolve(process.cwd(), path)))
+  ? false
+  : 'faltan los artefactos persistidos de arroces (ignorados por Git); el replay solo corre donde está el catálogo'
 
 function fact(id: string, value: string, nature: ComparisonEvidenceFact['nature'] = 'factual'): ComparisonEvidenceFact {
   return {id, value, nature, sourceKeys: ['official-website:https://example.com/carta']}
@@ -73,7 +84,7 @@ test('arroces: la página agrupa fuentes heredadas sin repetir variantes', () =>
   assert.deepEqual(groups.map((group) => group.sources.length), [1, 1])
 })
 
-test('arroces: replay del artefacto persistido separa condiciones, deduplica fuentes y fija la unidad', async () => {
+test('arroces: replay del artefacto persistido separa condiciones, deduplica fuentes y fija la unidad', {skip: arrocesReplaySkip}, async () => {
   const root = process.cwd()
   const enriched = JSON.parse(await readFile(resolve(root, 'content/comparisons/enriched/comparison-arroces.json'), 'utf8')) as EnrichedComparisonArtifact
   const legacy = JSON.parse(await readFile(resolve(root, 'content/generated/.staging/comparisons/comparison-arroces.json'), 'utf8')) as GeneratedComparisonArtifact
@@ -114,7 +125,7 @@ test('arroces: replay del artefacto persistido separa condiciones, deduplica fue
   assert.deepEqual(validateContent([{document: rebuilt.document, source: 'test', expectedType: 'comparison'}], {allowUnresolvedReferences: true}).issues, [])
 })
 
-test('QA marca una unidad de precio que no sale de la carta', async () => {
+test('QA marca una unidad de precio que no sale de la carta', {skip: arrocesReplaySkip}, async () => {
   const root = process.cwd()
   const enriched = JSON.parse(await readFile(resolve(root, 'content/comparisons/enriched/comparison-arroces.json'), 'utf8')) as EnrichedComparisonArtifact
   const legacy = JSON.parse(await readFile(resolve(root, 'content/generated/.staging/comparisons/comparison-arroces.json'), 'utf8')) as GeneratedComparisonArtifact
