@@ -2,7 +2,8 @@
 // Describe las reglas tal como están en el código. Si cambian la selección o la investigación
 // (scripts/comparison/lib/selection.ts, scoring.ts, enrichment.ts, gate.ts, topic-config.ts),
 // src/lib/indexability.ts, scripts/seo/lib/freshness.ts o el tratamiento de los vídeos de
-// creadores (src/lib/creator-observations.ts) —por ejemplo, con #52—, actualiza esta página en el mismo PR.
+// creadores (src/lib/creator-observations.ts) —por ejemplo, con #52— o el tratamiento de las imágenes
+// (src/lib/image-credit.ts, scripts/images/, .claude/rules/images.md), actualiza esta página en el mismo PR.
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import {structuralIndexability} from '../lib/indexability'
@@ -20,6 +21,7 @@ const sections = [
   {id: 'revision', title: 'Cada cuánto se revisa'},
   {id: 'ia', title: 'Qué hace la IA y qué revisa una persona'},
   {id: 'creadores', title: 'Vídeos de creadores'},
+  {id: 'imagenes', title: 'Imágenes'},
   {id: 'relacion-comercial', title: 'Relación comercial'},
   {id: 'correcciones', title: 'Cómo pedir una corrección'},
 ]
@@ -103,6 +105,20 @@ const link = 'font-bold text-sea-dark underline'
           <li class={item}>Es lo que se ve en el vídeo, no una comprobación de enBenidorm. Los precios son los que aparecen en el vídeo en su fecha.</li>
           <li class={item}>Los vídeos no cuentan para elegir sitios ni para el umbral de las comparativas.</li>
           <li class={item}>Si el creador pide que no se use su vídeo, se retira.</li>
+        </ul>
+      </section>
+
+      <section id="imagenes" aria-labelledby="imagenes-title">
+        <h2 id="imagenes-title" class="font-editorial text-3xl">Cómo se eligen y acreditan las imágenes</h2>
+        <p class="mt-4 leading-relaxed">Cada imagen indica de dónde sale. Hay dos tipos:</p>
+        <ul class="mt-5 space-y-3">
+          <li class={item}><strong>Fotos propias</strong>, hechas por David en una visita. Llevan el crédito «Foto: enBenidorm» con la fecha en que se hicieron. Antes de publicarlas se borran los datos de ubicación del archivo.</li>
+          <li class={item}><strong>Imágenes de archivo</strong> de Wikimedia Commons, Pixabay o Pexels. Llevan el autor, el sitio de donde salen y la licencia, con enlaces a cada uno.</li>
+          <li class={item}>Solo se usan licencias que permiten el uso comercial y el recorte: CC0, dominio público, CC BY, CC BY-SA, la licencia de Pixabay y la de Pexels. Las que prohíben el uso comercial (NC) o las obras derivadas (ND) se descartan.</li>
+          <li class={item}>Un programa busca imágenes candidatas con su licencia y su autor. No elige ninguna: David revisa y aprueba cada imagen antes de publicarla.</li>
+          <li class={item}>Si el pie o el texto alternativo nombran un lugar, la imagen es de ese lugar: lo confirma su categoría en Wikimedia Commons, sus coordenadas o una comprobación de David. Si no se puede confirmar, la imagen se usa solo como ambiente y no nombra ningún lugar.</li>
+          <li class={item}>En las fichas de restaurantes y otros negocios solo hay fotos propias o ninguna. Una foto de archivo de un plato haría pensar que es de ese local.</li>
+          <li class={item}>El texto alternativo describe lo que se ve en la imagen. No copia la descripción de la fuente.</li>
         </ul>
       </section>
 
