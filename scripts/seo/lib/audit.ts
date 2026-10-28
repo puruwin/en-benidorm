@@ -1,10 +1,11 @@
 import {parse} from 'parse5'
 import {INDEXABILITY_META, isIndexable, MIN_INCOMING_LINKS, parseIndexabilitySignals, type IndexabilityReason, type IndexabilitySignals} from '../../../src/lib/indexability'
+import {pageType, type PageType} from './page-type'
 
 export {MIN_INCOMING_LINKS}
+export type {PageType}
 
 export type LinkZone = 'menu' | 'footer' | 'body'
-export type PageType = 'indexable' | 'noindex' | 'redirect' | 'not-found'
 
 export type ErrorRule =
   | 'broken-link'
@@ -27,6 +28,8 @@ export type ErrorRule =
   | 'image-stock-incomplete'
   | 'image-stock-business'
   | 'image-place-unverified'
+  | 'sitemap-noindex'
+  | 'sitemap-missing-indexable'
 
 export type WarningRule = 'img-missing-alt' | 'title-too-long' | 'image-no-own-photo'
 
@@ -143,9 +146,7 @@ export function parsePage(source: SourcePage, origin: string): ParsedPage {
   const refresh = byTag('meta').find((node) => attr(node, 'http-equiv')?.toLowerCase() === 'refresh')
   const redirectTarget = refresh ? refreshTarget(attr(refresh, 'content') ?? '') : null
   const redirectTo = redirectTarget === null ? null : normalizeInternal(redirectTarget, source.route, origin) ?? redirectTarget
-  const robots = byTag('meta').find((node) => attr(node, 'name')?.toLowerCase() === 'robots')
-  const noindex = /\bnoindex\b/i.test(attr(robots, 'content') ?? '')
-  const type: PageType = refresh ? 'redirect' : source.route === '/404.html' ? 'not-found' : noindex ? 'noindex' : 'indexable'
+  const type = pageType(source.route, source.html)
 
   const titleNode = byTag('title')[0]
   const title = titleNode ? collapse(textOf(titleNode, false)) || null : null
@@ -260,7 +261,14 @@ function imageFindings(page: ParsedPage, places: readonly string[]): Array<{rule
   return findings
 }
 
-export function auditSite(sources: readonly SourcePage[], options: {origin: string; placeNames?: readonly string[]}): AuditResult {
+export interface AuditOptions {
+  origin: string
+  placeNames?: readonly string[]
+  /** URLs de `<loc>` del sitemap del build. Sin la opción no se comparan sitemap y páginas. */
+  sitemap?: readonly string[]
+}
+
+export function auditSite(sources: readonly SourcePage[], options: AuditOptions): AuditResult {
   const origin = new URL(options.origin).origin
   const pages = [...sources].sort((a, b) => compare(a.route, b.route)).map((source) => parsePage(source, origin))
   // Nomenclátor para `image-place-unverified`: el H1 de cada ficha del rastreo más los topónimos sin página.
@@ -350,6 +358,8 @@ export function auditSite(sources: readonly SourcePage[], options: {origin: stri
     }
   }
 
+  if (options.sitemap) errors.push(...sitemapFindings(options.sitemap, pages, graph, origin))
+
   const indexable = pages.filter((page) => page.type === 'indexable')
   errors.push(...duplicates(indexable, 'title', 'title-duplicate'), ...duplicates(indexable, 'description', 'description-duplicate'))
 
@@ -368,6 +378,44 @@ export function auditSite(sources: readonly SourcePage[], options: {origin: stri
 export function newFindings<Rule extends string>(findings: ReadonlyArray<Finding<Rule>>, baseline: ReadonlyArray<Finding<string>>): Array<Finding<Rule>> {
   const known = new Set(baseline.map(findingKey))
   return findings.filter((finding) => !known.has(findingKey(finding)))
+}
+
+/** El sitemap debe listar exactamente las páginas `indexable` del rastreo. */
+function sitemapFindings(urls: readonly string[], pages: readonly ParsedPage[], graph: Record<string, PageGraphEntry>, origin: string): Array<Finding<ErrorRule>> {
+  const findings: Array<Finding<ErrorRule>> = []
+  const byRoute = new Map(pages.map((page) => [page.route, page]))
+  const listed = new Set<string>()
+  for (const url of unique(urls)) {
+    let parsed: URL
+    try {
+      parsed = new URL(url)
+    } catch {
+      findings.push({rule: 'sitemap-noindex', route: url, detail: 'URL no válida en el sitemap'})
+      continue
+    }
+    const route = parsed.pathname
+    if (parsed.origin !== origin) {
+      findings.push({rule: 'sitemap-noindex', route, detail: `${url}: origen distinto de ${origin}`})
+      continue
+    }
+    listed.add(route)
+    const page = byRoute.get(route)
+    const reasons = graph[route]?.indexabilityReasons?.map((reason) => reason.code) ?? []
+    const detail = !page
+      ? '404: no hay HTML en el build'
+      : page.type === 'noindex'
+        ? `noindex${reasons.length ? ` (${reasons.join(', ')})` : ''}`
+        : page.type === 'redirect'
+          ? `redirect → ${page.redirectTo ?? '(sin destino)'}`
+          : page.type === 'not-found'
+            ? '404: página de error'
+            : null
+    if (detail) findings.push({rule: 'sitemap-noindex', route, detail})
+  }
+  for (const page of pages) {
+    if (page.type === 'indexable' && !listed.has(page.route)) findings.push({rule: 'sitemap-missing-indexable', route: page.route, detail: 'página indexable que no está en el sitemap'})
+  }
+  return findings
 }
 
 function duplicates(pages: readonly ParsedPage[], field: 'title' | 'description', rule: ErrorRule): Array<Finding<ErrorRule>> {
