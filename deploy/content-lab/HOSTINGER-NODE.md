@@ -1,6 +1,10 @@
 # Content Lab en hosting Node.js: lab.enbenidorm.es
 
-Este es el destino elegido para Content Lab: hosting Node.js gestionado, con origen
+> **Destino anterior.** Content Lab se despliega ahora en la VPS: ver
+> [`deploy/vps/README.md`](../vps/README.md). Esta guía se conserva como referencia de la
+> entrada gestionada `content-lab.server.mjs`, que la VPS sigue usando.
+
+Este fue el destino elegido para Content Lab: hosting Node.js gestionado, con origen
 `https://lab.enbenidorm.es`. No requiere Docker ni Caddy. El proveedor termina HTTPS
 y asigna el puerto interno. La web pública enBenidorm conserva su despliegue separado.
 
