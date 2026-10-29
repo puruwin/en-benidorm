@@ -25,6 +25,9 @@ como foto de un establecimiento concreto.
 2. **Aprobar**: David añade entradas a `approvals` (`candidateId`, `approvedBy`, `approvedAt`,
    `alt`, `caption?`, `placeVerified`, `field?`, `document?`). Fotos propias: aprobación en
    `content/images/own/<visita>.json` sobre una visita de `content/manual/visits/` (#14).
+   Otras decisiones de David quedan en el mismo fichero, opcionales: `dismissals` (descarte con motivo;
+   deshacerlo rellena `undoneAt`, no lo borra) y `withdrawn` (aprobación retirada antes de importar).
+   Las reglas de aprobación están en una sola función, `validateStockApproval` (`scripts/images/lib/importer.ts`).
 3. **Importar**: `npm run images:import -- <fichero>` simula. Con `--write` descarga, quita EXIF
    (sharp sin `withMetadata`), sube el asset y asigna el campo. Lo ejecuta David.
 
