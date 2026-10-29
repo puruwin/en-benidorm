@@ -21,6 +21,7 @@ fi
 
 install -d -m 700 "$DEST"
 file="$DEST/content-$(date -u +%Y%m%dT%H%M%SZ).tar.gz"
+trap 'rm -f -- "$file.tmp"' EXIT
 tar --exclude="$NAME/images/.cache" -czf "$file.tmp" -C "$PARENT" "$NAME"
 mv -f "$file.tmp" "$file"
 echo "Backup: $file ($(du -h "$file" | cut -f1))" >&2

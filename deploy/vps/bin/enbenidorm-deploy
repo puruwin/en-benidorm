@@ -8,6 +8,7 @@
 #   lab <sha40>     lee un tar.gz del código (git archive) por stdin, instala, construye y reinicia
 #   rollback-site   vuelve a la release anterior de la web
 #   rollback-lab    vuelve a la release anterior de Content Lab
+#   lab-sha         imprime el SHA completo de la release activa de Content Lab (o nada)
 #   status          muestra releases activas
 set -Eeuo pipefail
 umask 022
@@ -18,25 +19,45 @@ LAB_SERVICE=content-lab.service
 LAB_URL=http://127.0.0.1:3000/api/session
 LAB_HOST=lab.enbenidorm.es
 LOCK_FILE=/srv/enbenidorm/deploy.lock
+LOG_FILE=/srv/enbenidorm/deploy.log
 KEEP_SITE=5
 KEEP_LAB=3          # cada release de Content Lab lleva node_modules (~900 MB)
 EX_TEMPFAIL=75      # despliegue pospuesto: Content Lab tiene trabajos activos
 
-log() { printf '[%s] %s\n' "$(date -u +%FT%TZ)" "$*" >&2; }
+# El log nunca puede abortar el script: si la sesión SSH se corta, stderr deja de existir.
+log() {
+  local line; line=$(printf '[%s] %s' "$(date -u +%FT%TZ)" "$*")
+  printf '%s\n' "$line" >&2 2>/dev/null || true
+  printf '%s\n' "$line" >> "$LOG_FILE" 2>/dev/null || true
+}
 die() { log "ERROR: $1"; exit "${2:-1}"; }
 
 incoming=""
 cleanup() { [[ -n "$incoming" && -d "$incoming" ]] && rm -rf -- "$incoming"; return 0; }
 trap cleanup EXIT
 
-read -r -a argv <<< "${SSH_ORIGINAL_COMMAND:-}"
+raw="${SSH_ORIGINAL_COMMAND:-}"
+[[ "$raw" != *$'\n'* && "$raw" != *$'\r'* ]] || die "Orden no permitida."
+read -r -a argv <<< "$raw"
 action="${argv[0]:-}"
 sha="${argv[1]:-}"
-[[ ${#argv[@]} -le 2 ]] || die "Demasiados argumentos."
+case "$action" in
+  site|lab) [[ ${#argv[@]} -eq 2 ]] || die "Uso: $action <sha40>." ;;
+  rollback-site|rollback-lab|lab-sha|status) [[ ${#argv[@]} -eq 1 ]] || die "$action no admite argumentos." ;;
+  *) die "Orden no permitida: '$raw'." ;;
+esac
 
 require_sha() { [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || die "SHA no válido: '$sha'."; }
 
-release_id() { printf '%s-%s' "$(date -u +%Y%m%dT%H%M%SZ)" "${sha:0:12}"; }
+# Fecha UTC + SHA corto; si coincide con una existente (mismo segundo), espera al siguiente.
+release_id() {
+  local dir=$1 id
+  while :; do
+    id="$(date -u +%Y%m%dT%H%M%SZ)-${sha:0:12}"
+    [[ -e "$dir/$id" || -e "$dir/.incoming-$id" ]] || { printf '%s' "$id"; return; }
+    sleep 1
+  done
+}
 
 # Cambio atómico del enlace: los lectores ven la release vieja o la nueva, nunca nada.
 switch_to() {
@@ -45,22 +66,24 @@ switch_to() {
   mv -Tf -- "$link.next" "$link"
 }
 
-# Releases ordenadas de más nueva a más antigua (el id empieza por la fecha UTC).
-releases() { find "$1" -mindepth 1 -maxdepth 1 -type d ! -name '.incoming-*' -printf '%f\n' | sort -r; }
+# Releases válidas, de más nueva a más antigua (el id empieza por la fecha UTC).
+# Se excluyen las ocultas: .incoming-* (a medio subir) y .failed-* (no arrancaron).
+releases() { find "$1" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -printf '%f\n' | sort -r; }
 
 prune() {
-  local dir=$1 keep=$2 current; current=$(readlink -f "$3" || true)
-  local old
+  local dir=$1 keep=$2 current old; current=$(readlink -f "$3" || true)
   while read -r old; do
     [[ -z "$old" || "$dir/$old" -ef "$current" ]] && continue
     log "Eliminando release antigua $old"
     rm -rf -- "${dir:?}/$old"
   done < <(releases "$dir" | tail -n +"$((keep + 1))")
+  # Restos de despliegues interrumpidos o fallidos con más de un día.
+  find "$dir" -mindepth 1 -maxdepth 1 -type d \( -name '.incoming-*' -o -name '.failed-*' \) -mmin +1440 \
+    -exec rm -rf -- {} + 2>/dev/null || true
 }
 
 previous_release() {
-  local dir=$1 current r; current=$(readlink -f "$2" || true)
-  local seen=0
+  local dir=$1 current r seen=0; current=$(readlink -f "$2" || true)
   while read -r r; do
     if [[ "$dir/$r" -ef "$current" ]]; then seen=1; continue; fi
     [[ $seen -eq 1 ]] && { printf '%s' "$r"; return 0; }
@@ -74,21 +97,27 @@ receive() {
   tar -xzf - --no-same-owner --no-same-permissions -C "$incoming" || die "No se pudo extraer el paquete recibido."
 }
 
-# Procesos del servicio aparte del principal = pipelines en curso (Content Lab las lanza como hijos).
+# Pipelines en curso. Content Lab las lanza con detached (grupo de procesos propio); los
+# auxiliares del proceso principal, como esbuild de tsx, comparten su grupo y no cuentan.
 lab_active_runs() {
-  local procs="/sys/fs/cgroup/system.slice/$LAB_SERVICE/cgroup.procs" n
+  local procs="/sys/fs/cgroup/system.slice/$LAB_SERVICE/cgroup.procs" main mpg pid pg n=0
   [[ -r "$procs" ]] || { echo 0; return; }
-  n=$(grep -c . "$procs" || true)
-  echo $(( n > 1 ? n - 1 : 0 ))
+  main=$(systemctl show -p MainPID --value "$LAB_SERVICE" 2>/dev/null || true)
+  [[ "$main" =~ ^[1-9][0-9]*$ ]] || { echo 0; return; }
+  mpg=$(ps -o pgid= -p "$main" | tr -d ' ')
+  while read -r pid; do
+    pg=$(ps -o pgid= -p "$pid" 2>/dev/null | tr -d ' ') || continue
+    [[ -n "$pg" && "$pg" != "$mpg" ]] && n=$((n + 1))
+  done < "$procs"
+  echo "$n"
 }
 
 assert_lab_idle() {
   local n; n=$(lab_active_runs)
-  [[ "$n" -eq 0 ]] || die "Content Lab tiene $n proceso(s) de pipeline activos. Despliegue pospuesto: relánzalo cuando terminen (Actions → Run workflow → lab)." "$EX_TEMPFAIL"
+  [[ "$n" -eq 0 ]] || die "Content Lab tiene $n proceso(s) de pipeline en curso. Despliegue pospuesto: se reintentará en el próximo despliegue." "$EX_TEMPFAIL"
 }
 
 lab_healthy() {
-
   for _ in $(seq 1 30); do
     if curl -fsS -o /dev/null --max-time 5 -H "Host: $LAB_HOST" "$LAB_URL"; then return 0; fi
     sleep 2
@@ -99,6 +128,8 @@ lab_healthy() {
 # Para, hace backup del contenido, cambia de release y arranca. Si no arranca sano, vuelve atrás.
 lab_activate() {
   local target=$1 previous; previous=$(readlink "$LAB_ROOT/current" || true)
+  # A partir de aquí, un corte de la sesión SSH no debe dejar el servicio a medias.
+  trap '' HUP PIPE
   assert_lab_idle
   log "Deteniendo $LAB_SERVICE"
   sudo -n /usr/bin/systemctl stop "$LAB_SERVICE"
@@ -108,15 +139,17 @@ lab_activate() {
     die "Falló el backup; Content Lab sigue en la release anterior."
   fi
   switch_to "$LAB_ROOT/current" "$target"
-  sudo -n /usr/bin/systemctl start "$LAB_SERVICE"
+  sudo -n /usr/bin/systemctl start "$LAB_SERVICE" || true
   if lab_healthy; then
     log "Content Lab activo en $target"
     return 0
   fi
   log "Content Lab no responde en $target."
-  if [[ -n "$previous" ]]; then
+  if [[ -n "$previous" && "$previous" != "$target" ]]; then
     sudo -n /usr/bin/systemctl stop "$LAB_SERVICE" || true
     switch_to "$LAB_ROOT/current" "$previous"
+    # La release fallida sale de la lista para que rollback-lab no la elija nunca.
+    mv -T -- "$LAB_ROOT/$target" "$LAB_ROOT/releases/.failed-${target#releases/}" 2>/dev/null || true
     sudo -n /usr/bin/systemctl start "$LAB_SERVICE" || true
     if lab_healthy; then
       log "Restaurada la release anterior $previous"
@@ -129,7 +162,7 @@ lab_activate() {
 
 deploy_site() {
   require_sha
-  local id; id=$(release_id)
+  local id f; id=$(release_id "$SITE_ROOT/releases")
   receive "$SITE_ROOT/releases" "$id"
   for f in index.html 404.html sitemap-index.xml robots.txt; do
     [[ -f "$incoming/$f" ]] || die "Falta $f en el paquete: no se activa."
@@ -144,9 +177,10 @@ deploy_site() {
 deploy_lab() {
   require_sha
   assert_lab_idle
-  local id; id=$(release_id)
+  local id; id=$(release_id "$LAB_ROOT/releases")
   receive "$LAB_ROOT/releases" "$id"
   [[ -f "$incoming/content-lab.server.mjs" && -f "$incoming/package-lock.json" ]] || die "El paquete no parece un checkout de en-benidorm."
+  printf '%s\n' "$sha" > "$incoming/.release-sha"
   log "npm ci (incluye devDependencies: tsx se usa en ejecución)"
   ( cd "$incoming" && npm ci --include=dev --no-audit --no-fund --loglevel=error ) >&2
   log "npm run content-lab:build"
@@ -168,20 +202,31 @@ rollback_lab() {
   lab_activate "releases/$prev"
 }
 
+lab_sha() {
+  local f="$LAB_ROOT/current/.release-sha" value=""
+  [[ -r "$f" ]] && value=$(head -c 40 "$f")
+  [[ "$value" =~ ^[0-9a-f]{40}$ ]] && printf '%s\n' "$value"
+  return 0
+}
+
 status() {
   printf 'web:          %s\n' "$(readlink "$SITE_ROOT/current" || echo '-')"
   printf 'content-lab:  %s\n' "$(readlink "$LAB_ROOT/current" || echo '-')"
-  printf 'pipelines:    %s activas\n' "$(lab_active_runs)"
+  printf 'pipelines:    %s en curso\n' "$(lab_active_runs)"
 }
 
+case "$action" in
+  lab-sha) lab_sha; exit 0 ;;
+  status) status; exit 0 ;;
+esac
+
+# El lock no espera más que el timeout de los jobs de Actions.
 exec 9>"$LOCK_FILE"
-flock -w 900 9 || die "Otro despliegue lleva más de 15 minutos en curso."
+flock -w 600 9 || die "Otro despliegue lleva más de 10 minutos en curso."
 
 case "$action" in
   site) deploy_site ;;
   lab) deploy_lab ;;
   rollback-site) rollback_site ;;
   rollback-lab) rollback_lab ;;
-  status) status ;;
-  *) die "Orden no permitida: '${SSH_ORIGINAL_COMMAND:-}'." ;;
 esac

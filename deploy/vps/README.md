@@ -7,10 +7,11 @@ viven en la misma VPS, detrás de Caddy.
 PR ──► GitHub Actions: check · test · build demo · seo:audit       (no despliega)
 merge a main ──► check · test · build Sanity · seo:audit
                  ├─► web: tar de dist/ por SSH → release nueva → enlace current   (siempre)
-                 └─► Content Lab: git archive por SSH → npm ci + build → backup → reinicio
-                                  (solo si cambian tools/, scripts/, src/lib/, src/types/,
-                                   content/, package*.json o content-lab.server.mjs)
-publicación en Sanity ──► webhook → repository_dispatch → solo la web
+                 └─► Content Lab: compara la release activa con main; si cambian tools/,
+                     scripts/, src/lib/, src/types/, content/, package*.json, tsconfig.json
+                     o content-lab.server.mjs → git archive por SSH → npm ci + build
+                     → backup → reinicio
+publicación en Sanity ──► webhook → repository_dispatch → web (y Content Lab si quedó pendiente)
 ```
 
 | Ruta en la VPS | Qué es | Propietario |
@@ -27,11 +28,17 @@ Garantías:
 
 - Si `check`, `test`, `build` o `seo:audit` (contra `scripts/seo/baseline.json`) fallan, no se despliega nada.
 - Las releases se activan cambiando un enlace simbólico: no hay estado intermedio servido.
-- Content Lab no se reinicia si tiene una pipeline en curso: el job falla con código 75 y no toca nada.
-  Relánzalo después desde Actions → *Validar y desplegar* → *Run workflow* → `lab`.
+- Solo se despliega desde `main`, aunque lances *Run workflow* sobre otra rama.
+- Content Lab no se reinicia si tiene una pipeline en curso: el job avisa (warning) y no toca nada.
+  Como cada despliegue compara con la release activa, el siguiente lo recoge. Para forzarlo antes:
+  Actions → *Validar y desplegar* → *Run workflow* → `lab`.
 - Antes de cambiar Content Lab se detiene el servicio y se hace backup de `content/`.
-  Si la release nueva no responde en 60 s, vuelve sola a la anterior.
+  Si la release nueva no responde en 60 s, vuelve sola a la anterior y la nueva se aparta como
+  `.failed-*` para que `rollback-lab` no la elija.
+- La web **no** se revierte sola si falla la comprobación HTTPS posterior: usa `rollback-site`.
 - La clave SSH de Actions solo puede ejecutar `/usr/local/bin/enbenidorm-deploy`: sin shell, sin reenvíos.
+- Un corte de la sesión SSH durante la activación no deja Content Lab a medias: el script ignora
+  la desconexión y termina. El registro queda en `/srv/enbenidorm/deploy.log`.
 
 Límites conocidos:
 
@@ -40,6 +47,8 @@ Límites conocidos:
 - Los backups están en la misma VPS. Necesitas además una copia fuera (snapshot de Hostinger o
   descarga periódica de `/srv/content-lab/backups`).
 - `npm ci` en la VPS necesita salida a registry.npmjs.org.
+- Detrás de Caddy, Content Lab ve todas las peticiones desde 127.0.0.1: el límite de intentos de
+  login es global. Corregirlo requiere `trustProxy` en Fastify (issue aparte).
 
 ## Instalación (una vez)
 
@@ -54,12 +63,15 @@ node --version   # v24.x
 
 sudo useradd --system --create-home --shell /bin/bash deploy
 sudo useradd --system --no-create-home --shell /usr/sbin/nologin contentlab
+# useradd --system bloquea la contraseña; con UsePAM no, sshd rechazaría la clave:
+sudo sshd -T | grep -i usepam   # si dice "no": sudo usermod -p '*' deploy
 ```
 
 ### 2. Directorios
 
 ```bash
 sudo install -d -o deploy -g deploy -m 755 /srv/enbenidorm /srv/enbenidorm/site /srv/enbenidorm/site/releases
+sudo install -o deploy -g deploy -m 644 /dev/null /srv/enbenidorm/deploy.log
 sudo install -d -o root -g root -m 755 /srv/content-lab
 sudo install -d -o deploy -g deploy -m 755 /srv/content-lab/app /srv/content-lab/app/releases
 sudo install -d -o root -g root -m 700 /srv/content-lab/backups
@@ -78,6 +90,8 @@ test ! -e /srv/content-lab/content
 sudo tar -xzf /tmp/content-lab-content.tar.gz -C /srv/content-lab
 sudo chown -R contentlab:contentlab /srv/content-lab/content
 sudo chmod 750 /srv/content-lab/content
+# Un lock de sincronización copiado en el snapshot impediría arrancar:
+test ! -e /srv/content-lab/content/.release-artifacts/sync.lock
 ```
 
 Si Content Lab corre hoy en el hosting Node gestionado, detenlo antes de sacar el snapshot y no lo
@@ -144,8 +158,11 @@ ssh-keyscan -p 22 <ip-o-host-de-la-vps>
 
 ### 8. GitHub
 
-En *Settings → Environments*, crea `production` y `production-lab` (opcional: exige tu aprobación en
-`production-lab`). En *Settings → Secrets and variables → Actions*:
+En *Settings → Environments*, crea `production` y `production-lab`. En los dos, *Deployment branches
+and tags* → *Selected branches* → `main`, para que sus secrets no lleguen a otra rama. Opcional: exige
+tu aprobación en `production-lab`.
+
+En *Settings → Branches* (o *Rules*), protege `main`: PR obligatorio y sin push directo. En *Settings → Secrets and variables → Actions*:
 
 | Tipo | Nombre | Valor |
 |---|---|---|
@@ -175,13 +192,17 @@ Borra la clave privada de tu ordenador cuando esté en GitHub.
 
 Para reconstruir la web al publicar en Sanity:
 
-1. GitHub → token *fine-grained* limitado a `puruwin/en-benidorm` con permiso *Contents: Read and write*.
+1. GitHub → token *fine-grained* limitado a `puruwin/en-benidorm` con permiso *Contents: Read and write*
+   (GitHub lo exige para `dispatches`) y caducidad corta. Ese permiso también permite hacer push: la
+   protección de `main` del paso 8 es la que impide que un token filtrado despliegue código.
 2. Sanity → API → Webhooks: URL `https://api.github.com/repos/puruwin/en-benidorm/dispatches`,
    método POST, solo documentos publicados, cabeceras
    `Authorization: Bearer <token>` y `Accept: application/vnd.github+json`,
    proyección `{"event_type": "sanity-publish"}`.
 
 Cada publicación lanza un build. Si se publican varias seguidas, GitHub deja en cola solo la última.
+Sin el webhook, el contenido publicado en Sanity no llega a la web hasta el siguiente merge o
+*Run workflow* → `site`.
 Si el contenido nuevo genera un error de `seo:audit`, no se despliega: es intencionado.
 
 ## Operación
@@ -193,7 +214,15 @@ sudo -u deploy SSH_ORIGINAL_COMMAND=status /usr/local/bin/enbenidorm-deploy
 sudo -u deploy SSH_ORIGINAL_COMMAND=rollback-site /usr/local/bin/enbenidorm-deploy
 sudo -u deploy SSH_ORIGINAL_COMMAND=rollback-lab /usr/local/bin/enbenidorm-deploy
 journalctl -u content-lab -n 200
+tail -n 100 /srv/enbenidorm/deploy.log
 ```
+
+Si Content Lab no arranca con «Sincronización bloqueada»: un cierre abrupto dejó el lock. Con el
+servicio parado y sin otro despliegue en curso, borra solo
+`/srv/content-lab/content/.release-artifacts/sync.lock` y arranca (ver `deploy/content-lab/HOSTINGER-NODE.md`).
+
+La caché de npm del usuario `deploy` crece con cada despliegue; límpiala de vez en cuando con
+`sudo -u deploy npm cache clean --force`.
 
 Un rollback no revierte `main`: el siguiente merge vuelve a desplegar. Corrige con un PR.
 Restaurar un backup de `content/`: con el servicio detenido, extrae en un directorio nuevo y sigue

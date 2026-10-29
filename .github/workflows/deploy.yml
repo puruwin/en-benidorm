@@ -1,6 +1,6 @@
-# Valida cada PR y, al llegar a main, despliega en la VPS de Hostinger:
+# Valida cada PR y, desde main, despliega en la VPS de Hostinger:
 #   - web pública (Astro estático) en cada push a main y en cada publicación de Sanity;
-#   - Content Lab solo si el commit toca código o datos que usa.
+#   - Content Lab cuando el código que usa ha cambiado respecto a la release activa en la VPS.
 # Guía de instalación y operación: deploy/vps/README.md
 name: Validar y desplegar
 
@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: Qué desplegar
+        description: Qué desplegar (siempre desde main)
         type: choice
         options: [site, lab, all]
         default: site
@@ -24,12 +24,14 @@ permissions:
   contents: read
 
 concurrency:
-  # PR: se cancela la ejecución anterior. Producción: nunca se cancela un despliegue en curso.
-  group: ${{ github.event_name == 'pull_request' && format('verify-{0}', github.ref) || 'production' }}
+  # PR: cancela la validación anterior de la misma rama. Producción: la concurrencia va por job.
+  group: ${{ github.event_name == 'pull_request' && format('verify-{0}', github.ref) || format('run-{0}', github.run_id) }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   NODE_VERSION: '24'
+  # Rutas que usa Content Lab en ejecución.
+  LAB_PATHS: '^(tools/|scripts/|src/lib/|src/types/|content/|package\.json$|package-lock\.json$|tsconfig\.json$|\.npmrc$|content-lab\.server\.mjs$)'
 
 jobs:
   verify:
@@ -70,38 +72,30 @@ jobs:
       - name: Auditoría SEO (bloquea errores nuevos)
         run: npm run seo:audit -- --baseline scripts/seo/baseline.json
 
+      # "lab" aquí significa "comprobar Content Lab"; deploy-lab decide comparando con la VPS.
       - name: Decidir qué se despliega
         id: targets
         env:
           EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
           TARGET: ${{ inputs.target }}
-          BEFORE: ${{ github.event.before }}
         run: |
           site=false; lab=false
-          case "$EVENT" in
-            push)
-              site=true
-              # Rutas que usa Content Lab: código de la API y pipelines, librerías compartidas,
-              # dependencias, entrada gestionada y artefactos versionados de content/.
-              lab_paths='^(tools/|scripts/|src/lib/|src/types/|content/|package\.json$|package-lock\.json$|content-lab\.server\.mjs$)'
-              if [[ "$BEFORE" =~ ^0+$ ]] || ! git fetch --no-tags --depth=1 origin "$BEFORE" 2>/dev/null; then
-                lab=true
-              elif git diff --name-only "$BEFORE" "$GITHUB_SHA" | grep -Eq "$lab_paths"; then
-                lab=true
-              fi
-              ;;
-            repository_dispatch) site=true ;;
-            workflow_dispatch)
-              [[ "$TARGET" == site || "$TARGET" == all ]] && site=true
-              [[ "$TARGET" == lab || "$TARGET" == all ]] && lab=true
-              ;;
-          esac
+          if [[ "$REF" == refs/heads/main ]]; then
+            case "$EVENT" in
+              push|repository_dispatch) site=true; lab=true ;;
+              workflow_dispatch)
+                [[ "$TARGET" == site || "$TARGET" == all ]] && site=true
+                [[ "$TARGET" == lab || "$TARGET" == all ]] && lab=true
+                ;;
+            esac
+          fi
           echo "site=$site" >> "$GITHUB_OUTPUT"
           echo "lab=$lab" >> "$GITHUB_OUTPUT"
-          echo "Desplegar web: $site · Content Lab: $lab"
+          echo "Desplegar web: $site · comprobar Content Lab: $lab"
 
       - name: Guardar dist
-        if: github.event_name != 'pull_request' && steps.targets.outputs.site == 'true'
+        if: steps.targets.outputs.site == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -112,9 +106,12 @@ jobs:
   deploy-site:
     name: Desplegar web
     needs: verify
-    if: github.event_name != 'pull_request' && needs.verify.outputs.site == 'true'
+    if: needs.verify.outputs.site == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    concurrency:
+      group: deploy-site
+      cancel-in-progress: false
     environment:
       name: production
       url: https://enbenidorm.es
@@ -144,6 +141,7 @@ jobs:
             -o StrictHostKeyChecking=yes -o BatchMode=yes -p "$PORT" \
             "$USER_NAME@$HOST" "site $GITHUB_SHA"
 
+      # Si falla, la release nueva sigue activa: revisa y usa rollback-site si hace falta.
       - name: Comprobar producción
         run: |
           for path in / /sitemap-index.xml /robots.txt; do
@@ -154,10 +152,14 @@ jobs:
 
   deploy-lab:
     name: Desplegar Content Lab
-    needs: verify
-    if: github.event_name != 'pull_request' && needs.verify.outputs.lab == 'true'
+    needs: [verify, deploy-site]
+    # Después de la web (no compiten por el lock) y aunque la web se haya saltado o fallado.
+    if: always() && needs.verify.result == 'success' && needs.verify.outputs.lab == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    concurrency:
+      group: deploy-lab
+      cancel-in-progress: false
     environment:
       name: production-lab
       url: https://lab.enbenidorm.es
@@ -168,25 +170,67 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          HOST: ${{ vars.DEPLOY_HOST }}
+          PORT: ${{ vars.DEPLOY_PORT || '22' }}
+          USER_NAME: ${{ vars.DEPLOY_USER || 'deploy' }}
         run: |
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          cat > ~/.ssh/config <<EOF
+          Host vps
+            HostName $HOST
+            Port $PORT
+            User $USER_NAME
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+            BatchMode yes
+            ServerAliveInterval 30
+          EOF
+
+      # Compara con lo que hay desplegado, no con el push anterior: así un despliegue
+      # pospuesto o sustituido en la cola se recupera en el siguiente.
+      - name: ¿Ha cambiado Content Lab?
+        id: changed
+        env:
+          FORCE: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          deployed=$(ssh vps lab-sha || true)
+          echo "Desplegado: ${deployed:-ninguno} · main: $GITHUB_SHA"
+          deploy=true
+          if [[ "$FORCE" != true && "$deployed" =~ ^[0-9a-f]{40}$ ]]; then
+            if [[ "$deployed" == "$GITHUB_SHA" ]]; then
+              deploy=false
+            elif git fetch --no-tags --depth=1 origin "$deployed" 2>/dev/null \
+              && ! git diff --name-only "$deployed" "$GITHUB_SHA" | grep -Eq "$LAB_PATHS"; then
+              deploy=false
+            fi
+          fi
+          echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
+          echo "Desplegar Content Lab: $deploy"
 
       # Solo archivos versionados del commit: nunca .env ni datos ignorados.
-      # Si hay una pipeline en marcha, la VPS rechaza el despliegue (código 75) sin tocar nada.
+      # Código 75: hay una pipeline en curso; no se toca nada y se reintenta en el próximo despliegue.
       - name: Subir, instalar y reiniciar
-        env:
-          HOST: ${{ vars.DEPLOY_HOST }}
-          PORT: ${{ vars.DEPLOY_PORT || '22' }}
-          USER_NAME: ${{ vars.DEPLOY_USER || 'deploy' }}
+        id: deploy
+        if: steps.changed.outputs.deploy == 'true'
         run: |
-          git archive --format=tar.gz HEAD | ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes \
-            -o StrictHostKeyChecking=yes -o BatchMode=yes -o ServerAliveInterval=30 -p "$PORT" \
-            "$USER_NAME@$HOST" "lab $GITHUB_SHA"
+          set +e
+          # shellcheck disable=SC2029 # el SHA se expande en el runner a propósito
+          git archive --format=tar.gz HEAD | ssh vps "lab $GITHUB_SHA"
+          rc=${PIPESTATUS[1]}
+          set -e
+          if [[ $rc -eq 75 ]]; then
+            echo "::warning::Content Lab tiene una pipeline en curso; despliegue pospuesto al siguiente."
+            echo "postponed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          exit "$rc"
 
       - name: Comprobar Content Lab
+        if: steps.changed.outputs.deploy == 'true' && steps.deploy.outputs.postponed != 'true'
         run: |
           code=$(curl -sS -o /dev/null -w '%{http_code}' --retry 5 --retry-all-errors --retry-delay 3 https://lab.enbenidorm.es/api/session)
           echo "/api/session → $code"

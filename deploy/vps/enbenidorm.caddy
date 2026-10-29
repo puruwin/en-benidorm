@@ -50,7 +50,9 @@ enbenidorm.es {
 
 lab.enbenidorm.es {
 	import enbenidorm_headers
-	encode zstd gzip
+	# El stream de logs (SSE) no se comprime: comprimirlo puede retrasar los eventos.
+	@compressible not header Accept *text/event-stream*
+	encode @compressible zstd gzip
 	# Caddy conserva el Host original; Content Lab lo exige. SSE sin buffering.
 	reverse_proxy 127.0.0.1:3000 {
 		flush_interval -1
