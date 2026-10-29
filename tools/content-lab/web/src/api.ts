@@ -2,6 +2,8 @@ import type {DeploymentStatus} from '../../shared/system-types'
 import type {BusinessDetail, BusinessList} from '../../shared/business-types'
 import type {CodexPromptRequest, ComparisonSummary, PipelineRun} from '../../shared/types'
 
+export interface Session {authenticationRequired: boolean; authenticated: boolean; actor: string | null}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {...init, headers: {'Content-Type': 'application/json', ...init?.headers}})
   const body = await response.json().catch(() => ({}))
@@ -12,8 +14,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   system: () => request<DeploymentStatus>('/api/system'),
-  session: () => request<{authenticationRequired: boolean; authenticated: boolean}>('/api/session'),
-  login: (username: string, password: string) => request<{authenticationRequired: boolean; authenticated: boolean}>('/api/session/login', {method: 'POST', body: JSON.stringify({username, password})}),
+  session: () => request<Session>('/api/session'),
+  login: (username: string, password: string) => request<Session>('/api/session/login', {method: 'POST', body: JSON.stringify({username, password})}),
   logout: () => request<{authenticated: boolean}>('/api/session/logout', {method: 'POST', body: '{}'}),
   businesses: (query: string) => request<BusinessList>(`/api/businesses${query ? `?${query}` : ''}`),
   business: (id: string) => request<BusinessDetail>(`/api/businesses/${encodeURIComponent(id)}`),
