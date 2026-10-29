@@ -51,6 +51,15 @@ test('images import construye la ruta de candidatas y exige by y expectPlan para
   assert.throws(() => buildImagesCommand({action: 'import', slug: 'x', write: 'true'}), /boolean/)
 })
 
+test('images import guarda el plan solo al simular y lleva el id del run', () => {
+  const hash = 'a'.repeat(64)
+  assert.deepEqual(buildImagesCommand({action: 'import', slug: 'beach-playa-levante', planOut: true}).args.slice(3), ['content/images/candidates/beach-playa-levante.json', '--plan-out=content/images/plans/beach-playa-levante.json'])
+  assert.deepEqual(buildImagesCommand({action: 'import', slug: 'beach-playa-levante', write: true, by: 'david', expectPlan: hash, runId: '0b6c9a4e-1d2f-4c3b-9a8e-7f6d5c4b3a21'}).args.slice(-1), ['--run-id=0b6c9a4e-1d2f-4c3b-9a8e-7f6d5c4b3a21'])
+  assert.throws(() => buildImagesCommand({action: 'import', slug: 'x', write: true, planOut: true, by: 'david', expectPlan: hash}), /solo se usa en la simulación/)
+  assert.throws(() => buildImagesCommand({action: 'import', slug: 'x', planOut: 'yes'}), /boolean/)
+  for (const runId of ['a b', '--write', '$(id)', '']) assert.throws(() => buildImagesCommand({action: 'import', slug: 'x', runId}), /inválido/, runId)
+})
+
 test('images rechaza acciones, combinaciones y claves no previstas', () => {
   for (const input of [null, [], 'find', {action: 'publish'}, {action: 'find'}, {action: 'find', doc: 'beach:a', term: 'playa'},
     {action: 'find', doc: 'beach:a', out: '/tmp'}, {action: 'import', slug: 'a', path: '../x.json'}, {action: 'find', term: 'playa', env: {}}]) {

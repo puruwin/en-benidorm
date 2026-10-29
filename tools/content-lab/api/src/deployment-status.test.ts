@@ -27,8 +27,9 @@ test('diagnóstico separa instalación lista de APIs sin configurar; no muestra 
     const status = await deploymentStatus(f.root, f.config, {environment: f.environment})
     assert.equal(status.ready, true); assert.equal(status.content.businesses, 1)
     assert.equal(status.content.matchesManifest, true)
-    assert.deepEqual(status.integrations.map(i => [i.name, i.configured, i.connection]), [['OpenAI', false, 'not-tested'], ['Sanity', false, 'not-tested']])
-    const values = {...f.environment, OPENAI_API_KEY: 'fixture-openai-never-output', SANITY_PROJECT_ID: 'fixture-project-never-output', SANITY_DATASET: 'fixture-dataset-never-output', SANITY_API_TOKEN: 'fixture-sanity-never-output'}
+    assert.deepEqual(status.integrations.map(i => [i.name, i.configured, i.connection]), [['OpenAI', false, 'not-tested'], ['Sanity', false, 'not-tested'], ['Imágenes', false, 'not-tested']])
+    assert.deepEqual(status.integrations[2]!.missingVariables, ['SANITY_PROJECT_ID', 'SANITY_DATASET', 'SANITY_IMAGES_TOKEN', 'PIXABAY_API_KEY', 'PEXELS_API_KEY'])
+    const values = {...f.environment, OPENAI_API_KEY: 'fixture-openai-never-output', SANITY_PROJECT_ID: 'fixture-project-never-output', SANITY_DATASET: 'fixture-dataset-never-output', SANITY_API_TOKEN: 'fixture-sanity-never-output', SANITY_IMAGES_TOKEN: 'fixture-images-never-output', PIXABAY_API_KEY: 'fixture-pixabay-never-output', PEXELS_API_KEY: 'fixture-pexels-never-output'}
     const configured = await deploymentStatus(f.root, f.config, {environment: values})
     assert.ok(configured.integrations.every(i => i.configured && i.connection === 'not-tested'))
     for (const value of Object.values(values)) if (value.startsWith('fixture-') || value.startsWith('scrypt$')) assert.ok(!JSON.stringify(configured).includes(value))

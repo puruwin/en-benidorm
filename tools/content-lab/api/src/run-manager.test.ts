@@ -73,6 +73,34 @@ test('run manager oculta valores sensibles y acota los logs retenidos', () => {
   }
 })
 
+test('los runs de comparison no reciben SANITY_IMAGES_TOKEN y el log redacta su valor', () => {
+  const child = fakeProcess()
+  let env: NodeJS.ProcessEnv | undefined
+  const manager = new RunManager('/project', ((_command: string, _args: string[], options: {env: NodeJS.ProcessEnv}) => {env = options.env; return child}) as any)
+  const previous = process.env.SANITY_IMAGES_TOKEN
+  process.env.SANITY_IMAGES_TOKEN = 'fixture-images-token-value'
+  try {
+    const run = manager.start('desayunos', 'selection')
+    assert.equal(env?.SANITY_IMAGES_TOKEN, undefined)
+    assert.equal(env?.PATH, process.env.PATH)
+    child.stdout.write('token fixture-images-token-value\n')
+    assert.ok(!run.logs.some(log => log.message.includes('fixture-images-token-value')))
+    child.emit('close', 0, null)
+  } finally {
+    if (previous === undefined) delete process.env.SANITY_IMAGES_TOKEN
+    else process.env.SANITY_IMAGES_TOKEN = previous
+  }
+})
+
+test('startCommand usa el id dado y rechaza uno repetido', () => {
+  const child = fakeProcess()
+  const manager = new RunManager('/project', (() => child) as any)
+  const spec = {kind: 'images' as const, label: 'images:import x', command: 'node', args: [], env: {}, id: 'run-fijo'}
+  assert.equal(manager.startCommand(spec).id, 'run-fijo')
+  child.emit('close', 0, null)
+  assert.throws(() => manager.startCommand(spec), /repetido/)
+})
+
 test('shutdown cancela su proceso activo y rechaza nuevos trabajos', async () => {
   const child = fakeProcess()
   const manager = new RunManager('/project', (() => child) as any)
@@ -105,11 +133,12 @@ test('startCommand pasa el entorno exacto al hijo y guarda kind y label', () => 
   assert.equal(run.status, 'completed')
 })
 
-test('start de comparativas sigue heredando process.env y marca kind comparison', () => {
+test('start de comparativas sigue heredando process.env (salvo SANITY_IMAGES_TOKEN) y marca kind comparison', () => {
   const calls: any[] = []
   const manager = new RunManager('/project', ((command: string, args: string[], options: any) => { calls.push({command, args, options}); return fakeProcess() }) as any)
   const run = manager.start('arroces', 'selection')
-  assert.equal(calls[0].options.env, process.env)
+  const {SANITY_IMAGES_TOKEN: _imagesToken, ...inherited} = process.env
+  assert.deepEqual(calls[0].options.env, inherited)
   assert.equal(calls[0].command, 'npm')
   assert.deepEqual({kind: run.kind, topic: run.topic, phase: run.phase}, {kind: 'comparison', topic: 'arroces', phase: 'selection'})
   assert.match(run.logs[0]?.message ?? '', /^Running comparison:selection/)

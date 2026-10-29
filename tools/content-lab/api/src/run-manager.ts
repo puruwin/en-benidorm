@@ -16,6 +16,8 @@ export interface CommandSpec {
   phase?: PipelinePhase
   /** Ficheros que escribe el run (imágenes). */
   files?: string[]
+  /** Id del run si quien lo lanza lo necesita antes (p. ej. para `--run-id`). */
+  id?: string
 }
 
 export class RunManager {
@@ -34,16 +36,19 @@ export class RunManager {
 
   start(topic: string, phase: PipelinePhase, options: CommandOptions = {}): PipelineRun {
     const built = buildCommand(topic, phase, options)
-    return this.startCommand({kind: 'comparison', label: `comparison:${phase}`, command: built.command, args: built.args, env: process.env, topic, phase})
+    // El token de imágenes (Editor) solo entra en el run de importación: ver buildImagesEnv.
+    const {SANITY_IMAGES_TOKEN: _imagesToken, ...env} = process.env
+    return this.startCommand({kind: 'comparison', label: `comparison:${phase}`, command: built.command, args: built.args, env, topic, phase})
   }
 
   /** Lanza un comando ya validado. `env` es el entorno completo del hijo: no se mezcla con `process.env`. */
   startCommand(spec: CommandSpec): PipelineRun {
     if (this.stopping) throw new Error('Content Lab está cerrándose.')
     if (this.active()) throw new Error('Ya existe una ejecución activa.')
+    if (spec.id !== undefined && this.runs.has(spec.id)) throw new Error('Id de ejecución repetido.')
     const completed = this.list().filter(run => Boolean(run.finishedAt))
     for (const old of completed.slice(99)) this.runs.delete(old.id)
-    const run: PipelineRun = {id: randomUUID(), kind: spec.kind, label: spec.label, ...(spec.topic ? {topic: spec.topic} : {}), ...(spec.phase ? {phase: spec.phase} : {}), ...(spec.files ? {files: spec.files} : {}), status: 'running', command: spec.command, args: spec.args, startedAt: new Date().toISOString(), logs: []}
+    const run: PipelineRun = {id: spec.id ?? randomUUID(), kind: spec.kind, label: spec.label, ...(spec.topic ? {topic: spec.topic} : {}), ...(spec.phase ? {phase: spec.phase} : {}), ...(spec.files ? {files: spec.files} : {}), status: 'running', command: spec.command, args: spec.args, startedAt: new Date().toISOString(), logs: []}
     this.runs.set(run.id, run)
     this.activeId = run.id
     this.log(run, 'system', `Running ${spec.label}...`)

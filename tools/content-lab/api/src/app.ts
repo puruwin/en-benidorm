@@ -8,11 +8,12 @@ import type {CodexPromptRequest, QaIssue} from '../../shared/types'
 import {ArtifactLoader} from './artifact-loader'
 import {ImageCandidates, ImageError} from './image-candidates'
 import {ImageDecisions} from './image-decisions'
+import {ImageRuns} from './image-runs'
 import {buildCodexPrompt, SUPPORTED_ISSUES} from './prompt-builder/index'
 import {RunManager} from './run-manager'
 import {parseRunOptions, validateBusinessId, validateImageSlug, validatePhase, validateTopic} from './validation'
 
-export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager; config?: RuntimeConfig; images?: ImageCandidates; decisions?: ImageDecisions} = {}) {
+export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager; config?: RuntimeConfig; images?: ImageCandidates; decisions?: ImageDecisions; environment?: NodeJS.ProcessEnv} = {}) {
   const app = Fastify({logger: {redact: ['req.headers.authorization', 'req.headers.cookie', 'res.headers.set-cookie']}})
   const config = dependencies.config ?? {private: false, host: '127.0.0.1', port: 4174, origin: null, username: null, actor: null, passwordHash: null, staticDir: null, sessionSeconds: 43200}
   const access = installPrivateAccess(app, config)
@@ -21,6 +22,8 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
   const images = dependencies.images ?? new ImageCandidates(root, loader)
   const runs = dependencies.runs ?? new RunManager(root)
   const decisions = dependencies.decisions ?? new ImageDecisions(root, {runs})
+  const environment = dependencies.environment ?? process.env
+  const imageRuns = new ImageRuns(root, runs, environment)
   const streams = new Set<() => void>()
   app.addHook('preClose', async () => {for (const close of streams) close(); await runs.shutdown()})
 
@@ -36,7 +39,7 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
   app.get<{Querystring: BusinessQuery}>('/api/businesses', async request => businesses.list(request.query))
   app.get<{Params: {businessId: string}}>('/api/businesses/:businessId', async request => businesses.detail(validateBusinessId(request.params.businessId)))
 
-  app.get('/api/system', async () => deploymentStatus(root, config, {businesses}))
+  app.get('/api/system', async () => deploymentStatus(root, config, {businesses, environment}))
   app.get('/api/health', async () => ({ok: true, service: 'enBenidorm Content Lab', ...(config.private ? {} : {projectRoot: root}), activeRun: runs.active()?.id ?? null}))
   app.get('/api/topics', async () => loader.topics())
   app.get('/api/comparisons', async () => loader.topics())
@@ -57,6 +60,19 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
   for (const action of ['validate', 'approve', 'dismiss', 'undismiss', 'withdraw'] as const) {
     app.post<{Params: {slug: string}; Body: unknown}>(`/api/images/:slug/${action}`, async request => decisions[action](request.params.slug, request.body, requireActor(config)))
   }
+  // Runs de imágenes. Importar solo acepta el planHash de la simulación guardada.
+  app.post<{Body: unknown}>('/api/images/search', async (request, reply) => {
+    requireActor(config)
+    return reply.status(202).send(imageRuns.search(request.body))
+  })
+  app.post<{Params: {slug: string}}>('/api/images/:slug/import/plan', async (request, reply) => {
+    requireActor(config)
+    return reply.status(202).send(await imageRuns.plan(request.params.slug))
+  })
+  app.post<{Params: {slug: string}; Body: unknown}>('/api/images/:slug/import', async (request, reply) => {
+    const actor = requireActor(config)
+    return reply.status(202).send(await imageRuns.import(request.params.slug, request.body, actor))
+  })
 
   app.post<{Params: {topic: string; phase: string}; Body: unknown}>('/api/comparisons/:topic/run/:phase', async (request, reply) => {
     const topic = validateTopic(request.params.topic)

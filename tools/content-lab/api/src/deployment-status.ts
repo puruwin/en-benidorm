@@ -50,7 +50,8 @@ export async function deploymentStatus(root: string, config: RuntimeConfig | nul
   }
   const configurationError = options.configurationError ?? (config ? null : 'Configuración de producción incompleta.')
   if (configurationError) issues.push(configurationError)
-  const integrations = ([['OpenAI', ['OPENAI_API_KEY']], ['Sanity', ['SANITY_PROJECT_ID', 'SANITY_DATASET', 'SANITY_API_TOKEN']]] as const).map(([name, variables]) => {
+  const integrations = ([['OpenAI', ['OPENAI_API_KEY']], ['Sanity', ['SANITY_PROJECT_ID', 'SANITY_DATASET', 'SANITY_API_TOKEN']],
+    ['Imágenes', ['SANITY_PROJECT_ID', 'SANITY_DATASET', 'SANITY_IMAGES_TOKEN', 'PIXABAY_API_KEY', 'PEXELS_API_KEY']]] as const).map(([name, variables]) => {
     const missingVariables = variables.filter(variable => !environment[variable]?.trim())
     return {name, configured: missingVariables.length === 0, missingVariables: [...missingVariables], connection: 'not-tested' as const}
   })

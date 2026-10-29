@@ -112,11 +112,37 @@ sólo en `app.env`:
 
 - `OPENAI_API_KEY`, `OPENAI_CONTENT_MODEL`, `OPENAI_COMPARISON_MODEL`.
 - `SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_TOKEN`.
+- `SANITY_IMAGES_TOKEN`, `PIXABAY_API_KEY`, `PEXELS_API_KEY` (imágenes, ver abajo).
 
-Los procesos hijos heredan esas variables. No se pasan al build ni al navegador.
+Los runs de comparison heredan esas variables, salvo `SANITY_IMAGES_TOKEN`. Los de imágenes
+reciben un entorno de lista cerrada: nunca `OPENAI_*` ni `SANITY_API_TOKEN`. No se pasan al build ni al navegador.
 No uses prefijos `VITE_` o `PUBLIC_` para credenciales. Nunca incluyas `app.env` en
 Git; los ejemplos vacíos sí se versionan. No ejecutes `docker compose config` sin
 `--quiet` en logs compartidos: su salida completa puede expandir las credenciales.
+
+### Token de imágenes (`SANITY_IMAGES_TOKEN`)
+
+Content Lab importa imágenes aprobadas a Sanity **solo como borrador**. Lo hace con un token propio:
+un token **Editor dedicado**, llamado `content-lab-images`, distinto de `SANITY_API_TOKEN` y revocable
+por separado. El proyecto de Sanity está en el plan Free, que no tiene rol Contributor
+(decisión del 2026-10-29).
+
+- **Riesgo.** Si el token se filtra, permite publicar, editar y borrar en todo el proyecto. El rol no
+  impide publicar: lo impide el código.
+- **Mitigación.**
+  - Solo entra en el entorno del run de importación (`POST /api/images/<slug>/import`). La API no lo usa
+    para nada más. Ni los runs de `images:find` ni los de comparison lo reciben.
+  - `images:find` lee Sanity sin token, porque el dataset es público. Si dejara de serlo, usaría un token
+    `Viewer` de solo lectura.
+  - Toda escritura de documentos pasa por la guardia `draftWriter`, que rechaza ids sin `drafts.` y tiene
+    un test que la fija.
+  - El endpoint es cerrado: solo «importar este plan», con el `planHash` de la última simulación guardada.
+    El script vuelve a comprobarlo con `--expect-plan`.
+  - El log de runs redacta su valor.
+  - Rótalo ante cualquier sospecha y al cambiar de servidor.
+- Sin `SANITY_IMAGES_TOKEN`, importar responde 409. Nunca se usa `SANITY_API_TOKEN` en su lugar.
+- `PIXABAY_API_KEY` y `PEXELS_API_KEY` son opcionales: Commons va primero y no necesita clave.
+- Si el proyecto pasa a Growth, sustituye el token por uno Contributor. No hay que cambiar código.
 
 ## Construir y arrancar
 
