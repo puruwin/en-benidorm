@@ -6,6 +6,8 @@ let environmentLoaded = false
 export function loadEnvironment(): void {
   if (environmentLoaded) return
   environmentLoaded = true
+  // Content Lab lanza algunos runs con un entorno de lista cerrada: .env no debe rellenar lo que dejó fuera.
+  if (process.env.CONTENT_LAB_CLOSED_ENV === '1') return
   try {
     loadEnvFile('.env')
   } catch (error) {
