@@ -34,14 +34,17 @@ test('images find monta argv sin shell con --opcion=valor', () => {
     args: ['--import', 'tsx', 'scripts/images/find-candidates.ts', '--doc=beach:playa-levante', '--category=Category:Platja de Llevant (Benidorm)', '--radius=1000'],
     display: 'node --import tsx scripts/images/find-candidates.ts --doc=beach:playa-levante --category=Category:Platja de Llevant (Benidorm) --radius=1000',
     label: 'images:find beach:playa-levante',
+    files: ['content/images/candidates/beach-playa-levante.json'],
   })
   assert.deepEqual(buildImagesCommand({action: 'find', term: "  atardecer, mar Mediterráneo l'Albir  "}).args.slice(3), ["--term=atardecer, mar Mediterráneo l'Albir"])
+  assert.deepEqual(buildImagesCommand({action: 'find', term: "  atardecer, mar Mediterráneo l'Albir  "}).files, ['content/images/candidates/termino-atardecer-mar-mediterraneo-l-albir.json'])
 })
 
 test('images import construye la ruta de candidatas y exige by y expectPlan para escribir', () => {
   const hash = 'a'.repeat(64)
   assert.deepEqual(buildImagesCommand({action: 'import', slug: 'beach-playa-levante'}).args, ['--import', 'tsx', 'scripts/images/import-approved.ts', 'content/images/candidates/beach-playa-levante.json'])
   assert.equal(buildImagesCommand({action: 'import', slug: 'beach-playa-levante'}).label, 'images:import beach-playa-levante (simulación)')
+  assert.deepEqual(buildImagesCommand({action: 'import', slug: 'beach-playa-levante'}).files, ['content/images/candidates/beach-playa-levante.json'])
   assert.deepEqual(buildImagesCommand({action: 'import', slug: 'beach-playa-levante', write: true, by: 'david', expectPlan: hash}).args.slice(3), ['content/images/candidates/beach-playa-levante.json', '--write', '--by=david', `--expect-plan=${hash}`])
   assert.throws(() => buildImagesCommand({action: 'import', slug: 'x', write: true, by: 'david'}), /exige by y expectPlan/)
   assert.throws(() => buildImagesCommand({action: 'import', slug: 'x', write: true, expectPlan: hash}), /exige by y expectPlan/)

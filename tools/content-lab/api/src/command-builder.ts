@@ -1,3 +1,4 @@
+import {candidatesSlug} from '../../../../scripts/images/lib/candidates'
 import type {PipelinePhase} from '../../shared/types'
 import {validateActor, validateImageCategory, validateImageDoc, validateImageRadius, validateImageSlug, validateImageTerm, validatePhase, validatePlanHash, validateTopic} from './validation'
 
@@ -35,7 +36,11 @@ const IMAGE_KEYS: Record<ImagesAction, Set<string>> = {
 
 // Lanza node directamente (como los scripts de package.json) y no `npm run`, que pasa el argv por `sh -c`.
 // Los valores van siempre como `--opcion=valor`: un valor nunca puede leerse como otra bandera.
-export function buildImagesCommand(input: unknown): {command: string; args: string[]; display: string; label: string} {
+/**
+ * `files`: fichero de candidatas que escribe el run. La API de decisiones no escribe en él mientras el run
+ * esté activo.
+ */
+export function buildImagesCommand(input: unknown): {command: string; args: string[]; display: string; label: string; files: string[]} {
   if (input === null || typeof input !== 'object' || Array.isArray(input)) throw new Error('Petición de imágenes inválida.')
   const values = input as Record<string, unknown>
   const action = values.action
@@ -43,6 +48,7 @@ export function buildImagesCommand(input: unknown): {command: string; args: stri
   for (const key of Object.keys(values)) if (!IMAGE_KEYS[action].has(key)) throw new Error(`Opción no permitida: ${key}`)
   const flags: string[] = []
   let label: string
+  let slug: string
   if (action === 'find') {
     if ((values.doc === undefined) === (values.term === undefined)) throw new Error('Usa doc o term, no los dos.')
     if (values.doc !== undefined) flags.push(`--doc=${validateImageDoc(values.doc)}`)
@@ -50,8 +56,12 @@ export function buildImagesCommand(input: unknown): {command: string; args: stri
     if (values.category !== undefined) flags.push(`--category=${validateImageCategory(values.category)}`)
     if (values.radius !== undefined) flags.push(`--radius=${validateImageRadius(values.radius)}`)
     label = `images:find ${values.doc !== undefined ? values.doc : `«${validateImageTerm(values.term)}»`}`
+    if (values.doc !== undefined) {
+      const [type, documentSlug] = validateImageDoc(values.doc).split(':') as [string, string]
+      slug = `${type}-${documentSlug}`
+    } else slug = candidatesSlug({kind: 'term', term: validateImageTerm(values.term)})
   } else {
-    const slug = validateImageSlug(values.slug)
+    slug = validateImageSlug(values.slug)
     if (values.write !== undefined && typeof values.write !== 'boolean') throw new Error('write debe ser boolean.')
     flags.push(`content/images/candidates/${slug}.json`)
     if (values.write) {
@@ -63,7 +73,7 @@ export function buildImagesCommand(input: unknown): {command: string; args: stri
     label = `images:import ${slug}${values.write ? '' : ' (simulación)'}`
   }
   const args = ['--import', 'tsx', IMAGE_SCRIPTS[action], ...flags]
-  return {command: process.execPath, args, display: ['node', ...args].join(' '), label}
+  return {command: process.execPath, args, display: ['node', ...args].join(' '), label, files: [`content/images/candidates/${slug}.json`]}
 }
 
 const BASE_ENV = ['PATH', 'HOME', 'TZ', 'SANITY_PROJECT_ID', 'SANITY_DATASET']

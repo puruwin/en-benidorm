@@ -8,14 +8,22 @@ import type {ArtifactResponse} from '../../shared/types'
 import type {ArtifactLoader} from './artifact-loader'
 import {IMAGE_SLUG_PATTERN, validateImageSlug} from './validation'
 
-const CANDIDATES_DIR = 'content/images/candidates'
+export const CANDIDATES_DIR = 'content/images/candidates'
 const PLANS_DIR = 'content/images/plans'
 const THUMBS_DIR = 'content/images/.cache/thumbs'
 const THUMBNAIL_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp'])
-const CANDIDATE_ID_PATTERN = /^[a-z]+:[^/\\\s]{1,200}$/
+export const CANDIDATE_ID_PATTERN = /^[a-z]+:[^/\\\s]{1,200}$/
 
 export class ImageError extends Error {
-  constructor(readonly statusCode: number, message: string) {super(message)}
+  constructor(readonly statusCode: number, message: string, readonly issues?: string[]) {super(message)}
+}
+
+/** Ruta relativa de `<directorio>/<slug>.json`, comprobando que no sale del directorio. */
+export function imageArtifactPath(root: string, directory: string, slugInput: unknown): string {
+  const slug = validateImageSlug(slugInput)
+  const base = resolve(root, directory)
+  if (!resolve(base, `${slug}.json`).startsWith(base + sep)) throw new ImageError(400, 'Slug de candidatas inválido.')
+  return `${directory}/${slug}.json`
 }
 
 export interface ImageCandidateCounts {
@@ -71,10 +79,7 @@ export class ImageCandidates {
   }
 
   private relativePath(directory: string, slugInput: unknown): string {
-    const slug = validateImageSlug(slugInput)
-    const base = resolve(this.root, directory)
-    if (!resolve(base, `${slug}.json`).startsWith(base + sep)) throw new ImageError(400, 'Slug de candidatas inválido.')
-    return `${directory}/${slug}.json`
+    return imageArtifactPath(this.root, directory, slugInput)
   }
 
   async list(): Promise<ImageCandidatesSummary[]> {
