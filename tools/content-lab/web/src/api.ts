@@ -1,6 +1,11 @@
 import type {DeploymentStatus} from '../../shared/system-types'
 import type {BusinessDetail, BusinessList} from '../../shared/business-types'
-import type {CodexPromptRequest, ComparisonSummary, PipelineRun} from '../../shared/types'
+import type {ArtifactResponse, CodexPromptRequest, ComparisonSummary, PipelineRun} from '../../shared/types'
+import type {CandidatesFile} from '../../../../scripts/images/lib/candidates'
+import type {ImageCandidatesSummary} from '../../api/src/image-candidates'
+
+export interface ImageDetail {slug: string; file: ArtifactResponse<CandidatesFile>; plan: ArtifactResponse}
+export interface ImageSearchRequest {doc?: string; term?: string; category?: string; radius?: number}
 
 export interface Session {authenticationRequired: boolean; authenticated: boolean; actor: string | null}
 
@@ -24,5 +29,11 @@ export const api = {
   runs: () => request<PipelineRun[]>('/api/runs'),
   run: (topic: string, phase: string, options: Record<string, unknown>) => request<PipelineRun>(`/api/comparisons/${encodeURIComponent(topic)}/run/${phase}`, {method: 'POST', body: JSON.stringify(options)}),
   cancel: (id: string) => request<PipelineRun>(`/api/runs/${id}/cancel`, {method: 'POST'}),
+  images: () => request<ImageCandidatesSummary[]>('/api/images'),
+  imageDetail: (slug: string) => request<ImageDetail>(`/api/images/${encodeURIComponent(slug)}`),
+  imageSearch: (body: ImageSearchRequest) => request<PipelineRun>('/api/images/search', {method: 'POST', body: JSON.stringify(body)}),
   prompt: (topic: string, body: CodexPromptRequest) => request<{prompt: string}>(`/api/comparisons/${encodeURIComponent(topic)}/codex-prompt`, {method: 'POST', body: JSON.stringify(body)}),
 }
+
+/** Miniatura por el proxy de la API: mismo origen, la CSP privada no se relaja. */
+export const thumbnailUrl = (slug: string, candidateId: string) => `/api/images/${encodeURIComponent(slug)}/thumbnail/${encodeURIComponent(candidateId)}`
