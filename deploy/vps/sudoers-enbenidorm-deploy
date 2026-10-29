@@ -3,5 +3,4 @@
 Cmnd_Alias CONTENT_LAB_DEPLOY = /usr/bin/systemctl stop content-lab.service, \
                                 /usr/bin/systemctl start content-lab.service, \
                                 /usr/local/sbin/content-lab-backup ""
-Defaults:deploy !requiretty
 deploy ALL=(root) NOPASSWD: CONTENT_LAB_DEPLOY
