@@ -17,6 +17,8 @@ WORKDIR /app
 COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
 COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/scripts ./scripts
+# Los scripts de imágenes importan de src/lib.
+COPY --from=build --chown=node:node /app/src ./src
 COPY --from=build --chown=node:node /app/tools ./tools
 RUN mkdir -p /app/content && chown node:node /app/content
 USER node

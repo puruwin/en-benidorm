@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import {execFile as execFileCallback} from 'node:child_process'
-import {mkdir, mkdtemp, readFile, readdir, rm, writeFile} from 'node:fs/promises'
+import {lstat, mkdir, mkdtemp, readFile, readdir, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {resolve} from 'node:path'
 import test from 'node:test'
@@ -16,12 +16,13 @@ async function fixture() {
   await writeFile(resolve(content, 'notes.json'), '{"notes":"preserve across releases"}')
   async function release(name: string) {
     const projectRoot = resolve(root, name)
-    for (const dir of ['scripts', 'tools', 'node_modules']) await mkdir(resolve(projectRoot, dir), {recursive: true})
+    for (const dir of ['scripts', 'src/lib', 'tools', 'node_modules']) await mkdir(resolve(projectRoot, dir), {recursive: true})
     await writeFile(resolve(projectRoot, 'package.json'), JSON.stringify({type: 'module', scripts: {fixture: 'node scripts/fixture.mjs'}}))
     await writeFile(resolve(projectRoot, 'package-lock.json'), '{}')
     await mkdir(resolve(projectRoot, 'tools/content-lab/ops'), {recursive: true})
     await writeFile(resolve(projectRoot, 'tools/content-lab/ops/artifacts.json'), JSON.stringify({version: 1, files: {}}))
-    await writeFile(resolve(projectRoot, 'scripts/fixture.mjs'), `import {writeFile} from 'node:fs/promises'; await writeFile('content/worker.json', JSON.stringify({release:${JSON.stringify(name)}}));`)
+    await writeFile(resolve(projectRoot, 'src/lib/fixture.mjs'), `export const release = ${JSON.stringify(name)}`)
+    await writeFile(resolve(projectRoot, 'scripts/fixture.mjs'), `import {writeFile} from 'node:fs/promises'; import {release} from '../src/lib/fixture.mjs'; await writeFile('content/worker.json', JSON.stringify({release}));`)
     return projectRoot
   }
   return {root, content, release, cleanup: () => rm(root, {recursive: true, force: true})}
@@ -33,6 +34,7 @@ test('runtime externo permite npm/scripts, conserva datos entre releases y no mu
     const firstRelease = await f.release('release-1')
     const runtime = await prepareManagedRuntime({projectRoot: firstRelease, contentPath: f.content, runtimeParent: f.root})
     const firstRoot = runtime.root
+    assert.ok((await lstat(resolve(runtime.root, 'src'))).isSymbolicLink())
     await execFile('npm', ['run', 'fixture'], {cwd: runtime.root})
     assert.deepEqual(JSON.parse(await readFile(resolve(f.content, 'worker.json'), 'utf8')), {release: 'release-1'})
     await runtime.cleanup()
@@ -58,6 +60,9 @@ test('runtime rechaza rutas relativas, datos dentro del release, snapshot ausent
     await mkdir(resolve(projectRoot, 'content'))
     await assert.rejects(prepareManagedRuntime({projectRoot, contentPath: resolve(projectRoot, 'content')}), /fuera/)
     await assert.rejects(prepareManagedRuntime({projectRoot, contentPath: resolve(f.root, 'absent')}), /No existe/)
+    await rm(resolve(projectRoot, 'src'), {recursive: true})
+    await assert.rejects(prepareManagedRuntime({projectRoot, contentPath: f.content}), /dependencias/)
+    await mkdir(resolve(projectRoot, 'src'))
     await rm(resolve(projectRoot, 'node_modules'), {recursive: true})
     await assert.rejects(prepareManagedRuntime({projectRoot, contentPath: f.content}), /dependencias/)
     await writeFile(resolve(f.content, 'manifest.json'), '{}')
