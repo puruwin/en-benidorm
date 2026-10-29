@@ -1,7 +1,8 @@
 import {randomUUID} from 'node:crypto'
 import type {SiteVisit} from '../../content/lib/site-visits'
 import {namedPlaces} from '../../seo/lib/audit'
-import {IMAGE_FIELDS, isStockDocumentType, type CandidatesFile, type ImageCandidate, type StockApproval, type StockDocumentType} from './candidates'
+import {IMAGE_FIELDS, isStockDocumentType, type CandidatesFile, type ImageCandidate, type ImportRecord, type StockApproval, type StockDocumentType} from './candidates'
+import type {AssignedImage} from './draft-import'
 
 /** Valor de `imageWithAlt` sin el asset, que se añade tras subir el fichero. */
 export interface ImageFieldValue {
@@ -38,6 +39,9 @@ export interface PlannedImport {
   filename: string
   value: ImageFieldValue
   credit: string
+  /** Lo rellena `planDraftWrites` con el estado del documento en Sanity. */
+  action?: 'append' | 'replace'
+  draftExists?: boolean
 }
 
 export interface PlanResult {
@@ -182,7 +186,7 @@ export interface OwnPhotosFile {
   /** Ruta de la visita relativa a `content/manual/`. */
   visit: string
   approvals: Array<{photo: string; approvedBy: string; approvedAt: string; field?: string; alt: string; caption?: string; placeVerified: boolean}>
-  imports: Array<{photo: string; documentId: string; field: string; assetId: string; importedAt: string}>
+  imports: Array<{photo: string} & Omit<ImportRecord, 'candidateId'>>
 }
 
 /**
@@ -241,19 +245,27 @@ export interface ImportDeps {
   read: (source: PlannedImport['source']) => Promise<Buffer>
   strip: (bytes: Buffer) => Promise<{bytes: Buffer}>
   upload: (bytes: Buffer, plan: PlannedImport) => Promise<string>
-  patch: (plan: PlannedImport, value: ImageFieldValue & {asset: {_type: 'reference'; _ref: string}; _key?: string}) => Promise<void>
+  /** Asigna de una vez todas las imágenes de un documento (una sola revisión del borrador). */
+  commit: (document: TargetDocument, entries: Array<{plan: PlannedImport; field: string; isArray: boolean; value: AssignedImage}>) => Promise<void>
   now: () => Date
 }
 
-/** Descarga, quita EXIF, sube y asigna. Devuelve lo importado para dejar constancia en el fichero. */
+/** Descarga, quita EXIF y sube; luego asigna por documento. Devuelve lo importado para dejar constancia en el fichero. */
 export async function executeImports(plans: readonly PlannedImport[], deps: ImportDeps): Promise<Array<{plan: PlannedImport; assetId: string; importedAt: string}>> {
+  const byDocument = new Map<string, PlannedImport[]>()
+  for (const plan of plans) byDocument.set(plan.document.id, [...(byDocument.get(plan.document.id) ?? []), plan])
   const done: Array<{plan: PlannedImport; assetId: string; importedAt: string}> = []
-  for (const plan of plans) {
-    const original = await deps.read(plan.source)
-    const {bytes} = await deps.strip(original)
-    const assetId = await deps.upload(bytes, plan)
-    await deps.patch(plan, {...plan.value, asset: {_type: 'reference', _ref: assetId}, ...(plan.isArray ? {_key: randomUUID().slice(0, 12)} : {})})
-    done.push({plan, assetId, importedAt: deps.now().toISOString()})
+  for (const group of byDocument.values()) {
+    const entries: Parameters<ImportDeps['commit']>[1] = []
+    for (const plan of group) {
+      const original = await deps.read(plan.source)
+      const {bytes} = await deps.strip(original)
+      const assetId = await deps.upload(bytes, plan)
+      entries.push({plan, field: plan.field, isArray: plan.isArray, value: {...plan.value, asset: {_type: 'reference', _ref: assetId}, ...(plan.isArray ? {_key: randomUUID().slice(0, 12)} : {})}})
+    }
+    await deps.commit(group[0]!.document, entries)
+    const importedAt = deps.now().toISOString()
+    done.push(...entries.map(({plan, value}) => ({plan, assetId: value.asset._ref, importedAt})))
   }
   return done
 }

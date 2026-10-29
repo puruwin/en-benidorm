@@ -16,7 +16,8 @@ export function loadEnvironment(): void {
   }
 }
 
-export function getSanityClient(options: {requireToken: boolean}): SanityClient {
+/** `perspective: 'raw'` ve borradores: con esta apiVersion la perspectiva por defecto es `published`. */
+export function getSanityClient(options: {requireToken: boolean; perspective?: 'raw'}): SanityClient {
   loadEnvironment()
   const projectId = process.env.SANITY_PROJECT_ID
   const dataset = process.env.SANITY_DATASET
@@ -34,6 +35,7 @@ export function getSanityClient(options: {requireToken: boolean}): SanityClient 
     dataset: dataset!,
     apiVersion: '2025-02-19',
     useCdn: false,
+    ...(options.perspective ? {perspective: options.perspective} : {}),
     ...(token ? {token} : {}),
   })
 }

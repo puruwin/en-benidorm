@@ -225,6 +225,10 @@ test('importación: rechaza negocios, ambientales con lugar verificado, lugares 
   const imported = await planStockImports(candidatesFile({approvals: [approval], imports: [{candidateId: approval.candidateId, documentId: 'beach-levante', field: 'images', assetId: 'a', importedAt: ''}]}), {places: [], resolveDocument})
   assert.equal(imported.imports.length, 0)
   assert.equal(imported.skipped.length, 1)
+
+  // Un registro anterior al modo borrador (sin mode, fue al publicado) cuenta igual que uno nuevo.
+  const draftRecord = {candidateId: approval.candidateId, documentId: 'beach-levante', field: 'images', assetId: 'a', importedAt: '', mode: 'draft' as const, draftId: 'drafts.beach-levante'}
+  assert.equal((await planStockImports(candidatesFile({approvals: [approval], imports: [draftRecord]}), {places: [], resolveDocument})).skipped.length, 1)
 })
 
 test('fotos propias: documento y fecha de la visita, alt de la aprobación de David', () => {
@@ -248,10 +252,10 @@ test('executeImports quita EXIF antes de subir y asigna el asset con su proceden
     read: async () => { steps.push('read'); return Buffer.from('original') },
     strip: async () => { steps.push('strip'); return {bytes: Buffer.from('limpia')} },
     upload: async (bytes) => { steps.push(`upload ${bytes.toString()}`); return 'image-abc' },
-    patch: async (_plan, value) => { steps.push('patch'); patched.push(value) },
+    commit: async (_document, entries) => { steps.push('commit'); patched.push(...entries.map((entry) => entry.value)) },
     now: () => NOW,
   })
-  assert.deepEqual(steps, ['read', 'strip', 'upload limpia', 'patch'])
+  assert.deepEqual(steps, ['read', 'strip', 'upload limpia', 'commit'])
   assert.deepEqual((patched[0] as {asset: unknown}).asset, {_type: 'reference', _ref: 'image-abc'})
   assert.equal(typeof (patched[0] as {_key?: string})._key, 'string')
   assert.equal(done[0]?.assetId, 'image-abc')

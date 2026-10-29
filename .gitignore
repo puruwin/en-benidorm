@@ -30,6 +30,8 @@ schema.json
 
 # Caché de 24 h de las API de imágenes (scripts/images/lib/cache.ts).
 /content/images/.cache/
+# Planes de importación de imágenes (images:import --plan-out).
+/content/images/plans/
 
 # Runtime del Studio que regenera cada `sanity build`/`sanity dev`.
 .sanity/
