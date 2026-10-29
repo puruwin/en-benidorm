@@ -1,8 +1,9 @@
 # Content Lab privado en un VPS
 
-El destino elegido actualmente es hosting Node.js gestionado en `lab.enbenidorm.es`.
-Su guía específica está en [HOSTINGER-NODE.md](HOSTINGER-NODE.md). Esta guía conserva
-la alternativa de VPS con Docker.
+> **Destino actual:** VPS de Hostinger con systemd y el Caddy del servidor, desplegada desde
+> GitHub Actions. Ver [`deploy/vps/README.md`](../vps/README.md). Esta guía conserva la
+> alternativa con Docker; su `compose.yaml` levanta un Caddy propio en 80/443 y no debe
+> usarse en esa VPS. [HOSTINGER-NODE.md](HOSTINGER-NODE.md) describe el destino anterior.
 
 Esta configuración mantiene Content Lab en el repositorio de enBenidorm, con un
 proceso de producción que sirve frontend compilado y API. No usa Vite en el servidor.

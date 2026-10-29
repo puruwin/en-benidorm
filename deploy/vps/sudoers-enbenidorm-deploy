@@ -1,0 +1,6 @@
+# /etc/sudoers.d/enbenidorm-deploy  (root:root 0440; valida con: visudo -cf /etc/sudoers.d/enbenidorm-deploy)
+# El usuario deploy solo puede parar/arrancar Content Lab y lanzar el backup sin argumentos.
+Cmnd_Alias CONTENT_LAB_DEPLOY = /usr/bin/systemctl stop content-lab.service, \
+                                /usr/bin/systemctl start content-lab.service, \
+                                /usr/local/sbin/content-lab-backup ""
+deploy ALL=(root) NOPASSWD: CONTENT_LAB_DEPLOY

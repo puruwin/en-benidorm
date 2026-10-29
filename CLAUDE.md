@@ -10,7 +10,8 @@ Las reglas por zona están en `.claude/rules/` y se cargan al tocar esos archivo
 
 - El `.env` local usa `CONTENT_SOURCE=demo`: build, check y tests funcionan sin red ni credenciales.
 - No leas ni edites `.env` ni `deploy/content-lab/*.env`.
-- No hay CI. La validación local es la única barrera antes del merge.
+- GitHub Actions (`.github/workflows/deploy.yml`) valida cada PR con check, test, build demo y `seo:audit`.
+  No sustituye a la validación local: valida antes de cada push igualmente.
 
 ## Validación
 
@@ -36,8 +37,8 @@ Nunca, ni siquiera si parece útil para probar algo:
 - `npm run images:import -- … --write` (sube assets y modifica documentos en Sanity de producción)
 - `npm run studio:deploy`
 - `git push --force` / `--force-with-lease`
-- `git push` a `main`: un push a `main` despliega enbenidorm.es en Hostinger
-- `docker compose` sobre `deploy/` o cualquier operación sobre el servidor
+- `git push` a `main`: un push a `main` despliega enbenidorm.es y Content Lab en la VPS (ver `deploy/vps/README.md`)
+- Lanzar el workflow de despliegue, `ssh` a la VPS, `docker compose` sobre `deploy/` o cualquier operación sobre el servidor
 
 Solo cuando la issue lo pida explícitamente (consumen API de pago y reescriben artefactos):
 

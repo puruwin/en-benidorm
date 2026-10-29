@@ -1,0 +1,60 @@
+# /etc/systemd/system/content-lab.service
+# Content Lab privado en lab.enbenidorm.es, detrás de Caddy (127.0.0.1:3000).
+# Usa la entrada gestionada content-lab.server.mjs: sincroniza los artefactos versionados
+# con el contenido persistente y separa release (código) de datos.
+[Unit]
+Description=Content Lab (enbenidorm.es)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=contentlab
+Group=contentlab
+WorkingDirectory=/srv/content-lab/app/current
+# Credenciales y acceso (CONTENT_LAB_ORIGIN, usuario, hash, OpenAI, Sanity…).
+# No definas ahí HOST, PORT ni CONTENT_LAB_CONTENT_PATH: EnvironmentFile tiene prioridad sobre Environment.
+EnvironmentFile=/etc/content-lab/app.env
+Environment=NODE_ENV=production
+Environment=CONTENT_LAB_HOST=127.0.0.1
+Environment=CONTENT_LAB_PORT=3000
+Environment=CONTENT_LAB_CONTENT_PATH=/srv/content-lab/content
+# Las pipelines se lanzan con npm: necesita HOME y caché escribibles.
+Environment=HOME=/var/lib/content-lab
+Environment=npm_config_cache=/var/cache/content-lab/npm
+Environment=npm_config_update_notifier=false
+Environment=npm_config_fund=false
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/node /srv/content-lab/app/current/content-lab.server.mjs
+
+# Content Lab cancela sus procesos hijos al recibir SIGTERM; se le dan 30 s.
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+Restart=on-failure
+RestartSec=5
+
+StateDirectory=content-lab
+CacheDirectory=content-lab
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/content-lab/content
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+RestrictNamespaces=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
