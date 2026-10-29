@@ -16,14 +16,14 @@ export async function prepareManagedRuntime({projectRoot, contentPath, runtimePa
     const manifest = JSON.parse(await readFile(join(content, 'manifest.json'), 'utf8'))
     if (!Array.isArray(manifest.entries)) throw Error('manifest')
   } catch {throw Error('El contenido persistente no es escribible o no tiene un manifest.json válido.')}
-  const entries = ['package.json', 'package-lock.json', 'node_modules', 'scripts', 'tools']
+  const entries = ['package.json', 'package-lock.json', 'node_modules', 'scripts', 'src', 'tools']
   for (const entry of entries) {
     try {await access(join(source, entry))} catch {throw Error('Faltan código o dependencias: ejecuta npm ci --include=dev y construye Content Lab antes de arrancar.')}
   }
   if (synchronize) console.log('Content Lab artefactos:', JSON.stringify(await syncArtifacts({projectRoot: source, contentPath: content})))
   const root = await mkdtemp(join(resolve(runtimeParent), 'content-lab-runtime-'))
   try {
-    for (const entry of entries) await symlink(join(source, entry), join(root, entry), ['scripts', 'tools', 'node_modules'].includes(entry) ? 'junction' : 'file')
+    for (const entry of entries) await symlink(join(source, entry), join(root, entry), ['scripts', 'src', 'tools', 'node_modules'].includes(entry) ? 'junction' : 'file')
     await symlink(content, join(root, 'content'), 'junction')
   } catch (error) {await rm(root, {recursive: true, force: true}); throw error}
   return {root, cleanup: () => rm(root, {recursive: true, force: true})}

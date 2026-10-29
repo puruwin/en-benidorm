@@ -42,7 +42,7 @@ entrada o comando de arranque propio, confirmar esa limitación antes de despleg
 | Dominio | `lab.enbenidorm.es` con HTTPS |
 | Puerto | El `PORT` que inyecte el proveedor |
 
-La aplicación necesita conservar el código backend (`scripts/`, `tools/`, package.json)
+La aplicación necesita conservar el código backend (`scripts/`, `src/`, `tools/`, package.json)
 y las dependencias durante la ejecución. No publicar únicamente
 `tools/content-lab/web/dist`: esa carpeta es el frontend que sirve el proceso Node.
 No configurar el build público `npm run build` como build de Content Lab.
