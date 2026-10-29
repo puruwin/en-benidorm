@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Copia coherente de /srv/content-lab/content con Content Lab detenido.
+# Se instala en /usr/local/sbin/content-lab-backup (root:root 755). El usuario deploy
+# solo puede ejecutarlo por sudo, sin argumentos (ver sudoers-enbenidorm-deploy).
+# Estas copias viven en la misma VPS: no sustituyen a una copia fuera del servidor.
+set -Eeuo pipefail
+umask 077
+
+SERVICE=content-lab.service
+PARENT=/srv/content-lab
+NAME=content
+DEST=/srv/content-lab/backups
+KEEP=10
+
+[[ $# -eq 0 ]] || { echo "content-lab-backup no admite argumentos." >&2; exit 2; }
+if systemctl is-active --quiet "$SERVICE"; then
+  echo "Detén $SERVICE antes del backup: con el servicio activo la copia no es coherente." >&2
+  exit 1
+fi
+[[ -f "$PARENT/$NAME/manifest.json" ]] || { echo "No existe $PARENT/$NAME/manifest.json." >&2; exit 1; }
+
+install -d -m 700 "$DEST"
+file="$DEST/content-$(date -u +%Y%m%dT%H%M%SZ).tar.gz"
+tar --exclude="$NAME/images/.cache" -czf "$file.tmp" -C "$PARENT" "$NAME"
+mv -f "$file.tmp" "$file"
+echo "Backup: $file ($(du -h "$file" | cut -f1))" >&2
+
+find "$DEST" -maxdepth 1 -type f -name 'content-*.tar.gz' -printf '%f\n' | sort -r | tail -n +"$((KEEP + 1))" |
+  while read -r old; do rm -f -- "$DEST/$old"; done

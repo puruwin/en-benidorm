@@ -35,7 +35,12 @@
       "Read(./deploy/content-lab/.env)",
       "Edit(./deploy/content-lab/.env)",
       "Read(./deploy/content-lab/app.env)",
-      "Edit(./deploy/content-lab/app.env)"
+      "Edit(./deploy/content-lab/app.env)",
+      "Bash(ssh *)",
+      "Bash(scp *)",
+      "Bash(rsync *)",
+      "Bash(gh workflow run*)",
+      "Bash(gh workflow enable*)"
     ]
   },
   "hooks": {
