@@ -88,3 +88,30 @@ test('shutdown cancela su proceso activo y rechaza nuevos trabajos', async () =>
     assert.ok(run.finishedAt)
   } finally {process.kill = originalKill}
 })
+
+test('startCommand pasa el entorno exacto al hijo y guarda kind y label', () => {
+  const child = fakeProcess()
+  const calls: any[] = []
+  const manager = new RunManager('/project', ((command: string, args: string[], options: any) => { calls.push({command, args, options}); return child }) as any)
+  const env = {PATH: '/usr/bin', CONTENT_LAB_CLOSED_ENV: '1'}
+  const run = manager.startCommand({kind: 'images', label: 'images:find beach:playa-levante', command: '/usr/bin/node', args: ['--import', 'tsx', 'scripts/images/find-candidates.ts'], env})
+  assert.equal(calls[0].options.env, env)
+  assert.equal(calls[0].options.cwd, '/project')
+  assert.equal(run.kind, 'images'); assert.equal(run.label, 'images:find beach:playa-levante')
+  assert.equal(run.topic, undefined); assert.equal(run.phase, undefined)
+  assert.match(run.logs[0]?.message ?? '', /^Running images:find beach:playa-levante/)
+  assert.throws(() => manager.start('arroces', 'selection'), /ejecución activa/)
+  child.emit('close', 0, null)
+  assert.equal(run.status, 'completed')
+})
+
+test('start de comparativas sigue heredando process.env y marca kind comparison', () => {
+  const calls: any[] = []
+  const manager = new RunManager('/project', ((command: string, args: string[], options: any) => { calls.push({command, args, options}); return fakeProcess() }) as any)
+  const run = manager.start('arroces', 'selection')
+  assert.equal(calls[0].options.env, process.env)
+  assert.equal(calls[0].command, 'npm')
+  assert.deepEqual({kind: run.kind, topic: run.topic, phase: run.phase}, {kind: 'comparison', topic: 'arroces', phase: 'selection'})
+  assert.match(run.logs[0]?.message ?? '', /^Running comparison:selection/)
+  assert.throws(() => manager.startCommand({kind: 'images', label: 'x', command: 'node', args: [], env: {}}), /ejecución activa/)
+})
