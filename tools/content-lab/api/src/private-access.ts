@@ -46,9 +46,13 @@ export function installPrivateAccess(app: FastifyInstance, config: RuntimeConfig
     const publicFrontend = ['GET', 'HEAD'].includes(request.method) && shell
     if (!publicSession && !publicFrontend && !authenticated(request.headers.cookie)) return reply.code(401).send({error: 'Inicia sesión para continuar.'})
   })
-  app.get(sessionPath, async request => ({authenticationRequired: config.private, authenticated: !config.private || authenticated(request.headers.cookie)}))
+  // El actor solo se muestra con sesión: este endpoint es público y no debe revelar el usuario.
+  app.get(sessionPath, async request => {
+    const isAuthenticated = !config.private || authenticated(request.headers.cookie)
+    return {authenticationRequired: config.private, authenticated: isAuthenticated, actor: isAuthenticated ? config.actor : null}
+  })
   app.post(`${sessionPath}/login`, {bodyLimit: 4096}, async (request, reply) => {
-    if (!config.private) return {authenticationRequired: false, authenticated: true}
+    if (!config.private) return {authenticationRequired: false, authenticated: true, actor: config.actor}
     const now = Date.now()
     for (const [ip, entry] of failures) if (entry.until <= now) failures.delete(ip)
     const limit = failures.get(request.ip)
@@ -66,7 +70,7 @@ export function installPrivateAccess(app: FastifyInstance, config: RuntimeConfig
     failures.delete(request.ip)
     const token = randomBytes(32).toString('base64url')
     sessions.set(token, now + config.sessionSeconds * 1000)
-    return reply.header('Set-Cookie', `${cookieName}=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${config.sessionSeconds}`).send({authenticationRequired: true, authenticated: true})
+    return reply.header('Set-Cookie', `${cookieName}=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${config.sessionSeconds}`).send({authenticationRequired: true, authenticated: true, actor: config.actor})
   })
   app.post(`${sessionPath}/logout`, async (request, reply) => {
     sessions.delete(cookieToken(request.headers.cookie))
