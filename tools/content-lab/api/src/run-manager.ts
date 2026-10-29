@@ -14,6 +14,8 @@ export interface CommandSpec {
   env: NodeJS.ProcessEnv
   topic?: string
   phase?: PipelinePhase
+  /** Ficheros que escribe el run (imágenes). */
+  files?: string[]
 }
 
 export class RunManager {
@@ -41,7 +43,7 @@ export class RunManager {
     if (this.active()) throw new Error('Ya existe una ejecución activa.')
     const completed = this.list().filter(run => Boolean(run.finishedAt))
     for (const old of completed.slice(99)) this.runs.delete(old.id)
-    const run: PipelineRun = {id: randomUUID(), kind: spec.kind, label: spec.label, ...(spec.topic ? {topic: spec.topic} : {}), ...(spec.phase ? {phase: spec.phase} : {}), status: 'running', command: spec.command, args: spec.args, startedAt: new Date().toISOString(), logs: []}
+    const run: PipelineRun = {id: randomUUID(), kind: spec.kind, label: spec.label, ...(spec.topic ? {topic: spec.topic} : {}), ...(spec.phase ? {phase: spec.phase} : {}), ...(spec.files ? {files: spec.files} : {}), status: 'running', command: spec.command, args: spec.args, startedAt: new Date().toISOString(), logs: []}
     this.runs.set(run.id, run)
     this.activeId = run.id
     this.log(run, 'system', `Running ${spec.label}...`)

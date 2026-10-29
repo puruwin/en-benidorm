@@ -25,6 +25,8 @@ export interface PipelineRun {
   label?: string
   topic?: string
   phase?: PipelinePhase
+  /** Ficheros que escribe el run (imágenes), relativos a la raíz. */
+  files?: string[]
   status: RunStatus
   command: string
   args: string[]

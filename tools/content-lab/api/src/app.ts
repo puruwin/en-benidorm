@@ -1,5 +1,5 @@
 import Fastify from 'fastify'
-import type {RuntimeConfig} from './runtime-config'
+import {requireActor, type RuntimeConfig} from './runtime-config'
 import {installPrivateAccess} from './private-access'
 import {deploymentStatus} from './deployment-status'
 import type {BusinessQuery} from '../../shared/business-types'
@@ -7,11 +7,12 @@ import {BusinessCatalog, BusinessError} from './business-catalog'
 import type {CodexPromptRequest, QaIssue} from '../../shared/types'
 import {ArtifactLoader} from './artifact-loader'
 import {ImageCandidates, ImageError} from './image-candidates'
+import {ImageDecisions} from './image-decisions'
 import {buildCodexPrompt, SUPPORTED_ISSUES} from './prompt-builder/index'
 import {RunManager} from './run-manager'
 import {parseRunOptions, validateBusinessId, validateImageSlug, validatePhase, validateTopic} from './validation'
 
-export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager; config?: RuntimeConfig; images?: ImageCandidates} = {}) {
+export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager; config?: RuntimeConfig; images?: ImageCandidates; decisions?: ImageDecisions} = {}) {
   const app = Fastify({logger: {redact: ['req.headers.authorization', 'req.headers.cookie', 'res.headers.set-cookie']}})
   const config = dependencies.config ?? {private: false, host: '127.0.0.1', port: 4174, origin: null, username: null, actor: null, passwordHash: null, staticDir: null, sessionSeconds: 43200}
   const access = installPrivateAccess(app, config)
@@ -19,11 +20,13 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
   const businesses = new BusinessCatalog(root, loader)
   const images = dependencies.images ?? new ImageCandidates(root, loader)
   const runs = dependencies.runs ?? new RunManager(root)
+  const decisions = dependencies.decisions ?? new ImageDecisions(root, {runs})
   const streams = new Set<() => void>()
   app.addHook('preClose', async () => {for (const close of streams) close(); await runs.shutdown()})
 
   app.setErrorHandler((error, _request, reply) => {
-    if (error instanceof BusinessError || error instanceof ImageError) return reply.status(error.statusCode).send({error: error.message})
+    if (error instanceof ImageError) return reply.status(error.statusCode).send({error: error.message, ...(error.issues ? {issues: error.issues} : {})})
+    if (error instanceof BusinessError) return reply.status(error.statusCode).send({error: error.message})
     const errorMessage = error instanceof Error ? error.message : String(error)
     const httpStatus = Number((error as {statusCode?: number}).statusCode)
     const status = httpStatus >= 400 && httpStatus < 500 ? httpStatus : /inválid|no soportada|no permitida|entero|boolean/i.test(errorMessage) ? 400 : /ejecución activa/i.test(errorMessage) ? 409 : 500
@@ -50,6 +53,10 @@ export function createApp(root: string, dependencies: {loader?: ArtifactLoader; 
     const {bytes, contentType} = await images.thumbnail(request.params.slug, request.params.candidate)
     return reply.type(contentType).header('X-Content-Type-Options', 'nosniff').header('Cache-Control', 'private, max-age=3600').send(bytes)
   })
+  // Decisiones de David, una candidata por petición: no hay endpoints en bloque.
+  for (const action of ['validate', 'approve', 'dismiss', 'undismiss', 'withdraw'] as const) {
+    app.post<{Params: {slug: string}; Body: unknown}>(`/api/images/:slug/${action}`, async request => decisions[action](request.params.slug, request.body, requireActor(config)))
+  }
 
   app.post<{Params: {topic: string; phase: string}; Body: unknown}>('/api/comparisons/:topic/run/:phase', async (request, reply) => {
     const topic = validateTopic(request.params.topic)

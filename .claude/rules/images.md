@@ -28,6 +28,11 @@ como foto de un establecimiento concreto.
    Otras decisiones de David quedan en el mismo fichero, opcionales: `dismissals` (descarte con motivo;
    deshacerlo rellena `undoneAt`, no lo borra) y `withdrawn` (aprobación retirada antes de importar).
    Las reglas de aprobación están en una sola función, `validateStockApproval` (`scripts/images/lib/importer.ts`).
+   En Content Lab, cada decisión es un clic de David: `POST /api/images/<slug>/validate|approve|dismiss|undismiss|withdraw`
+   (una candidata por petición, sin endpoints en bloque). El servidor pone `approvedBy` (usuario de la sesión),
+   `approvedAt` y `via: 'content-lab'` y rechaza un body que traiga `approvedBy`/`approvedAt`; sin actor, 409.
+   Escribe con lock por fichero, relectura y escritura atómica, y responde 409 si un run de imágenes está
+   escribiendo ese fichero. Solo se retira una aprobación no importada.
 3. **Importar**: `npm run images:import -- <fichero>` simula. Con `--write` descarga, quita EXIF
    (sharp sin `withMetadata`), sube el asset y lo asigna **en el borrador** (`drafts.<id>`). Lo ejecuta David.
    - Nunca publica ni toca el documento publicado: publicar es de David en el Studio. Toda escritura de

@@ -39,7 +39,7 @@ test('producción falla sin credenciales/origen HTTPS; local sigue limitado a lo
 test('todas las APIs y métodos quedan protegidos antes de acceder a datos o ejecutar pipelines', async () => {
   const f = await fixture()
   try {
-    for (const [method, url] of [['GET', '/api/health'], ['GET', '/api/businesses'], ['GET', '/api/runs/run/events'], ['GET', '/api/businesses/business-test'], ['POST', '/api/comparisons/desayunos/run/generation'], ['POST', '/api/runs/run/cancel'], ['POST', '/api/comparisons/desayunos/codex-prompt'], ['GET', '/api/images'], ['GET', '/api/images/beach-playa-levante'], ['GET', '/api/images/beach-playa-levante/thumbnail/commons:1']] as const) assert.equal((await f.request(method, url, method === 'GET' ? undefined : {})).statusCode, 401, url)
+    for (const [method, url] of [['GET', '/api/health'], ['GET', '/api/businesses'], ['GET', '/api/runs/run/events'], ['GET', '/api/businesses/business-test'], ['POST', '/api/comparisons/desayunos/run/generation'], ['POST', '/api/runs/run/cancel'], ['POST', '/api/comparisons/desayunos/codex-prompt'], ['GET', '/api/images'], ['GET', '/api/images/beach-playa-levante'], ['GET', '/api/images/beach-playa-levante/thumbnail/commons:1'], ['POST', '/api/images/beach-playa-levante/approve'], ['POST', '/api/images/beach-playa-levante/dismiss'], ['POST', '/api/images/beach-playa-levante/withdraw']] as const) assert.equal((await f.request(method, url, method === 'GET' ? undefined : {})).statusCode, 401, url)
     assert.equal(f.spawnCount(), 0)
     assert.deepEqual((await f.request('GET', '/api/session')).json(), {authenticationRequired: true, authenticated: false, actor: null})
     assert.equal((await f.request('GET', '/api/businesses', undefined, undefined, {host: 'evil.test'})).statusCode, 403)
