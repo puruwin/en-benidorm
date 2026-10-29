@@ -24,6 +24,7 @@ export async function installProductionWeb(app: FastifyInstance, directory: stri
     }
     const spa = decoded === '/' || decoded === '/index.html' || decoded === '/businesses' || /^\/businesses\/business-[a-z0-9][a-z0-9-]*$/.test(decoded)
       || decoded === '/system' || decoded === '/runs' || /^\/comparisons\/[a-z0-9][a-z0-9-]*$/.test(decoded)
+      || decoded === '/images' || /^\/images\/[a-z0-9][a-z0-9-]{0,100}$/.test(decoded)
     if (!spa) return reply.code(404).send({error: 'Ruta no encontrada.'})
     return reply.type('text/html; charset=utf-8').send(index)
   })
