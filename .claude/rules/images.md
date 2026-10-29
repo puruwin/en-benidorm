@@ -29,7 +29,16 @@ como foto de un establecimiento concreto.
    deshacerlo rellena `undoneAt`, no lo borra) y `withdrawn` (aprobación retirada antes de importar).
    Las reglas de aprobación están en una sola función, `validateStockApproval` (`scripts/images/lib/importer.ts`).
 3. **Importar**: `npm run images:import -- <fichero>` simula. Con `--write` descarga, quita EXIF
-   (sharp sin `withMetadata`), sube el asset y asigna el campo. Lo ejecuta David.
+   (sharp sin `withMetadata`), sube el asset y lo asigna **en el borrador** (`drafts.<id>`). Lo ejecuta David.
+   - Nunca publica ni toca el documento publicado: publicar es de David en el Studio. Toda escritura de
+     documentos pasa por `draftWriter` (`scripts/images/lib/draft-import.ts`), que rechaza ids sin `drafts.`.
+   - Sin borrador, lo crea como copia del publicado; con borrador, `images` añade al final (se conservan los
+     cambios abiertos) y un campo único (`image`, `heroImage`) que el borrador ya cambió es un error que se
+     resuelve en el Studio. El patch exige la revisión del borrador leído.
+   - Una imagen con el mismo `sourceUrl` ya presente en el publicado o el borrador se omite.
+   - `--plan-out content/images/plans/<slug>.json` guarda el plan con su `planHash` (ignorado en git);
+     `--expect-plan <hash>` aborta si el plan recalculado difiere; `--by` y `--run-id` quedan en `imports`
+     junto a `mode: 'draft'` y `draftId`. Los `imports` sin `mode` son anteriores y fueron al publicado.
 
 ## Licencias
 
