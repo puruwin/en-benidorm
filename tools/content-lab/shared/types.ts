@@ -19,8 +19,12 @@ export interface PipelineLog {
 
 export interface PipelineRun {
   id: string
-  topic: string
-  phase: PipelinePhase
+  /** Ausente en runs antiguos: equivale a `comparison`. */
+  kind?: 'comparison' | 'images'
+  /** Nombre visible de runs sin topic/fase (imágenes). */
+  label?: string
+  topic?: string
+  phase?: PipelinePhase
   status: RunStatus
   command: string
   args: string[]

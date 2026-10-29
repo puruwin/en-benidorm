@@ -6,6 +6,16 @@ import {buildCommand, type CommandOptions} from './command-builder'
 type SpawnFn = typeof nodeSpawn
 type Listener = (run: PipelineRun, log?: PipelineLog) => void
 
+export interface CommandSpec {
+  kind: NonNullable<PipelineRun['kind']>
+  label: string
+  command: string
+  args: string[]
+  env: NodeJS.ProcessEnv
+  topic?: string
+  phase?: PipelinePhase
+}
+
 export class RunManager {
   private runs = new Map<string, PipelineRun>()
   private activeId: string | undefined
@@ -21,16 +31,21 @@ export class RunManager {
   active(): PipelineRun | undefined { return this.activeId ? this.runs.get(this.activeId) : undefined }
 
   start(topic: string, phase: PipelinePhase, options: CommandOptions = {}): PipelineRun {
+    const built = buildCommand(topic, phase, options)
+    return this.startCommand({kind: 'comparison', label: `comparison:${phase}`, command: built.command, args: built.args, env: process.env, topic, phase})
+  }
+
+  /** Lanza un comando ya validado. `env` es el entorno completo del hijo: no se mezcla con `process.env`. */
+  startCommand(spec: CommandSpec): PipelineRun {
     if (this.stopping) throw new Error('Content Lab está cerrándose.')
     if (this.active()) throw new Error('Ya existe una ejecución activa.')
     const completed = this.list().filter(run => Boolean(run.finishedAt))
     for (const old of completed.slice(99)) this.runs.delete(old.id)
-    const built = buildCommand(topic, phase, options)
-    const run: PipelineRun = {id: randomUUID(), topic, phase, status: 'running', command: built.command, args: built.args, startedAt: new Date().toISOString(), logs: []}
+    const run: PipelineRun = {id: randomUUID(), kind: spec.kind, label: spec.label, ...(spec.topic ? {topic: spec.topic} : {}), ...(spec.phase ? {phase: spec.phase} : {}), status: 'running', command: spec.command, args: spec.args, startedAt: new Date().toISOString(), logs: []}
     this.runs.set(run.id, run)
     this.activeId = run.id
-    this.log(run, 'system', `Running comparison:${phase}...`)
-    const child = this.spawnFn(built.command, built.args, {cwd: this.root, env: process.env, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe']})
+    this.log(run, 'system', `Running ${spec.label}...`)
+    const child = this.spawnFn(spec.command, spec.args, {cwd: this.root, env: spec.env, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe']})
     this.children.set(run.id, child)
     this.consume(run, 'stdout', child.stdout!)
     this.consume(run, 'stderr', child.stderr!)
