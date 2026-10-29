@@ -23,7 +23,7 @@ export function buildCommand(topicInput: unknown, phaseInput: unknown, options: 
 
 export type ImagesAction = 'find' | 'import'
 export interface ImagesFindInput {action: 'find'; doc?: string; term?: string; category?: string; radius?: number}
-export interface ImagesImportInput {action: 'import'; slug: string; write?: boolean; by?: string; expectPlan?: string}
+export interface ImagesImportInput {action: 'import'; slug: string; write?: boolean; planOut?: boolean; by?: string; expectPlan?: string; runId?: string}
 
 const IMAGE_SCRIPTS: Record<ImagesAction, string> = {
   find: 'scripts/images/find-candidates.ts',
@@ -31,7 +31,7 @@ const IMAGE_SCRIPTS: Record<ImagesAction, string> = {
 }
 const IMAGE_KEYS: Record<ImagesAction, Set<string>> = {
   find: new Set(['action', 'doc', 'term', 'category', 'radius']),
-  import: new Set(['action', 'slug', 'write', 'by', 'expectPlan']),
+  import: new Set(['action', 'slug', 'write', 'planOut', 'by', 'expectPlan', 'runId']),
 }
 
 // Lanza node directamente (como los scripts de package.json) y no `npm run`, que pasa el argv por `sh -c`.
@@ -63,13 +63,18 @@ export function buildImagesCommand(input: unknown): {command: string; args: stri
   } else {
     slug = validateImageSlug(values.slug)
     if (values.write !== undefined && typeof values.write !== 'boolean') throw new Error('write debe ser boolean.')
+    if (values.planOut !== undefined && typeof values.planOut !== 'boolean') throw new Error('planOut debe ser boolean.')
+    if (values.write && values.planOut) throw new Error('planOut solo se usa en la simulación.')
     flags.push(`content/images/candidates/${slug}.json`)
+    // Siempre a borrador (#71): el script no tiene una bandera --draft.
+    if (values.planOut) flags.push(`--plan-out=content/images/plans/${slug}.json`)
     if (values.write) {
       if (values.by === undefined || values.expectPlan === undefined) throw new Error('Importar exige by y expectPlan.')
       flags.push('--write')
     }
     if (values.by !== undefined) flags.push(`--by=${validateActor(values.by)}`)
     if (values.expectPlan !== undefined) flags.push(`--expect-plan=${validatePlanHash(values.expectPlan)}`)
+    if (values.runId !== undefined) flags.push(`--run-id=${validateActor(values.runId)}`)
     label = `images:import ${slug}${values.write ? '' : ' (simulación)'}`
   }
   const args = ['--import', 'tsx', IMAGE_SCRIPTS[action], ...flags]

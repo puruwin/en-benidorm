@@ -14,6 +14,6 @@ export interface DeploymentStatus {
     matchesManifest: boolean
     catalogWarnings: number
   }
-  integrations: Array<{name: 'OpenAI' | 'Sanity'; configured: boolean; missingVariables: string[]; connection: 'not-tested'}>
+  integrations: Array<{name: 'OpenAI' | 'Sanity' | 'Imágenes'; configured: boolean; missingVariables: string[]; connection: 'not-tested'}>
   issues: string[]
 }

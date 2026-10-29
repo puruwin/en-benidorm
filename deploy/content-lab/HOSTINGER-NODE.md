@@ -76,6 +76,10 @@ Una clave configurada en otro ordenador o entorno no se transfiere a Hostinger n
 se incorpora a Git. No uses prefijos `VITE_` o `PUBLIC_` para secretos ni los añadas a
 los assets del frontend.
 
+Las imágenes usan su propio token, `SANITY_IMAGES_TOKEN`: un Editor dedicado (`content-lab-images`),
+distinto de `SANITY_API_TOKEN`, que solo recibe el run de importación a borrador. Riesgo, mitigación y
+rotación: [README.md](README.md#token-de-imágenes-sanity_images_token). Rótalo también al cambiar de servidor.
+
 El proxy debe preservar `Host: lab.enbenidorm.es`; no se confía en un `X-Forwarded-Host`
 arbitrario. Las peticiones JSON de escritura deben llegar con
 `Origin: https://lab.enbenidorm.es`. Un error 403 de Host/origen debe resolverse en la

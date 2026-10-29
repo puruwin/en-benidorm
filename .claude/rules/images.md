@@ -22,6 +22,8 @@ como foto de un establecimiento concreto.
      David y cuenta como base de lugar; sin ella, la categoría propuesta solo da candidatas ambientales.
    - Pixabay y Pexels solo si Commons no deja ninguna válida, y siempre como `use: 'ambiental'`.
    - Unsplash está fuera: su API obliga al hotlinking y a notificar cada descarga.
+   - En Content Lab: `POST /api/images/search` (`{doc|term, category?, radius?}`) lanza el run con un
+     entorno de lista cerrada, sin token de Sanity.
 2. **Aprobar**: David añade entradas a `approvals` (`candidateId`, `approvedBy`, `approvedAt`,
    `alt`, `caption?`, `placeVerified`, `field?`, `document?`). Fotos propias: aprobación en
    `content/images/own/<visita>.json` sobre una visita de `content/manual/visits/` (#14).
@@ -44,6 +46,10 @@ como foto de un establecimiento concreto.
    - `--plan-out content/images/plans/<slug>.json` guarda el plan con su `planHash` (ignorado en git);
      `--expect-plan <hash>` aborta si el plan recalculado difiere; `--by` y `--run-id` quedan en `imports`
      junto a `mode: 'draft'` y `draftId`. Los `imports` sin `mode` son anteriores y fueron al publicado.
+   - En Content Lab: `POST /api/images/<slug>/import/plan` simula y guarda el plan; `POST /api/images/<slug>/import`
+     con `{planHash}` (tiene que coincidir con el plan guardado) lanza `--write --expect-plan --by <actor> --run-id`.
+     Solo ese run recibe `SANITY_IMAGES_TOKEN` (Editor dedicado, plan Free); sin él, 409, y nunca usa
+     `SANITY_API_TOKEN` como alternativa. Ver `deploy/content-lab/README.md`.
 
 ## Licencias
 
