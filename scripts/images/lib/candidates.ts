@@ -68,6 +68,24 @@ export interface StockApproval {
   alt: string
   caption?: string
   placeVerified: boolean
+  /** Dónde se aprobó. Ausente en las aprobaciones anteriores a Content Lab (escritas a mano). */
+  via?: 'content-lab' | 'manual'
+}
+
+/** Descarte de David, distinto de `rejected` (automático). Deshacerlo rellena `undoneAt`/`undoneBy`; no se borra. */
+export interface Dismissal {
+  candidateId: string
+  dismissedBy: string
+  dismissedAt: string
+  reason: string
+  undoneAt?: string
+  undoneBy?: string
+}
+
+/** Aprobación retirada antes de importarla: sale de `approvals` y queda aquí con quién y cuándo. */
+export interface WithdrawnApproval extends StockApproval {
+  withdrawnBy: string
+  withdrawnAt: string
 }
 
 export interface ImportRecord {
@@ -76,6 +94,11 @@ export interface ImportRecord {
   field: string
   assetId: string
   importedAt: string
+  /** Ausente = `published`: los registros anteriores al modo borrador escribían en el documento publicado. */
+  mode?: 'published' | 'draft'
+  draftId?: string
+  importedBy?: string
+  runId?: string
 }
 
 export interface CandidatesFile {
@@ -88,18 +111,35 @@ export interface CandidatesFile {
   rejected: RejectedCandidate[]
   approvals: StockApproval[]
   imports: ImportRecord[]
+  /** Ausente = `[]` (ficheros anteriores). */
+  dismissals?: Dismissal[]
+  /** Ausente = `[]` (ficheros anteriores). */
+  withdrawn?: WithdrawnApproval[]
+  /** Dónde se creó el fichero, que es donde se edita. Ausente en los ficheros anteriores. */
+  createdIn?: 'content-lab' | 'local'
 }
 
 /**
- * Une una búsqueda nueva con el fichero anterior: conserva aprobaciones, importaciones y cualquier
- * candidata ya aprobada aunque la búsqueda nueva no la devuelva.
+ * Une una búsqueda nueva con el fichero anterior: conserva las decisiones de David (aprobaciones,
+ * importaciones, descartes y retiradas) y cualquier candidata con una decisión aunque la búsqueda nueva
+ * no la devuelva, para que ninguna desaparezca sin motivo.
  */
 export function mergeCandidates(previous: CandidatesFile | null, next: CandidatesFile): CandidatesFile {
   if (!previous) return next
-  const approved = new Set(previous.approvals.map((approval) => approval.candidateId))
+  const dismissals = previous.dismissals ?? []
+  const withdrawn = previous.withdrawn ?? []
+  const decided = new Set([...previous.approvals, ...previous.imports, ...dismissals, ...withdrawn].map((decision) => decision.candidateId))
   const ids = new Set(next.candidates.map((candidate) => candidate.id))
-  const kept = previous.candidates.filter((candidate) => approved.has(candidate.id) && !ids.has(candidate.id))
-  return {...next, candidates: [...next.candidates, ...kept], approvals: previous.approvals, imports: previous.imports}
+  const kept = previous.candidates.filter((candidate) => decided.has(candidate.id) && !ids.has(candidate.id))
+  return {
+    ...next,
+    ...(previous.createdIn ? {createdIn: previous.createdIn} : {}),
+    candidates: [...next.candidates, ...kept],
+    approvals: previous.approvals,
+    imports: previous.imports,
+    ...(dismissals.length ? {dismissals} : {}),
+    ...(withdrawn.length ? {withdrawn} : {}),
+  }
 }
 
 export function slugify(value: string): string {
