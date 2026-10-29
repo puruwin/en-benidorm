@@ -1,9 +1,9 @@
 import {useEffect, useState, type ReactNode} from 'react'
-import {api} from './api'
+import {api, type Session} from './api'
 import {message} from './ui'
 
 export function SessionBoundary({children}: {children: ReactNode}) {
-  const [session, setSession] = useState<{authenticationRequired: boolean; authenticated: boolean}>()
+  const [session, setSession] = useState<Session>()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -13,7 +13,7 @@ export function SessionBoundary({children}: {children: ReactNode}) {
   }
   useEffect(() => {
     void refresh()
-    const expired = () => {setSession({authenticationRequired: true, authenticated: false}); setPassword('')}
+    const expired = () => {setSession({authenticationRequired: true, authenticated: false, actor: null}); setPassword('')}
     addEventListener('content-lab-session-expired', expired)
     return () => removeEventListener('content-lab-session-expired', expired)
   }, [])
@@ -26,7 +26,7 @@ export function SessionBoundary({children}: {children: ReactNode}) {
   const logout = async () => {
     if (!dispatchEvent(new Event('business-before-navigate', {cancelable: true}))) return
     setBusy(true)
-    try {await api.logout(); setSession({authenticationRequired: true, authenticated: false})}
+    try {await api.logout(); setSession({authenticationRequired: true, authenticated: false, actor: null})}
     catch (cause) {setError(message(cause))}
     finally {setBusy(false)}
   }

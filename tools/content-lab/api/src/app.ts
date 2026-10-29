@@ -12,7 +12,7 @@ import {parseRunOptions, validateBusinessId, validatePhase, validateTopic} from 
 
 export function createApp(root: string, dependencies: {loader?: ArtifactLoader; runs?: RunManager; config?: RuntimeConfig} = {}) {
   const app = Fastify({logger: {redact: ['req.headers.authorization', 'req.headers.cookie', 'res.headers.set-cookie']}})
-  const config = dependencies.config ?? {private: false, host: '127.0.0.1', port: 4174, origin: null, username: null, passwordHash: null, staticDir: null, sessionSeconds: 43200}
+  const config = dependencies.config ?? {private: false, host: '127.0.0.1', port: 4174, origin: null, username: null, actor: null, passwordHash: null, staticDir: null, sessionSeconds: 43200}
   const access = installPrivateAccess(app, config)
   const loader = dependencies.loader ?? new ArtifactLoader(root)
   const businesses = new BusinessCatalog(root, loader)

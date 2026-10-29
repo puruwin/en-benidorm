@@ -5,7 +5,7 @@ import {resolve} from 'node:path'
 import test from 'node:test'
 import {createApp} from './app'
 import {passwordHash} from './private-access'
-import {runtimeConfig} from './runtime-config'
+import {requireActor, runtimeConfig} from './runtime-config'
 import {installProductionWeb} from './production-web'
 import {RunManager} from './run-manager'
 import {EventEmitter} from 'node:events'
@@ -41,7 +41,7 @@ test('todas las APIs y métodos quedan protegidos antes de acceder a datos o eje
   try {
     for (const [method, url] of [['GET', '/api/health'], ['GET', '/api/businesses'], ['GET', '/api/runs/run/events'], ['GET', '/api/businesses/business-test'], ['POST', '/api/comparisons/desayunos/run/generation'], ['POST', '/api/runs/run/cancel'], ['POST', '/api/comparisons/desayunos/codex-prompt']] as const) assert.equal((await f.request(method, url, method === 'GET' ? undefined : {})).statusCode, 401, url)
     assert.equal(f.spawnCount(), 0)
-    assert.deepEqual((await f.request('GET', '/api/session')).json(), {authenticationRequired: true, authenticated: false})
+    assert.deepEqual((await f.request('GET', '/api/session')).json(), {authenticationRequired: true, authenticated: false, actor: null})
     assert.equal((await f.request('GET', '/api/businesses', undefined, undefined, {host: 'evil.test'})).statusCode, 403)
     assert.equal((await f.request('GET', '/%61pi/businesses')).statusCode, 401)
   } finally {await f.close()}
@@ -100,4 +100,34 @@ test('frontend compilado con rutas SPA; no se sirven datos, código, envs, mapas
       assert.ok(!response.body.includes('MUST_NOT_BE_SERVED'))
     }
   } finally {await f.close()}
+})
+
+test('actor: usuario de sesión en privado; CONTENT_LAB_AUTH_USER opcional en local', async () => {
+  const hash = await passwordHash('fixture-password-only')
+  assert.equal(runtimeConfig({CONTENT_LAB_MODE: 'private', CONTENT_LAB_ORIGIN: origin, CONTENT_LAB_AUTH_USER: 'editor', CONTENT_LAB_PASSWORD_HASH: hash}, '/project').actor, 'editor')
+  assert.throws(() => runtimeConfig({CONTENT_LAB_MODE: 'private', CONTENT_LAB_ORIGIN: origin, CONTENT_LAB_PASSWORD_HASH: hash}, '/project'), /CONTENT_LAB_AUTH_USER/)
+  assert.equal(runtimeConfig({}, '/project').actor, null)
+  assert.equal(runtimeConfig({CONTENT_LAB_AUTH_USER: '  '}, '/project').actor, null)
+  assert.equal(runtimeConfig({CONTENT_LAB_AUTH_USER: 'david'}, '/project').actor, 'david')
+  assert.equal(runtimeConfig({CONTENT_LAB_AUTH_USER: 'david'}, '/project').username, null)
+  assert.throws(() => runtimeConfig({CONTENT_LAB_AUTH_USER: 'x'.repeat(101)}, '/project'), /100 caracteres/)
+  assert.equal(requireActor({actor: 'david'}), 'david')
+  assert.throws(() => requireActor({actor: null}), (error: any) => error.statusCode === 409 && error.message === 'Define CONTENT_LAB_AUTH_USER para registrar quién decide.')
+})
+
+test('/api/session devuelve el actor solo con sesión', async () => {
+  const f = await fixture()
+  try {
+    const login = await f.request('POST', '/api/session/login', {username: 'editor', password: 'fixture-password-only'})
+    assert.equal(login.json().actor, 'editor')
+    const cookie = String(login.headers['set-cookie']).split(';')[0]!
+    assert.deepEqual((await f.request('GET', '/api/session', undefined, cookie)).json(), {authenticationRequired: true, authenticated: true, actor: 'editor'})
+    assert.equal((await f.request('GET', '/api/session', undefined, '__Host-content_lab=forged')).json().actor, null)
+  } finally {await f.close()}
+  for (const [environment, actor] of [[{}, null], [{CONTENT_LAB_AUTH_USER: 'david'}, 'david']] as const) {
+    const app = createApp('/project', {config: runtimeConfig(environment, '/project'), runs: new RunManager('/project')})
+    try {
+      assert.deepEqual((await app.inject({method: 'GET', url: '/api/session'})).json(), {authenticationRequired: false, authenticated: true, actor})
+    } finally {await app.close()}
+  }
 })

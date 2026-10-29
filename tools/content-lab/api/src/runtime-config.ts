@@ -6,6 +6,8 @@ export interface RuntimeConfig {
   port: number
   origin: string | null
   username: string | null
+  /** Quién firma decisiones e importaciones: el usuario con sesión en privado, o CONTENT_LAB_AUTH_USER en local si está definida. */
+  actor: string | null
   passwordHash: string | null
   staticDir: string | null
   sessionSeconds: number
@@ -28,7 +30,15 @@ export function runtimeConfig(env: NodeJS.ProcessEnv, root: string): RuntimeConf
     if (!env.CONTENT_LAB_AUTH_USER?.trim() || env.CONTENT_LAB_AUTH_USER.length > 100) throw Error('Falta CONTENT_LAB_AUTH_USER válido.')
     if (!/^scrypt\$[A-Za-z0-9_-]{22}\$[A-Za-z0-9_-]{43}$/.test(env.CONTENT_LAB_PASSWORD_HASH ?? '')) throw Error('Falta CONTENT_LAB_PASSWORD_HASH válido; usa content-lab:password.')
   }
+  const localActor = env.CONTENT_LAB_AUTH_USER?.trim() ? env.CONTENT_LAB_AUTH_USER : null
+  if (!privateMode && localActor && localActor.length > 100) throw Error('CONTENT_LAB_AUTH_USER no puede superar 100 caracteres.')
   return {private: privateMode, host, port, origin, username: privateMode ? env.CONTENT_LAB_AUTH_USER! : null,
+    actor: privateMode ? env.CONTENT_LAB_AUTH_USER! : localActor,
     passwordHash: privateMode ? env.CONTENT_LAB_PASSWORD_HASH! : null,
     staticDir: privateMode ? resolve(root, 'tools/content-lab/web/dist') : null, sessionSeconds: 12 * 60 * 60}
+}
+
+export function requireActor(config: Pick<RuntimeConfig, 'actor'>): string {
+  if (config.actor) return config.actor
+  throw Object.assign(Error('Define CONTENT_LAB_AUTH_USER para registrar quién decide.'), {statusCode: 409})
 }
