@@ -1,13 +1,9 @@
 import {useEffect, useState} from 'react'
 import type {BusinessDetail, BusinessList} from '../../shared/business-types'
 import {api} from './api'
-import {message} from './ui'
+import {message, safeUrl} from './ui'
 
 const date = (value: string | null | undefined) => value ? new Date(value).toLocaleString('es-ES') : 'Sin fecha registrada'
-const safeUrl = (value: string | null | undefined) => {
-  if (!value) return undefined
-  try {const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`); return ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password ? url.href : undefined} catch {return undefined}
-}
 function Warning({text}: {text: string}) {return <div className="notice" role="status">{text}</div>}
 
 export function BusinessListPage({search, navigate}: {search: string; navigate: (path: string) => void}) {

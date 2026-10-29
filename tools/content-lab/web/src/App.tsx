@@ -1,10 +1,11 @@
-import {useEffect, useRef, useState} from 'react'
-import type {ComparisonPhaseState, ComparisonSummary, PipelineLog, PipelinePhase, PipelineRun, QaIssue} from '../../shared/types'
+import {useEffect, useState} from 'react'
+import type {ComparisonPhaseState, ComparisonSummary, PipelinePhase, PipelineRun, QaIssue} from '../../shared/types'
 import {PIPELINE_PHASES, canRunComparisonPhase, isCurrentPhase, nextComparisonPhase} from '../../shared/workflow'
 import {api} from './api'
-import {Badge, List, message} from './ui'
+import {Badge, Empty, Header, List, Logs, message, useRunStream} from './ui'
 import {BusinessListPage, BusinessDetailPage} from './BusinessPages'
 import {SystemPage} from './SystemPage'
+import {ImageReviewPage, ImagesListPage} from './ImagePages'
 
 const previewOrigin = import.meta.env.VITE_CONTENT_PREVIEW_ORIGIN || (import.meta.env.DEV ? 'http://localhost:4321' : undefined)
 
@@ -30,6 +31,7 @@ export function App() {
   const pagePath = path.split('?')[0]!
   const businessMatch = pagePath.match(/^\/businesses\/(business-[a-z0-9][a-z0-9-]*)$/)
   const topicMatch = pagePath.match(/^\/comparisons\/([a-z0-9-]+)$/)
+  const imagesMatch = pagePath.match(/^\/images\/([a-z0-9][a-z0-9-]{0,100})$/)
 
   return <div className="shell">
     <aside className="sidebar">
@@ -38,6 +40,7 @@ export function App() {
         <button className={path === '/' ? 'active' : ''} onClick={() => navigate('/')}>Comparisons <small>{topics.length}</small></button>
         <button className={path === '/runs' ? 'active' : ''} onClick={() => navigate('/runs')}>Runs <small>{runs.length}</small></button>
         <button className={pagePath.startsWith('/businesses') ? 'active' : ''} onClick={() => navigate('/businesses')}>Negocios</button>
+        <button className={pagePath.startsWith('/images') ? 'active' : ''} onClick={() => navigate('/images')}>Imágenes</button>
         <button className={path === '/system' ? 'active' : ''} onClick={() => navigate('/system')}>Estado de instalación</button>
       </nav>
       <div className="sidebar-topics">
@@ -50,6 +53,8 @@ export function App() {
       {loading ? <Empty title="Cargando Content Lab…"/> : topicMatch ?
         <ComparisonPage topic={topicMatch[1]!} activeRun={activeRun?.kind === 'images' ? undefined : activeRun} navigate={navigate} onRefresh={refreshGlobal}/> :
         businessMatch ? <BusinessDetailPage key={businessMatch[1]} businessId={businessMatch[1]!} navigate={navigate}/> :
+        imagesMatch ? <ImageReviewPage key={imagesMatch[1]} slug={imagesMatch[1]!} navigate={navigate}/> :
+        pagePath === '/images' ? <ImagesListPage key={path} search={path.includes('?') ? path.slice(path.indexOf('?')) : ''} activeRun={activeRun} navigate={navigate} onRefresh={refreshGlobal}/> :
         pagePath === '/businesses' ? <BusinessListPage search={path.includes('?') ? path.slice(path.indexOf('?')) : ''} navigate={navigate}/> :
         pagePath === '/system' ? <SystemPage/> :
         path === '/runs' ? <RunsPage runs={runs} onRefresh={refreshGlobal}/> :
@@ -77,13 +82,11 @@ function Dashboard({topics, navigate, onNew, onRefresh}: {topics: ComparisonSumm
 }
 
 function ComparisonPage({topic, activeRun, navigate, onRefresh}: {topic: string; activeRun: PipelineRun | undefined; navigate: (path: string) => void; onRefresh: () => void}) {
-  const eventSources = useRef<EventSource[]>([])
-  useEffect(() => () => {for (const source of eventSources.current) source.close()}, [])
   const [detail, setDetail] = useState<any>()
   const [tab, setTab] = useState<Tab>('Overview')
   const [error, setError] = useState('')
   const [options, setOptions] = useState({limit: 8, force: false, dryRun: false})
-  const [localRun, setLocalRun] = useState<PipelineRun | undefined>(activeRun)
+  const {run: localRun, setRun: setLocalRun, stream: streamRun} = useRunStream(() => { void refresh(); void onRefresh() })
   const refresh = async () => { try { setDetail(await api.comparison(topic)); setError('') } catch (cause) { setError(message(cause)) } }
   useEffect(() => { setDetail(undefined); setTab('Overview'); void refresh() }, [topic])
   useEffect(() => { setLocalRun(activeRun) }, [activeRun?.id, activeRun?.status])
@@ -92,19 +95,8 @@ function ComparisonPage({topic, activeRun, navigate, onRefresh}: {topic: string;
     if (phase === 'generation' && !confirm('Esta fase puede consumir cuota de OpenAI.\n\n¿Quieres generar la Comparison?')) return
     try {
       const body = {...(phase === 'selection' ? {limit: options.limit} : {}), force: options.force || detail?.summary?.phases?.[phase]?.stale === true, dryRun: options.dryRun}
-      const run = await api.run(topic, phase, body); setLocalRun(run); setTab('Logs'); streamRun(run)
+      const run = await api.run(topic, phase, body); setTab('Logs'); streamRun(run)
     } catch (cause) { setError(message(cause)) }
-  }
-  const streamRun = (run: PipelineRun) => {
-    const source = new EventSource(`/api/runs/${run.id}/events`)
-    eventSources.current.push(source)
-    source.addEventListener('snapshot', (event) => setLocalRun(JSON.parse((event as MessageEvent).data)))
-    source.addEventListener('log', (event) => setLocalRun((current) => current ? {...current, logs: appendLog(current.logs, JSON.parse((event as MessageEvent).data))} : current))
-    source.addEventListener('status', (event) => {
-      const status = JSON.parse((event as MessageEvent).data)
-      setLocalRun((current) => current ? {...current, ...status} : current)
-      if (status.finishedAt) { source.close(); void refresh(); void onRefresh() }
-    })
   }
   const cancel = async () => { if (localRun) setLocalRun(await api.cancel(localRun.id)) }
   if (!detail) return <><Header eyebrow="COMPARISON" title={title(topic)} actions={<button className="secondary" onClick={() => navigate('/')}>Volver</button>}/>{error ? <div className="error-banner">{error}</div> : <Empty title="Cargando artefactos…"/>}</>
@@ -251,10 +243,6 @@ function Sources({artifact}: {artifact: any}) {
   return <div className="stack">{artifact.data.integrityIssues?.length > 0 && <section className="panel"><h2>Integrity review</h2><table><thead><tr><th>Business</th><th>Issue</th><th>Sources</th><th>Detail</th></tr></thead><tbody>{artifact.data.integrityIssues.map((issue: any, index: number) => <tr key={`${issue.businessId}-${issue.code}-${index}`}><td>{issue.businessId}</td><td><Badge value={issue.code}/></td><td>{issue.sourceKeys?.map((key: string) => { const source: any = sourceByKey.get(key); return <small className="block" key={key}>{source?.provider ?? key} · {source?.sourceClass ?? 'legacy'} / {source?.claimScope ?? 'unknown'}</small>})}</td><td>{issue.message}</td></tr>)}</tbody></table></section>}{artifact.data.businesses?.map((business: any) => <section className="panel" key={business.businessId}><h2>{business.name}</h2><table><thead><tr><th>Source</th><th>Class / scope</th><th>URL</th><th>Retrieved</th><th>Attribution</th></tr></thead><tbody>{business.sources?.map((source: any) => <tr key={source.key}><td><strong>{source.provider}</strong>{(seen.get(source.key) ?? 0) > 1 && <Badge value="DUPLICATE"/>}<small className="block mono">{source.key}</small></td><td><Badge value={source.sourceClass ?? 'legacy'}/><small className="block">{source.claimScope ?? 'unknown'}</small></td><td>{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.url} ↗</a> : '—'}</td><td>{date(source.retrievedAt)}</td><td>{source.attribution ?? '—'}</td></tr>)}</tbody></table></section>)}</div>
 }
 
-function Logs({run}: {run: PipelineRun | undefined}) {
-  if (!run) return <Empty title="Sin ejecuciones en esta sesión" detail="Ejecuta una fase para ver stdout, stderr, exit code y duración."/>
-  return <section className="panel"><div className="section-head"><div><h2>{run.topic && run.phase ? `${run.topic} · ${run.phase}` : run.label} <Badge value={run.status}/></h2><p className="mono">{run.command} {run.args.join(' ')}</p></div>{run.durationMs != null && <strong>{(run.durationMs / 1000).toFixed(1)}s · exit {run.exitCode ?? '—'}</strong>}</div><div className="terminal">{run.logs.map((log) => <div className={log.stream} key={log.id}><time>[{new Date(log.timestamp).toLocaleTimeString()}]</time> {log.message}</div>)}</div></section>
-}
 
 function Codex({topic, qa, configured}: {topic: string; qa: any; configured: boolean}) {
   const issues: QaIssue[] = qa?.issues ?? []; const [code, setCode] = useState(issues[0]?.code ?? 'GENERAL_IMPROVEMENT'); const [note, setNote] = useState(''); const [prompt, setPrompt] = useState(''); const [copied, setCopied] = useState(false); const [error, setError] = useState('')
@@ -271,9 +259,7 @@ function NewComparison({topics, close, navigate}: {topics: ComparisonSummary[]; 
   return <div className="modal-backdrop"><div className="modal"><div className="section-head"><h2>Nueva Comparison</h2><button className="icon" onClick={close}>×</button></div><label className="field">Topic<input value={topic} onChange={(event) => setTopic(event.target.value)} placeholder="arroces"/></label><label className="field">Display name (opcional)<input value={displayName} onChange={(event) => setDisplayName(event.target.value)} placeholder="Arroces"/></label><label className="field">Search intent<input value={searchIntent} onChange={(event) => setSearchIntent(event.target.value)} placeholder="elegir dónde comer arroz en Benidorm"/></label><label className="field">Aliases<textarea value={aliases} onChange={(event) => setAliases(event.target.value)} placeholder={'arroz\narroces\npaella'}/></label>{topic && !valid && <p className="error-text">Usa sólo minúsculas, números y guiones.</p>}{valid && !existing && <p className="notice compact">Topic no configurado. Content Lab no editará TypeScript: generará un prompt autocontenido.</p>}<div className="actions"><button className="secondary" onClick={close}>Cancelar</button><button disabled={!valid} onClick={() => void create()}>{existing ? 'Abrir Comparison' : 'Generar prompt'}</button></div>{prompt && <textarea className="prompt short" readOnly value={prompt}/>}</div></div>
 }
 
-function Header({eyebrow, title: heading, subtitle, actions}: {eyebrow: string; title: string; subtitle?: string; actions?: any}) { return <header className="page-header"><div><span className="eyebrow">{eyebrow}</span><h1>{heading}</h1>{subtitle && <p>{subtitle}</p>}</div><div className="actions">{actions}</div></header> }
 function PhaseBadge({state}: {state: ComparisonPhaseState}) { const value = state.stale ? 'STALE' : state.phase === 'qa' && state.qaOutcome ? state.qaOutcome : state.status === 'not-run' ? 'NOT RUN' : state.status; return <><Badge value={value}/>{state.inferred && <small className="muted inferred"> inferred</small>}</> }
-function Empty({title: heading, detail}: {title: string; detail?: string}) { return <div className="empty-state"><strong>{heading}</strong>{detail && <p>{detail}</p>}</div> }
 function ArtifactEmpty({artifact, label}: {artifact: any; label: string}) { return <section className="panel"><Empty title={artifact.status === 'invalid' ? 'Invalid JSON' : label} detail={artifact.error ?? artifact.path}/></section> }
 function Issue({issue}: {issue: QaIssue}) { return <div className="issue"><Badge value={issue.severity}/><div><strong>{issue.code}</strong><p>{issue.message}</p><small>{issue.path}{issue.context ? ` · ${JSON.stringify(issue.context)}` : ''}</small></div></div> }
 function Json({value}: {value: any}) { return <pre className="json">{JSON.stringify(value, null, 2)}</pre> }
@@ -289,4 +275,3 @@ function candidateReasons(item: any) {
   const signals = (item.evidence ?? []).map((evidence: any) => `${evidence.field}=${evidence.value}${evidence.strength ? ` (${evidence.strength})` : ''}`)
   return [...signals, ...(item.details ?? [])].join(' · ') || (item.topicEvidence ?? []).join(' · ') || '—'
 }
-function appendLog(logs: PipelineLog[], log: PipelineLog) { return logs.some((item) => item.id === log.id) ? logs : [...logs, log] }
