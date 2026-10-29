@@ -40,3 +40,43 @@ export function parseRunOptions(value: unknown): {limit?: number; force?: boolea
   }
   return result
 }
+
+export const IMAGE_SLUG_PATTERN = /^[a-z0-9][a-z0-9-]{0,100}$/
+
+export function validateImageDoc(value: unknown): string {
+  if (typeof value === 'string' && value.startsWith('business:')) throw new Error('Las fichas de negocio no admiten imágenes de stock: solo fotos propias.')
+  if (typeof value !== 'string' || !/^(place|area|beach|article):[a-z0-9][a-z0-9-]{0,100}$/.test(value)) throw new Error('Documento inválido. Usa place|area|beach|article:<slug>.')
+  return value
+}
+
+export function validateImageTerm(value: unknown): string {
+  const term = typeof value === 'string' ? value.trim() : ''
+  // El primer carácter no puede ser «-»: el término nunca debe parecer una bandera.
+  if (term.length < 2 || term.length > 100 || !/^[\p{L}\p{N}][\p{L}\p{N} .,'-]*$/u.test(term)) throw new Error('Término inválido. Usa 2–100 letras, números, espacios y . , \' -')
+  return term
+}
+
+export function validateImageCategory(value: unknown): string {
+  if (typeof value !== 'string' || !/^Category:[^\n\r|#<>[\]{}]{1,200}$/.test(value)) throw new Error('Categoría inválida. Debe empezar por «Category:».')
+  return value
+}
+
+export function validateImageRadius(value: unknown): number {
+  if (!Number.isInteger(value) || (value as number) < 50 || (value as number) > 5000) throw new Error('radius debe ser un entero entre 50 y 5000.')
+  return value as number
+}
+
+export function validateImageSlug(value: unknown): string {
+  if (typeof value !== 'string' || !IMAGE_SLUG_PATTERN.test(value)) throw new Error('Slug de candidatas inválido.')
+  return value
+}
+
+export function validateActor(value: unknown): string {
+  if (typeof value !== 'string' || !/^\w[\w.@-]{0,99}$/.test(value)) throw new Error('Usuario inválido.')
+  return value
+}
+
+export function validatePlanHash(value: unknown): string {
+  if (typeof value !== 'string' || !/^[a-f0-9]{64}$/.test(value)) throw new Error('Hash de plan inválido.')
+  return value
+}
