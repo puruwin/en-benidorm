@@ -81,52 +81,70 @@ function extension(url: string): string {
   return /\.(jpe?g|png|webp)$/i.exec(new URL(url, 'https://x.invalid').pathname)?.[1]?.toLowerCase().replace('jpeg', 'jpg') ?? 'jpg'
 }
 
+export interface StockApprovalCheck {
+  issues: string[]
+  /** Solo si la candidata, el destino y el campo son válidos (aunque haya otros `issues`). */
+  target?: {candidate: ImageCandidate; type: StockDocumentType; slug: string; field: string; isArray: boolean}
+}
+
+/** Documento al que va una aprobación: el suyo o, si no lo indica, el de la búsqueda. */
+export function approvalReference(file: CandidatesFile, approval: Partial<StockApproval>): {type: string; slug: string} | undefined {
+  return approval.document ?? (file.target.kind === 'document' ? {type: file.target.type, slug: file.target.slug} : undefined)
+}
+
 /**
- * Plan de importación de las candidatas de stock aprobadas. Rechaza negocios, campos que no son de imagen,
- * candidatas ambientales con lugar verificado y alt o pie que nombran un lugar sin verificar.
+ * Reglas de una aprobación de stock (#23), sin red: la candidata existe, el destino es de stock (nunca
+ * `business`), el campo es de imagen, una ambiental no tiene el lugar verificado, el alt no copia la fuente
+ * y alt o pie no nombran un lugar sin verificar. `documentName` es el nombre del documento destino, que
+ * cuenta como lugar nombrado.
+ */
+export function validateStockApproval(
+  file: CandidatesFile,
+  approval: Partial<StockApproval>,
+  options: {places: readonly string[]; documentName?: string | undefined},
+): StockApprovalCheck {
+  const label = `aprobación ${approval.candidateId ?? '(sin candidateId)'}`
+  const candidate = approval.candidateId ? file.candidates.find((item) => item.id === approval.candidateId) : undefined
+  if (!candidate) return {issues: [`${label}: no hay ninguna candidata con ese id.`]}
+  const reference = approvalReference(file, approval)
+  if (!reference) return {issues: [`${label}: la búsqueda fue por término; indica document {type, slug}.`]}
+  if (reference.type === 'business') return {issues: [`${label}: las fichas de negocio no admiten imágenes de stock.`]}
+  if (!isStockDocumentType(reference.type)) return {issues: [`${label}: tipo de documento no admitido: ${reference.type}.`]}
+  const field = resolveField(label, reference.type, approval.field)
+  if (typeof field === 'string') return {issues: [field]}
+  const places = options.documentName ? [...options.places, options.documentName] : options.places
+  const issues = approvalIssues(label, approval, places, candidate.sourceDescription)
+  if (approval.placeVerified === true && candidate.use === 'ambiental') issues.push(`${label}: la candidata es ambiental (${candidate.provider}); no puede tener el lugar verificado.`)
+  return {issues, target: {candidate, type: reference.type, slug: reference.slug, ...field}}
+}
+
+/**
+ * Plan de importación de las candidatas de stock aprobadas. Aplica `validateStockApproval` y además exige
+ * que el documento destino exista publicado.
  */
 export async function planStockImports(
   file: CandidatesFile,
   options: {places: readonly string[]; resolveDocument: (type: string, slug: string) => Promise<TargetDocument | null>},
 ): Promise<PlanResult> {
   const result: PlanResult = {imports: [], skipped: [], issues: []}
-  const byId = new Map<string, ImageCandidate>(file.candidates.map((candidate) => [candidate.id, candidate]))
   for (const approval of file.approvals as Array<Partial<StockApproval>>) {
-    const label = `aprobación ${approval.candidateId ?? '(sin candidateId)'}`
-    const candidate = approval.candidateId ? byId.get(approval.candidateId) : undefined
-    if (!candidate) {
-      result.issues.push(`${label}: no hay ninguna candidata con ese id.`)
+    const structural = validateStockApproval(file, approval, {places: options.places})
+    if (!structural.target) {
+      result.issues.push(...structural.issues)
       continue
     }
-    const reference = approval.document ?? (file.target.kind === 'document' ? {type: file.target.type, slug: file.target.slug} : undefined)
-    if (!reference) {
-      result.issues.push(`${label}: la búsqueda fue por término; indica document {type, slug}.`)
-      continue
-    }
-    if (reference.type === 'business') {
-      result.issues.push(`${label}: las fichas de negocio no admiten imágenes de stock.`)
-      continue
-    }
-    if (!isStockDocumentType(reference.type)) {
-      result.issues.push(`${label}: tipo de documento no admitido: ${reference.type}.`)
-      continue
-    }
-    const field = resolveField(label, reference.type, approval.field)
-    if (typeof field === 'string') {
-      result.issues.push(field)
-      continue
-    }
-    const document = await options.resolveDocument(reference.type, reference.slug)
+    const {candidate, type, slug} = structural.target
+    const document = await options.resolveDocument(type, slug)
     if (!document) {
-      result.issues.push(`${label}: no existe ${reference.type}:${reference.slug} publicado.`)
+      result.issues.push(`aprobación ${candidate.id}: no existe ${type}:${slug} publicado.`)
       continue
     }
-    const issues = approvalIssues(label, approval, [...options.places, document.name], candidate.sourceDescription)
-    if (approval.placeVerified === true && candidate.use === 'ambiental') issues.push(`${label}: la candidata es ambiental (${candidate.provider}); no puede tener el lugar verificado.`)
+    const {issues} = validateStockApproval(file, approval, {places: options.places, documentName: document.name})
     if (issues.length) {
       result.issues.push(...issues)
       continue
     }
+    const field = {field: structural.target.field, isArray: structural.target.isArray}
     if (file.imports.some((record) => record.candidateId === candidate.id && record.documentId === document.id && record.field === field.field)) {
       result.skipped.push(`${candidate.id} → ${document.id}.${field.field}: ya importada.`)
       continue

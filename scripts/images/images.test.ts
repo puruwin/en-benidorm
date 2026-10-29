@@ -7,7 +7,7 @@ import sharp from 'sharp'
 import {createJsonCache} from './lib/cache'
 import {distanceMeters, mergeCandidates, type CandidatesFile, type ImageCandidate} from './lib/candidates'
 import {assertAllowedUrl, fetchBytes} from './lib/http'
-import {executeImports, planOwnImports, planStockImports, type OwnPhotosFile, type TargetDocument} from './lib/importer'
+import {executeImports, planOwnImports, planStockImports, validateStockApproval, type OwnPhotosFile, type TargetDocument} from './lib/importer'
 import {commonsLicense} from './lib/licenses'
 import {commonsCandidate} from './lib/providers'
 import {searchCandidates} from './lib/search'
@@ -142,6 +142,59 @@ test('mergeCandidates conserva aprobaciones, importaciones y candidatas aprobada
   assert.deepEqual(merged.approvals, [approval])
   assert.equal(merged.imports.length, 1)
   assert.deepEqual(merged.candidates.map((item) => item.id), ['commons:File:Levante.jpg'])
+})
+
+test('un fichero v1 sin los campos nuevos se lee, se fusiona y se planifica igual que antes', async () => {
+  const old = JSON.parse(JSON.stringify(candidatesFile({approvals: [approval], imports: []}))) as CandidatesFile
+  for (const key of ['dismissals', 'withdrawn', 'createdIn']) assert.ok(!(key in old))
+  const next = candidatesFile({candidates: [candidate({id: 'commons:File:Nueva.jpg'})]})
+  assert.deepEqual(mergeCandidates(old, next), {...next, candidates: [...next.candidates, old.candidates[0]], approvals: old.approvals, imports: old.imports})
+
+  const plan = await planStockImports(old, {places: [], resolveDocument})
+  assert.deepEqual(plan.issues, [])
+  assert.deepEqual(plan.imports.map((item) => [item.key, item.document.id, item.field]), [[approval.candidateId, 'beach-levante', 'images']])
+})
+
+test('mergeCandidates conserva descartes, retiradas y las candidatas descartadas que ya no aparecen', () => {
+  const dismissals = [
+    {candidateId: 'pixabay:1', dismissedBy: 'david', dismissedAt: '2026-10-29T10:00:00Z', reason: 'otro lugar'},
+    {candidateId: 'commons:File:Cadiz.jpg', dismissedBy: 'david', dismissedAt: '2026-10-29T10:00:00Z', reason: 'calidad', undoneAt: '2026-10-29T11:00:00Z', undoneBy: 'david'},
+  ]
+  const withdrawn = [{...approval, candidateId: 'commons:File:Retirada.jpg', withdrawnBy: 'david', withdrawnAt: '2026-10-29T12:00:00Z'}]
+  const previous = candidatesFile({
+    createdIn: 'content-lab', dismissals, withdrawn,
+    candidates: [candidate(), candidate({id: 'pixabay:1'}), candidate({id: 'commons:File:Cadiz.jpg'}), candidate({id: 'commons:File:Retirada.jpg'}), candidate({id: 'commons:File:Olvidada.jpg'})],
+  })
+  const merged = mergeCandidates(previous, candidatesFile({candidates: [candidate()]}))
+  assert.deepEqual(merged.dismissals, dismissals)
+  assert.deepEqual(merged.withdrawn, withdrawn)
+  assert.equal(merged.createdIn, 'content-lab')
+  assert.deepEqual(merged.candidates.map((item) => item.id), ['commons:File:Levante.jpg', 'pixabay:1', 'commons:File:Cadiz.jpg', 'commons:File:Retirada.jpg'])
+})
+
+test('validateStockApproval aplica las reglas de #23 sin red', () => {
+  const file = candidatesFile()
+  const check = (overrides: Record<string, unknown>, documentName?: string, target: Partial<CandidatesFile> = {}) =>
+    validateStockApproval({...file, ...target}, {...approval, ...overrides}, {places: ['Benidorm'], documentName})
+
+  const valid = check({})
+  assert.deepEqual(valid.issues, [])
+  assert.deepEqual(valid.target && {...valid.target, candidate: valid.target.candidate.id}, {candidate: approval.candidateId, type: 'beach', slug: 'playa-levante', field: 'images', isArray: true})
+
+  assert.deepEqual(check({candidateId: 'commons:File:Nada.jpg'}), {issues: ['aprobación commons:File:Nada.jpg: no hay ninguna candidata con ese id.']})
+  assert.match(check({document: {type: 'business', slug: 'casa-x'}}).issues.join(), /negocio/)
+  assert.equal(check({document: {type: 'business', slug: 'casa-x'}}).target, undefined)
+  assert.match(check({document: {type: 'event', slug: 'x'}}).issues.join(), /no admitido: event/)
+  assert.match(check({field: 'seo'}).issues.join(), /no es de imagen/)
+  assert.match(check({}, undefined, {target: {kind: 'term', term: 'mar'}}).issues.join(), /indica document/)
+  assert.deepEqual(check({document: {type: 'area', slug: 'rincon'}}, undefined, {target: {kind: 'term', term: 'mar'}}).target?.field, 'image')
+  assert.match(check({candidateId: 'pixabay:1'}).issues.join(), /ambiental/)
+  assert.match(check({alt: 'Playa de Levante desde el mirador'}).issues.join(), /copia la descripción/)
+  assert.match(check({placeVerified: false, caption: 'Vista de Benidorm'}).issues.join(), /«Benidorm»/)
+  assert.deepEqual(check({placeVerified: false, alt: 'Atardecer en la Playa de Levante'}).issues, [])
+  assert.match(check({placeVerified: false, alt: 'Atardecer en la Playa de Levante'}, 'Playa de Levante').issues.join(), /«Playa de Levante» con placeVerified = false/)
+  assert.match(check({approvedAt: '28/10/2026'}).issues.join(), /AAAA-MM-DD/)
+  assert.ok(check({approvedAt: '28/10/2026'}).target)
 })
 
 test('plan de importación: crédito y metadatos completos desde la candidata aprobada', async () => {
