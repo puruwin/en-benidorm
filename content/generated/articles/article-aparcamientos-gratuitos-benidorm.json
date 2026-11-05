@@ -336,6 +336,15 @@
         "_weak": true
       },
       "note": "Si piensas entrar en coche al centro, Levante o Poniente: qué hace tu hotel y qué pasa con una matrícula extranjera."
+    },
+    {
+      "_key": "link-3",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-fiestas-mayores-patronales-benidorm",
+        "_weak": true
+      },
+      "note": "Si vienes a las fiestas patronales de noviembre: dónde son los actos y qué calles corta el Ayuntamiento."
     }
   ],
   "sources": [
