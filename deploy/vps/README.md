@@ -129,12 +129,44 @@ sudo systemctl enable content-lab.service   # no arranca hasta que exista /srv/c
 ```bash
 sudo install -d -m 755 /etc/caddy/sites
 sudo install -m 644 deploy/vps/enbenidorm.caddy /etc/caddy/sites/enbenidorm.caddy
-# Añade en /etc/caddy/Caddyfile, si no está:  import /etc/caddy/sites/*.caddy
-sudo caddy validate --config /etc/caddy/Caddyfile
-sudo systemctl reload caddy
+# El bloque log de enbenidorm.es escribe aquí; validate no lo comprueba, reload sí.
+sudo install -d -o caddy -g caddy /var/log/caddy
 ```
 
-Caddy necesita leer `/srv/enbenidorm/site` (permisos 755, ya lo están).
+`/etc/caddy/Caddyfile` solo lleva la config global, el import y lo que no está en el repo
+(Studio). **No puede definir `enbenidorm.es`, `www.enbenidorm.es` ni `lab.enbenidorm.es`**: esos
+bloques viven en `enbenidorm.caddy`, y uno propio en el Caddyfile o falla la validación por estar
+duplicado, o, si falta el import, deja servida otra carpeta mientras los despliegues salen en verde.
+
+```caddyfile
+{
+	email <correo real para avisos de Let's Encrypt>
+}
+
+import /etc/caddy/sites/*.caddy
+
+studio.enbenidorm.es {
+	root * /srv/enbenidorm/studio
+	encode zstd gzip
+	header X-Robots-Tag "noindex, nofollow"
+	try_files {path} /index.html
+	file_server
+}
+```
+
+Antes de recargar, comprueba qué carpeta servirá Caddy. Tiene que salir
+`/srv/enbenidorm/site/current`, y nunca `/srv/enbenidorm/www`:
+
+```bash
+sudo caddy adapt --config /etc/caddy/Caddyfile 2>/dev/null | grep -o '"root":"[^"]*"'
+sudo caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy
+```
+
+Si el reload falla, Caddy sigue con la config anterior y la web no se cae. El motivo sale en
+`journalctl -u caddy --since "5 min ago"`.
+
+Caddy necesita leer `/srv/enbenidorm/site` (permisos 755, ya lo están). La copia de
+`enbenidorm.caddy` en la VPS tiene que coincidir con la del repo: si cambias una, cambia la otra.
 
 ### 7. Clave SSH de despliegue
 
@@ -225,5 +257,45 @@ La caché de npm del usuario `deploy` crece con cada despliegue; límpiala de ve
 `sudo -u deploy npm cache clean --force`.
 
 Un rollback no revierte `main`: el siguiente merge vuelve a desplegar. Corrige con un PR.
+
+### Producción no muestra la última release
+
+El paso *Comprobar producción* del workflow solo pide `/`, `/sitemap-index.xml` y `/robots.txt`.
+Un despliegue en verde no demuestra que Caddy sirva la release nueva. Si una página recién
+desplegada da 404 o sigue la versión anterior:
+
+1. Desde fuera, compara `last-modified` con la hora del despliegue y mira si están las cabeceras de
+   `enbenidorm.caddy` (`X-Frame-Options: DENY`, `Cache-Control: public, max-age=0, must-revalidate`):
+
+   ```bash
+   curl -sI https://enbenidorm.es/ | grep -iE "last-modified|x-frame|cache-control"
+   ```
+
+2. En la VPS, compara la release activa con la carpeta que sirve Caddy:
+
+   ```bash
+   sudo -u deploy SSH_ORIGINAL_COMMAND=status /usr/local/bin/enbenidorm-deploy
+   sudo caddy adapt --config /etc/caddy/Caddyfile 2>/dev/null | grep -o '"root":"[^"]*"'
+   ```
+
+3. Si el `root` no es `/srv/enbenidorm/site/current`, deja el Caddyfile como en el paso 6 de
+   *Instalación*. La release ya está en el servidor: no hace falta volver a desplegar.
+
+**Incidente del 5 de noviembre de 2026 (#93).** La guía de fiestas (#92) daba 404 aunque el
+despliegue salía en verde. El Caddyfile seguía siendo el de la puesta en marcha manual:
+
+- tenía bloques propios para `enbenidorm.es`, `www` y `lab`;
+- servía `/srv/enbenidorm/www`, una copia de `dist/` del 28 de octubre;
+- no importaba `sites/*.caddy`.
+
+Todos los despliegues desde entonces activaron releases que nadie servía. Se corrigió así:
+
+- el Caddyfile quedó como en el paso 6;
+- se añadió a `lab` el `X-Robots-Tag` que solo tenía el Caddyfile antiguo;
+- se creó `/var/log/caddy` con propietario `caddy`, porque el primer reload falló sin él.
+
+Las copias previas quedaron en `/etc/caddy/Caddyfile.bak-20261105` y
+`/etc/caddy/sites/enbenidorm.caddy.bak-20261105`. `/srv/enbenidorm/www` ya no se usa: se puede
+borrar cuando se compruebe que no hace falta volver atrás.
 Restaurar un backup de `content/`: con el servicio detenido, extrae en un directorio nuevo y sigue
 `deploy/content-lab/README.md` → *Actualizaciones, backup y recuperación*.

@@ -50,6 +50,8 @@ enbenidorm.es {
 
 lab.enbenidorm.es {
 	import enbenidorm_headers
+	# Content Lab no envía esta cabecera: sin ella, lab.enbenidorm.es sería indexable.
+	header X-Robots-Tag "noindex,nofollow"
 	# El stream de logs (SSE) no se comprime: comprimirlo puede retrasar los eventos.
 	@compressible not header Accept *text/event-stream*
 	encode @compressible zstd gzip
