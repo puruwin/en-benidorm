@@ -1,0 +1,534 @@
+{
+  "facts": [
+    {
+      "id": "benidorm.fiestas-patronales.fechas.2026",
+      "subject": "fiestas-patronales",
+      "attribute": "fechas",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Del sábado 7 al miércoles 11 de noviembre de 2026",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.fiestas-patronales.primeros-actos.2026",
+      "subject": "fiestas-patronales",
+      "attribute": "primeros-actos",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Viernes 6 de noviembre, según el Ayuntamiento, que no detalla cuáles; el programa de Visit Benidorm empieza el sábado 7",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "url": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: «Seguridad Ciudadana y Fiestas coordinan el dispositivo especial para las Festes Majors Patronals» (27 de octubre de 2026)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.fiestas-patronales.festivos-locales.2026",
+      "subject": "fiestas-patronales",
+      "attribute": "festivos-locales",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "No hay nota municipal ni del BOP con los festivos locales de 2026; solo los dan terceros.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.hallazgo.dia.2026",
+      "subject": "hallazgo",
+      "attribute": "dia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Sábado 7 de noviembre",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.hallazgo.hora.2026",
+      "subject": "hallazgo",
+      "attribute": "hora",
+      "municipality": "Benidorm",
+      "unit": "hh:mm",
+      "claims": [
+        {
+          "value": "17:00",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.hallazgo.lugar.2026",
+      "subject": "hallazgo",
+      "attribute": "lugar",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Playa de Poniente",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.ofrenda-pregon.dia.2026",
+      "subject": "ofrenda-pregon",
+      "attribute": "dia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Visit Benidorm sitúa ese día la entrada de bandas, la romería, la ofrenda de flores y el pregón.",
+      "claims": [
+        {
+          "value": "Sábado 7 de noviembre",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.ofrenda-pregon.hora.2026",
+      "subject": "ofrenda-pregon",
+      "attribute": "hora",
+      "municipality": "Benidorm",
+      "unit": "hh:mm",
+      "conditions": "Visit Benidorm no da hora de la entrada de bandas, la romería, la ofrenda ni el pregón.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.procesiones.dia.2026",
+      "subject": "procesiones",
+      "attribute": "dia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Domingo 8 y lunes 9 de noviembre, días de los patronos",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.procesiones.recorrido.2026",
+      "subject": "procesiones",
+      "attribute": "recorrido",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Ni Visit Benidorm ni el Ayuntamiento publican hora ni recorrido.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.mascletas.dia.2026",
+      "subject": "mascletas",
+      "attribute": "dia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Domingo 8 y lunes 9 de noviembre",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.mascletas.hora.2026",
+      "subject": "mascletas",
+      "attribute": "hora",
+      "municipality": "Benidorm",
+      "unit": "hh:mm",
+      "claims": [
+        {
+          "value": "14:00",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.mascletas.lugar.2026",
+      "subject": "mascletas",
+      "attribute": "lugar",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Visit Benidorm también las sitúa en la avenida de Foietes.",
+      "claims": [
+        {
+          "value": "Avenida de Foietes, en paralelo al parque de Foietes; no se publica el tramo exacto",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "url": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: «Seguridad Ciudadana y Fiestas coordinan el dispositivo especial para las Festes Majors Patronals» (27 de octubre de 2026)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.mascletas.nocturna.2026",
+      "subject": "mascletas",
+      "attribute": "nocturna",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Martes 10 de noviembre a las 23:00, en la avenida de Foietes",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.mascletas.infantil.2026",
+      "subject": "mascletas",
+      "attribute": "infantil",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Miércoles 11 de noviembre a las 13:00, con traca de caramelos",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.mascletas.infantil-lugar.2026",
+      "subject": "mascletas",
+      "attribute": "infantil-lugar",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "Visit Benidorm no dice dónde se dispara la mascletà infantil.",
+      "claims": []
+    },
+    {
+      "id": "benidorm.desfile-humor.dia.2026",
+      "subject": "desfile-humor",
+      "attribute": "dia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Martes 10 de noviembre",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.desfile-humor.hora.2026",
+      "subject": "desfile-humor",
+      "attribute": "hora",
+      "municipality": "Benidorm",
+      "unit": "hh:mm",
+      "claims": [
+        {
+          "value": "19:00",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.desfile-humor.lugar.2026",
+      "subject": "desfile-humor",
+      "attribute": "lugar",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Calles del centro, sin recorrido publicado",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.desfile-carrozas.dia.2026",
+      "subject": "desfile-carrozas",
+      "attribute": "dia",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Miércoles 11 de noviembre",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.desfile-carrozas.hora.2026",
+      "subject": "desfile-carrozas",
+      "attribute": "hora",
+      "municipality": "Benidorm",
+      "unit": "hh:mm",
+      "claims": [
+        {
+          "value": "18:00",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.desfile-carrozas.recorrido.2026",
+      "subject": "desfile-carrozas",
+      "attribute": "recorrido",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Del Parque de Elche a la avenida de Alcoy, un itinerario distinto por las obras del aparcamiento subterráneo de Jaime I",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "url": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: «Seguridad Ciudadana y Fiestas coordinan el dispositivo especial para las Festes Majors Patronals» (27 de octubre de 2026)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.desfile-carrozas.castillo.2026",
+      "subject": "desfile-carrozas",
+      "attribute": "castillo",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Al final del desfile de carrozas",
+          "source": {
+            "key": "official-location:https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "provider": "www.visitbenidorm.es",
+            "identifier": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "url": "https://www.visitbenidorm.es/ver/1160/fiestas-mayores-patronales-benidorm-.html",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Visit Benidorm: Fiestas Mayores Patronales Benidorm 2026 (página sin fecha)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.fiestas-trafico.emilio-ortuno.2026",
+      "subject": "fiestas-trafico",
+      "attribute": "emilio-ortuno",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Cortada desde el lunes 2 de noviembre entre Ruzafa y la calle Primavera por el montaje del porrat; reapertura prevista el martes 17 (la entradilla de la misma nota dice «hasta el día 16»)",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "url": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: «Seguridad Ciudadana y Fiestas coordinan el dispositivo especial para las Festes Majors Patronals» (27 de octubre de 2026)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.fiestas-trafico.cortes-puntuales.2026",
+      "subject": "fiestas-trafico",
+      "attribute": "cortes-puntuales",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "claims": [
+        {
+          "value": "Cierres puntuales en calles como Venus, Ruzafa o Foietes durante las mascletàs, los pasacalles y los desfiles del Humor y de carrozas, y posibles restricciones cerca del Recinto Ferial según la afluencia",
+          "source": {
+            "key": "official-location:https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "provider": "benidorm.org",
+            "identifier": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "url": "https://benidorm.org/es/noticias/seguridad-ciudadana-y-fiestas-coordinan-el-dispositivo-especial-para-las-festes-majors-patronals",
+            "retrievedAt": "2026-11-05T12:00:00.000Z",
+            "attribution": "Ayuntamiento de Benidorm: «Seguridad Ciudadana y Fiestas coordinan el dispositivo especial para las Festes Majors Patronals» (27 de octubre de 2026)",
+            "licenseUrl": null,
+            "sourceClass": "official-location",
+            "claimScope": "establishment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benidorm.fiestas-trafico.horarios.2026",
+      "subject": "fiestas-trafico",
+      "attribute": "horarios",
+      "municipality": "Benidorm",
+      "unit": "texto",
+      "conditions": "El Ayuntamiento no publica a qué horas se cierra cada calle.",
+      "claims": []
+    }
+  ]
+}
