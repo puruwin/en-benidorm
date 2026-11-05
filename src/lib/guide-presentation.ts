@@ -22,6 +22,17 @@ const SUBJECT_TITLES: Record<string, string> = {
   'mercadillo-municipal': 'Mercadillo municipal',
   'mercadillo-pueblo': 'Mercadillo Pueblo',
   'mercado-el-cisne': 'Mercado El Cisne',
+  // Fiestas patronales: un grupo por día de fiesta; la fecha de cada edición va en el valor.
+  'fiestas-patronales': 'Cuándo son',
+  hallazgo: 'Primer día: Hallazgo y ofrenda',
+  'ofrenda-pregon': 'Primer día: Hallazgo y ofrenda',
+  procesiones: 'Días de los patronos',
+  mascletas: 'Días de los patronos',
+  'desfile-humor': 'Desfile del Humor y mascletà nocturna',
+  'mascleta-nocturna': 'Desfile del Humor y mascletà nocturna',
+  'mascleta-infantil': 'Último día: carrozas y castillo',
+  'desfile-carrozas': 'Último día: carrozas y castillo',
+  'fiestas-trafico': 'Calles cortadas',
 }
 
 // Clave: el id sin el municipio (`zona-azul.horario.verano-visitantes`).
@@ -89,6 +100,21 @@ const LABELS: Record<string, string> = {
   'mercado-el-cisne.excepciones': 'El Cisne, en festivos e invierno',
   'mercado-el-cisne.aparcamiento': 'Dónde aparcar',
   'mercado-el-cisne.ambiente': 'Qué se encuentra, afluencia y mejor hora',
+  'fiestas-patronales.fechas.2026': 'Fechas de 2026',
+  'fiestas-patronales.primeros-actos.2026': 'Primeros actos',
+  'fiestas-patronales.festivos-locales.2026': 'Festivos locales en 2026',
+  'hallazgo.programa.2026': 'El Hallazgo',
+  'ofrenda-pregon.programa.2026': 'Entrada de bandas, romería, ofrenda y pregón',
+  'procesiones.programa.2026': 'Procesiones',
+  'mascletas.programa.2026': 'Mascletàs',
+  'desfile-humor.programa.2026': 'Desfile del Humor',
+  'mascleta-nocturna.programa.2026': 'Mascletà nocturna',
+  'mascleta-infantil.programa.2026': 'Mascletà infantil',
+  'desfile-carrozas.programa.2026': 'Desfile de carrozas',
+  'fiestas-trafico.carrozas.2026': 'Recorrido de las carrozas en 2026',
+  'fiestas-trafico.emilio-ortuno.2026': 'Avenida Emilio Ortuño en 2026',
+  'fiestas-trafico.cortes-puntuales.2026': 'Otras calles en 2026',
+  'fiestas-trafico.horarios.2026': 'Horarios de los cortes',
 }
 
 function key(factId: string): string {

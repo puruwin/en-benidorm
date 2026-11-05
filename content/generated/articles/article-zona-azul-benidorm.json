@@ -262,6 +262,15 @@
         "_weak": true
       },
       "note": "Antes de conducir hasta el centro, Levante o Poniente: qué distintivos entran sin restricciones y qué tramita tu hotel."
+    },
+    {
+      "_key": "link-2",
+      "target": {
+        "_type": "reference",
+        "_ref": "article-fiestas-mayores-patronales-benidorm",
+        "_weak": true
+      },
+      "note": "Durante las fiestas patronales hay cortes puntuales en el centro: qué calles y por qué actos."
     }
   ],
   "sources": [

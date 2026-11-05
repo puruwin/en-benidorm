@@ -7,9 +7,13 @@ export async function getStaticPaths() {
   return slugs.map((slug) => ({params: {slug}}))
 }
 
+// Tema de la etiqueta sobre el H1 y de la caja que vuelve al hub; por defecto, los mercadillos.
+const TOPICS: Record<string, string> = {'fiestas-mayores-patronales-benidorm': 'Fiestas'}
+
 const {slug} = Astro.params
 const guide = slug ? await getGuideBySlug('thingsToDo', slug) : null
 if (!guide) throw new Error(`No se encontró la guía estática: ${slug ?? 'sin slug'}`)
+const topic = TOPICS[guide.slug] ?? 'Mercadillos'
 ---
 
-<GuideArticle guide={guide} hub="thingsToDo" topic="Mercadillos" hubSummary="Los mercadillos semanales de Benidorm, con día, horario y ubicación de fuente oficial." hubLinkText="Ver qué hacer en Benidorm" />
+<GuideArticle guide={guide} hub="thingsToDo" topic={topic} hubSummary="Los mercadillos semanales y las fiestas de Benidorm, con día, horario y lugar de fuente oficial." hubLinkText="Ver qué hacer en Benidorm" />
